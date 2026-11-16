@@ -826,6 +826,16 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     sourceComponent: 'DocsCodeBlock',
   },
   {
+    id: 'release-notes',
+    title: 'Release Notes',
+    docSection: 'Core Component Contracts',
+    family: 'public',
+    section: 'Public Shells & Docs',
+    summary: 'Release notes render from plain release data, so a changelog parsed at build time needs no Markdown runtime; issue references link to the tracker.',
+    importPath: '@sovereignsquad/gds-core',
+    sourceComponent: 'GdsReleaseNotes',
+  },
+  {
     id: 'cta-button-groups',
     title: 'CTA Button Groups',
     docSection: 'Core Component Contracts',

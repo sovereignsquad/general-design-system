@@ -6,7 +6,7 @@
     "listed": 134,
     "demoed": 156,
     "explained": 119,
-    "variationsShown": 44,
+    "variationsShown": 120,
     "useCase": 29
   },
   "confidence": {
@@ -17,10 +17,12 @@
     "useCase": "LOW - directive-phrase heuristic; same caveat"
   },
   "publishedRoleOverlap": null,
-  "tokensSatisfyingAll": 9,
-  "tokensWithGaps": 270,
-  "gapsClassified": 9,
-  "classificationsExpiredOrStale": [],
+  "tokensSatisfyingAll": 23,
+  "tokensWithGaps": 256,
+  "gapsClassified": 8,
+  "classificationsExpiredOrStale": [
+    "--gds-text-on-support"
+  ],
   "rows": [
     {
       "token": "--gds-radius-none",
@@ -2791,154 +2793,8 @@
       ]
     },
     {
-      "token": "--gds-density",
-      "role": "density",
-      "declaredIn": [
-        "styles.css",
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": false,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "demoed",
-        "variationsShown",
-        "useCase"
-      ],
-      "classification": {
-        "reason": "The density axis MODE FLAG (axes.ts writes the current mode name into it). The axis itself is demonstrated through components; the flag token has no variation demo or use-case prose of its own on the site. Tracked by issue 965.",
-        "reviewBy": "2027-02-01"
-      }
-    },
-    {
-      "token": "--gds-space-3xl",
-      "role": "space-3xl",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": true,
-      "demoed": false,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "demoed",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-layout-nav-item-height",
-      "role": "layout-nav-item-height",
-      "declaredIn": [
-        "styles.css",
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": false,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "demoed",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-layout-content-max-width",
-      "role": "layout-content-max-width",
-      "declaredIn": [
-        "styles.css",
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": false,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "demoed",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-layout-list-rail-width",
-      "role": "layout-list-rail-width",
-      "declaredIn": [
-        "styles.css",
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": false,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "demoed",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-layout-content-bottom-padding",
-      "role": "layout-content-bottom-padding",
-      "declaredIn": [
-        "styles.css",
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": false,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "demoed",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-layout-sheet-top-radius",
-      "role": "layout-sheet-top-radius",
-      "declaredIn": [
-        "styles.css",
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": false,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "demoed",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
       "token": "--gds-weight-medium",
       "role": "weight-medium",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": true,
-      "demoed": false,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "demoed",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-elevation-0",
-      "role": "elevation-0",
       "declaredIn": [
         "styles.css"
       ],
@@ -2973,40 +2829,6 @@
     {
       "token": "--gds-brand-primary-pressed",
       "role": "brand-primary-pressed",
-      "declaredIn": [
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": false,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "demoed",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-ai-panel",
-      "role": "ai-panel",
-      "declaredIn": [
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": false,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "demoed",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-ai-accent",
-      "role": "ai-accent",
       "declaredIn": [
         "ts-emitter"
       ],
@@ -3137,23 +2959,6 @@
       ]
     },
     {
-      "token": "--gds-text-body",
-      "role": "text-body",
-      "declaredIn": [
-        "styles.css",
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
       "token": "--gds-motion-duration-slow",
       "role": "motion-duration-slow",
       "declaredIn": [
@@ -3270,148 +3075,25 @@
       ]
     },
     {
-      "token": "--gds-radius-md",
-      "role": "radius-md",
+      "token": "--gds-density",
+      "role": "density",
       "declaredIn": [
-        "styles.css"
+        "styles.css",
+        "ts-emitter"
       ],
       "listed": true,
-      "demoed": true,
+      "demoed": false,
       "explained": true,
-      "variationsShown": false,
+      "variationsShown": true,
       "useCase": false,
       "gaps": [
-        "variationsShown",
+        "demoed",
         "useCase"
-      ]
-    },
-    {
-      "token": "--gds-radius-card",
-      "role": "radius-card",
-      "declaredIn": [
-        "styles.css"
       ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-radius-panel",
-      "role": "radius-panel",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-radius-input",
-      "role": "radius-input",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-radius-chip",
-      "role": "radius-chip",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-radius-badge",
-      "role": "radius-badge",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-radius-drawer",
-      "role": "radius-drawer",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-radius-sheet",
-      "role": "radius-sheet",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-space-md",
-      "role": "space-md",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
+      "classification": {
+        "reason": "The density axis MODE FLAG (axes.ts writes the current mode name into it). The axis itself is demonstrated through components; the flag token has no variation demo or use-case prose of its own on the site. Tracked by issue 965.",
+        "reviewBy": "2027-02-01"
+      }
     },
     {
       "token": "--gds-space-xl",
@@ -3430,86 +3112,103 @@
       ]
     },
     {
-      "token": "--gds-control-height-md",
-      "role": "control-height-md",
+      "token": "--gds-space-3xl",
+      "role": "space-3xl",
       "declaredIn": [
         "styles.css"
       ],
       "listed": true,
-      "demoed": true,
+      "demoed": false,
       "explained": true,
-      "variationsShown": false,
+      "variationsShown": true,
       "useCase": false,
       "gaps": [
-        "variationsShown",
+        "demoed",
         "useCase"
       ]
     },
     {
-      "token": "--gds-layout-sidebar-width",
-      "role": "layout-sidebar-width",
+      "token": "--gds-layout-nav-item-height",
+      "role": "layout-nav-item-height",
       "declaredIn": [
         "styles.css",
         "ts-emitter"
       ],
       "listed": true,
-      "demoed": true,
+      "demoed": false,
       "explained": true,
-      "variationsShown": false,
+      "variationsShown": true,
       "useCase": false,
       "gaps": [
-        "variationsShown",
+        "demoed",
         "useCase"
       ]
     },
     {
-      "token": "--gds-layout-header-height",
-      "role": "layout-header-height",
+      "token": "--gds-layout-content-max-width",
+      "role": "layout-content-max-width",
       "declaredIn": [
         "styles.css",
         "ts-emitter"
       ],
       "listed": true,
-      "demoed": true,
+      "demoed": false,
       "explained": true,
-      "variationsShown": false,
+      "variationsShown": true,
       "useCase": false,
       "gaps": [
-        "variationsShown",
+        "demoed",
         "useCase"
       ]
     },
     {
-      "token": "--gds-layout-footer-height",
-      "role": "layout-footer-height",
+      "token": "--gds-layout-list-rail-width",
+      "role": "layout-list-rail-width",
       "declaredIn": [
         "styles.css",
         "ts-emitter"
       ],
       "listed": true,
-      "demoed": true,
+      "demoed": false,
       "explained": true,
-      "variationsShown": false,
+      "variationsShown": true,
       "useCase": false,
       "gaps": [
-        "variationsShown",
+        "demoed",
         "useCase"
       ]
     },
     {
-      "token": "--gds-layout-bottom-bar-height",
-      "role": "layout-bottom-bar-height",
+      "token": "--gds-layout-content-bottom-padding",
+      "role": "layout-content-bottom-padding",
       "declaredIn": [
         "styles.css",
         "ts-emitter"
       ],
       "listed": true,
-      "demoed": true,
+      "demoed": false,
       "explained": true,
-      "variationsShown": false,
+      "variationsShown": true,
       "useCase": false,
       "gaps": [
-        "variationsShown",
+        "demoed",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-layout-sheet-top-radius",
+      "role": "layout-sheet-top-radius",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": false,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "demoed",
         "useCase"
       ]
     },
@@ -3530,175 +3229,18 @@
       ]
     },
     {
-      "token": "--gds-weight-bold",
-      "role": "weight-bold",
+      "token": "--gds-elevation-0",
+      "role": "elevation-0",
       "declaredIn": [
         "styles.css"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-elevation-card",
-      "role": "elevation-card",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-focus-ring-color",
-      "role": "focus-ring-color",
-      "declaredIn": [
-        "styles.css",
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ],
-      "classification": {
-        "reason": "Same axis and same plan as --gds-focus-ring-offset (issue 965). Resolves to var(--gds-<colorRole>), so its variation story is the color role's.",
-        "reviewBy": "2027-02-01"
-      }
-    },
-    {
-      "token": "--gds-transition-scope",
-      "role": "transition-scope",
-      "declaredIn": [
-        "styles.css",
-        "ts-emitter"
       ],
       "listed": true,
       "demoed": false,
       "explained": true,
-      "variationsShown": false,
-      "useCase": true,
+      "variationsShown": true,
+      "useCase": false,
       "gaps": [
         "demoed",
-        "variationsShown"
-      ],
-      "classification": {
-        "reason": "axes.ts emits the list of transitioned properties into it; it is read back by the transition machinery rather than styled against. Its demo/variation story needs the motion documentation (F2) to exist first. Tracked by issue 965.",
-        "reviewBy": "2027-02-01"
-      }
-    },
-    {
-      "token": "--gds-focus-ring",
-      "role": "focus-ring",
-      "declaredIn": [
-        "styles.css",
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-badge-attention",
-      "role": "badge-attention",
-      "declaredIn": [
-        "styles.css",
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-badge-validation",
-      "role": "badge-validation",
-      "declaredIn": [
-        "styles.css",
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": false,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": true,
-      "gaps": [
-        "demoed",
-        "variationsShown"
-      ]
-    },
-    {
-      "token": "--gds-badge-solid-success",
-      "role": "badge-solid-success",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-badge-soft-warning",
-      "role": "badge-soft-warning",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-badge-soft-warning-fg",
-      "role": "badge-soft-warning-fg",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
         "useCase"
       ]
     },
@@ -3719,353 +3261,11 @@
       ]
     },
     {
-      "token": "--gds-badge-solid-neutral",
-      "role": "badge-solid-neutral",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-brand-primary",
-      "role": "brand-primary",
-      "declaredIn": [
-        "styles.css",
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-brand-primary-fg",
-      "role": "brand-primary-fg",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-brand-accent",
-      "role": "brand-accent",
-      "declaredIn": [
-        "styles.css",
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-brand-accent-fg",
-      "role": "brand-accent-fg",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-brand-accent-action",
-      "role": "brand-accent-action",
-      "declaredIn": [
-        "styles.css",
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-brand-accent-action-fg",
-      "role": "brand-accent-action-fg",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-state-success",
-      "role": "state-success",
-      "declaredIn": [
-        "styles.css",
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-state-warning",
-      "role": "state-warning",
-      "declaredIn": [
-        "styles.css",
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
       "token": "--gds-state-danger",
       "role": "state-danger",
       "declaredIn": [
         "styles.css",
         "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-state-info",
-      "role": "state-info",
-      "declaredIn": [
-        "styles.css",
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-bg-sidebar",
-      "role": "bg-sidebar",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-nav-active-bg",
-      "role": "nav-active-bg",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-nav-active-fg",
-      "role": "nav-active-fg",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-nav-active-indicator",
-      "role": "nav-active-indicator",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-nav-hover-bg",
-      "role": "nav-hover-bg",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-bg-raised",
-      "role": "bg-raised",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-border-subtle",
-      "role": "border-subtle",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-border-strong",
-      "role": "border-strong",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-message-self-bg",
-      "role": "message-self-bg",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-message-other-bg",
-      "role": "message-other-bg",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-chart-series-1",
-      "role": "chart-series-1",
-      "declaredIn": [
-        "styles.css"
       ],
       "listed": true,
       "demoed": true,
@@ -4142,22 +3342,6 @@
       ]
     },
     {
-      "token": "--gds-support",
-      "role": "support",
-      "declaredIn": [
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
       "token": "--gds-price",
       "role": "price",
       "declaredIn": [
@@ -4174,82 +3358,34 @@
       ]
     },
     {
-      "token": "--gds-bg-info-tag",
-      "role": "bg-info-tag",
+      "token": "--gds-ai-panel",
+      "role": "ai-panel",
       "declaredIn": [
         "ts-emitter"
       ],
       "listed": true,
-      "demoed": true,
+      "demoed": false,
       "explained": true,
-      "variationsShown": false,
+      "variationsShown": true,
       "useCase": false,
       "gaps": [
-        "variationsShown",
+        "demoed",
         "useCase"
       ]
     },
     {
-      "token": "--gds-brand-accent-tint",
-      "role": "brand-accent-tint",
+      "token": "--gds-ai-accent",
+      "role": "ai-accent",
       "declaredIn": [
         "ts-emitter"
       ],
       "listed": true,
-      "demoed": true,
+      "demoed": false,
       "explained": true,
-      "variationsShown": false,
+      "variationsShown": true,
       "useCase": false,
       "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-control-disabledBg",
-      "role": "control-disabledBg",
-      "declaredIn": [
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-ai-gradient",
-      "role": "ai-gradient",
-      "declaredIn": [
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-vibe-atmosphere",
-      "role": "vibe-atmosphere",
-      "declaredIn": [
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "variationsShown",
+        "demoed",
         "useCase"
       ]
     },
@@ -4504,38 +3640,6 @@
       ]
     },
     {
-      "token": "--gds-bg-page",
-      "role": "bg-page",
-      "declaredIn": [
-        "styles.css",
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": true,
-      "gaps": [
-        "variationsShown"
-      ]
-    },
-    {
-      "token": "--gds-bg-surface",
-      "role": "bg-surface",
-      "declaredIn": [
-        "styles.css",
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": true,
-      "gaps": [
-        "variationsShown"
-      ]
-    },
-    {
       "token": "--gds-bg-card",
       "role": "bg-card",
       "declaredIn": [
@@ -4552,8 +3656,8 @@
       ]
     },
     {
-      "token": "--gds-bg-inverse",
-      "role": "bg-inverse",
+      "token": "--gds-text-body",
+      "role": "text-body",
       "declaredIn": [
         "styles.css",
         "ts-emitter"
@@ -4561,90 +3665,10 @@
       "listed": true,
       "demoed": true,
       "explained": true,
-      "variationsShown": false,
-      "useCase": true,
+      "variationsShown": true,
+      "useCase": false,
       "gaps": [
-        "variationsShown"
-      ]
-    },
-    {
-      "token": "--gds-border-card",
-      "role": "border-card",
-      "declaredIn": [
-        "styles.css",
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": true,
-      "gaps": [
-        "variationsShown"
-      ]
-    },
-    {
-      "token": "--gds-text-primary",
-      "role": "text-primary",
-      "declaredIn": [
-        "styles.css",
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": true,
-      "gaps": [
-        "variationsShown"
-      ]
-    },
-    {
-      "token": "--gds-text-meta",
-      "role": "text-meta",
-      "declaredIn": [
-        "styles.css",
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": true,
-      "gaps": [
-        "variationsShown"
-      ]
-    },
-    {
-      "token": "--gds-text-secondary",
-      "role": "text-secondary",
-      "declaredIn": [
-        "styles.css",
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": true,
-      "gaps": [
-        "variationsShown"
-      ]
-    },
-    {
-      "token": "--gds-text-on-inverse",
-      "role": "text-on-inverse",
-      "declaredIn": [
-        "styles.css",
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": true,
-      "gaps": [
-        "variationsShown"
+        "useCase"
       ]
     },
     {
@@ -4663,18 +3687,380 @@
       ]
     },
     {
-      "token": "--gds-elevation-panel",
-      "role": "elevation-panel",
+      "token": "--gds-radius-md",
+      "role": "radius-md",
       "declaredIn": [
         "styles.css"
       ],
       "listed": true,
       "demoed": true,
       "explained": true,
-      "variationsShown": false,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-radius-card",
+      "role": "radius-card",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-radius-panel",
+      "role": "radius-panel",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-radius-input",
+      "role": "radius-input",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-radius-chip",
+      "role": "radius-chip",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-radius-badge",
+      "role": "radius-badge",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-radius-drawer",
+      "role": "radius-drawer",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-radius-sheet",
+      "role": "radius-sheet",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-space-md",
+      "role": "space-md",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-control-height-md",
+      "role": "control-height-md",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-layout-sidebar-width",
+      "role": "layout-sidebar-width",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-layout-header-height",
+      "role": "layout-header-height",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-layout-footer-height",
+      "role": "layout-footer-height",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-layout-bottom-bar-height",
+      "role": "layout-bottom-bar-height",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-weight-bold",
+      "role": "weight-bold",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-elevation-card",
+      "role": "elevation-card",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-focus-ring-color",
+      "role": "focus-ring-color",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ],
+      "classification": {
+        "reason": "Same axis and same plan as --gds-focus-ring-offset (issue 965). Resolves to var(--gds-<colorRole>), so its variation story is the color role's.",
+        "reviewBy": "2027-02-01"
+      }
+    },
+    {
+      "token": "--gds-transition-scope",
+      "role": "transition-scope",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": false,
+      "explained": true,
+      "variationsShown": true,
       "useCase": true,
       "gaps": [
-        "variationsShown"
+        "demoed"
+      ],
+      "classification": {
+        "reason": "axes.ts emits the list of transitioned properties into it; it is read back by the transition machinery rather than styled against. Its demo/variation story needs the motion documentation (F2) to exist first. Tracked by issue 965.",
+        "reviewBy": "2027-02-01"
+      }
+    },
+    {
+      "token": "--gds-focus-ring",
+      "role": "focus-ring",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-badge-attention",
+      "role": "badge-attention",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-badge-validation",
+      "role": "badge-validation",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": false,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": true,
+      "gaps": [
+        "demoed"
+      ]
+    },
+    {
+      "token": "--gds-badge-solid-success",
+      "role": "badge-solid-success",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-badge-soft-warning",
+      "role": "badge-soft-warning",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-badge-soft-warning-fg",
+      "role": "badge-soft-warning-fg",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
       ]
     },
     {
@@ -4693,33 +4079,324 @@
       ]
     },
     {
-      "token": "--gds-chart-axis-text",
-      "role": "chart-axis-text",
+      "token": "--gds-badge-solid-neutral",
+      "role": "badge-solid-neutral",
       "declaredIn": [
         "styles.css"
       ],
       "listed": true,
       "demoed": true,
       "explained": true,
-      "variationsShown": false,
-      "useCase": true,
+      "variationsShown": true,
+      "useCase": false,
       "gaps": [
-        "variationsShown"
+        "useCase"
       ]
     },
     {
-      "token": "--gds-chart-grid",
-      "role": "chart-grid",
+      "token": "--gds-brand-primary",
+      "role": "brand-primary",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-brand-primary-fg",
+      "role": "brand-primary-fg",
       "declaredIn": [
         "styles.css"
       ],
       "listed": true,
       "demoed": true,
       "explained": true,
-      "variationsShown": false,
-      "useCase": true,
+      "variationsShown": true,
+      "useCase": false,
       "gaps": [
-        "variationsShown"
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-brand-accent",
+      "role": "brand-accent",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-brand-accent-fg",
+      "role": "brand-accent-fg",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-brand-accent-action",
+      "role": "brand-accent-action",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-brand-accent-action-fg",
+      "role": "brand-accent-action-fg",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-state-success",
+      "role": "state-success",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-state-warning",
+      "role": "state-warning",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-state-info",
+      "role": "state-info",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-bg-sidebar",
+      "role": "bg-sidebar",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-nav-active-bg",
+      "role": "nav-active-bg",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-nav-active-fg",
+      "role": "nav-active-fg",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-nav-active-indicator",
+      "role": "nav-active-indicator",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-nav-hover-bg",
+      "role": "nav-hover-bg",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-bg-raised",
+      "role": "bg-raised",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-border-subtle",
+      "role": "border-subtle",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-border-strong",
+      "role": "border-strong",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-message-self-bg",
+      "role": "message-self-bg",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-message-other-bg",
+      "role": "message-other-bg",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-chart-series-1",
+      "role": "chart-series-1",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
       ]
     },
     {
@@ -4739,38 +4416,19 @@
       ]
     },
     {
-      "token": "--gds-action-fill-fg",
-      "role": "action-fill-fg",
+      "token": "--gds-support",
+      "role": "support",
       "declaredIn": [
         "ts-emitter"
       ],
       "listed": true,
       "demoed": true,
       "explained": true,
-      "variationsShown": false,
-      "useCase": true,
+      "variationsShown": true,
+      "useCase": false,
       "gaps": [
-        "variationsShown"
+        "useCase"
       ]
-    },
-    {
-      "token": "--gds-text-on-support",
-      "role": "text-on-support",
-      "declaredIn": [
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": true,
-      "gaps": [
-        "variationsShown"
-      ],
-      "classification": {
-        "reason": "Derived readable foreground (semantic-token-source.ts computes it against --gds-support at 4.5:1; accessibility-report.ts audits the pair). Only variationsShown is open, and that obligation is itself a LOW-confidence proxy heuristic per the trace's own confidence block. Tracked by issue 965.",
-        "reviewBy": "2027-02-01"
-      }
     },
     {
       "token": "--gds-star",
@@ -4788,18 +4446,78 @@
       ]
     },
     {
-      "token": "--gds-action-outline",
-      "role": "action-outline",
+      "token": "--gds-bg-info-tag",
+      "role": "bg-info-tag",
       "declaredIn": [
         "ts-emitter"
       ],
       "listed": true,
       "demoed": true,
       "explained": true,
-      "variationsShown": false,
-      "useCase": true,
+      "variationsShown": true,
+      "useCase": false,
       "gaps": [
-        "variationsShown"
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-brand-accent-tint",
+      "role": "brand-accent-tint",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-control-disabledBg",
+      "role": "control-disabledBg",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-ai-gradient",
+      "role": "ai-gradient",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-vibe-atmosphere",
+      "role": "vibe-atmosphere",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "useCase"
       ]
     },
     {
@@ -4858,6 +4576,118 @@
       "gaps": []
     },
     {
+      "token": "--gds-bg-page",
+      "role": "bg-page",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": true,
+      "gaps": []
+    },
+    {
+      "token": "--gds-bg-surface",
+      "role": "bg-surface",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": true,
+      "gaps": []
+    },
+    {
+      "token": "--gds-bg-inverse",
+      "role": "bg-inverse",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": true,
+      "gaps": []
+    },
+    {
+      "token": "--gds-border-card",
+      "role": "border-card",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": true,
+      "gaps": []
+    },
+    {
+      "token": "--gds-text-primary",
+      "role": "text-primary",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": true,
+      "gaps": []
+    },
+    {
+      "token": "--gds-text-meta",
+      "role": "text-meta",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": true,
+      "gaps": []
+    },
+    {
+      "token": "--gds-text-secondary",
+      "role": "text-secondary",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": true,
+      "gaps": []
+    },
+    {
+      "token": "--gds-text-on-inverse",
+      "role": "text-on-inverse",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": true,
+      "gaps": []
+    },
+    {
       "token": "--gds-motion-duration-base",
       "role": "motion-duration-base",
       "declaredIn": [
@@ -4873,6 +4703,45 @@
     {
       "token": "--gds-motion-ease-standard",
       "role": "motion-ease-standard",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": true,
+      "gaps": []
+    },
+    {
+      "token": "--gds-elevation-panel",
+      "role": "elevation-panel",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": true,
+      "gaps": []
+    },
+    {
+      "token": "--gds-chart-axis-text",
+      "role": "chart-axis-text",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": true,
+      "gaps": []
+    },
+    {
+      "token": "--gds-chart-grid",
+      "role": "chart-grid",
       "declaredIn": [
         "styles.css"
       ],
@@ -4911,8 +4780,47 @@
       "gaps": []
     },
     {
+      "token": "--gds-action-fill-fg",
+      "role": "action-fill-fg",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": true,
+      "gaps": []
+    },
+    {
       "token": "--gds-accent",
       "role": "accent",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": true,
+      "gaps": []
+    },
+    {
+      "token": "--gds-text-on-support",
+      "role": "text-on-support",
+      "declaredIn": [
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": true,
+      "useCase": true,
+      "gaps": []
+    },
+    {
+      "token": "--gds-action-outline",
+      "role": "action-outline",
       "declaredIn": [
         "ts-emitter"
       ],

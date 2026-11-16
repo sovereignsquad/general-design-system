@@ -108,6 +108,7 @@ export const provenPatternIds: readonly string[] = [
   "reference-section",
   "reference-site-shell",
   "reference-theme-explorer",
+  "release-notes",
   "reporting-contracts",
   "responsive-data-view",
   "search-filters-lists",

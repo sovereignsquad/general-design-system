@@ -93,7 +93,7 @@ function renderBlocks(blocks: GdsReleaseNoteBlock[], issueHref: GdsReleaseNotesP
             {block.items.map((item, itemIndex) => (
               <GdsStack key={`${blockKey}-${itemIndex}`} role="listitem" gap="xs">
                 <BodyText>
-                  {block.ordered ? `${itemIndex + 1}. ` : '• '}
+                  <span aria-hidden="true" data-gds-release-marker="">{block.ordered ? `${itemIndex + 1}. ` : '• '}</span>
                   {renderInline(item.content, issueHref, `${blockKey}-${itemIndex}`)}
                 </BodyText>
                 {item.children?.length ? (
