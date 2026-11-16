@@ -285,8 +285,6 @@ export const it = {
   'gds.notificationBell.unreadLabel': "Notifiche (non lette)",
   'gds.compareButton.add': "Confronta",
   'gds.compareButton.added': "Aggiunto al confronto",
-  'gds.detailFacts.ageRange': "Fascia d'età",
-  'gds.detailFacts.activityType': "Tipo di attività",
   'gds.detailFacts.format': "Formato",
   'gds.detailFacts.location': "Posizione",
   'gds.detailFacts.setting': "Al chiuso/all'aperto",
@@ -423,4 +421,6 @@ export const it = {
   'gds.notifications.status.succeeded': "Riuscito",
   'gds.notifications.clearAll': "Cancella tutto",
   'gds.toast.regionLabel': "Notifiche recenti",
+  'gds.detailFacts.audience': "Pubblico",
+  'gds.detailFacts.category': "Categoria",
 };

@@ -285,8 +285,6 @@ export const ru = {
   'gds.notificationBell.unreadLabel': "Уведомления (непрочитанные)",
   'gds.compareButton.add': "Сравнить",
   'gds.compareButton.added': "Добавлено для сравнения",
-  'gds.detailFacts.ageRange': "Возрастной диапазон",
-  'gds.detailFacts.activityType': "Тип занятия",
   'gds.detailFacts.format': "Формат",
   'gds.detailFacts.location': "Место",
   'gds.detailFacts.setting': "В помещении/на улице",
@@ -423,4 +421,6 @@ export const ru = {
   'gds.notifications.status.succeeded': "Удалось",
   'gds.notifications.clearAll': "Очистить все",
   'gds.toast.regionLabel': "Недавние уведомления",
+  'gds.detailFacts.audience': "Аудитория",
+  'gds.detailFacts.category': "Категория",
 };

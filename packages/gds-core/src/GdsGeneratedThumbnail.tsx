@@ -335,8 +335,8 @@ function renderBackground(
  * <GdsGeneratedThumbnail
  *   seed={listing.id}
  *   categories={[
- *     { key: 'soccer', label: 'Soccer', icon: <IconBallFootball /> },
- *     { key: 'basketball', label: 'Basketball', icon: <IconBallBasketball /> },
+ *     { key: 'coffee', label: 'Coffee', icon: <IconCoffee /> },
+ *     { key: 'books', label: 'Books', icon: <IconBook /> },
  *   ]}
  * />
  * <GdsGeneratedThumbnail seed={listing.id} categories={categories} paletteSource="category" category="forest" shade="deep" />

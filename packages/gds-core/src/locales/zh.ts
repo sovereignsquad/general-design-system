@@ -285,8 +285,6 @@ export const zh = {
   'gds.notificationBell.unreadLabel': "通知(未读)",
   'gds.compareButton.add': "比较",
   'gds.compareButton.added': "已加入比较",
-  'gds.detailFacts.ageRange': "年龄范围",
-  'gds.detailFacts.activityType': "活动类型",
   'gds.detailFacts.format': "形式",
   'gds.detailFacts.location': "地点",
   'gds.detailFacts.setting': "室内/室外",
@@ -423,4 +421,6 @@ export const zh = {
   'gds.notifications.status.succeeded': "成功了",
   'gds.notifications.clearAll': "全部清除",
   'gds.toast.regionLabel': "最近的通知",
+  'gds.detailFacts.audience': "观众",
+  'gds.detailFacts.category': "类别",
 };

@@ -1,10 +1,10 @@
 {
-  "evaluated": 1290,
+  "evaluated": 1292,
   "gapCount": 344,
   "excludedCount": 81,
   "byKind": {
     "prop": {
-      "evaluated": 1167,
+      "evaluated": 1169,
       "gaps": 306
     },
     "variant": {
@@ -3118,7 +3118,7 @@
       "kind": "variant",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 843
+        "line": 860
       },
       "unmet": [
         {
@@ -3132,7 +3132,7 @@
       "kind": "variant",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 843
+        "line": 860
       },
       "unmet": [
         {
@@ -3146,7 +3146,7 @@
       "kind": "variant",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 843
+        "line": 860
       },
       "unmet": [
         {

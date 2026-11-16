@@ -12,10 +12,9 @@ import type { GdsBadgeAccentName, GdsBadgeAccentShade } from './GdsBadge';
  * here with an optional `emoji`.
  *
  * **Not shipped with any business data.** GDS ships the type and
- * {@link resolveGdsCategoryBadgeIcon} only — categories like "Soccer" or
- * "Basketball" are a consumer's own domain vocabulary (exactly like
- * `GdsMapPinBadge`'s own docs already say: "sports/hobbies/interests
- * routinely have no `GdsIcons` equivalent"), never a GDS-owned enum.
+ * {@link resolveGdsCategoryBadgeIcon} only. Categories like "Coffee" or "Books" are a
+ * consumer's own domain vocabulary, which routinely has no `GdsIcons` equivalent, never a
+ * GDS-owned enum.
  *
  * **`icon` is required, `emoji` is optional — on purpose.** This is the
  * structural guarantee behind "emoji affects only the badge, thumbnails
@@ -25,9 +24,9 @@ import type { GdsBadgeAccentName, GdsBadgeAccentShade } from './GdsBadge';
  * emoji glyph, regardless of what badge glyph mode is active elsewhere.
  */
 export interface GdsCategoryDefinition {
-  /** Stable identity, e.g. `'soccer'` — for keys/lookups, not rendered. */
+  /** Stable identity, e.g. `'coffee'` — for keys/lookups, not rendered. */
   key: string;
-  /** Real, consumer-written accessible name, e.g. `'Soccer'` — never derived from an icon library's own display name. */
+  /** Real, consumer-written accessible name, e.g. `'Coffee'` — never derived from an icon library's own display name. */
   label: string;
   /** Curated accent driving this category's color across every surface it appears on. */
   accent: GdsBadgeAccentName;

@@ -143,7 +143,7 @@ describe('PartnerDiscovery', () => {
     const onEvent = vi.fn();
     const value: PartnerDiscoveryFilterState = {
       query: 'cafe',
-      amenities: ['high-chairs'],
+      amenities: ['wifi'],
       prices: ['$$'],
     };
 
@@ -161,10 +161,10 @@ describe('PartnerDiscovery', () => {
     );
 
     expect(screen.getByLabelText('Search places')).toHaveValue('cafe');
-    expect(screen.getByRole('button', { name: 'High chairs' })).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByRole('button', { name: 'Free wifi' })).toHaveAttribute('aria-pressed', 'true');
 
-    await user.click(screen.getByRole('button', { name: 'Booster seats' }));
-    expect(onAmenityToggle).toHaveBeenCalledWith('booster-seats');
+    await user.click(screen.getByRole('button', { name: 'Step-free access' }));
+    expect(onAmenityToggle).toHaveBeenCalledWith('step-free');
 
     await user.click(screen.getByRole('button', { name: 'Apply' }));
     expect(onApply).toHaveBeenCalled();

@@ -285,8 +285,6 @@ export const ko = {
   'gds.notificationBell.unreadLabel': "알림 (읽지 않음)",
   'gds.compareButton.add': "비교",
   'gds.compareButton.added': "비교에 추가됨",
-  'gds.detailFacts.ageRange': "연령대",
-  'gds.detailFacts.activityType': "활동 유형",
   'gds.detailFacts.format': "형식",
   'gds.detailFacts.location': "위치",
   'gds.detailFacts.setting': "실내/실외",
@@ -423,4 +421,6 @@ export const ko = {
   'gds.notifications.status.succeeded': "성공함",
   'gds.notifications.clearAll': "모두 지우기",
   'gds.toast.regionLabel': "최근 알림",
+  'gds.detailFacts.audience': "청중",
+  'gds.detailFacts.category': "범주",
 };

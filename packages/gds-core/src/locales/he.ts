@@ -285,8 +285,6 @@ export const he = {
   'gds.notificationBell.unreadLabel': "התראות (לא נקראו)",
   'gds.compareButton.add': "השווה",
   'gds.compareButton.added': "נוסף להשוואה",
-  'gds.detailFacts.ageRange': "טווח גילאים",
-  'gds.detailFacts.activityType': "סוג הפעילות",
   'gds.detailFacts.format': "פורמט",
   'gds.detailFacts.location': "מיקום",
   'gds.detailFacts.setting': "בפנים/בחוץ",
@@ -423,4 +421,6 @@ export const he = {
   'gds.notifications.status.succeeded': "הצליח",
   'gds.notifications.clearAll': "נקה הכל",
   'gds.toast.regionLabel': "הודעות אחרונות",
+  'gds.detailFacts.audience': "קהל",
+  'gds.detailFacts.category': "קָטֵגוֹרִיָה",
 };
