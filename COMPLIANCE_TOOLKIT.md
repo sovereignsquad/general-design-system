@@ -80,7 +80,7 @@ Strict consumer drift rules (remediation text: `STRICT_RULE_METADATA`):
 
 - `strict.import.mantine-core` for `from '@mantine/core'` imports. Rule, enforcement limits and replacements: [DEPENDENCY_GOVERNANCE.md, "Mantine boundary"](DEPENDENCY_GOVERNANCE.md#mantine-boundary)
 - `strict.import.tabler-icons` for `from '@tabler/icons-react'` imports
-- `strict.raw-control` for raw `<button>`, `<input>`, `<select>`, or `<textarea>` usage outside approved scopes
+- `strict.raw-control` for raw `<button>`, `<input>`, `<select>`, or `<textarea>` usage outside approved scopes. Tag names match case-sensitively: lowercase JSX tags are native elements, and a component such as `<Button>` or `<Select>` is not reported. `strict.raw-table` matches `<table>`, `<th>` and `<td>` the same way.
 - `strict.browser-dialog` for `alert()`, `confirm()`, or `window.confirm()`
 - `strict.raw-table` for raw `<table>`, `<th>`, or `<td>` usage outside approved table contracts
 - `strict.raw-color` for hex or rgb literals outside theme-owned paths
@@ -107,7 +107,6 @@ The source rules scan only the directory that contains the manifest.
 
 Each item differs from the rule's stated purpose and affects what a finding means.
 
-- `strict.raw-control` and `strict.raw-table` match tag names case-insensitively. A PascalCase component tag such as `<Button>`, `<Select>`, `<Textarea>` or `<Table>` is reported, including a component imported from `@sovereignsquad/gds-core`.
 - `strict.browser-dialog` matches the text `alert(` and `confirm(` (with or without `window.`). The `confirm(...)` call returned by `useGdsConfirm()` is reported. `window.prompt(` is not matched.
 - `forbidden-color` and `strict.raw-color` match `#` followed by 3 to 8 hexadecimal characters. A hashtag such as `#b2b` in a string is reported as a colour. `hsl()`, `hsla()` and `oklch()` values are not matched.
 - `design-rule.accent-as-background` matches when an accent token name and a background property appear on the same line, whichever property holds the token.
