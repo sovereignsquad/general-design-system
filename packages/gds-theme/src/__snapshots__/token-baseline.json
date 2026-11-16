@@ -5267,7 +5267,7 @@
     "--gds-weight-regular": "400",
     "--gds-weight-semibold": "600"
   },
-  "vibe:class-usa:light": {
+  "vibe:harbor:light": {
     "--gds-accent": "#c24a0a",
     "--gds-accent-bronze-base": "#8a5a00",
     "--gds-accent-bronze-deep": "#6c4600",
@@ -5596,7 +5596,7 @@
     "--gds-weight-regular": "400",
     "--gds-weight-semibold": "600"
   },
-  "vibe:class-usa:dark": {
+  "vibe:harbor:dark": {
     "--gds-accent": "#f5793b",
     "--gds-accent-bronze-base": "#8a5a00",
     "--gds-accent-bronze-deep": "#6c4600",
@@ -5925,7 +5925,7 @@
     "--gds-weight-regular": "400",
     "--gds-weight-semibold": "600"
   },
-  "vibe:gold-athlete:light": {
+  "vibe:ochre:light": {
     "--gds-accent": "#c08a12",
     "--gds-accent-bronze-base": "#8a5a00",
     "--gds-accent-bronze-deep": "#6c4600",
@@ -6254,7 +6254,7 @@
     "--gds-weight-regular": "400",
     "--gds-weight-semibold": "600"
   },
-  "vibe:gold-athlete:dark": {
+  "vibe:ochre:dark": {
     "--gds-accent": "#e7bd5c",
     "--gds-accent-bronze-base": "#8a5a00",
     "--gds-accent-bronze-deep": "#6c4600",
@@ -6583,7 +6583,7 @@
     "--gds-weight-regular": "400",
     "--gds-weight-semibold": "600"
   },
-  "vibe:padel-africa:light": {
+  "vibe:meadow:light": {
     "--gds-accent": "#035033",
     "--gds-accent-bronze-base": "#8a5a00",
     "--gds-accent-bronze-deep": "#6c4600",
@@ -6912,7 +6912,7 @@
     "--gds-weight-regular": "400",
     "--gds-weight-semibold": "600"
   },
-  "vibe:padel-africa:dark": {
+  "vibe:meadow:dark": {
     "--gds-accent": "rgb(66, 124, 102)",
     "--gds-accent-bronze-base": "#8a5a00",
     "--gds-accent-bronze-deep": "#6c4600",
@@ -7241,7 +7241,7 @@
     "--gds-weight-regular": "400",
     "--gds-weight-semibold": "600"
   },
-  "vibe:your-field:light": {
+  "vibe:linen:light": {
     "--gds-accent": "#c9684a",
     "--gds-accent-bronze-base": "#8a5a00",
     "--gds-accent-bronze-deep": "#6c4600",
@@ -7576,7 +7576,7 @@
     "--gds-weight-regular": "400",
     "--gds-weight-semibold": "600"
   },
-  "vibe:your-field:dark": {
+  "vibe:linen:dark": {
     "--gds-accent": "rgb(215, 142, 119)",
     "--gds-accent-bronze-base": "#8a5a00",
     "--gds-accent-bronze-deep": "#6c4600",
@@ -16465,7 +16465,7 @@
     "--gds-weight-regular": "400",
     "--gds-weight-semibold": "600"
   },
-  "vibe:athlete-gold:light": {
+  "vibe:gilded:light": {
     "--gds-accent": "rgb(167, 142, 69)",
     "--gds-accent-bronze-base": "#8a5a00",
     "--gds-accent-bronze-deep": "#6c4600",
@@ -16794,7 +16794,7 @@
     "--gds-weight-regular": "400",
     "--gds-weight-semibold": "600"
   },
-  "vibe:athlete-gold:dark": {
+  "vibe:gilded:dark": {
     "--gds-accent": "rgb(255, 225, 143)",
     "--gds-accent-bronze-base": "#8a5a00",
     "--gds-accent-bronze-deep": "#6c4600",
@@ -17783,7 +17783,7 @@
     "--gds-weight-regular": "400",
     "--gds-weight-semibold": "600"
   },
-  "brand:class-usa": {
+  "brand:harbor": {
     "--gds-accent": "#c24a0a",
     "--gds-accent-bronze-base": "#8a5a00",
     "--gds-accent-bronze-deep": "#6c4600",
@@ -18096,7 +18096,7 @@
     "--gds-weight-regular": "400",
     "--gds-weight-semibold": "600"
   },
-  "brand:gold-athlete": {
+  "brand:ochre": {
     "--gds-accent": "#c08a12",
     "--gds-accent-bronze-base": "#8a5a00",
     "--gds-accent-bronze-deep": "#6c4600",
