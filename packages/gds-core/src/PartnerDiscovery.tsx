@@ -129,6 +129,18 @@ export type PartnerDiscoveryEventHandler = (event: PartnerDiscoveryEvent) => voi
 
 /** Default set of amenity filter options shipped with the discovery components. */
 export const partnerDiscoveryDefaultAmenities: PartnerAmenityOption[] = [
+  { id: 'wifi', label: 'Free wifi' },
+  { id: 'step-free', label: 'Step-free access' },
+  { id: 'quiet-area', label: 'Quiet area' },
+  { id: 'power-outlets', label: 'Power outlets' },
+  { id: 'card-payments', label: 'Card payments' },
+  { id: 'pet-friendly', label: 'Pet friendly' },
+  { id: 'outdoor-seating', label: 'Outdoor seating' },
+  { id: 'reservations', label: 'Reservations' },
+];
+
+/** Family-oriented amenity options; the default set through 6.9.0. Pass it as the options to keep that set. */
+export const partnerDiscoveryFamilyAmenities: PartnerAmenityOption[] = [
   { id: 'high-chairs', label: 'High chairs' },
   { id: 'booster-seats', label: 'Booster seats' },
   { id: 'changing-table', label: 'Changing table' },
@@ -815,7 +827,9 @@ export interface PartnerPlaceDetail {
   phone?: string;
   neighborhood?: string;
   category?: string;
-  /** Parent-oriented tip highlighted on the detail page. */
+  /** Tip highlighted on the detail page. */
+  tip?: string;
+  /** @deprecated Use `tip`. Removed in 8.0.0. */
   parentTip?: string;
   amenities: PartnerAmenityOption[];
   /** Optional outbound links (photos, website, menu, and share URL). */
@@ -834,7 +848,10 @@ export interface PartnerPlaceDetailLabels {
   website: string;
   menu: string;
   share: string;
-  parentTip: string;
+  /** Heading of the tip panel. */
+  tip?: string;
+  /** @deprecated Use `tip`. Removed in 8.0.0. */
+  parentTip?: string;
   copied: string;
   shareFailed: string;
 }
@@ -855,7 +872,7 @@ export interface PartnerPlaceDetailTemplateProps {
   onEvent?: PartnerDiscoveryEventHandler;
 }
 
-/** Detail page for a single place: title, contact info, action buttons (photos/website/menu/share), badges, parent tip, and amenities. */
+/** Detail page for a single place: title, contact info, action buttons (photos/website/menu/share), badges, a tip, and amenities. */
 export function PartnerPlaceDetailTemplate({
   place,
   backHref,
@@ -913,13 +930,15 @@ export function PartnerPlaceDetailTemplate({
         {place.neighborhood ? <Badge variant="light">{place.neighborhood}</Badge> : null}
         {place.category ? <Badge variant="light">{place.category}</Badge> : null}
       </Group>
-      {place.parentTip ? <PartnerParentTipPanel label={labels.parentTip}>{place.parentTip}</PartnerParentTipPanel> : null}
+      {(place.tip ?? place.parentTip) ? (
+        <PartnerParentTipPanel label={labels.tip ?? labels.parentTip ?? ''}>{place.tip ?? place.parentTip}</PartnerParentTipPanel>
+      ) : null}
       <PartnerAmenityBadgeGrid amenities={place.amenities} />
     </Stack>
   );
 }
 
-/** Emphasized panel presenting a parent-oriented tip with a labeled badge. */
+/** Emphasized panel presenting a tip with a labeled badge. */
 export function PartnerParentTipPanel({
   label,
   children,

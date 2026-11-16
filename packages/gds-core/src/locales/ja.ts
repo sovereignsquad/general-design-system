@@ -285,8 +285,6 @@ export const ja = {
   'gds.notificationBell.unreadLabel': "通知(未読)",
   'gds.compareButton.add': "比較",
   'gds.compareButton.added': "比較に追加済み",
-  'gds.detailFacts.ageRange': "対象年齢",
-  'gds.detailFacts.activityType': "アクティビティの種類",
   'gds.detailFacts.format': "形式",
   'gds.detailFacts.location': "場所",
   'gds.detailFacts.setting': "屋内/屋外",
@@ -423,4 +421,6 @@ export const ja = {
   'gds.notifications.status.succeeded': "成功しました",
   'gds.notifications.clearAll': "すべてクリア",
   'gds.toast.regionLabel': "最近のお知らせ",
+  'gds.detailFacts.audience': "観客",
+  'gds.detailFacts.category': "カテゴリ",
 };

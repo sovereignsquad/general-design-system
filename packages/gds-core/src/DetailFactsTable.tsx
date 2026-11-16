@@ -3,8 +3,8 @@ import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 
 /** Ordered ids of the default nine-fact detail schema (issue 711). */
 export const GDS_DETAIL_FACT_IDS = [
-  'ageRange',
-  'activityType',
+  'audience',
+  'category',
   'format',
   'location',
   'setting',
@@ -16,6 +16,17 @@ export const GDS_DETAIL_FACT_IDS = [
 
 /** A built-in id from the default nine-fact schema — one of {@link GDS_DETAIL_FACT_IDS}. */
 export type GdsDetailFactId = (typeof GDS_DETAIL_FACT_IDS)[number];
+
+/**
+ * @deprecated Value keys through 6.9.0: `ageRange` fills `audience` and `activityType`
+ * fills `category`. Removed in 8.0.0.
+ */
+export type GdsDeprecatedDetailFactId = 'ageRange' | 'activityType';
+
+const GDS_DEPRECATED_DETAIL_FACT_IDS: Record<GdsDeprecatedDetailFactId, GdsDetailFactId> = {
+  ageRange: 'audience',
+  activityType: 'category',
+};
 
 /** One rendered fact row. */
 export interface DetailFact {
@@ -42,7 +53,7 @@ export interface DetailFactsTableProps {
    * Values for the default nine-fact schema, keyed by fact id. Every schema row
    * renders whether or not a value is present for its id.
    */
-  values?: Partial<Record<GdsDetailFactId, ReactNode>>;
+  values?: Partial<Record<GdsDetailFactId | GdsDeprecatedDetailFactId, ReactNode>>;
   /**
    * Full custom schema replacing the default one. When supplied, the consumer owns
    * schema completeness; rows with a missing value still render the unknown phrase,
@@ -54,17 +65,25 @@ export interface DetailFactsTableProps {
   facts?: DetailFact[];
 }
 
-const GDS_DETAIL_FACT_DEFAULT_LABELS: Record<GdsDetailFactId, string> = {
-  ageRange: 'Age range',
-  activityType: 'Activity type',
-  format: 'Format',
-  location: 'Location',
-  setting: 'Indoor/outdoor',
-  price: 'Price',
-  booking: 'Booking',
-  source: 'Source',
-  lastChecked: 'Last checked',
-};
+// Literal t() calls so the message-pack generator collects each label.
+function detailFactLabel(id: GdsDetailFactId, t: (id: string, defaultMessage: string) => string): string {
+  switch (id) {
+    case 'audience': return t('gds.detailFacts.audience', 'Audience');
+    case 'category': return t('gds.detailFacts.category', 'Category');
+    case 'format': return t('gds.detailFacts.format', 'Format');
+    case 'location': return t('gds.detailFacts.location', 'Location');
+    case 'setting': return t('gds.detailFacts.setting', 'Indoor/outdoor');
+    case 'price': return t('gds.detailFacts.price', 'Price');
+    case 'booking': return t('gds.detailFacts.booking', 'Booking');
+    case 'source': return t('gds.detailFacts.source', 'Source');
+    case 'lastChecked': return t('gds.detailFacts.lastChecked', 'Last checked');
+  }
+}
+
+function deprecatedValue(values: DetailFactsTableProps['values'], id: GdsDetailFactId): ReactNode {
+  const legacy = (Object.keys(GDS_DEPRECATED_DETAIL_FACT_IDS) as GdsDeprecatedDetailFactId[]).find((key) => GDS_DEPRECATED_DETAIL_FACT_IDS[key] === id);
+  return legacy ? values?.[legacy] : undefined;
+}
 
 function isBlankDetailFactValue(value: ReactNode): boolean {
   if (value === undefined || value === null) return true;
@@ -88,8 +107,8 @@ function resolveDetailFactRows(
     facts ??
     GDS_DETAIL_FACT_IDS.map((id) => ({
       id,
-      label: t(`gds.detailFacts.${id}`, GDS_DETAIL_FACT_DEFAULT_LABELS[id]),
-      value: values?.[id],
+      label: detailFactLabel(id, t),
+      value: values?.[id] ?? deprecatedValue(values, id),
     }));
 
   const unknownPhrase = t('gds.detailFacts.unknown', 'Not confirmed — ask the provider');
@@ -117,9 +136,8 @@ const containerStyle: CSSProperties = {
 };
 
 /**
- * Governed detail-page key-facts block: a fixed nine-row label/value schema (age
- * range, activity type, format, location, indoor/outdoor, price, booking, source,
- * last checked) rendered with real `<dl>`/`<dt>`/`<dd>` semantics. Every schema row
+ * Governed detail-page key-facts block: a fixed nine-row label/value schema (audience,
+ * category, format, location, indoor/outdoor, price, booking, source, last checked) rendered with real `<dl>`/`<dt>`/`<dd>` semantics. Every schema row
  * always renders — a missing or blank value shows the localized unknown phrase
  * rather than an empty cell or a dropped row, so a reader can always see a
  * listing's source and freshness. Pass `values` to fill the default schema, or

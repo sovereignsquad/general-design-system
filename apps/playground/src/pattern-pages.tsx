@@ -343,7 +343,7 @@ function ChoiceChipFamilyDemo() {
 }
 
 function FormControlFamilyDemo() {
-  const [assessment, setAssessment] = useState<string>('readiness');
+  const [assessment, setAssessment] = useState<string>('overview');
   const [rating, setRating] = useState<number>(4);
   const [effort, setEffort] = useState<number>(3);
   const [boundary, setBoundary] = useState<number>(5);
@@ -358,46 +358,46 @@ function FormControlFamilyDemo() {
   const wizardSteps = [
     { id: 'profile', title: 'Profile', description: 'Confirm patient identity and clinic.' },
     { id: 'metrics', title: 'Metrics', description: 'Capture readiness and recovery scores.', optional: true },
-    { id: 'review', title: 'Review', description: 'Confirm and save the assessment.', completed: wizardStep > 2 },
+    { id: 'review', title: 'Review', description: 'Confirm and save the booking.', completed: wizardStep > 2 },
   ];
 
   return (
     <GdsStack gap="lg">
-      <SectionPanel title="Segmented control" description="Overflow-safe assessment tabs, including a many-item scroll case.">
+      <SectionPanel title="Segmented control" description="Overflow-safe section tabs, including a many-item scroll case.">
         <GdsStack gap="md">
           <GdsSegmentedControl
-            ariaLabel="Assessment focus"
+            ariaLabel="Settings section"
             value={assessment}
             onChange={setAssessment}
             options={[
-              { value: 'readiness', label: 'Readiness' },
-              { value: 'recovery', label: 'Recovery' },
-              { value: 'load', label: 'Load' },
+              { value: 'overview', label: 'Overview' },
+              { value: 'activity', label: 'Activity' },
+              { value: 'billing', label: 'Billing' },
               { value: 'archived', label: 'Archived', disabled: true },
             ]}
           />
           <GdsSegmentedControl
-            ariaLabel="Weekly focus (overflow)"
+            ariaLabel="Settings section (overflow)"
             value={assessment}
             onChange={setAssessment}
             options={[
-              { value: 'readiness', label: 'Readiness' },
-              { value: 'recovery', label: 'Recovery' },
-              { value: 'load', label: 'Load' },
-              { value: 'sleep', label: 'Sleep' },
-              { value: 'nutrition', label: 'Nutrition' },
-              { value: 'mobility', label: 'Mobility' },
-              { value: 'mental', label: 'Mental' },
+              { value: 'overview', label: 'Overview' },
+              { value: 'activity', label: 'Activity' },
+              { value: 'billing', label: 'Billing' },
+              { value: 'members', label: 'Members' },
+              { value: 'integrations', label: 'Integrations' },
+              { value: 'security', label: 'Security' },
+              { value: 'reports', label: 'Reports' },
             ]}
           />
           <GdsSegmentedControl
-            ariaLabel="Disabled assessment focus"
+            ariaLabel="Disabled settings section"
             value={assessment}
             onChange={setAssessment}
             disabled
             options={[
-              { value: 'readiness', label: 'Readiness' },
-              { value: 'recovery', label: 'Recovery' },
+              { value: 'overview', label: 'Overview' },
+              { value: 'activity', label: 'Activity' },
             ]}
           />
         </GdsStack>
@@ -405,8 +405,8 @@ function FormControlFamilyDemo() {
       <SectionPanel title="Slider and rating" description="1-10 effort slider, a boundary case where min equals max, and a 1-5 rating scale.">
         <GdsStack gap="md">
           <GdsSlider
-            label="Perceived effort"
-            description="Rate the session load from 1 to 10."
+            label="Satisfaction"
+            description="Rate your experience from 1 to 10."
             value={effort}
             onChange={setEffort}
             min={1}
@@ -856,15 +856,15 @@ const MAP_PIN_MARKERS: Array<{
 // Keyed by the same ids as MAP_PIN_MARKERS: activity drives the filter rail, the rest
 // renders in the preview card when that pin is selected.
 const MAP_PIN_DETAILS: Record<string, {
-  activity: string; activityId: string; neighbourhood: string; summary: string;
-  ageRange: string; priceEstimate?: string; lastChecked?: string;
+  category: string; categoryId: string; neighbourhood: string; summary: string;
+  audience: string; priceEstimate?: string; lastChecked?: string;
   verified?: boolean; categoryIcon: 'Location' | 'Habit' | 'Message' | 'Verify';
 }> = {
   // Four different domains, deliberately: the pin system is domain-agnostic.
-  cafe: { activity: 'Coffee', activityId: 'coffee', neighbourhood: 'Bankside', summary: 'Independent roastery with long tables and reliable wifi.', ageRange: 'All ages', priceEstimate: '~\u00a34 / visit', lastChecked: 'Checked last week', categoryIcon: 'Location' },
-  library: { activity: 'Reading', activityId: 'reading', neighbourhood: 'Barbican', summary: 'Public library with quiet study floors and weekly author talks.', ageRange: 'All ages', priceEstimate: 'Free entry', lastChecked: 'Checked this month', categoryIcon: 'Habit' },
-  gallery: { activity: 'Art', activityId: 'art', neighbourhood: 'South Bank', summary: 'Riverside gallery with rotating exhibitions and guided tours.', ageRange: '12+', categoryIcon: 'Message' },
-  coworking: { activity: 'Co-working', activityId: 'coworking', neighbourhood: 'Borough', summary: 'Hot desks, bookable meeting rooms and a shared kitchen.', ageRange: '18+', priceEstimate: '~\u00a3180 / month', lastChecked: 'Checked last week', verified: true, categoryIcon: 'Verify' },
+  cafe: { category: 'Coffee', categoryId: 'coffee', neighbourhood: 'Bankside', summary: 'Independent roastery with long tables and reliable wifi.', audience: 'All ages', priceEstimate: '~\u00a34 / visit', lastChecked: 'Checked last week', categoryIcon: 'Location' },
+  library: { category: 'Reading', categoryId: 'reading', neighbourhood: 'Barbican', summary: 'Public library with quiet study floors and weekly author talks.', audience: 'All ages', priceEstimate: 'Free entry', lastChecked: 'Checked this month', categoryIcon: 'Habit' },
+  gallery: { category: 'Art', categoryId: 'art', neighbourhood: 'South Bank', summary: 'Riverside gallery with rotating exhibitions and guided tours.', audience: '12+', categoryIcon: 'Message' },
+  coworking: { category: 'Co-working', categoryId: 'coworking', neighbourhood: 'Borough', summary: 'Hot desks, bookable meeting rooms and a shared kitchen.', audience: '18+', priceEstimate: '~\u00a3180 / month', lastChecked: 'Checked last week', verified: true, categoryIcon: 'Verify' },
 };
 
 function BadgeMapDemo() {
@@ -888,13 +888,13 @@ function MapSurfaceDemo() {
   const [savedPins, setSavedPins] = useState<Record<string, boolean>>({});
 
   const visibleMarkers = MAP_PIN_MARKERS.filter(
-    (pin) => activityFilter === null || MAP_PIN_DETAILS[pin.id].activityId === activityFilter,
+    (pin) => activityFilter === null || MAP_PIN_DETAILS[pin.id].categoryId === activityFilter,
   );
-  const activities = [...new Set(MAP_PIN_MARKERS.map((pin) => MAP_PIN_DETAILS[pin.id].activityId))];
+  const activities = [...new Set(MAP_PIN_MARKERS.map((pin) => MAP_PIN_DETAILS[pin.id].categoryId))];
   const railOptions = activities.map((activityId) => ({
     id: activityId,
-    label: MAP_PIN_DETAILS[MAP_PIN_MARKERS.find((pin) => MAP_PIN_DETAILS[pin.id].activityId === activityId)!.id].activity,
-    count: MAP_PIN_MARKERS.filter((pin) => MAP_PIN_DETAILS[pin.id].activityId === activityId).length,
+    label: MAP_PIN_DETAILS[MAP_PIN_MARKERS.find((pin) => MAP_PIN_DETAILS[pin.id].categoryId === activityId)!.id].category,
+    count: MAP_PIN_MARKERS.filter((pin) => MAP_PIN_DETAILS[pin.id].categoryId === activityId).length,
   }));
 
   return (
@@ -933,15 +933,15 @@ function MapSurfaceDemo() {
                 return (
                   <GdsMapPinPreviewCard
                     title={pin.label}
-                    activity={detail.activity}
+                    category={detail.category}
                     neighbourhood={detail.neighbourhood}
                     summary={detail.summary}
-                    ageRange={detail.ageRange}
+                    audience={detail.audience}
                     trust={detail.verified ? { variant: 'validation', label: 'Verified provider' } : undefined}
                     priceEstimate={detail.priceEstimate}
                     lastChecked={detail.lastChecked}
                     thumbnailSeed={pin.id}
-                    categories={[{ key: detail.activityId, label: detail.activity, icon: detail.categoryIcon }]}
+                    categories={[{ key: detail.categoryId, label: detail.category, icon: detail.categoryIcon }]}
                     primaryAction={<SemanticButton action="preview" fullWidth />}
                     saved={Boolean(savedPins[pin.id])}
                     saveLabel={`Save ${pin.label}`}
@@ -2435,10 +2435,10 @@ function AISearchCardDemo() {
 }
 
 const heroSearchPanelExampleFields = [
-  { key: 'childAge', label: 'Child age', placeholder: 'e.g. 6' },
+  { key: 'guests', label: 'Guests', placeholder: 'e.g. 2' },
   { key: 'neighbourhood', label: 'Neighbourhood', placeholder: 'e.g. Riverside' },
   { key: 'date', label: 'Date', placeholder: 'e.g. This weekend' },
-  { key: 'activityType', label: 'Activity type', placeholder: 'e.g. Photography' },
+  { key: 'category', label: 'Category', placeholder: 'e.g. Photography' },
   { key: 'budget', label: 'Budget', placeholder: 'e.g. Under $50' },
 ];
 
@@ -2460,7 +2460,7 @@ function HeroSearchPanelDemo() {
         <HeroSearchPanel
           fields={heroSearchPanelExampleFields}
           onSubmit={setSubmittedValues}
-          secondaryActionLabel="Browse all activities"
+          secondaryActionLabel="Browse all events"
           onSecondaryAction={() => setSubmittedValues(null)}
           trustLine="Source-backed listings · Clear estimates · Confirm final details with providers"
         />
@@ -2492,12 +2492,12 @@ function HeroSearchPanelDemo() {
 
 const quickStartScenarios: Array<{ icon: GdsIconName; label: string; description?: string }> = [
   { icon: 'Calendar', label: 'This weekend' },
-  { icon: 'Time', label: 'Today after school' },
+  { icon: 'Time', label: 'This evening' },
   { icon: 'Currency', label: 'Free & low-cost' },
-  { icon: 'Home', label: 'Indoor activities' },
+  { icon: 'Home', label: 'Indoor events' },
   { icon: 'Flag', label: 'Workshops open now' },
-  { icon: 'Reward', label: 'Birthday party ideas' },
-  { icon: 'Child', label: 'Toddler drop-ins' },
+  { icon: 'Reward', label: 'Gift ideas' },
+  { icon: 'Users', label: 'Group bookings' },
   { icon: 'Habit', label: 'STEM & coding' },
   { icon: 'Trophy', label: 'Talks & events' },
   { icon: 'Location', label: 'Near me' },
@@ -2618,7 +2618,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
             <SectionTitle>Partner discovery reference</SectionTitle>
             <BodyText>Fake data only. Consumers supply copy, assets, data, map adapters, and submission endpoints.</BodyText>
             <PartnerDiscoveryFilters
-              value={{ query: '', amenities: ['high-chairs'], prices: ['$$'] }}
+              value={{ query: '', amenities: ['wifi'], prices: ['$$'] }}
               labels={{
                 search: 'Search places',
                 searchPlaceholder: 'Search by amenity, cuisine, or neighborhood',
@@ -2634,7 +2634,7 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
             />
             <PartnerMapListShell
               places={[
-                { id: 'green-cafe', title: 'Green Cafe', category: 'Cafe', neighborhood: 'Downtown', amenities: ['high-chairs', 'changing-table'], price: '$$', href: '#green-cafe' },
+                { id: 'green-cafe', title: 'Green Cafe', category: 'Cafe', neighborhood: 'Downtown', amenities: ['wifi', 'step-free'], price: '$$', href: '#green-cafe' },
                 { id: 'park-tacos', title: 'Park Tacos', category: 'Mexican', neighborhood: 'Parkside', amenities: ['outdoor-seating'], price: '$', href: '#park-tacos' },
               ]}
               filters={{ query: '', amenities: [], prices: [] }}
@@ -2642,24 +2642,24 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
             />
             <PartnerPlaceDetailTemplate
               backHref="#back"
-              labels={{ back: 'Back', photos: 'Photos', website: 'Website', menu: 'Menu', share: 'Share', parentTip: 'Parent tip', copied: 'Copied', shareFailed: 'Share failed' }}
+              labels={{ back: 'Back', photos: 'Photos', website: 'Website', menu: 'Menu', share: 'Share', tip: 'Tip', copied: 'Copied', shareFailed: 'Share failed' }}
               place={{
                 id: 'green-cafe',
                 title: 'Green Cafe',
                 address: '1 Main St',
                 neighborhood: 'Downtown',
                 category: 'Cafe',
-                parentTip: 'Room for strollers.',
-                amenities: [{ id: 'high-chairs', label: 'High chairs' }, { id: 'changing-table', label: 'Changing table' }],
+                tip: 'Quiet tables by the window in the mornings.',
+                amenities: [{ id: 'wifi', label: 'Free wifi' }, { id: 'step-free', label: 'Step-free access' }],
                 links: { website: '#website', menu: '#menu', shareUrl: '#share' },
               }}
             />
             <PartnerNewsletterForm
               email=""
               state="idle"
-              labels={{ title: 'Your city got family-friendly', description: 'Get the weekly list.', emailLabel: 'Email', submitLabel: 'Join', dismissLabel: 'Close', successMessage: 'Subscribed', errorMessage: 'Retry signup' }}
+              labels={{ title: 'New places every week', description: 'Get the weekly list.', emailLabel: 'Email', submitLabel: 'Join', dismissLabel: 'Close', successMessage: 'Subscribed', errorMessage: 'Retry signup' }}
             />
-            <PartnerListIndex title="Partner lists" items={[{ id: 'cafes', title: 'Best family-friendly cafes', href: '#cafes' }]} />
+            <PartnerListIndex title="Partner lists" items={[{ id: 'cafes', title: 'Best cafés to work from', href: '#cafes' }]} />
           </>
         </PartnerDiscoveryShell>
       );
@@ -2781,8 +2781,8 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
                 <DetailFactsTable
                   key="facts"
                   values={{
-                    ageRange: '16+',
-                    activityType: 'Photography',
+                    audience: '16+',
+                    category: 'Photography',
                     format: 'Small group',
                     location: 'Prospect Park, Brooklyn',
                   }}

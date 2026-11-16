@@ -285,8 +285,6 @@ export const hu = {
   'gds.notificationBell.unreadLabel': "Értesítések (olvasatlan)",
   'gds.compareButton.add': "Összehasonlítás",
   'gds.compareButton.added': "Hozzáadva az összehasonlításhoz",
-  'gds.detailFacts.ageRange': "Korosztály",
-  'gds.detailFacts.activityType': "Tevékenység típusa",
   'gds.detailFacts.format': "Formátum",
   'gds.detailFacts.location': "Helyszín",
   'gds.detailFacts.setting': "Beltéri/kültéri",
@@ -423,4 +421,6 @@ export const hu = {
   'gds.notifications.status.succeeded': "Sikerült",
   'gds.notifications.clearAll': "Minden törlése",
   'gds.toast.regionLabel': "Legutóbbi értesítések",
+  'gds.detailFacts.audience': "Közönség",
+  'gds.detailFacts.category': "Kategória",
 };

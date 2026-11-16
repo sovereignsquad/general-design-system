@@ -285,8 +285,6 @@ export const ar = {
   'gds.notificationBell.unreadLabel': "إشعارات (غير مقروءة)",
   'gds.compareButton.add': "مقارنة",
   'gds.compareButton.added': "أُضيف للمقارنة",
-  'gds.detailFacts.ageRange': "الفئة العمرية",
-  'gds.detailFacts.activityType': "نوع النشاط",
   'gds.detailFacts.format': "الصيغة",
   'gds.detailFacts.location': "الموقع",
   'gds.detailFacts.setting': "داخلي/خارجي",
@@ -423,4 +421,6 @@ export const ar = {
   'gds.notifications.status.succeeded': "نجحت",
   'gds.notifications.clearAll': "مسح الكل",
   'gds.toast.regionLabel': "الإخطارات الأخيرة",
+  'gds.detailFacts.audience': "جمهور",
+  'gds.detailFacts.category': "فئة",
 };

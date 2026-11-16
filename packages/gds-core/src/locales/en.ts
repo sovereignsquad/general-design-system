@@ -285,8 +285,6 @@ export const en = {
   'gds.notificationBell.unreadLabel': "Notifications (unread)",
   'gds.compareButton.add': "Compare",
   'gds.compareButton.added': "Added to compare",
-  'gds.detailFacts.ageRange': "Age range",
-  'gds.detailFacts.activityType': "Activity type",
   'gds.detailFacts.format': "Format",
   'gds.detailFacts.location': "Location",
   'gds.detailFacts.setting': "Indoor/outdoor",
@@ -423,4 +421,6 @@ export const en = {
   'gds.notifications.status.succeeded': "Succeeded",
   'gds.notifications.clearAll': "Clear all",
   'gds.toast.regionLabel': "Recent notifications",
+  'gds.detailFacts.audience': "Audience",
+  'gds.detailFacts.category': "Category",
 };

@@ -21,13 +21,17 @@ import { GdsBadge } from './GdsBadge';
 export interface GdsMapPinPreviewCardProps {
   /** Listing title. */
   title: ReactNode;
-  /** First half of the meta line — the activity name. Rendered as `activity · neighbourhood`. */
+  /** First half of the meta line — what the listing is. Rendered as `category · neighbourhood`. */
+  category?: ReactNode;
+  /** @deprecated Use `category`. Removed in 8.0.0. */
   activity?: ReactNode;
   /** Second half of the meta line — the neighbourhood. Either half renders alone. */
   neighbourhood?: ReactNode;
   /** One-sentence written summary. */
   summary?: ReactNode;
-  /** Age-range chip content (e.g. "6–12"). */
+  /** Audience chip content (e.g. "All ages", "18+", "Members"). */
+  audience?: ReactNode;
+  /** @deprecated Use `audience`. Removed in 8.0.0. */
   ageRange?: ReactNode;
   /** Trust badge. Omitted entirely when absent. */
   trust?: { variant: MeaningVariant; label: ReactNode };
@@ -76,7 +80,7 @@ function PreviewSkeleton() {
  * `docs/MAP_SYSTEM.md` §9 for its place in the map system.
  */
 export function GdsMapPinPreviewCard({
-  title, activity, neighbourhood, summary, ageRange, trust, priceEstimate, lastChecked,
+  title, category: categoryProp, activity, neighbourhood, summary, audience: audienceProp, ageRange, trust, priceEstimate, lastChecked,
   thumbnailSeed, categories, primaryAction,
   saved, saveLabel, unsaveLabel, onSaveChange,
   onClose, closeLabel, loading = false,
@@ -84,7 +88,9 @@ export function GdsMapPinPreviewCard({
   const hasMedia = Boolean(thumbnailSeed && categories && categories.length > 0);
   const hasEstimate = Boolean(priceEstimate || lastChecked);
   const hasSave = Boolean(saveLabel && unsaveLabel);
-  const meta = [activity, neighbourhood].filter((part) => part !== undefined && part !== null);
+  const category = categoryProp ?? activity;
+  const audience = audienceProp ?? ageRange;
+  const meta = [category, neighbourhood].filter((part) => part !== undefined && part !== null);
 
   return (
     <Paper
@@ -134,9 +140,9 @@ export function GdsMapPinPreviewCard({
 
           {summary ? <Text size="sm">{summary}</Text> : null}
 
-          {(ageRange || trust) ? (
+          {(audience || trust) ? (
             <Group gap="xs">
-              {ageRange ? <GdsBadge tone="neutral" label={ageRange} /> : null}
+              {audience ? <GdsBadge tone="neutral" label={audience} /> : null}
               {trust ? <MeaningBadge variant={trust.variant} label={trust.label} /> : null}
             </Group>
           ) : null}

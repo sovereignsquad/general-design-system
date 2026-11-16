@@ -4,6 +4,16 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
+### Generic names for activity- and family-specific package APIs (#985)
+
+- `DetailFactsTable`'s first two default facts are `audience` ("Audience") and `category` ("Category"), translated in every locale pack. The old value keys `ageRange` and `activityType` still fill those rows and are deprecated.
+- `GdsMapPinPreviewCard` takes `category` and `audience`. `activity` and `ageRange` are deprecated aliases.
+- `PartnerPlaceDetailTemplate` takes a generic `tip` on the place and on the labels. `parentTip` is a deprecated fallback, and `labels.parentTip` is optional.
+- `partnerDiscoveryDefaultAmenities` is a neutral set: wifi, step-free access, quiet area, power outlets, card payments, pet friendly, outdoor seating, reservations. The previous family set is exported as `partnerDiscoveryFamilyAmenities`. Visible change for apps that rely on the default set.
+- The package documentation examples use neutral subjects instead of sports. This covers `GdsMapFilterRail`, `GdsGeneratedThumbnail`, `GdsMapPinBadge` and the category registry.
+- The site demos use the generic names. The remaining family and fitness copy is neutral: the hero search fields, the quick-start scenarios, the partner detail and newsletter, the settings tabs and the satisfaction slider.
+- Records are in `DEPRECATIONS_AND_MIGRATIONS.md`. The old names are removed in 8.0.0.
+
 ### Reference site demo content covers many domains, not sport (#984)
 
 - The site's demo data was mostly sport and two client domains: dance, padel, swimming, soccer, athletes, coaches, sports classes. GDS is for any product, so the demos now use domains that fit each pattern:

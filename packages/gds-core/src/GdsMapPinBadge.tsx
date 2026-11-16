@@ -34,7 +34,7 @@ export interface GdsMapPinBadgeProps {
   accent: GdsBadgeAccentName;
   /** A canonical `GdsIcons` key, or any externally-sourced icon element (outline style, matching stroke recommended). */
   icon: GdsIconKey | ReactNode;
-  /** Accessible name (e.g. "Riverside Field — soccer"). Never derive from an icon library's import name. */
+  /** Accessible name (e.g. "Riverside Library — books"). Never derive from an icon library's import name. */
   label: string;
   /**
    * Solid pin + inverse (white-on-dark) icon, for real basemap imagery.
@@ -127,10 +127,10 @@ const EMOJI_DISC_FILL = 'var(--mantine-color-dark-7, #1f2937)';
  * @example
  * ```tsx
  * <GdsMapPinBadge accent="ocean" icon="Location" label="Community pool" />
- * <GdsMapPinBadge accent="forest" icon={<IconBallFootball />} label="Riverside Field — soccer" filled />
+ * <GdsMapPinBadge accent="forest" icon={<IconBook />} label="Riverside Library — books" filled />
  * <GdsMapPinBadge accent="forest" icon="Habit" label="Trailhead" filled fillOpacity={0.85} />
- * <GdsMapPinBadge accent="forest" shade="deeper" icon={<IconBallBasketball />} label="Rec Center — basketball" filled />
- * <GdsMapPinBadge accent="terracotta" icon={<IconBallBasketball />} emoji="🏀" label="Pivot Point Basketball" />
+ * <GdsMapPinBadge accent="forest" shade="deeper" icon={<IconCoffee />} label="Harbour Café — coffee" filled />
+ * <GdsMapPinBadge accent="terracotta" icon={<IconCoffee />} emoji="☕" label="Pivot Point Coffee" />
  * ```
  */
 export function GdsMapPinBadge({

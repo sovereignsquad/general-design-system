@@ -53,7 +53,7 @@ const withCount = (label: ReactNode, count: number | undefined) =>
  * ```tsx
  * <GdsMapFilterRail
  *   ariaLabel="Filter places by activity"
- *   options={[{ id: 'soccer', label: 'Soccer', count: 12 }, { id: 'swim', label: 'Swimming', count: 4 }]}
+ *   options={[{ id: 'cafes', label: 'Cafés', count: 12 }, { id: 'libraries', label: 'Libraries', count: 4 }]}
  *   value={filter}
  *   onChange={setFilter}
  *   onHeightChange={(px) => setMapInset(px)}

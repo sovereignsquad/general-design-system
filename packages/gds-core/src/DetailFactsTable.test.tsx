@@ -13,8 +13,8 @@ const UNKNOWN = 'Not confirmed — ask the provider';
 describe('DetailFactsTable (issue 711)', () => {
   it('exports the nine-id schema in the documented order', () => {
     expect(GDS_DETAIL_FACT_IDS).toEqual([
-      'ageRange',
-      'activityType',
+      'audience',
+      'category',
       'format',
       'location',
       'setting',
@@ -42,8 +42,8 @@ describe('DetailFactsTable (issue 711)', () => {
     const { container } = renderWithGds(<DetailFactsTable />);
     const labels = Array.from(container.querySelectorAll('dt')).map((el) => el.textContent);
     expect(labels).toEqual([
-      'Age range',
-      'Activity type',
+      'Audience',
+      'Category',
       'Format',
       'Location',
       'Indoor/outdoor',
@@ -64,8 +64,8 @@ describe('DetailFactsTable (issue 711)', () => {
     renderWithGds(
       <DetailFactsTable
         values={{
-          ageRange: '5-12',
-          activityType: 'Soccer',
+          audience: '16+',
+          category: 'Photography',
           format: 'Group',
           location: 'Prospect Park',
           setting: 'Outdoor',
@@ -77,7 +77,7 @@ describe('DetailFactsTable (issue 711)', () => {
       />,
     );
     expect(screen.queryByText(UNKNOWN)).not.toBeInTheDocument();
-    expect(screen.getByText('5-12')).toBeInTheDocument();
+    expect(screen.getByText('16+')).toBeInTheDocument();
     expect(screen.getByText('2026-09-01')).toBeInTheDocument();
   });
 
@@ -154,7 +154,13 @@ describe('DetailFactsTable (issue 711)', () => {
 
   it('resolves the default schema through a non-English locale', () => {
     renderWithGds(<DetailFactsTable />, { locale: 'ar', messages: ar });
-    expect(screen.getByText('الفئة العمرية')).toBeInTheDocument();
+    expect(screen.getByText('جمهور')).toBeInTheDocument();
     expect(screen.getAllByText('غير مؤكد — يُرجى سؤال مزود الخدمة')).toHaveLength(9);
+  });
+
+  it('still fills audience and category from the deprecated ageRange and activityType keys', () => {
+    renderWithGds(<DetailFactsTable values={{ ageRange: 'All ages', activityType: 'Talks' }} />);
+    expect(screen.getByText('All ages')).toBeInTheDocument();
+    expect(screen.getByText('Talks')).toBeInTheDocument();
   });
 });
