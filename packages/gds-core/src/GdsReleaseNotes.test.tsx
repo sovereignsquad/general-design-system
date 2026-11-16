@@ -55,6 +55,19 @@ describe('GdsReleaseNotes (#978)', () => {
     expect(container.querySelector('#release-1-0-0-2')).toBeTruthy();
   });
 
+  it('offers a line break after each slash between code spans, with and without issueHref', () => {
+    const slashed: GdsRelease[] = [{ version: '3.0.0', sections: [{ heading: [{ kind: 'text', text: 'Variants' }], blocks: [
+      { kind: 'paragraph', content: [{ kind: 'code', text: 'secondary' }, { kind: 'text', text: '/' }, { kind: 'code', text: 'subtle' }, { kind: 'text', text: '/' }, { kind: 'code', text: 'danger' }, { kind: 'text', text: ' are unchanged (#12).' }] },
+    ] }] }];
+    for (const issueHref of [undefined, (issue: number) => `https://example.com/${issue}`]) {
+      const { container, unmount } = renderWithGds(<GdsReleaseNotes releases={slashed} issueHref={issueHref} />);
+      const paragraph = container.querySelector('[data-gds-release-notes] p');
+      expect(paragraph?.querySelectorAll('wbr')).toHaveLength(2);
+      expect(paragraph?.textContent).toBe('secondary/subtle/danger are unchanged (#12).');
+      unmount();
+    }
+  });
+
   it('leaves issue references as text without issueHref', () => {
     renderWithGds(<GdsReleaseNotes releases={releases} />);
     expect(screen.queryByRole('link', { name: '#985' })).toBeNull();
