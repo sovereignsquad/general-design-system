@@ -423,4 +423,10 @@ export const zh = {
   'gds.toast.regionLabel': "最近的通知",
   'gds.detailFacts.audience': "观众",
   'gds.detailFacts.category': "类别",
+  'gds.docsCodeBlock.copied': "复制的代码块",
+  'gds.docsCodeBlock.copy': "复制代码块",
+  'gds.docsCodeDisclosure.show': "显示代码",
+  'gds.docsCodeDisclosure.loading': "正在加载代码...",
+  'gds.docsCodeDisclosure.error': "无法加载代码。关闭并重新打开以重试。",
+  'gds.docsCodeBlock.region': "代码",
 };

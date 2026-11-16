@@ -423,4 +423,10 @@ export const ar = {
   'gds.toast.regionLabel': "الإخطارات الأخيرة",
   'gds.detailFacts.audience': "جمهور",
   'gds.detailFacts.category': "فئة",
+  'gds.docsCodeBlock.copied': "كتلة التعليمات البرمجية المنسوخة",
+  'gds.docsCodeBlock.copy': "نسخ كتلة التعليمات البرمجية",
+  'gds.docsCodeDisclosure.show': "إظهار الرمز",
+  'gds.docsCodeDisclosure.loading': "جارٍ تحميل الرمز…",
+  'gds.docsCodeDisclosure.error': "لا يمكن تحميل الرمز. أغلق وأعد فتحه للمحاولة مرة أخرى.",
+  'gds.docsCodeBlock.region': "شفرة",
 };

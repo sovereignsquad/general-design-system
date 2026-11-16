@@ -821,9 +821,9 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     docSection: 'Core Component Contracts',
     family: 'public',
     section: 'Public Shells & Docs',
-    summary: 'Install and reference code blocks need a shared wrapper with accessible copy affordances.',
+    summary: 'Install and reference code blocks need a shared wrapper with accessible copy affordances; long examples sit in a collapsed disclosure that can load its code on first open.',
     importPath: '@sovereignsquad/gds-core',
-    sourceComponent: 'DocsCodeBlock',
+    sourceComponent: 'DocsCodeBlock / DocsCodeDisclosure',
   },
   {
     id: 'release-notes',

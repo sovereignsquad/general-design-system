@@ -423,4 +423,10 @@ export const ru = {
   'gds.toast.regionLabel': "Недавние уведомления",
   'gds.detailFacts.audience': "Аудитория",
   'gds.detailFacts.category': "Категория",
+  'gds.docsCodeBlock.copied': "Скопированный блок кода",
+  'gds.docsCodeBlock.copy': "Скопировать блок кода",
+  'gds.docsCodeDisclosure.show': "Показать код",
+  'gds.docsCodeDisclosure.loading': "Загрузка кода…",
+  'gds.docsCodeDisclosure.error': "Код не удалось загрузить. Закройте и снова откройте, чтобы повторить попытку.",
+  'gds.docsCodeBlock.region': "Код",
 };

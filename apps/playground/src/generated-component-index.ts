@@ -517,6 +517,16 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "alsoAppearsIn": []
   },
   {
+    "name": "DocsCodeDisclosure",
+    "status": "registered",
+    "home": {
+      "id": "docs-code-blocks",
+      "family": "public",
+      "section": "Public Shells & Docs"
+    },
+    "alsoAppearsIn": []
+  },
+  {
     "name": "DocsHeaderActionSelect",
     "status": "exempt",
     "reason": "Sub-part of the registered DocsShell pattern — header action control."

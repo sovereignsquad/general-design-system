@@ -423,4 +423,10 @@ export const it = {
   'gds.toast.regionLabel': "Notifiche recenti",
   'gds.detailFacts.audience': "Pubblico",
   'gds.detailFacts.category': "Categoria",
+  'gds.docsCodeBlock.copied': "Blocco di codice copiato",
+  'gds.docsCodeBlock.copy': "Copia blocco di codice",
+  'gds.docsCodeDisclosure.show': "Mostra codice",
+  'gds.docsCodeDisclosure.loading': "Caricamento codice...",
+  'gds.docsCodeDisclosure.error': "Impossibile caricare il codice. Chiudi e riapri per riprovare.",
+  'gds.docsCodeBlock.region': "Codice",
 };

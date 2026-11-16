@@ -423,4 +423,10 @@ export const ja = {
   'gds.toast.regionLabel': "最近のお知らせ",
   'gds.detailFacts.audience': "観客",
   'gds.detailFacts.category': "カテゴリ",
+  'gds.docsCodeBlock.copied': "コピーされたコードブロック",
+  'gds.docsCodeBlock.copy': "コードブロックをコピーする",
+  'gds.docsCodeDisclosure.show': "コードを表示",
+  'gds.docsCodeDisclosure.loading': "コードを読み込み中…",
+  'gds.docsCodeDisclosure.error': "コードをロードできませんでした。閉じて再度開くと、再試行できます。",
+  'gds.docsCodeBlock.region': "コード",
 };
