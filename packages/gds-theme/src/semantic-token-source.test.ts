@@ -33,7 +33,7 @@ describe('semantic token single source', () => {
       const brand = Object.keys(createBrandTheme(lane).mantineTheme.other.gdsCssVariables).sort();
       // The atmosphere lane and the preset button roles exist only under a theme preset.
       const vibe = Object.keys(getGdsVibeThemeCssVariables(lane, 'light'))
-        .filter((k) => !k.startsWith('--gds-vibe-') && !k.startsWith('--gds-action-'))
+        .filter((k) => !/^--gds-(vibe|action)-/.test(k))
         .sort();
       expect(vibe).toEqual(brand);
     }
