@@ -87,7 +87,7 @@ const report = (
 /**
  * The floor.
  *
- * Every rule is checkable from resolved tokens alone, so the gate runs over all 25 presets in
+ * Every rule is checkable from resolved tokens alone, so the gate runs over every preset in
  * both schemes without a browser. Rules needing real geometry belong to the runtime harness.
  */
 export const gdsAccessibilityFloorRules: readonly GdsFloorRule[] = [
@@ -342,17 +342,59 @@ export const gdsAccessibilityFloorRules: readonly GdsFloorRule[] = [
     id: 'primary-cta-text-contrast',
     axis: 'color',
     wcag: '1.4.3 Contrast (Minimum) (AA)',
-    rationale:
-      'The primary call to action is the one control a page most expects to be pressed, and its label is normal-weight text. Nothing else in GDS measured this pairing: createBrandTheme\'s assertContrast gates text on page/surface/inverse and derives a readable foreground for support, and no floor rule covered the action fill, so a preset could ship a CTA below AA and every gate stayed silent (issue 680).',
+    rationale: 'The filled primary button paints `--gds-action-fill-fg` on `--gds-vibe-primary`; its label is normal-weight text (issue 680, #977).',
     evaluate(ctx) {
       const fill = ctx.tokens['--gds-vibe-primary'];
+      const fg = ctx.tokens['--gds-action-fill-fg'];
       if (!fill) return [];
-      // The pairing that actually renders: the governed Button rule paints
-      // `background: var(--gds-vibe-primary)` with `color: var(--mantine-color-white)`.
-      const ratio = contrastRatio('#ffffff', fill, fill);
-      if (ratio === null || ratio >= 4.5) return [];
-      return [report(ctx, this, `white on ${fill} = ${ratio}:1`, '>= 4.5:1',
-        'Darken the preset\'s `primary` vibe colour, or point the CTA at an in-palette tone that clears AA. Reported, not enforced: presets predating this rule have never been measured on this axis.')];
+      const ratio = contrastRatio(fg ?? '', fill, fill);
+      if (ratio !== null && ratio >= 4.5) return [];
+      return [violation(ctx, this, `${fg ?? 'missing'} on ${fill} = ${ratio ?? 'unresolvable'}:1`, '>= 4.5:1',
+        'Emit `--gds-action-fill-fg` from readableForeground over the emitted primary.')];
+    },
+  },
+  {
+    id: 'action-fill-separation',
+    axis: 'color',
+    wcag: '1.4.11 Non-text Contrast (AA)',
+    rationale: 'A filled button or accent mark that matches the page or card it sits on cannot be told apart from it (#977).',
+    evaluate(ctx) {
+      const out: GdsFloorViolation[] = [];
+      for (const role of ['--gds-vibe-primary', '--gds-vibe-accent']) {
+        for (const surface of ['--gds-vibe-canvas', '--gds-bg-card']) {
+          const fill = ctx.tokens[role];
+          const bg = ctx.tokens[surface];
+          if (!fill || !bg) continue;
+          const ratio = contrastRatio(fill, bg, bg);
+          if (ratio === null || ratio < 3) {
+            out.push(violation(ctx, this, `${role} ${fill} on ${surface} ${bg} = ${ratio ?? 'unresolvable'}:1`, '>= 3:1',
+              'getGdsVibeThemeCssVariables separates the primary and accent from canvas and card; a failure means a surface it does not know about.'));
+          }
+        }
+      }
+      return out;
+    },
+  },
+  {
+    id: 'action-gradient-text-contrast',
+    axis: 'color',
+    wcag: '1.4.3 Contrast (Minimum) (AA)',
+    rationale: 'A gradient button fill carries a normal-weight label across its whole width, so every stop must clear 4.5:1 (#977).',
+    evaluate(ctx) {
+      const gradient = ctx.tokens['--gds-vibe-action-gradient'];
+      const fg = ctx.tokens['--gds-vibe-action-gradient-fg'];
+      if (!gradient) return [];
+      const stops = gradient.match(/#[0-9a-f]{3,8}\b|rgba?\([^)]*\)/gi) ?? [];
+      const out: GdsFloorViolation[] = [];
+      if (stops.length === 0) out.push(violation(ctx, this, gradient, 'parseable colour stops', 'Declare stops as hex or rgb() values.'));
+      for (const stop of stops) {
+        const ratio = contrastRatio(fg ?? '', stop, stop);
+        if (ratio === null || ratio < 4.5) {
+          out.push(violation(ctx, this, `${fg ?? 'missing'} on ${stop} = ${ratio ?? 'unresolvable'}:1`, '>= 4.5:1',
+            'Darken (light label) or lighten (dark label) that stop in the preset\'s actionGradient.'))
+        }
+      }
+      return out;
     },
   },
   {
@@ -374,16 +416,15 @@ export const gdsAccessibilityFloorRules: readonly GdsFloorRule[] = [
     id: 'outline-accent-text-contrast',
     axis: 'color',
     wcag: '1.4.3 Contrast (Minimum) (AA)',
-    rationale:
-      'SemanticButton\'s `outline-accent` brand intent (issue 700) is the first component that renders an accent as label text on the page — precisely the condition accent-axis.ts\'s `outline` mode enforcement entry names ("No component renders an accent as text on the page today"). That entry governs a different, unrelated mechanism (the 10-name categorical GdsAccentAxis ramp GdsIconBadge draws from), not this single brand-accent role, so it is deliberately left untouched (THEME_GOVERNANCE.md) — this rule is the purpose-built measurement for the pairing that actually renders: `--gds-brand-accent-action` as both the label and the 1.5px stroke, on the page surface a transparent-fill button sits on. Measured across all 27 presets x 2 schemes: every light-scheme value clears 4.5:1 (the generic derivation path ensureContrasts it against canvasLight in semantic-token-source.ts), but 25 of 27 dark-scheme values do not, because that same derivation reuses the light-derived value unchanged in dark mode rather than re-deriving against canvasDark — a real, pre-existing gap this rule surfaces rather than silently enforcing away (class-usa and gold-athlete\'s bespoke emission paths pass in both schemes). Reported, not enforced, until that gap is closed at the source.',
+    rationale: 'SemanticButton\'s `outline-accent` intent (issue 700) renders `--gds-brand-accent-action` as its label and stroke on the page.',
     evaluate(ctx) {
       const fill = ctx.tokens['--gds-brand-accent-action'];
       const page = ctx.tokens['--gds-bg-page'];
       if (!fill || !page) return [];
       const ratio = contrastRatio(fill, page, page);
       if (ratio === null || ratio >= 4.5) return [];
-      return [report(ctx, this, `${fill} on ${page} = ${ratio}:1`, '>= 4.5:1',
-        'Re-derive `--gds-brand-accent-action` against this scheme\'s own canvas (semantic-token-source.ts currently ensures it against canvasLight only, then reuses that value unchanged for dark) rather than the light-derived value.')];
+      return [violation(ctx, this, `${fill} on ${page} = ${ratio}:1`, '>= 4.5:1',
+        'Derive `--gds-brand-accent-action` against this scheme\'s own canvas and card.')];
     },
   },
   {

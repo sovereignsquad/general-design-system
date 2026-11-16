@@ -314,8 +314,8 @@ html[data-mantine-color-scheme='dark'] {
   --gds-brand-primary-fg: light-dark(#ffffff, #000000);
   --gds-brand-accent: light-dark(rgb(5, 148, 172), rgb(68, 200, 223));
   --gds-brand-accent-fg: #000000;
-  --gds-brand-accent-action: rgb(5, 123, 143);
-  --gds-brand-accent-action-fg: #ffffff;
+  --gds-brand-accent-action: light-dark(rgb(5, 123, 143), rgb(68, 200, 223));
+  --gds-brand-accent-action-fg: light-dark(#ffffff, #000000);
   --gds-state-success: light-dark(rgb(54, 118, 116), rgb(132, 191, 157));
   --gds-state-warning: light-dark(rgb(166, 77, 66), #e0a23c);
   --gds-state-danger: light-dark(#b3261e, #f2786f);
@@ -528,33 +528,39 @@ html[data-mantine-color-scheme='dark'][data-gds-theme-preset] .gds-card:where(:n
     linear-gradient(145deg, color-mix(in srgb, var(--gds-vibe-surface) 88%, black), color-mix(in srgb, var(--gds-vibe-surface) 76%, var(--gds-vibe-primary) 14%)));
 }
 
-html[data-gds-theme-preset] .mantine-Button-root:not([data-variant='default']):not([style*='--button-bg: var(--mantine-color-red']):not([data-gds-brand-button='outline-accent']):not([data-gds-brand-button='gradient']):where(:not([data-gds-fixed-tone])) {
-  /* Solid fill, not a primary->accent gradient: none of the shipped theme
-     presets (theme-presets.ts) ever configure a `variant="gradient"` filled
-     button, so a gradient here would show every real button on the site a
-     style no theme actually produces — the same defect already fixed for
-     the narrower owned-contrast preview surfaces above. The one sanctioned
-     exception is SemanticButton's `outline-accent`/`gradient` brand intents
-     (issue 700, styles below this block) — they paint their own transparent
-     stroke / reserved Scout AI gradient fill and are excluded here so this
-     generic repaint cannot overwrite them. */
+html[data-gds-theme-preset] .mantine-Button-root:is(:not([data-variant]), [data-variant='filled']):not([style*='--button-bg: var(--mantine-color-red']):not([data-gds-brand-button='outline-accent']):not([data-gds-brand-button='gradient']):where(:not([data-gds-fixed-tone])) {
+  /* Filled buttons only: light, subtle, outline, transparent and white keep
+     their variant so the button hierarchy survives every preset. Solid fill,
+     because no preset configures a gradient filled button. SemanticButton's
+     outline-accent and gradient intents paint themselves below. */
   background: var(--gds-vibe-primary);
   border-color: var(--gds-vibe-primary);
-  color: var(--mantine-color-white);
+  color: var(--gds-action-fill-fg, var(--mantine-color-white));
   box-shadow: 0 12px 34px color-mix(in srgb, var(--gds-vibe-glow) 58%, transparent);
 }
 
+/* Outline and subtle buttons label in the preset's body text, which holds 4.5:1 on every
+   surface it can sit on (glows and gradients included); the outline keeps the primary as its
+   border, so the variants stay distinct. */
+html[data-gds-theme-preset] .mantine-Button-root:is([data-variant='outline'], [data-variant='subtle']):not([style*='--button-bg: var(--mantine-color-red']):not([data-gds-brand-button]):where(:not([data-gds-fixed-tone])) {
+  --button-color: var(--gds-vibe-text);
+  --button-hover-color: var(--gds-vibe-text);
+  color: var(--gds-vibe-text);
+}
+
+html[data-gds-theme-preset] .mantine-Button-root[data-variant='outline']:not([style*='--button-bg: var(--mantine-color-red']):not([data-gds-brand-button]):where(:not([data-gds-fixed-tone])) {
+  --button-bd: 1px solid var(--gds-action-outline);
+}
+
 /*
- * Danger-colored buttons (Button color="red", e.g. SemanticButton's "delete"/"cancel"
- * destructive actions) must keep their native red styling instead of being repainted
- * with the decorative brand gradient above — otherwise every destructive action in the
- * product looks identical to a primary action, defeating the color semantic entirely.
- * Mirrors the existing --gds-vibe-danger carve-out already used for red Text/Menu items.
+ * Filled red buttons (destructive actions) keep the red fill instead of the
+ * preset primary, so a destructive action never looks like a primary one.
+ * Non-filled red variants keep Mantine's red variant colours.
  */
-html[data-gds-theme-preset] .mantine-Button-root[style*='--button-bg: var(--mantine-color-red']:where(:not([data-gds-fixed-tone])) {
-  background: var(--mantine-color-red-filled);
-  border-color: var(--mantine-color-red-filled);
-  color: var(--mantine-color-white);
+html[data-gds-theme-preset] .mantine-Button-root:is(:not([data-variant]), [data-variant='filled'])[style*='--button-bg: var(--mantine-color-red']:where(:not([data-gds-fixed-tone])) {
+  background: var(--gds-badge-solid-danger, var(--mantine-color-red-filled));
+  border-color: var(--gds-badge-solid-danger, var(--mantine-color-red-filled));
+  color: var(--gds-badge-solid-danger-fg, var(--mantine-color-white));
   box-shadow: none;
 }
 
@@ -674,8 +680,8 @@ html[data-gds-theme-preset] .mantine-Button-root[data-variant='default']:where(:
  * `--gds-vibe-control-text`/`--gds-vibe-control` pair the generic rule
  * already uses) would collapse text-on-background contrast to ~1:1.
  */
-html[data-mantine-color-scheme='light'][data-gds-theme-preset='class-usa'] .mantine-Button-root:not([data-variant='default']):not([style*='--button-bg: var(--mantine-color-red']):not([data-gds-brand-button='outline-accent']):not([data-gds-brand-button='gradient']):where(:not([data-gds-fixed-tone])),
-html[data-mantine-color-scheme='light'][data-gds-theme-preset='gold-athlete'] .mantine-Button-root:not([data-variant='default']):not([style*='--button-bg: var(--mantine-color-red']):not([data-gds-brand-button='outline-accent']):not([data-gds-brand-button='gradient']):where(:not([data-gds-fixed-tone])) {
+html[data-mantine-color-scheme='light'][data-gds-theme-preset='class-usa'] .mantine-Button-root:is(:not([data-variant]), [data-variant='filled']):not([style*='--button-bg: var(--mantine-color-red']):not([data-gds-brand-button='outline-accent']):not([data-gds-brand-button='gradient']):where(:not([data-gds-fixed-tone])),
+html[data-mantine-color-scheme='light'][data-gds-theme-preset='gold-athlete'] .mantine-Button-root:is(:not([data-variant]), [data-variant='filled']):not([style*='--button-bg: var(--mantine-color-red']):not([data-gds-brand-button='outline-accent']):not([data-gds-brand-button='gradient']):where(:not([data-gds-fixed-tone])) {
   /* outline-accent/gradient excluded (issue 700): this decorative trim border would fight
      outline-accent's own accent stroke and gradient's borderless fill. */
   border: 2px solid var(--gds-vibe-accent) !important;
@@ -695,7 +701,7 @@ html[data-mantine-color-scheme='light'][data-gds-theme-preset='gold-athlete'] .m
  * color the spec certifies for a label at 4.9:1, and that certification
  * doesn't vary by scheme, so this button fill doesn't either.
  */
-html[data-gds-theme-preset='class-usa'] .mantine-Button-root:not([data-variant='default']):not([style*='--button-bg: var(--mantine-color-red']):not([data-gds-brand-button='outline-accent']):not([data-gds-brand-button='gradient']):where(:not([data-gds-fixed-tone])) {
+html[data-gds-theme-preset='class-usa'] .mantine-Button-root:is(:not([data-variant]), [data-variant='filled']):not([style*='--button-bg: var(--mantine-color-red']):not([data-gds-brand-button='outline-accent']):not([data-gds-brand-button='gradient']):where(:not([data-gds-fixed-tone])) {
   /* outline-accent/gradient excluded (issue 700): forcing this solid accent fill would erase
      outline-accent's transparent fill and gradient's own background-image/color layering. */
   background: var(--gds-vibe-accent) !important;
@@ -1155,19 +1161,18 @@ html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .gds-card
   backdrop-filter: blur(22px) saturate(1.2);
 }
 
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-Button-root:not([data-variant='default']):not([style*='--button-bg: var(--mantine-color-red']):not([data-gds-brand-button='outline-accent']):not([data-gds-brand-button='gradient']):where(:not([data-gds-fixed-tone])) {
-  /* outline-accent/gradient excluded (issue 700): this decorative multicolor gradient would
-     overwrite the sanctioned Scout AI gradient (and outline-accent's transparent fill). */
-  color: #ffffff;
-  background: linear-gradient(135deg, #7c3cff, #e018ff, #ff9b3d) !important;
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-Button-root:is(:not([data-variant]), [data-variant='filled']):not([style*='--button-bg: var(--mantine-color-red']):not([data-gds-brand-button='outline-accent']):not([data-gds-brand-button='gradient']):where(:not([data-gds-fixed-tone])) {
+  /* The preset's actionGradient. outline-accent and gradient intents paint themselves. */
+  color: var(--gds-vibe-action-gradient-fg, #ffffff);
+  background: var(--gds-vibe-action-gradient, var(--gds-vibe-primary)) !important;
   border-color: transparent !important;
   box-shadow: 0 12px 32px rgba(224, 24, 255, 0.32);
 }
 
-html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-Button-root[style*='--button-bg: var(--mantine-color-red']:where(:not([data-gds-fixed-tone])) {
-  color: #ffffff;
-  background: var(--mantine-color-red-filled) !important;
-  border-color: var(--mantine-color-red-filled) !important;
+html[data-mantine-color-scheme='dark'][data-gds-theme-preset='cosmic'] .mantine-Button-root:is(:not([data-variant]), [data-variant='filled'])[style*='--button-bg: var(--mantine-color-red']:where(:not([data-gds-fixed-tone])) {
+  color: var(--gds-badge-solid-danger-fg, #ffffff);
+  background: var(--gds-badge-solid-danger, var(--mantine-color-red-filled)) !important;
+  border-color: var(--gds-badge-solid-danger, var(--mantine-color-red-filled)) !important;
   box-shadow: none;
 }
 
@@ -1264,8 +1269,8 @@ html[data-gds-theme-preset] [data-gds-local-contrast] .gds-card:where(:not([data
   border-color: var(--gds-vibe-border) !important;
 }
 
-html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Button-root:not([data-variant='default']):not([style*='--button-bg: var(--mantine-color-red']):not([data-gds-brand-button='outline-accent']):not([data-gds-brand-button='gradient']):where(:not([data-gds-fixed-tone])),
-html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Button-root:not([data-variant='default']):not([style*='--button-bg: var(--mantine-color-red']):not([data-gds-brand-button='outline-accent']):not([data-gds-brand-button='gradient']):where(:not([data-gds-fixed-tone])) {
+html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Button-root:is(:not([data-variant]), [data-variant='filled']):not([style*='--button-bg: var(--mantine-color-red']):not([data-gds-brand-button='outline-accent']):not([data-gds-brand-button='gradient']):where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Button-root:is(:not([data-variant]), [data-variant='filled']):not([style*='--button-bg: var(--mantine-color-red']):not([data-gds-brand-button='outline-accent']):not([data-gds-brand-button='gradient']):where(:not([data-gds-fixed-tone])) {
   /* Solid fill, not a primary->accent gradient: this rule paints every
      filled-style button inside a vibe-gallery/vibe-contract/athlete-gold-
      reference preview, and a governed brand theme's real Button (e.g.
@@ -1274,16 +1279,16 @@ html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Button-root:not([
      style the theme itself never actually produces. outline-accent/gradient
      excluded (issue 700) so a SemanticButton preview inside one of these
      wrappers keeps its own paint instead of this generic solid fill. */
-  color: var(--mantine-color-white) !important;
+  color: var(--gds-action-fill-fg, var(--mantine-color-white)) !important;
   background: var(--gds-vibe-primary) !important;
   border-color: var(--gds-vibe-primary) !important;
 }
 
-html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Button-root[style*='--button-bg: var(--mantine-color-red']:where(:not([data-gds-fixed-tone])),
-html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Button-root[style*='--button-bg: var(--mantine-color-red']:where(:not([data-gds-fixed-tone])) {
-  color: var(--mantine-color-white) !important;
-  background: var(--mantine-color-red-filled) !important;
-  border-color: var(--mantine-color-red-filled) !important;
+html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Button-root:is(:not([data-variant]), [data-variant='filled'])[style*='--button-bg: var(--mantine-color-red']:where(:not([data-gds-fixed-tone])),
+html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Button-root:is(:not([data-variant]), [data-variant='filled'])[style*='--button-bg: var(--mantine-color-red']:where(:not([data-gds-fixed-tone])) {
+  color: var(--gds-badge-solid-danger-fg, var(--mantine-color-white)) !important;
+  background: var(--gds-badge-solid-danger, var(--mantine-color-red-filled)) !important;
+  border-color: var(--gds-badge-solid-danger, var(--mantine-color-red-filled)) !important;
 }
 
 html[data-gds-theme-preset] [data-gds-owned-contrast] .mantine-Button-root[data-variant='default']:where(:not([data-gds-fixed-tone])),
@@ -1460,7 +1465,7 @@ html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Badge-root:where(
 
   html[data-gds-theme-preset] .mantine-Button-root[data-variant='filled'],
   html[data-gds-theme-preset] .mantine-Button-root[data-variant='light'],
-  html[data-gds-theme-preset] .mantine-Button-root:not([data-variant='default']),
+  html[data-gds-theme-preset] .mantine-Button-root:is(:not([data-variant]), [data-variant='filled']),
   html[data-gds-theme-preset] .mantine-Menu-item[data-hovered],
   html[data-gds-theme-preset] .mantine-Tabs-tab[data-active],
   html[data-gds-theme-preset] .mantine-SegmentedControl-control[data-active] {
@@ -1582,7 +1587,7 @@ html[data-gds-theme-preset] [data-gds-local-contrast] .mantine-Badge-root:where(
 
   html[data-gds-theme-preset] .mantine-Button-root[data-variant='filled']:not(#gds-never),
   html[data-gds-theme-preset] .mantine-Button-root[data-variant='light']:not(#gds-never),
-  html[data-gds-theme-preset] .mantine-Button-root:not([data-variant='default']):not(#gds-never) {
+  html[data-gds-theme-preset] .mantine-Button-root:is(:not([data-variant]), [data-variant='filled']):not(#gds-never) {
     color: HighlightText !important;
     background: Highlight !important;
     background-image: none !important;

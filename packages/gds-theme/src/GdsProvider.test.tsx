@@ -14,7 +14,7 @@ import { createGdsTokenDiff, createGdsTokenGraph, createGdsThemeCompatibilityRep
 import { createPublicBrandTheme, gdsDarkPublicTheme, gdsEditorialPublicTheme, gdsFlatSurfaceTheme, gdsTheme, withGdsMotion } from './theme';
 import { getGdsThemePresets, partnerDiscoveryThemePreset, resolveGdsThemePreset } from './theme-presets';
 import { useGdsThemePresetState } from './theme-runtime';
-import { getGdsVibeThemes, resolveGdsVibeTheme } from './vibe-themes';
+import { getGdsVibeThemeCssVariables, getGdsVibeThemes, resolveGdsVibeTheme } from './vibe-themes';
 import { createBrandTheme } from './brand-tokens';
 
 function ProviderConsumer() {
@@ -418,8 +418,9 @@ describe('GdsProvider', () => {
     expect(document.documentElement.getAttribute('data-gds-theme-runtime')).toBe('coral-dark-blue-true-false-space-grotesk');
     expect(document.documentElement.getAttribute('data-gds-theme-preset')).toBe('coral');
     expect(document.documentElement.getAttribute('data-gds-font-lane')).toBe('space-grotesk');
-    expect(document.documentElement.style.getPropertyValue('--gds-vibe-primary')).toBe('#db2777');
-    expect(document.documentElement.style.getPropertyValue('--gds-vibe-accent')).toBe('#fb7185');
+    const coralDark = getGdsVibeThemeCssVariables('coral', 'dark');
+    expect(document.documentElement.style.getPropertyValue('--gds-vibe-primary')).toBe(coralDark['--gds-vibe-primary']);
+    expect(document.documentElement.style.getPropertyValue('--gds-vibe-accent')).toBe(coralDark['--gds-vibe-accent']);
     expect(window.localStorage.getItem('gds-test-theme-runtime')).toContain('coral');
 
     // A non-default font lane loads via a non-blocking <link>, not a blocking @import.

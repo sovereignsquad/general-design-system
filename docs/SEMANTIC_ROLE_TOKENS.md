@@ -47,6 +47,18 @@ A primary control or info badge filled with the body text colour reads as text. 
 
 No default brand-accent text role exists. `--gds-brand-accent` is undefined at this layer, `createPublicBrandTheme` emits no `--gds-*` roles, and `createBrandTheme` emits `--gds-brand-accent` as its raw input in both schemes, so no GDS role gives a brand-coloured text value derived per scheme. Use [`checkGdsContrast`](CONTRAST_CHECKER.md#brand-text-on-role-surfaces) for the brand-coloured text, measured against these surfaces in each scheme the product renders.
 
+### Button variants keep their emphasis under every preset (#977)
+
+Under a theme preset, only a filled button takes the preset fill. `light`, `outline`, `subtle` and `default` keep their own treatment, so a page has one primary action and the rest read as secondary. `getGdsVibeThemeCssVariables` derives the fill colours and their label colours per preset and scheme:
+
+- `--gds-vibe-primary` and `--gds-vibe-accent` are the brand's primary and accent, moved toward white (dark) or black (light) only as far as needed to stand 3:1 off the canvas and the card (WCAG 1.4.11). The atmosphere lane of `tokens/gds.tokens.json` still publishes the brand's own values; these are what renders.
+- `--gds-action-fill-fg` is the label on a filled primary button: white or black, whichever reaches 4.5:1 on the fill.
+- `--gds-action-outline` is the outline button's border: the fill colour, pushed to 4.5:1 on the canvas and the card. Use it for a primary-coloured stroke on the page. Outline and subtle labels use `--gds-vibe-text`, which holds 4.5:1 on every surface a button can sit on, gradients and glows included.
+- A filled red button paints the solid danger badge pair (`--gds-badge-solid-danger` and its `-fg`). Light red keeps the light variant.
+- A preset may declare `actionGradient` for one scheme; filled buttons then paint `--gds-vibe-action-gradient` with `--gds-vibe-action-gradient-fg`. Every stop must reach 4.5:1 against the label. Cosmic dark is the only preset that declares one.
+
+The accessibility floor enforces each pairing for every preset and scheme (`primary-cta-text-contrast`, `action-fill-separation`, `action-gradient-text-contrast`, `outline-accent-text-contrast`), and `verify:button-variants-runtime` measures the rendered buttons in a browser.
+
 ### Surface hierarchy: sidebar, raised and border roles (#951)
 
 Every preset, both hand-authored lanes and `createBrandTheme(...)` emit four more roles (with `-dark` pairs), from `emitSurfaceHierarchyCssVariables()`:

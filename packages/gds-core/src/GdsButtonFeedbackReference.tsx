@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Badge, Box, Group, Stack, Text } from '@mantine/core';
+import { Badge, Box, Button, Group, Stack, Text } from '@mantine/core';
 import { GdsVocabulary } from './vocabulary';
 import {
   GDS_BUTTON_FEEDBACK_DURATION_MS,
@@ -59,6 +59,9 @@ function LiveFeedbackButton({ action }: { action: string }) {
   );
 }
 
+// Button variants in emphasis order; every preset must keep them visually distinct.
+const GDS_BUTTON_VARIANT_HIERARCHY = ['filled', 'light', 'outline', 'subtle', 'default'] as const;
+
 const brandIntentDemos = [
   { variant: 'outline-accent' as const, label: 'outline-accent' },
   { variant: 'gradient' as const, label: 'gradient' },
@@ -108,6 +111,25 @@ function BrandIntentDemo({ variant }: { variant: 'outline-accent' | 'gradient' }
 export function GdsButtonFeedbackReference() {
   return (
     <Stack gap="md" data-gds-button-feedback-reference="">
+      <Stack gap="2xs" data-gds-button-variant-reference="">
+        <Text fw={700}>Variants</Text>
+        <Text size="sm">
+          Emphasis from strongest to weakest. Under every preset the filled button takes the
+          preset&apos;s primary colour and the others keep their own treatment, so a page has one
+          primary action and the rest read as secondary. Red marks a destructive action at the same
+          two emphasis levels.
+        </Text>
+        <Group gap="xs" wrap="wrap">
+          {GDS_BUTTON_VARIANT_HIERARCHY.map((variant) => (
+            <Button key={variant} variant={variant} data-gds-button-variant-probe={variant}>{variant}</Button>
+          ))}
+        </Group>
+        <Group gap="xs" wrap="wrap">
+          {(['filled', 'light'] as const).map((variant) => (
+            <Button key={variant} color="red" variant={variant} data-gds-button-variant-probe={`red-${variant}`}>{`red ${variant}`}</Button>
+          ))}
+        </Group>
+      </Stack>
       <Stack gap="2xs">
         <Group gap="xs" align="center">
           <Text fw={700}>Live — click either button</Text>

@@ -28,5 +28,7 @@ export default defineGdsThemePreset({
     mutedDark: 'rgba(235, 238, 255, 0.78)',
     gradient: 'radial-gradient(circle at 92% 20%, rgba(255, 180, 70, 0.26) 0 8%, transparent 24%), radial-gradient(circle at 84% 42%, rgba(255, 45, 190, 0.2) 0 12%, transparent 30%), radial-gradient(circle at 72% 18%, rgba(0, 180, 255, 0.18) 0 11%, transparent 30%), linear-gradient(135deg, #ffffff 0%, #f7f3ff 42%, #edf6ff 100%)',
     hero: 'linear-gradient(135deg, rgba(124, 60, 255, 0.84), rgba(224, 24, 255, 0.62), rgba(255, 155, 61, 0.72))',
+    // Violet, magenta and orange, each darkened until white clears 4.5:1 on it.
+    actionGradient: { dark: { angle: 135, stops: ['#7c3cff', '#b513cf', '#a76628'], fg: '#ffffff' } },
   },
 });

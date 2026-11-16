@@ -449,6 +449,10 @@ export function deriveVibeSemanticCssVariables(vibe: GdsVibeTheme): Record<strin
   const accentLight = ensureContrast(vibe.accent, vibe.canvasLight, 3, false, vibe.canvasLight);
   const accentDark = ensureContrast(mixCssColors(vibe.accent, '#ffffff', 0.75, vibe.canvasDark), vibe.canvasDark, 3, true, vibe.canvasDark);
   const accentAction = ensureContrast(mixCssColors(vibe.accent, '#000000', 0.75, vibe.canvasLight), vibe.canvasLight, 4.5, false, vibe.canvasLight);
+  const accentActionDark = ensureContrast(
+    ensureContrast(mixCssColors(vibe.accent, '#ffffff', 0.75, vibe.canvasDark), vibe.canvasDark, 4.5, true, vibe.canvasDark),
+    getGdsVibeCardSurface(vibe, 'dark') ?? mixCssColors(vibe.canvasDark, '#ffffff', 0.88, vibe.canvasDark), 4.5, true, vibe.canvasDark,
+  );
 
   const successLight = ensureContrast(mixCssColors(UNIVERSAL_SUCCESS, vibe.primary, 0.75, vibe.canvasLight), vibe.canvasLight, 3, false, vibe.canvasLight);
   const successDark = ensureContrast(mixCssColors(UNIVERSAL_SUCCESS, '#ffffff', 0.55, vibe.canvasDark), vibe.canvasDark, 3, true, vibe.canvasDark);
@@ -486,7 +490,7 @@ export function deriveVibeSemanticCssVariables(vibe: GdsVibeTheme): Record<strin
     '--gds-brand-accent': accentLight,
     '--gds-brand-accent-dark': accentDark,
     '--gds-brand-accent-action': accentAction,
-    '--gds-brand-accent-action-dark': accentAction,
+    '--gds-brand-accent-action-dark': accentActionDark,
     '--gds-accent': accentLight,
     '--gds-accent-dark': accentDark,
     '--gds-support': supportLight,
