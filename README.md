@@ -229,6 +229,7 @@ The GitHub Pages site is the public runtime reference for this repository:
 - Maturity capabilities: `https://sovereignsquad.github.io/general-design-system/maturity`
 - Product use cases: `https://sovereignsquad.github.io/general-design-system/use-cases`
 - Live proofs: `https://sovereignsquad.github.io/general-design-system/live-proofs`
+- Release notes: `https://sovereignsquad.github.io/general-design-system/releases`
 - Demo route families:
 - `.../live-proofs/surfaces`
 - `.../live-proofs/layouts`

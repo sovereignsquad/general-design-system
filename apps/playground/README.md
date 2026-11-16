@@ -10,6 +10,7 @@ The `playground` app is the canonical public website for General Design System d
 - `/themes` — theme explorer and lane comparison (legacy `/tokens`)
 - `/patterns` — pattern catalog and family routes
 - `/live-proofs` and family routes for shipped runtime proofs
+- `/releases` — release notes, generated from `CHANGELOG.md` by `scripts/generate-release-notes.mjs`
 - `/request-feature` — canonical request intake for new primitives or policy updates
 
 Every major section uses package-owned primitives from `@sovereignsquad/gds`, `@sovereignsquad/gds-core`, and `@sovereignsquad/gds-admin`.
