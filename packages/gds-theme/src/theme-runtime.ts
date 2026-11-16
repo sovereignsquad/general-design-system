@@ -5,6 +5,7 @@ import type { MantineThemeOverride } from '@mantine/core';
 import { applyGdsFontLane, isGdsFontLaneId, resolveGdsFontLane, type GdsFontLaneId } from './font-lanes';
 import { getGdsThemePresets, resolveGdsThemePreset, type GdsThemePresetId } from './theme-presets';
 import { getGdsVibeThemeCssVariables } from './vibe-themes';
+import { normalizeGdsThemePresetId } from './presets/aliases';
 
 /** Requested color scheme: fixed `'light'`/`'dark'`, or `'auto'` to follow the OS. */
 export type GdsThemeScheme = 'light' | 'dark' | 'auto';
@@ -78,7 +79,9 @@ function isScheme(value: unknown): value is GdsThemeScheme {
  * and the resolved Mantine theme (preset + font lane) is attached.
  */
 export function createGdsThemePresetSelection(stored: Partial<GdsStoredThemePresetState> = {}): GdsThemePresetSelection {
-  const preset = isThemePresetId(stored.preset) ? stored.preset : 'default';
+  // A deprecated preset id, e.g. one stored before the rename, resolves to its replacement.
+  const requested = typeof stored.preset === 'string' ? normalizeGdsThemePresetId(stored.preset) : stored.preset;
+  const preset = isThemePresetId(requested) ? requested : 'default';
   const colorScheme = isScheme(stored.colorScheme) ? stored.colorScheme : 'light';
   const fontLane = isGdsFontLaneId(stored.fontLane) ? stored.fontLane : 'inter';
   const brandPrimary = typeof stored.brandPrimary === 'string' ? stored.brandPrimary : 'blue';

@@ -14,7 +14,7 @@ export interface GdsLogoLockupProps {
   alt?: string;
   /** Arbitrary mark node (e.g. an inline SVG or `GdsGeneratedMark`) instead of `src`. */
   mark?: ReactNode;
-  /** Wordmark text, e.g. "Your Field". Omit for mark-only rendering. */
+  /** Wordmark text, e.g. "Linen". Omit for mark-only rendering. */
   wordmark?: string;
   /** Optional badge pill text, e.g. a city tag. Rendered only when `wordmark` renders. */
   badge?: string;
@@ -44,8 +44,8 @@ export interface GdsLogoLockupProps {
  *
  * @example
  * ```tsx
- * <GdsLogoLockup src="/brand/mark.svg" alt="" wordmark="Your Field" badge="NYC" />
- * <GdsLogoLockup src="/brand/mark.svg" alt="" wordmark="Your Field" onInverse framed />
+ * <GdsLogoLockup src="/brand/mark.svg" alt="" wordmark="Linen" badge="NYC" />
+ * <GdsLogoLockup src="/brand/mark.svg" alt="" wordmark="Linen" onInverse framed />
  * ```
  */
 export function GdsLogoLockup({

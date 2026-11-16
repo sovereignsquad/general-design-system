@@ -74,7 +74,7 @@ and that no `reservedAccents` entry names zero surfaces.
 
 `reservedAccents` (issue 697) is a different kind of claim from the other three fields: it
 does not classify a role a theme already emits into a proportion/harmony/scale bucket, it
-declares a role reserved to a closed, named set of consuming surfaces — e.g. the `your-field`
+declares a role reserved to a closed, named set of consuming surfaces — e.g. the `linen`
 preset's Scout AI sub-brand lane, `[{ role: 'ai.gradient', surfaces: ['AISearchCard', ...] },
 ...]`. See THEME_GOVERNANCE.md's "Reserved sub-brand accent lanes" section for the full
 contract and the `scripts/verify-ai-reserved-usage.mjs` gate that enforces it.
@@ -96,7 +96,7 @@ preset-independent — is classified into exactly one of three arrays in
 ```ts
 import { resolveGdsColorProportionProfile } from '@sovereignsquad/gds-theme';
 
-resolveGdsColorProportionProfile('class-usa');
+resolveGdsColorProportionProfile('harbor');
 // { rule: '60-30-10', classification: { dominant: [...], secondary: [...], accent: [...] } }
 ```
 
@@ -113,7 +113,7 @@ from the value actually driving typography math:
 ```ts
 import { resolveGdsTypeScaleProfile, NAMED_TYPE_SCALE_RATIO_LABELS } from '@sovereignsquad/gds-theme';
 
-const { ratio } = resolveGdsTypeScaleProfile('class-usa'); // 1.125
+const { ratio } = resolveGdsTypeScaleProfile('harbor'); // 1.125
 NAMED_TYPE_SCALE_RATIO_LABELS[ratio]; // 'Major Second'
 ```
 
@@ -198,7 +198,7 @@ Every number is read at render time from the live resolvers above and a generate
 
 ## Adopting it
 
-`createBrandTheme`'s three overloads (`'class-usa'`, `'gold-athlete'`, and the generic
+`createBrandTheme`'s three overloads (`'harbor'`, `'ochre'`, and the generic
 five-ramp entry point) all accept an optional `designRuleProfile`, defaulting to the computed
 profile for a named preset or `GDS_DEFAULT_DESIGN_RULE_PROFILE` for a custom brand, and return
 it on the result so a caller can inspect what was actually applied:
@@ -206,7 +206,7 @@ it on the result so a caller can inspect what was actually applied:
 ```ts
 import { createBrandTheme } from '@sovereignsquad/gds-theme';
 
-const { mantineTheme, designRuleProfile } = createBrandTheme('class-usa', { fonts });
+const { mantineTheme, designRuleProfile } = createBrandTheme('harbor', { fonts });
 designRuleProfile.colorProportion.rule; // '60-30-10'
 ```
 

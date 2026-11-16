@@ -13,11 +13,11 @@ import { getGdsThemePresets, resolveGdsThemePreset } from './theme-presets';
 import { getGdsVibeThemeCssVariables, getGdsVibeThemes } from './vibe-themes';
 import { contrastRatio } from './color-math';
 
-describe('padel-africa preset', () => {
+describe('meadow preset', () => {
   it('is registered in the catalog and resolvable', () => {
-    expect(getGdsThemePresets().map((p) => p.id)).toContain('padel-africa');
-    expect(resolveGdsThemePreset('padel-africa')).toBe(padelAfricaThemePreset);
-    expect(getGdsVibeThemes().map((v) => v.id)).toContain('padel-africa');
+    expect(getGdsThemePresets().map((p) => p.id)).toContain('meadow');
+    expect(resolveGdsThemePreset('meadow')).toBe(padelAfricaThemePreset);
+    expect(getGdsVibeThemes().map((v) => v.id)).toContain('meadow');
   });
 
   // The whole reason ramps are explicit: createBrandTheme's interpolating form produced a colour
@@ -51,7 +51,7 @@ describe('padel-africa preset', () => {
   it('paints buttons with the guide\'s primary CTA in both schemes', () => {
     for (const scheme of ['light', 'dark'] as const) {
       // Hex case carries no meaning; the vibe table is authored lowercase.
-      expect(getGdsVibeThemeCssVariables('padel-africa', scheme)['--gds-vibe-primary']?.toUpperCase())
+      expect(getGdsVibeThemeCssVariables('meadow', scheme)['--gds-vibe-primary']?.toUpperCase())
         .toBe(PADEL_AFRICA_EMERALD.toUpperCase());
     }
   });

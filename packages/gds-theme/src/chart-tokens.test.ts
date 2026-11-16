@@ -30,7 +30,7 @@ describe('chart tokens (#954)', () => {
   });
 
   it('series 1 follows the lane brand accent, including hand-authored lanes', () => {
-    const tokens = getGdsVibeThemeCssVariables('class-usa', 'light');
+    const tokens = getGdsVibeThemeCssVariables('harbor', 'light');
     const recomputed = emitChartCssVariables({ ...tokens, '--gds-bg-card-dark': tokens['--gds-bg-card'] });
     expect(tokens['--gds-chart-series-1']).toBe(recomputed['--gds-chart-series-1']);
   });

@@ -220,7 +220,7 @@ function ThemePreviewSurface({
 }
 
 function AthleteGoldReferenceSurface({ copy }: { copy: ExplorerCopy }) {
-  const athleteGold = vibeCatalogById['athlete-gold'];
+  const athleteGold = vibeCatalogById['gilded'];
   const navItems = [
     { id: 'home', label: 'Home', marker: '⌂', active: true },
     { id: 'check-in', label: 'Check-in', marker: '◇' },
@@ -234,7 +234,7 @@ function AthleteGoldReferenceSurface({ copy }: { copy: ExplorerCopy }) {
     { id: 'habits', label: 'Habits', marker: '✓' },
   ];
 
-  // Gold Athlete (createBrandTheme('gold-athlete')) has flatSurfaces: true and no
+  // Ochre (createBrandTheme('gold-athlete')) has flatSurfaces: true and no
   // gradient/glow, so this uses the flat canvas background, not the vibe-atmosphere gradient.
   const surfaceProps = getGdsOwnedContrastProps({
     role: 'athlete-gold-reference',
@@ -253,7 +253,7 @@ function AthleteGoldReferenceSurface({ copy }: { copy: ExplorerCopy }) {
       withBorder
       radius="lg"
       p={{ base: 'xs', sm: 'sm', md: 'lg' }}
-      aria-label={copy.athleteGoldReferenceTitle ?? 'Athlete Gold reference surface'}
+      aria-label={copy.athleteGoldReferenceTitle ?? 'Gilded reference surface'}
       {...surfaceProps}
     >
       <Stack gap="xl">
@@ -410,7 +410,7 @@ export function ReferenceThemeExplorer({
   // Theme Lab control/result cards are not wrapped in an owned-contrast surface: when a preset
   // is active, `html[data-gds-theme-preset] .gds-paper` in styles.css re-themes them globally.
   // Owned contrast is reserved for the vibe swatch surfaces below (gallery, VibeTheme
-  // contract, Athlete Gold reference), which preview a specific vibe atmosphere.
+  // contract, Gilded reference), which preview a specific vibe atmosphere.
   const selectedVibe = vibeCatalogById[preset];
 
   useEffect(() => {
@@ -586,7 +586,7 @@ export function ReferenceThemeExplorer({
           {vibeCatalog.map((vibe) => {
             const lane = localizedThemeCatalog[vibe.id];
             const isSelected = vibe.id === preset;
-            // Governed brand lanes (Class USA, Gold Athlete) use createBrandTheme(...) with
+            // Governed brand lanes (Harbor, Ochre) use createBrandTheme(...) with
             // flatSurfaces: true and no gradient/glow/colored-shadow atmosphere.
             const laneCardProps = getGdsOwnedContrastProps({
               role: 'vibe-gallery-card',

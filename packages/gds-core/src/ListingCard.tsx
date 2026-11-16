@@ -127,7 +127,7 @@ export const MAX_LISTING_CARD_ACTIONS = 4;
 
 /**
  * Row-tile (`media-left`/`compact` card contract) media size, in pixels. Reference-derived from
- * Your Field v3's `ProgramListCard`, which renders its generated media tile at a fixed
+ * Linen v3's `ProgramListCard`, which renders its generated media tile at a fixed
  * `flex: 0 0 96px` square (issue 701).
  */
 export const GDS_LISTING_TILE_SIZE_PX = 96;

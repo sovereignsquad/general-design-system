@@ -3,18 +3,18 @@ import { neutralVibe } from './default';
 import { GDS_CLASS_USA_SHAPE_AXIS, GDS_CLASS_USA_SHELL, classUsaDefaultColorRamps, emitClassUsaCssVariables } from '../semantic-token-source';
 
 export default defineGdsThemePreset({
-  id: 'class-usa',
+  id: 'harbor',
   catalog: {
-    label: 'Class USA',
-    description: 'Warm cream, ink navy, and action-orange family-discovery brand lane for ClassScout-style listings, with a trust-green source/freshness accent and Playfair Display headings.',
-    runtimeLane: 'resolveGdsThemePreset(class-usa)',
+    label: 'Harbor',
+    description: 'Warm cream, ink navy and action orange, with a trust-green accent for source and freshness and Playfair Display headings.',
+    runtimeLane: 'resolveGdsThemePreset(harbor)',
   },
-  mantine: ({ createBrandTheme }) => createBrandTheme('class-usa').mantineTheme,
+  mantine: ({ createBrandTheme }) => createBrandTheme('harbor').mantineTheme,
   semanticOverrides: emitClassUsaCssVariables(classUsaDefaultColorRamps),
   vibe: {
     ...neutralVibe,
-    id: 'class-usa',
-    label: 'Class USA',
+    id: 'harbor',
+    label: 'Harbor',
     // v2 re-base. `accent` stays the single-scheme-invariant `GdsVibeTheme` field, anchored
     // to `action[6]` (#c24a0a): the one of the two new oranges that clears WCAG non-text
     // contrast (3:1) in its actual consumers (light-mode button border trim, blended

@@ -3,18 +3,18 @@ import { neutralVibe } from './default';
 import { GDS_GOLD_ATHLETE_SHAPE_AXIS, GDS_GOLD_ATHLETE_SHELL, emitGoldAthleteCssVariables, goldAthleteDefaultColorRamps } from '../semantic-token-source';
 
 export default defineGdsThemePreset({
-  id: 'gold-athlete',
+  id: 'ochre',
   catalog: {
-    label: 'Gold Athlete',
-    description: 'Governed black-and-metallic-gold performance brand lane for Habigoal, with charcoal body text on ivory in light mode and ivory text with gold accents in dark mode.',
-    runtimeLane: 'resolveGdsThemePreset(gold-athlete)',
+    label: 'Ochre',
+    description: 'Black and metallic gold: charcoal text on ivory in light mode, ivory text with gold accents in dark mode.',
+    runtimeLane: 'resolveGdsThemePreset(ochre)',
   },
-  mantine: ({ createBrandTheme }) => createBrandTheme('gold-athlete').mantineTheme,
+  mantine: ({ createBrandTheme }) => createBrandTheme('ochre').mantineTheme,
   semanticOverrides: emitGoldAthleteCssVariables(goldAthleteDefaultColorRamps),
   vibe: {
     ...neutralVibe,
-    id: 'gold-athlete',
-    label: 'Gold Athlete',
+    id: 'ochre',
+    label: 'Ochre',
     axes: { shape: GDS_GOLD_ATHLETE_SHAPE_AXIS },
     primary: '#8a5a00',
     accent: '#f0b642',

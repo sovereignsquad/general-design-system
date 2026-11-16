@@ -8,15 +8,15 @@ import { getGdsAiAccentLane, getGdsVibeThemeCssVariables, getGdsVibeThemes } fro
 import { YOUR_FIELD_ROLES } from './your-field';
 
 // The Scout AI sub-brand accent lane (issue 697): ai.gradient/ai.panel/ai.accent, reserved to
-// the your-field preset. Covers emission, dark-collapse, absence on every other preset, the
+// the linen preset. Covers emission, dark-collapse, absence on every other preset, the
 // JS-readable accessor, token-graph classification, the report-severity floor rule, and the
 // reservedAccents profile validation.
 
 const AI_BASE_NAMES = ['--gds-ai-gradient', '--gds-ai-panel', '--gds-ai-accent'];
 
 describe('ai accent lane (issue 697)', () => {
-  it('carries the Your Field handoff\'s light values verbatim', () => {
-    const lane = getGdsAiAccentLane('your-field');
+  it('carries the Linen handoff\'s light values verbatim', () => {
+    const lane = getGdsAiAccentLane('linen');
     expect(lane).toBeTruthy();
     expect(lane!.gradient.light).toBe('linear-gradient(135deg, #FF6B35 0%, #FF9055 100%)');
     expect(lane!.panel.light).toBe('linear-gradient(124deg, #0D2340 0%, #1A3A6A 100%)');
@@ -25,17 +25,17 @@ describe('ai accent lane (issue 697)', () => {
 
   it('agrees byte-for-byte with the pre-existing theme.other.yourField gradient values', () => {
     // Two independent delivery paths carry the same brand gradients (see vibe-themes.ts's
-    // `your-field` entry comment): the legacy Mantine theme.other.yourField roles, and this
+    // `linen` entry comment): the legacy Mantine theme.other.yourField roles, and this
     // governed --gds-ai-* lane. Both derive from the same your-field.ts constants, so they
     // must never silently disagree.
-    const lane = getGdsAiAccentLane('your-field')!;
+    const lane = getGdsAiAccentLane('linen')!;
     expect(lane.gradient.light).toBe(YOUR_FIELD_ROLES.aiGradient);
     expect(lane.panel.light).toBe(YOUR_FIELD_ROLES.aiPanelGradient);
     expect(lane.accent.light).toBe(YOUR_FIELD_ROLES.aiAccent);
   });
 
   it('authors a dark sibling for every field, never reusing the light value', () => {
-    const lane = getGdsAiAccentLane('your-field')!;
+    const lane = getGdsAiAccentLane('linen')!;
     expect(lane.gradient.dark).not.toBe(lane.gradient.light);
     expect(lane.panel.dark).not.toBe(lane.panel.light);
     expect(lane.accent.dark).not.toBe(lane.accent.light);
@@ -45,8 +45,8 @@ describe('ai accent lane (issue 697)', () => {
     expect(contrastRatio('#ffffff', lane.accent.dark, lane.accent.dark)).not.toBeNull();
   });
 
-  it('emits all six --gds-ai-* variables for your-field in light mode', () => {
-    const light = getGdsVibeThemeCssVariables('your-field', 'light');
+  it('emits all six --gds-ai-* variables for linen in light mode', () => {
+    const light = getGdsVibeThemeCssVariables('linen', 'light');
     expect(light['--gds-ai-gradient']).toBe('linear-gradient(135deg, #FF6B35 0%, #FF9055 100%)');
     expect(light['--gds-ai-gradient-dark']).toBeTruthy();
     expect(light['--gds-ai-panel']).toBe('linear-gradient(124deg, #0D2340 0%, #1A3A6A 100%)');
@@ -56,8 +56,8 @@ describe('ai accent lane (issue 697)', () => {
   });
 
   it('collapses the -dark values onto their base names in dark mode', () => {
-    const lane = getGdsAiAccentLane('your-field')!;
-    const dark = getGdsVibeThemeCssVariables('your-field', 'dark');
+    const lane = getGdsAiAccentLane('linen')!;
+    const dark = getGdsVibeThemeCssVariables('linen', 'dark');
     expect(dark['--gds-ai-gradient']).toBe(lane.gradient.dark);
     expect(dark['--gds-ai-panel']).toBe(lane.panel.dark);
     expect(dark['--gds-ai-accent']).toBe(lane.accent.dark);
@@ -67,7 +67,7 @@ describe('ai accent lane (issue 697)', () => {
 
   it('emits zero --gds-ai-* keys for every preset that does not declare the lane', () => {
     for (const vibe of getGdsVibeThemes()) {
-      if (vibe.id === 'your-field') continue;
+      if (vibe.id === 'linen') continue;
       for (const scheme of ['light', 'dark'] as const) {
         const vars = getGdsVibeThemeCssVariables(vibe.id, scheme);
         for (const base of AI_BASE_NAMES) {
@@ -80,7 +80,7 @@ describe('ai accent lane (issue 697)', () => {
 
   it('getGdsAiAccentLane: presence for exactly one preset, absence for every other', () => {
     const presetsWithLane = getGdsVibeThemes().filter((vibe) => getGdsAiAccentLane(vibe.id) !== undefined);
-    expect(presetsWithLane.map((vibe) => vibe.id)).toEqual(['your-field']);
+    expect(presetsWithLane.map((vibe) => vibe.id)).toEqual(['linen']);
 
     for (const vibe of getGdsVibeThemes()) {
       const hasLane = getGdsAiAccentLane(vibe.id) !== undefined;
@@ -91,7 +91,7 @@ describe('ai accent lane (issue 697)', () => {
 
   it('does not change any other preset\'s emitted token set', () => {
     for (const vibe of getGdsVibeThemes()) {
-      if (vibe.id === 'your-field') continue;
+      if (vibe.id === 'linen') continue;
       for (const scheme of ['light', 'dark'] as const) {
         const keys = Object.keys(getGdsVibeThemeCssVariables(vibe.id, scheme));
         expect(keys.some((key) => key.startsWith('--gds-ai-'))).toBe(false);
@@ -101,7 +101,7 @@ describe('ai accent lane (issue 697)', () => {
 
   it('classifies ai-gradient/ai-panel as effect and ai-accent as color in the token graph', () => {
     const graph = createGdsTokenGraph();
-    const yourFieldNodes = graph.nodes.filter((node) => node.themeId === 'your-field' && node.lane === 'semantic');
+    const yourFieldNodes = graph.nodes.filter((node) => node.themeId === 'linen' && node.lane === 'semantic');
     const byRole = new Map(yourFieldNodes.map((node) => [node.role, node]));
 
     expect(byRole.get('ai-gradient')?.category).toBe('effect');
@@ -121,9 +121,9 @@ describe('ai accent lane (issue 697)', () => {
     expect(rule!.axis).toBe('color');
   });
 
-  it('reports (never fails) white on your-field\'s ai.accent, measured below 4.5:1', () => {
-    const tokens = getGdsVibeThemeCssVariables('your-field', 'light');
-    const found = validateGdsAccessibilityFloor({ presetId: 'your-field', scheme: 'light', tokens });
+  it('reports (never fails) white on linen\'s ai.accent, measured below 4.5:1', () => {
+    const tokens = getGdsVibeThemeCssVariables('linen', 'light');
+    const found = validateGdsAccessibilityFloor({ presetId: 'linen', scheme: 'light', tokens });
     const finding = found.find((v) => v.ruleId === 'ai-accent-text-contrast');
     expect(finding).toBeTruthy();
     expect(finding!.severity).toBe('report');
@@ -134,9 +134,9 @@ describe('ai accent lane (issue 697)', () => {
     expect(checkGdsContrast('#ffffff', tokens['--gds-ai-accent']).passes).toBe(false);
   });
 
-  it('stays silent when --gds-ai-accent is absent (every non-your-field preset)', () => {
+  it('stays silent when --gds-ai-accent is absent (every preset except linen)', () => {
     for (const vibe of getGdsVibeThemes()) {
-      if (vibe.id === 'your-field') continue;
+      if (vibe.id === 'linen') continue;
       const tokens = getGdsVibeThemeCssVariables(vibe.id, 'light');
       expect(tokens['--gds-ai-accent']).toBeUndefined();
       const found = validateGdsAccessibilityFloor({ presetId: vibe.id, scheme: 'light', tokens });
@@ -179,10 +179,10 @@ describe('ai accent lane (issue 697)', () => {
     }, 'probe')).not.toThrow();
   });
 
-  it('the your-field preset declares its own reservation, and it validates clean', () => {
-    const profile = getGdsVibeThemes().find((vibe) => vibe.id === 'your-field')?.axes?.designRuleProfile;
+  it('the linen preset declares its own reservation, and it validates clean', () => {
+    const profile = getGdsVibeThemes().find((vibe) => vibe.id === 'linen')?.axes?.designRuleProfile;
     expect(profile?.reservedAccents?.length).toBeGreaterThan(0);
-    expect(() => validateGdsDesignRuleProfile(profile!, 'your-field')).not.toThrow();
+    expect(() => validateGdsDesignRuleProfile(profile!, 'linen')).not.toThrow();
 
     const roles = profile!.reservedAccents!.map((r) => r.role).sort();
     expect(roles).toEqual(['ai.accent', 'ai.gradient', 'ai.panel']);

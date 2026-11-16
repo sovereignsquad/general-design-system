@@ -117,7 +117,7 @@ const uploadAdapter: GdsSchemaUploadAdapter = {
 const app = (
   <GdsProvider>
     <AppShell primaryNavigation={<a href="/">Home</a>}>
-      <ReferenceThemeExplorer initialSelection={{ preset: 'athlete-gold', colorScheme: 'dark', theme: {} }} />
+      <ReferenceThemeExplorer initialSelection={{ preset: 'gilded', colorScheme: 'dark', theme: {} }} />
       <AccessSummary state="allowed" title="Access" roles={['operator']} />
       <GdsDataTable
         caption="Published smoke table"
@@ -130,10 +130,10 @@ const app = (
   </GdsProvider>
 );
 
-const athleteGold = resolveGdsVibeTheme('athlete-gold');
+const athleteGold = resolveGdsVibeTheme('gilded');
 const presets = getGdsThemePresets();
 
-console.log(Boolean(app), athleteGold.label, presets.some((preset) => preset.id === 'athlete-gold'));
+console.log(Boolean(app), athleteGold.label, presets.some((preset) => preset.id === 'gilded'));
 `,
   );
 
@@ -165,8 +165,8 @@ if (!a11y.createGdsA11yReport || typeof compliance !== 'object' || !Array.isArra
   throw new Error('Tooling exports missing from published packages.');
 }
 
-if (theme.resolveGdsVibeTheme('athlete-gold').label !== 'Athlete Gold') {
-  throw new Error('Athlete Gold vibe theme is not available from npm.');
+if (theme.resolveGdsVibeTheme('gilded').label !== 'Gilded') {
+  throw new Error('Gilded vibe theme is not available from npm.');
 }
 
 console.log('Published package runtime imports passed.');

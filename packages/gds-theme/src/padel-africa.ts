@@ -1,5 +1,5 @@
 /**
- * Padel Africa — brand preset.
+ * Meadow — brand preset.
  *
  * Transcribed from the brand's own Website Colour Theme Guide, which is the authority for every
  * value here. Nothing is sampled, estimated or derived: if a value disagrees with the guide, the

@@ -30,10 +30,10 @@ describe('createBrandTheme', () => {
     expect(result.cssVariables['--gds-bg-page']).toBe('#faf7f1');
   });
 
-  it('creates the first-class Class USA theme from ramps and semantic roles (v2 re-base, issue 536)', () => {
-    const result = createBrandTheme('class-usa');
+  it('creates the first-class Harbor theme from ramps and semantic roles (v2 re-base, issue 536)', () => {
+    const result = createBrandTheme('harbor');
 
-    expect(result.tokenGraph.themes).toEqual(['class-usa']);
+    expect(result.tokenGraph.themes).toEqual(['harbor']);
     expect(result.mantineTheme.primaryColor).toBe('classUsaNavy');
 
     // Named radius steps map to the handoff's 8/12/16/24/pill scale.
@@ -50,7 +50,7 @@ describe('createBrandTheme', () => {
     expect(result.cssVariables['--gds-radius-card']).toBe('1rem');
     expect(result.cssVariables['--gds-radius-panel']).toBe('1rem');
     expect(result.cssVariables['--gds-radius-badge']).toBe('624.9375rem');
-    expect(result.mantineTheme.other?.gdsBrandThemeId).toBe('class-usa');
+    expect(result.mantineTheme.other?.gdsBrandThemeId).toBe('harbor');
     expect(result.cssVariables['--gds-brand-primary']).toBe('#0f2c4a');
     expect(result.cssVariables['--gds-brand-primary-pressed']).toBe('#071626');
     expect(result.cssVariables['--gds-brand-accent']).toBe('#c24a0a');
@@ -60,8 +60,8 @@ describe('createBrandTheme', () => {
     expect(result.cssVariables['--gds-border-card']).toBe('#e6e1d8');
   });
 
-  it('renders Class USA CTAs in the action ramp, not navy chrome (v2 re-base, issue 536)', () => {
-    const result = createBrandTheme('class-usa');
+  it('renders Harbor CTAs in the action ramp, not navy chrome (v2 re-base, issue 536)', () => {
+    const result = createBrandTheme('harbor');
 
     expect((result.mantineTheme.components?.Button?.defaultProps as { color?: string } | undefined)?.color).toBe('classUsaAction');
     expect(result.mantineTheme.colors?.classUsaAction?.[6]).toBe('#c24a0a');
@@ -71,12 +71,12 @@ describe('createBrandTheme', () => {
     expect(brandContrastRatio('#ffffff', result.cssVariables['--gds-brand-accent-action'])).toBeGreaterThanOrEqual(4.5);
   });
 
-  it('creates the first-class Gold Athlete theme from ramps and semantic roles', () => {
-    const result = createBrandTheme('gold-athlete');
+  it('creates the first-class Ochre theme from ramps and semantic roles', () => {
+    const result = createBrandTheme('ochre');
 
-    expect(result.tokenGraph.themes).toEqual(['gold-athlete']);
+    expect(result.tokenGraph.themes).toEqual(['ochre']);
     expect(result.mantineTheme.primaryColor).toBe('goldAthleteCharcoal');
-    expect(result.mantineTheme.other?.gdsBrandThemeId).toBe('gold-athlete');
+    expect(result.mantineTheme.other?.gdsBrandThemeId).toBe('ochre');
     // The hand-authored brand primary equals the body text colour, so it takes the readable grey (#970).
     expect(result.cssVariables['--gds-brand-primary']).toBe(result.cssVariables['--gds-text-meta']);
     expect(result.cssVariables['--gds-brand-primary-pressed']).toBe('#0a0d12');
@@ -152,7 +152,7 @@ describe('createBrandTheme designRuleProfile (issue #648)', () => {
   beforeEach(() => resetGdsDevWarnings());
 
   it('defaults to the computed 60-30-10 profile for a named preset', () => {
-    const result = createBrandTheme('class-usa');
+    const result = createBrandTheme('harbor');
     expect(result.designRuleProfile.colorProportion.rule).toBe('60-30-10');
   });
 
@@ -162,13 +162,13 @@ describe('createBrandTheme designRuleProfile (issue #648)', () => {
   });
 
   it('respects an explicit designRuleProfile', () => {
-    const result = createBrandTheme('gold-athlete', { designRuleProfile: GDS_DEFAULT_DESIGN_RULE_PROFILE });
+    const result = createBrandTheme('ochre', { designRuleProfile: GDS_DEFAULT_DESIGN_RULE_PROFILE });
     expect(result.designRuleProfile).toEqual(GDS_DEFAULT_DESIGN_RULE_PROFILE);
   });
 
   it('throws for an invalid explicit designRuleProfile', () => {
     const invalid = { ...GDS_DEFAULT_DESIGN_RULE_PROFILE, typeScale: { ratio: 1.4 as never } };
-    expect(() => createBrandTheme('class-usa', { designRuleProfile: invalid })).toThrow(GdsAxisError);
+    expect(() => createBrandTheme('harbor', { designRuleProfile: invalid })).toThrow(GdsAxisError);
   });
 
   describe('accent-as-background dev warning', () => {
@@ -183,8 +183,8 @@ describe('createBrandTheme designRuleProfile (issue #648)', () => {
     });
 
     it('warns exactly once when overrides sets a background-relevant key to an accent-classed color', () => {
-      const accent = createBrandTheme('class-usa').cssVariables['--gds-brand-accent'];
-      createBrandTheme('class-usa', {
+      const accent = createBrandTheme('harbor').cssVariables['--gds-brand-accent'];
+      createBrandTheme('harbor', {
         overrides: { components: { Card: { styles: { root: { background: accent } } } } },
       });
       expect(warnSpy).toHaveBeenCalledTimes(1);
@@ -192,23 +192,23 @@ describe('createBrandTheme designRuleProfile (issue #648)', () => {
     });
 
     it('does not warn for the identical color in a non-background (text color) path', () => {
-      const accent = createBrandTheme('class-usa').cssVariables['--gds-brand-accent'];
-      createBrandTheme('class-usa', {
+      const accent = createBrandTheme('harbor').cssVariables['--gds-brand-accent'];
+      createBrandTheme('harbor', {
         overrides: { components: { Card: { styles: { root: { color: accent } } } } },
       });
       expect(warnSpy).not.toHaveBeenCalled();
     });
 
     it('does not warn when overrides has no colliding value', () => {
-      createBrandTheme('class-usa', {
+      createBrandTheme('harbor', {
         overrides: { components: { Card: { styles: { root: { background: '#123456' } } } } },
       });
       expect(warnSpy).not.toHaveBeenCalled();
     });
 
     it('respects an explicit designRuleProfile opt-out (rule: "none"), even with a colliding override', () => {
-      const accent = createBrandTheme('class-usa').cssVariables['--gds-brand-accent'];
-      createBrandTheme('class-usa', {
+      const accent = createBrandTheme('harbor').cssVariables['--gds-brand-accent'];
+      createBrandTheme('harbor', {
         designRuleProfile: GDS_DEFAULT_DESIGN_RULE_PROFILE,
         overrides: { components: { Card: { styles: { root: { background: accent } } } } },
       });

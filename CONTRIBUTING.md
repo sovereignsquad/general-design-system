@@ -215,7 +215,7 @@ literal-values allowlist, and a closing "open items, don't guess" list — is
    scheme-aware) — do not repeat it. If this is a full branded product theme,
    also add its `createBrandTheme('<id>', …)` semantic-role token table in
    `packages/gds-theme/src/brand-tokens.ts`, copying the exact key list an
-   existing branded lane (e.g. `class-usa`) passes as `semanticOverrides` in
+   existing branded lane (e.g. `harbor`) passes as `semanticOverrides` in
    `presets/class-usa.ts` — don't improvise a subset.
 
 4. **Verify every pairing against WCAG AA** (4.5:1 normal text, 3:1 large

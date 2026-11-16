@@ -11,6 +11,7 @@ import {
 } from './semantic-token-source';
 import { gdsThemePresetRegistry } from './presets';
 import { neutralVibe } from './presets/default';
+import { normalizeGdsThemePresetId } from './presets/aliases';
 
 // Re-exported, not defined here. The public surface is unchanged; the definition moved so
 // that every semantic-role value lives in one module.
@@ -102,7 +103,7 @@ export interface GdsVibeThemeFields {
    */
   axes?: GdsThemeAxes;
   /**
-   * True for a lane backed by a real `createBrandTheme(...)` brand (Class USA, Gold
+   * True for a lane backed by a real `createBrandTheme(...)` brand (Harbor, Gold
    * Athlete), whose own definition sets `flatSurfaces: true` and never configures a
    * gradient, glow, or colored shadow. Consumers previewing this lane's atmosphere
    * (gradient/glow fields above) must skip those fields when true. Unset/false for the
@@ -137,7 +138,7 @@ export function getGdsVibeThemes() {
 
 /** Resolves the vibe theme for a preset id, falling back to the neutral default. */
 export function resolveGdsVibeTheme(id: GdsThemePresetId) {
-  return vibeThemes[id] ?? neutralVibe;
+  return vibeThemes[normalizeGdsThemePresetId(id) as keyof typeof vibeThemes] ?? neutralVibe;
 }
 
 /**
@@ -273,11 +274,12 @@ function actionGradientCss(gradient: GdsVibeActionGradient): string {
  * `...semanticVariables` below and is real at runtime, but a plain object-literal return
  * type would not carry that merge across a package's compiled `.d.ts` boundary.
  */
-export function getGdsVibeThemeCssVariables(id: GdsThemePresetId, colorScheme: 'light' | 'dark'): Record<string, string> {
+export function getGdsVibeThemeCssVariables(presetId: GdsThemePresetId, colorScheme: 'light' | 'dark'): Record<string, string> {
+  const id = normalizeGdsThemePresetId(presetId);
   const vibe = resolveGdsVibeTheme(id);
   const dark = colorScheme === 'dark';
 
-  // A flatSurfaces lane (Class USA, Gold Athlete) is backed by a real `createBrandTheme(...)`
+  // A flatSurfaces lane (Harbor, Ochre) is backed by a real `createBrandTheme(...)`
   // that never configures a gradient, glow, or colored shadow. Every CSS rule below reads
   // `--gds-vibe-glow`/`--gds-vibe-gradient` to paint atmospheric effects across the whole
   // site when that lane is active, so neutralizing them here, once, at the source keeps

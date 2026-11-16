@@ -24,6 +24,7 @@ export { resolveGdsAxisTokens, resolveGdsLayoutTokens, validateGdsLayoutAxis, GD
 export type { GdsLayoutAxis } from './axes';
 export { getGdsVibeThemes, resolveGdsVibeTheme, getGdsVibeThemeCssVariables, getGdsDefaultLaneCssVariables, getGdsVibeCardSurface, GdsCardSurfaceError, deriveVibeSemanticCssVariables, getGdsAiAccentLane } from './vibe-themes';
 export type { GdsVibeTheme, GdsAiAccentLane } from './vibe-themes';
+export { GDS_THEME_PRESET_ALIASES, normalizeGdsThemePresetId, type GdsDeprecatedThemePresetId } from './presets/aliases';
 export { createGdsThemeAccessibilityReport, validateGdsThemeAccessibility } from './accessibility-report';
 export type { GdsAccessibilityFindingSeverity, GdsContrastCheck, GdsContrastFinding, GdsContrastMode, GdsContrastRole, GdsForcedColorRole, GdsThemeAccessibilityReport } from './accessibility-report';
 export { getGdsContrastRatio, checkGdsContrast, pickGdsAutoForeground } from './contrast';

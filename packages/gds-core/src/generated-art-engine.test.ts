@@ -99,15 +99,15 @@ describe('gdsGeneratedPaletteCssRefs (#504)', () => {
 
 describe('resolveGdsGeneratedPaletteHex (#504)', () => {
   it('resolves literal theme hex for a built-in preset, matching getGdsVibeThemeCssVariables', () => {
-    const palette = resolveGdsGeneratedPaletteHex({ themePresetId: 'class-usa' });
+    const palette = resolveGdsGeneratedPaletteHex({ themePresetId: 'harbor' });
     expect(palette.source).toBe('theme');
     expect(palette.primary).toMatch(/^#[0-9a-f]{6}$/);
     expect(palette.accent).toMatch(/^#[0-9a-f]{6}$/);
-    // class-usa's hand-authored brand primary, per vibe-themes.ts's classUsaSemanticCssVariables.
+    // harbor's hand-authored brand primary, per vibe-themes.ts's classUsaSemanticCssVariables.
     expect(palette.primary).toBe('#0f2c4a');
   });
 
-  it('resolves the default preset without requiring themePresetId to be class-usa specifically', () => {
+  it('resolves the default preset without requiring themePresetId to be harbor specifically', () => {
     const palette = resolveGdsGeneratedPaletteHex({ themePresetId: 'default' });
     expect(palette.primary).toMatch(/^#[0-9a-f]{6}$/);
   });

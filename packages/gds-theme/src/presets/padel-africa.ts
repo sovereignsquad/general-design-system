@@ -3,17 +3,17 @@ import { neutralVibe } from './default';
 import { padelAfricaThemePreset } from '../padel-africa';
 
 export default defineGdsThemePreset({
-  id: 'padel-africa',
+  id: 'meadow',
   catalog: {
-    label: 'Padel Africa',
-    description: 'Vibrant African sport lane: deep jungle foundation with an emerald primary, lime energy accents, and a green-and-gold signature pairing on a warm ivory ground.',
-    runtimeLane: 'resolveGdsThemePreset(padel-africa)',
+    label: 'Meadow',
+    description: 'Deep green foundation with an emerald primary, lime accents and a green-and-gold pairing on a warm ivory ground.',
+    runtimeLane: 'resolveGdsThemePreset(meadow)',
   },
   mantine: padelAfricaThemePreset,
   vibe: {
     ...neutralVibe,
-    id: 'padel-africa',
-    label: 'Padel Africa',
+    id: 'meadow',
+    label: 'Meadow',
     // `primary` is what the governed Button rule paints with, so it carries the guide's primary
     // CTA (Emerald) rather than the darkest brand tone.
     primary: '#0b9b4a',

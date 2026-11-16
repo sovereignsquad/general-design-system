@@ -13,6 +13,7 @@
 
 import { getGdsVibeThemeCssVariables } from './vibe-themes';
 import type { GdsThemePresetId } from './theme-presets';
+import { normalizeGdsThemePresetId } from './presets/aliases';
 
 /** Stable, order-independent identity over every themed input. */
 export type GdsThemeIdentity = string;
@@ -56,7 +57,8 @@ export interface GdsThemeIdentityInput {
  * Sorted before hashing so key order cannot change the result — an identity that depends on
  * object iteration order would remount at random and, worse, occasionally fail to.
  */
-export function computeGdsThemeIdentity({ preset, colorScheme, extra }: GdsThemeIdentityInput): GdsThemeIdentity {
+export function computeGdsThemeIdentity({ preset: requestedPreset, colorScheme, extra }: GdsThemeIdentityInput): GdsThemeIdentity {
+  const preset = normalizeGdsThemePresetId(String(requestedPreset));
   let resolved: Record<string, string> = {};
   try {
     resolved = getGdsVibeThemeCssVariables(preset as GdsThemePresetId, colorScheme);

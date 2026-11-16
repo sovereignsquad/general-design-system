@@ -40,7 +40,7 @@ Two factories build a branded theme. Both results descend from `gdsTheme`.
 
 | | `createPublicBrandTheme(options)` | `createBrandTheme(...)` |
 | --- | --- | --- |
-| Inputs | `editorialSerif`, `flatSurfaces`, and `overrides` (a Mantine theme override, merged last) | Generic form: `brandColors` (five hex colours, by role below), `fonts { display, body }`, `flatSurfaces`, `overrides`, `designRuleProfile`. Named forms `'class-usa'` and `'gold-athlete'` take optional ramp and font overrides. |
+| Inputs | `editorialSerif`, `flatSurfaces`, and `overrides` (a Mantine theme override, merged last) | Generic form: `brandColors` (five hex colours, by role below), `fonts { display, body }`, `flatSurfaces`, `overrides`, `designRuleProfile`. Named forms `'harbor'` and `'ochre'` take optional ramp and font overrides. |
 | Returns | A Mantine theme | `{ mantineTheme, cssVariables, tokenGraph, designRuleProfile }`. `mantineTheme` is built with `createPublicBrandTheme` and carries `cssVariables` as `other.gdsCssVariables`. |
 | `--gds-*` role values | None. The page keeps the default role layer ([`docs/SEMANTIC_ROLE_TOKENS.md`](docs/SEMANTIC_ROLE_TOKENS.md)). | The full semantic map, light and `-dark`, applied by `GdsProvider` through [`theme.other.gdsCssVariables`](#themeothergdscssvariables). |
 | Contrast validation | None | Throws `GdsBrandThemeError` on the pairs in [`createBrandTheme` contrast scope](#createbrandtheme-contrast-scope). Every other pair is the consumer's to measure. |
@@ -69,7 +69,7 @@ Values the generic form does not derive from its inputs (read `createBrandTheme`
 - the governed shadows and heading scale
 - the binding of Mantine spacing and radius to the density and shape axes
 
-Inputs that descend from `gdsTheme`: `gdsTheme`, `gdsDarkPublicTheme`, `gdsFlatSurfaceTheme`, `gdsEditorialPublicTheme`, `createPublicBrandTheme(...)`, `createBrandTheme(...).mantineTheme`, and `applyGdsFontLane(theme, lane)` when `theme` is one of these. `resolveGdsThemePreset(id)` (and `useGdsThemePresetState().selection.theme`) descends from `gdsTheme` for presets built on those lanes; `padelAfricaThemePreset` and `yourFieldThemePreset` are plain override objects, so the `padel-africa` and `your-field` presets do not. A hand spread such as `{ ...gdsTheme, components: { … } }` replaces the whole component map; pass changes through `createPublicBrandTheme({ overrides })`, which merges.
+Inputs that descend from `gdsTheme`: `gdsTheme`, `gdsDarkPublicTheme`, `gdsFlatSurfaceTheme`, `gdsEditorialPublicTheme`, `createPublicBrandTheme(...)`, `createBrandTheme(...).mantineTheme`, and `applyGdsFontLane(theme, lane)` when `theme` is one of these. `resolveGdsThemePreset(id)` (and `useGdsThemePresetState().selection.theme`) descends from `gdsTheme` for presets built on those lanes; `padelAfricaThemePreset` and `yourFieldThemePreset` are plain override objects, so the `meadow` and `linen` presets do not. A hand spread such as `{ ...gdsTheme, components: { … } }` replaces the whole component map; pass changes through `createPublicBrandTheme({ overrides })`, which merges.
 
 ### `theme.other.gdsCssVariables`
 
@@ -79,14 +79,14 @@ The channel that puts brand `--gds-*` role values on the page.
 - **Filter.** Only entries whose key starts with `--gds-` and whose value is a string are applied. Every other entry is ignored.
 - **Write targets.** `GdsProvider` writes every entry, base and `-dark` keys alike, as an inline custom property on the colour-scheme root (`colorSchemeRootElement()`, default `<html>`), and removes them when the theme changes or the provider unmounts. It also writes the entries to its wrapper element resolved for the computed scheme, so under the dark scheme each base name takes its `-dark` value there. Content rendered outside the wrapper, such as a Mantine portal attached to `body`, inherits the root values, where each base name holds the light value.
 - **Precedence.** Inline values win over the `:root` default layer in `styles.css`.
-- **Populated by.** Every `createBrandTheme(...)` overload, and so the `class-usa` and `gold-athlete` presets. `gdsTheme`, the other lanes and `createPublicBrandTheme(...)` set no entries. Any theme that carries the key gets the same treatment; the provider derives nothing from it.
+- **Populated by.** Every `createBrandTheme(...)` overload, and so the `harbor` and `ochre` presets. `gdsTheme`, the other lanes and `createPublicBrandTheme(...)` set no entries. Any theme that carries the key gets the same treatment; the provider derives nothing from it.
 
 ### `createBrandTheme` contrast scope
 
 `createBrandTheme` throws `GdsBrandThemeError` when a pair it checks falls below its minimum. The checked pairs are `assertContrast` in `packages/gds-theme/src/brand-tokens.ts`, plus one filled-button label check in each named overload. This list is written from that source, not generated from it; the source is authoritative.
 
 - Every overload checks primary and secondary text on the page, primary text on the surface, on-inverse text on the inverse surface, and the derived on-support label on `support`. Only the `support` pair is checked in the dark scheme.
-- `'class-usa'` also checks white on its action colour; `'gold-athlete'` checks white on its primary.
+- `'harbor'` also checks white on its action colour; `'ochre'` checks white on its primary.
 - No overload checks the accent roles that are used for text (`--gds-brand-accent`, `--gds-accent`, `--gds-price`, `--gds-star`) or the focus ring (`--gds-focus-ring`) against the page, or `--gds-badge-attention` against anything.
 - The generic overload does not check the filled primary that its `mantineTheme` paints against that button's label.
 
@@ -264,7 +264,7 @@ which reads identically at any size since there's no axis for a small box to cro
 It's derived from the same `primary`/`accent` the vibe is built from, mixed against the
 scheme's own surface, so it can't drift from the preset it describes.
 
-A `flatSurfaces` brand lane (Class USA, Gold Athlete) has no atmosphere by definition and gets
+A `flatSurfaces` brand lane (Harbor, Ochre) has no atmosphere by definition and gets
 a flat tint instead of an invented gradient — same reasoning that neutralises `glow` and
 `gradient` for those lanes.
 
@@ -645,12 +645,12 @@ The axis tokens (`--gds-space-*`, `--gds-radius-*`, `--gds-elevation-*`, `--gds-
 | Lane | Source of its axis tokens |
 |---|---|
 | `gdsTheme`, `gdsDarkPublicTheme`, `createPublicBrandTheme(...)` | The generated `:root` block between the `gds:axis-defaults` markers in `packages/gds-theme/styles.css`, which declares `resolveGdsAxisTokens(undefined)` (the `GDS_DEFAULT_*` axes) plus the `default` preset's `--gds-focus-ring`, the `gds:badge-defaults` and `gds:brand-defaults` blocks with the default-lane badge, brand and state roles from `getGdsDefaultLaneCssVariables()` (#968; brand primary and state info on the muted grey, see SEMANTIC_ROLE_TOKENS.md), and the `gds:chart-defaults` block with its chart roles (#954, docs/CHART_TOKENS.md). These themes inject no axis tokens of their own. |
-| `createBrandTheme('class-usa' \| 'gold-athlete')` and the generic `createBrandTheme({ brandColors, fonts })` | `cssVariables`, which `GdsProvider` writes inline on the root element through `other.gdsCssVariables`. It holds the same axis set as the `:root` block, followed by the lane's semantic roles. |
+| `createBrandTheme('harbor' \| 'ochre')` and the generic `createBrandTheme({ brandColors, fonts })` | `cssVariables`, which `GdsProvider` writes inline on the root element through `other.gdsCssVariables`. It holds the same axis set as the `:root` block, followed by the lane's semantic roles. |
 | A theme preset (`useGdsThemePresetState`, the reference site) | The preset runtime writes `resolveGdsAxisTokens(preset axes)` inline on `<html>`. |
 
 The `:root` block is a plain `:root` rule, so the provider's and the preset runtime's inline values, and subtree scopes such as `VibeThemeScope`, always override it. `gdsSpace()`, `gdsRadius()` and `gdsElevation()` therefore resolve in every lane. The block is generated by `npm run tokens:axis-css` (part of `npm run artifacts:refresh`) and drift-checked by `npm run verify:axis-css`; read the block for the values. `npm run verify:default-lane-axis-tokens` fails when a GDS component reads an axis token without a fallback that one of these lanes leaves undefined, and `npm run verify:default-lane-axis-runtime` measures the result in a browser.
 
-**Flat-surface lane elevation.** `createPublicBrandTheme({ flatSurfaces: true })` (`gdsFlatSurfaceTheme`) sets Mantine's own shadow scale to `none` but keeps the default `--gds-elevation-*` tokens, the same as the flat presets (`high-contrast`, `class-usa`, `gold-athlete`, `padel-africa`, `your-field`), which all emit a non-`none` `--gds-elevation-card`. Mantine components render flat in this lane; GDS components that read `--gds-elevation-*` keep their elevation.
+**Flat-surface lane elevation.** `createPublicBrandTheme({ flatSurfaces: true })` (`gdsFlatSurfaceTheme`) sets Mantine's own shadow scale to `none` but keeps the default `--gds-elevation-*` tokens, the same as the flat presets (`high-contrast`, `harbor`, `ochre`, `meadow`, `linen`), which all emit a non-`none` `--gds-elevation-card`. Mantine components render flat in this lane; GDS components that read `--gds-elevation-*` keep their elevation.
 
 ## Raw `--gds-*` custom properties vs. the Mantine-rendered scale (issue #642)
 
@@ -674,7 +674,7 @@ design**, except for radius, below. `GdsShapeElevationSystemReference` computes 
 semantic radius roles a given theme actually differentiates, rather than asserting a fixed
 number — read that page, not this paragraph, for a theme's current state.
 
-**Radius is no longer split (#953).** `gdsTheme`'s Card, Paper, Button, TextInput, Badge, Chip, Modal and Drawer take their `radius` from the role tokens (`var(--gds-radius-card)` and so on), so the raw role tokens and what those components render are the same value. The `default` shape profile sets the roles to what the components rendered before: card and panel `lg`, badge `xl`, chip `pill`, drawer `none`, the rest `md`. A lane that remaps Mantine's radius scale declares the scale on its shape axis and feeds Mantine from it (`GDS_CLASS_USA_SHAPE_AXIS`); presets whose Mantine `defaultRadius` is not `md` carry it on the `modal` role (`high-contrast` `sm`, `gold-athlete` `lg`). Components that set their own `radius` prop, and brand themes that override component defaults, are unaffected.
+**Radius is no longer split (#953).** `gdsTheme`'s Card, Paper, Button, TextInput, Badge, Chip, Modal and Drawer take their `radius` from the role tokens (`var(--gds-radius-card)` and so on), so the raw role tokens and what those components render are the same value. The `default` shape profile sets the roles to what the components rendered before: card and panel `lg`, badge `xl`, chip `pill`, drawer `none`, the rest `md`. A lane that remaps Mantine's radius scale declares the scale on its shape axis and feeds Mantine from it (`GDS_CLASS_USA_SHAPE_AXIS`); presets whose Mantine `defaultRadius` is not `md` carry it on the `modal` role (`high-contrast` `sm`, `ochre` `lg`). Components that set their own `radius` prop, and brand themes that override component defaults, are unaffected.
 
 ### Shape profiles (#953)
 
@@ -688,7 +688,7 @@ it — but `createBrandTheme(...)`'s `cssVariables` carry the default typography
 declares no `tracking` map, so they contain no `--gds-tracking-*`. A theme that wants
 tracking applied to the document must call `resolveGdsTypographyTokens()` with its own
 `tracking` map and merge the result. Whether a
-given brand lane (e.g. `class-usa`) *should* populate a tracking scale by default is a
+given brand lane (e.g. `harbor`) *should* populate a tracking scale by default is a
 brand-design decision left to that theme, not a system default every lane must set.
 `tracking` values ARE validated at resolution time (issue #695) — `normal`, a signed
 px/rem/em/ch length, or a `var()` reference; a percentage, a bare unitless number, or an
@@ -859,7 +859,7 @@ A built-in preset is one module, `packages/gds-theme/src/presets/<id>.ts`, whose
 A preset may declare a reserved sub-brand accent lane — `GdsVibeTheme.ai` in
 `packages/gds-theme/src/vibe-themes.ts` — when its brand carries a distinct identity for one
 sub-system that is deliberately never a general action color. The first (and, at the time of
-writing, only) lane is Your Field's Scout AI identity: `--gds-ai-gradient` (an orange identity
+writing, only) lane is Linen's Scout AI identity: `--gds-ai-gradient` (an orange identity
 gradient), `--gds-ai-panel` (a navy promo-panel gradient), and `--gds-ai-accent` (the Scout
 orange used as a static color). Every preset without an `ai` field emits none of these
 variables; their absence is the default, not an omission.
@@ -933,7 +933,7 @@ real, pre-existing contrast failures across the preset catalog that have nothing
 and scheme. Measured result: every light-scheme pairing clears 4.5:1 (the generic derivation
 path in `semantic-token-source.ts` `ensureContrast`s this role against `canvasLight`), but 25 of
 27 dark-scheme pairings do not — that derivation reuses the light-derived value unchanged in
-dark mode rather than re-deriving against `canvasDark` (class-usa and gold-athlete's bespoke
+dark mode rather than re-deriving against `canvasDark` (harbor and ochre's bespoke
 emission paths are the two that pass in both schemes). The rule is therefore `report`, not
 enforced, exactly like `primary-cta-text-contrast` and `ai-accent-text-contrast` before it: a
 real, honestly-measured gap, printed every run, closed at the source (re-deriving the dark

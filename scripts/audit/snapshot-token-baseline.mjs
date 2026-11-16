@@ -15,7 +15,7 @@ for (const { id } of getGdsVibeThemes()) {
     );
   }
 }
-for (const lane of ['class-usa', 'gold-athlete']) {
+for (const lane of ['harbor', 'ochre']) {
   snapshot[`brand:${lane}`] = Object.fromEntries(
     Object.entries(createBrandTheme(lane).mantineTheme.other.gdsCssVariables).sort(([a], [b]) => a.localeCompare(b)),
   );

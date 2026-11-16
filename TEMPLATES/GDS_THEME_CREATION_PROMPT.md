@@ -94,7 +94,7 @@ report back in Section 7, it does not skip any step in Sections 3-6.
 Open the Theme Lab first. Switch through the existing shipped lanes (the
 generic "vibe" lanes — sunset, oceanic, forest, ruby, amber, neon-night,
 skyline, aurora, coral, mint, orchid, royal, cosmic — and the real branded
-lanes — class-usa, gold-athlete, athlete-gold) in BOTH light and dark before
+lanes — harbor, ochre, gilded) in BOTH light and dark before
 designing anything new. Your new theme needs to sit comfortably alongside
 these, not clash with or duplicate one.
 

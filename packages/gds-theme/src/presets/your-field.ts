@@ -4,7 +4,7 @@ import { GDS_DEFAULT_DESIGN_RULE_PROFILE } from '../axes';
 import { YOUR_FIELD_NAVY_DEEP, YOUR_FIELD_SCOUT, YOUR_FIELD_SCOUT_2, yourFieldThemePreset } from '../your-field';
 import { ensureContrast, mixCssColors } from '../color-math';
 
-// Your Field's Scout AI sub-brand accent lane (issue 697). Light values are the handoff's own
+// Linen's Scout AI sub-brand accent lane (issue 697). Light values are the handoff's own
 // anchors, reused verbatim from your-field.ts (YOUR_FIELD_SCOUT/YOUR_FIELD_SCOUT_2/
 // YOUR_FIELD_NAVY_DEEP) rather than retyped, so there is exactly one place each hex lives.
 // `#1A3A6A` (the second ai.panel stop) mirrors that same literal, cased identically, already
@@ -45,17 +45,17 @@ const YOUR_FIELD_AI_GRADIENT_DARK = `linear-gradient(135deg, ${YOUR_FIELD_AI_ACC
 const YOUR_FIELD_AI_PANEL_DARK = `linear-gradient(124deg, ${YOUR_FIELD_AI_PANEL_STOP_1_DARK} 0%, ${YOUR_FIELD_AI_PANEL_STOP_2_DARK} 100%)`;
 
 export default defineGdsThemePreset({
-  id: 'your-field',
+  id: 'linen',
   catalog: {
-    label: 'Your Field',
-    description: 'Light, editorial family-discovery brand lane: warm cream canvas, white sidebar and cards, navy ink and primary action, an outline-only Playground Peach accent, and a Scout AI orange-gradient sub-lane reserved for AI surfaces.',
-    runtimeLane: 'resolveGdsThemePreset(your-field)',
+    label: 'Linen',
+    description: 'Light and editorial: warm cream canvas, white sidebar and cards, navy ink and primary action, an outline-only peach accent, and an orange-gradient sub-lane reserved for AI surfaces.',
+    runtimeLane: 'resolveGdsThemePreset(linen)',
   },
   mantine: yourFieldThemePreset,
   vibe: {
     ...neutralVibe,
-    id: 'your-field',
-    label: 'Your Field',
+    id: 'linen',
+    label: 'Linen',
     // `primary` is what the governed Button rule paints with — navy, which is both ink and the
     // brand's primary action colour (the v3 redesign has no separate action colour).
     primary: '#0b223e',

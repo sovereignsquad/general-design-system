@@ -29,16 +29,16 @@ export type BrandColorRamp = readonly [
   string,
 ];
 
-/** Ramp key of the built-in Class USA brand palette (v2 re-base). */
+/** Ramp key of the built-in Harbor brand palette (v2 re-base). */
 export type ClassUsaColorRampName = 'navy' | 'brand' | 'action' | 'trust' | 'cream' | 'slate';
 
-/** The six Class USA brand ramps keyed by name. */
+/** The six Harbor brand ramps keyed by name. */
 export type ClassUsaColorRamps = Record<ClassUsaColorRampName, BrandColorRamp>;
 
-/** Ramp key of the built-in Gold Athlete brand palette. */
+/** Ramp key of the built-in Ochre brand palette. */
 export type GoldAthleteColorRampName = 'gold' | 'charcoal' | 'crimson' | 'ivory' | 'slate';
 
-/** The five Gold Athlete brand ramps keyed by name. */
+/** The five Ochre brand ramps keyed by name. */
 export type GoldAthleteColorRamps = Record<GoldAthleteColorRampName, BrandColorRamp>;
 
 /** A governed brand semantic role name; each resolves to a light + dark color pair. */
@@ -260,7 +260,7 @@ export function emitCssVariables(tokens: Record<BrandSemanticRole, SemanticPair>
 // cannot forget the overrides.
 
 /**
- * The Class USA handoff's radius scale (8 / 12 / 16 / 24 / pill): xs tight chrome, sm controls,
+ * The Harbor handoff's radius scale (8 / 12 / 16 / 24 / pill): xs tight chrome, sm controls,
  * md cards, lg large panels, xl pill. Its Mantine radius scale and its `--gds-radius-*` tokens
  * both come from here. Roles match the lane's components: cards and panels on md, buttons on sm.
  */
@@ -271,7 +271,7 @@ export const GDS_CLASS_USA_SHAPE_AXIS: GdsShapeAxis = {
 };
 
 /**
- * Gold Athlete's shape: the default scale, with buttons on `xl` and modals on `lg` (the lane's
+ * Ochre's shape: the default scale, with buttons on `xl` and modals on `lg` (the lane's
  * Mantine `defaultRadius: 'lg'`).
  */
 export const GDS_GOLD_ATHLETE_SHAPE_AXIS: GdsShapeAxis = {
@@ -280,9 +280,9 @@ export const GDS_GOLD_ATHLETE_SHAPE_AXIS: GdsShapeAxis = {
   defaultStep: 'md',
 };
 
-/** Class USA's translucent app-shell colours; the preset and the brand lane both read them. */
+/** Harbor's translucent app-shell colours; the preset and the brand lane both read them. */
 export const GDS_CLASS_USA_SHELL = { light: 'rgba(255, 255, 255, 0.9)', dark: 'rgba(15, 44, 74, 0.9)' } as const;
-/** Gold Athlete's translucent app-shell colours; the preset and the brand lane both read them. */
+/** Ochre's translucent app-shell colours; the preset and the brand lane both read them. */
 export const GDS_GOLD_ATHLETE_SHELL = { light: 'rgba(255, 255, 255, 0.92)', dark: 'rgba(18, 21, 27, 0.92)' } as const;
 
 /** Minimum luminance contrast between the card and a raised surface above it (dark scheme). */
@@ -347,11 +347,11 @@ export function emitSurfaceHierarchyCssVariables(base: Record<string, string>, s
   return vars;
 }
 
-/** Complete `--gds-*` variable set for the Class USA lane. */
+/** Complete `--gds-*` variable set for the Harbor lane. */
 export function emitClassUsaCssVariables(ramps: ClassUsaColorRamps): Record<string, string> {
   // Axis tokens are part of a lane's complete variable set. Emitting them only on the
   // document path would leave the two consumption paths with different key sets.
-  const vars = { ...resolveGdsAxisTokens({ shape: GDS_CLASS_USA_SHAPE_AXIS }, 'class-usa'), ...emitCssVariables(deriveClassUsaSemanticTokens(ramps)) };
+  const vars = { ...resolveGdsAxisTokens({ shape: GDS_CLASS_USA_SHAPE_AXIS }, 'harbor'), ...emitCssVariables(deriveClassUsaSemanticTokens(ramps)) };
   vars['--gds-brand-accent-action'] = ramps.action[6];
   vars['--gds-brand-accent-action-dark'] = ramps.brand[5];
   // These overrides land after `emitCssVariables` already derived the badge foregrounds, so
@@ -362,9 +362,9 @@ export function emitClassUsaCssVariables(ramps: ClassUsaColorRamps): Record<stri
   return { ...greyed, ...emitChartCssVariables(greyed), ...emitSurfaceHierarchyCssVariables(greyed, GDS_CLASS_USA_SHELL) };
 }
 
-/** Complete `--gds-*` variable set for the Gold Athlete lane. */
+/** Complete `--gds-*` variable set for the Ochre lane. */
 export function emitGoldAthleteCssVariables(ramps: GoldAthleteColorRamps): Record<string, string> {
-  const vars = { ...resolveGdsAxisTokens({ shape: GDS_GOLD_ATHLETE_SHAPE_AXIS }, 'gold-athlete'), ...emitCssVariables(deriveGoldAthleteSemanticTokens(ramps)) };
+  const vars = { ...resolveGdsAxisTokens({ shape: GDS_GOLD_ATHLETE_SHAPE_AXIS }, 'ochre'), ...emitCssVariables(deriveGoldAthleteSemanticTokens(ramps)) };
   vars['--gds-brand-accent-action'] = ramps.gold[6];
   vars['--gds-brand-accent-action-dark'] = ramps.gold[3];
   // These overrides land after `emitCssVariables` already derived the badge foregrounds, so
