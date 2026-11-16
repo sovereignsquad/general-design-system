@@ -73,6 +73,7 @@ export function SectionPanel({
     // smaller mobile padding (the original `xl` would, at `xs` padding).
     <Paper
       id={id}
+      data-gds-section-panel=""
       withBorder
       radius="lg"
       p={{ base: 'xs', sm: 'sm', md: 'lg' }}

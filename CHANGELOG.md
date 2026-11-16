@@ -4,6 +4,27 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
+### Components keep whole words and their width inside narrow containers (#982)
+
+- Phone screenshots showed several components breaking at narrow width: a vertical "M e n u" in `PublicShell`, "Boo k / Profil e" in `BottomTabBar`, "classific ation" in the design-rule panel, a squeezed `ReferenceSiteShell` header and a clipped selected chip. A first sweep of every route at 390px counted 578 words split across lines, hyphen breaks included. The stricter gate below, which counts only words that would have fitted, finds 40 on the deployed site and 0 on this build.
+- Root cause: a system-wide `overflow-wrap: anywhere` on text, titles and links, plus the same value inline in `HeroSearchPanel`, `DetailFactsTable` and `QuickStartCard`. `anywhere` drops every word's minimum width to one character, so tables and flex rows squeezed text to a letter per line instead of wrapping or scrolling. They now use `break-word`, which breaks only a token longer than its line.
+- A child of a `Stack`, or of a `Group` without `grow`, is capped at the container width. A long token (for example the email on `/request-feature`) then wraps instead of widening the page.
+- Inline `Code` is `inline-block` at most 100% wide.
+- On compact screens a container directly inside a container adds no inline padding, and a nested `SectionPanel` drops its side padding and border. `DocsShell`'s content container does not pad on phones, because the shell's main area already does. On a 390px phone this gives back 32px per side.
+- Component fixes:
+  - `GdsDesignRuleProfilePanel` packs its two donuts in an auto-fit grid.
+  - The system reference tables and `gds-admin` `DataTable` scroll inside their card.
+  - `PillBar` (and `GdsMapFilterRail`) leaves room for the selection and focus ring inside its scroller.
+  - `BottomTabBar` gives `renderItem` content an equal-width cell.
+  - `PublicShell` shows the "Menu" label from `sm` up and keeps its actions on one line.
+  - `ReferenceSiteShell`'s language control is icon-only on phones, and the active locale stays its accessible name.
+- The `MapPanel` pattern demo renders a real `GdsMap` instead of its empty state.
+- New gate `verify:word-wrap-runtime`: every route at 390px and 320px fails on a word that breaks mid-word although it fits its line. It found 40 such words on the deployed site before this change.
+- Visible change:
+  - Text no longer splits inside words.
+  - Phone layouts are wider, because nested panels flatten.
+  - Some wide tables now scroll sideways inside their card.
+
 ### Button variants keep their emphasis under every preset; fills and labels meet contrast in every theme (#977)
 
 - Under a theme preset every Button except `default` was repainted as the filled primary: `light`, `subtle`, `outline`, `transparent` and `white` all rendered as the same violet fill (measured live on `/patterns/data`: Download, Delete and Clear selection, all `rgb(124, 58, 237)`). The repaint now applies to filled buttons only, and the red carve-out to filled red only.

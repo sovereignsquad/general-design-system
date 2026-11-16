@@ -91,7 +91,8 @@ export function GdsMotionSystemReference() {
           a theme can retune all of it in one place. The values below are the default
           axis&rsquo;s own.
         </Text>
-        <Table withTableBorder>
+        <Table.ScrollContainer minWidth={0} type="native">
+<Table withTableBorder>
           <Table.Tbody>
             <Table.Tr><Table.Td>hover</Table.Td><Table.Td><Code>{String(axis.hover)}</Code></Table.Td></Table.Tr>
             <Table.Tr><Table.Td>active</Table.Td><Table.Td><Code>{String(axis.active)}</Code></Table.Td></Table.Tr>
@@ -102,6 +103,7 @@ export function GdsMotionSystemReference() {
             <Table.Tr><Table.Td>transition scope</Table.Td><Table.Td><Code>{(axis.transitionScope ?? []).join(', ')}</Code></Table.Td></Table.Tr>
           </Table.Tbody>
         </Table>
+</Table.ScrollContainer>
         <Text size="sm" c="dimmed">
           Wire-up is one call: <Code>withGdsMotion(theme)</Code> — see docs/MOTION_SYSTEM.md.
           Reduced motion collapses every treatment to its documented safe form via the same

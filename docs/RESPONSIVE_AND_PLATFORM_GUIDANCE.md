@@ -31,6 +31,15 @@ GDS adopts a small, named **size-class vocabulary** so guidance and code talk ab
 - Primary destinations stay reachable without a hidden-drawer-only pattern (see the mobile-navigation contract in `COMPONENTS_AND_PATTERNS.md`).
 - Keep focused text inputs ≥ 16px so mobile browsers don't force-zoom (guarded by default — see `PWA_VIEWPORT_POLICY.md` and `verify:input-zoom-guard-runtime`).
 - Prefer bottom-anchored primary actions and sticky action bars; keep tap targets comfortably large.
+- Nesting does not compound insets (#982). In `@sovereignsquad/gds-theme/styles.css`, below 48em:
+  - a `Container` directly inside a `Container` adds no inline padding;
+  - a `SectionPanel` inside a `SectionPanel` drops its side padding and border, and keeps its heading and divider.
+- `DocsShell`'s content container does not pad on phones, because the shell's main area already does.
+- Text wraps whole words (`overflow-wrap: break-word`). A word breaks only when it is longer than its line. Inline code moves to the next line as a unit.
+- A child of a `Stack` or a non-growing `Group` is never wider than its container.
+- Lay pairs out with `GdsGrid columns="auto-fit" minColumnWidth=…` so they stack when the container is narrow, whatever the viewport. A side-by-side `Group grow` does not stack.
+- Wrap a table in a scroll container, so a wide table scrolls inside its card instead of widening the page.
+- `verify:word-wrap-runtime` fails a build in which any route breaks a word that would have fitted its line, at 390px or 320px. `verify:viewport-reachability-runtime` fails on sideways page scroll.
 
 ### `medium` (phones landscape, small tablets)
 - Introduce a second column only where it earns its place (list + peek, filters + results). Otherwise stay single-column.

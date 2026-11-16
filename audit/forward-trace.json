@@ -4,10 +4,10 @@
   "cellsEvaluated": 1395,
   "obligationsSatisfied": {
     "listed": 134,
-    "demoed": 155,
+    "demoed": 156,
     "explained": 119,
     "variationsShown": 44,
-    "useCase": 31
+    "useCase": 29
   },
   "confidence": {
     "listed": "high - direct lookup against the published DTCG graph and docs corpus",
@@ -762,30 +762,6 @@
         "variationsShown",
         "useCase"
       ]
-    },
-    {
-      "token": "--gds-focus-ring-offset",
-      "role": "focus-ring-offset",
-      "declaredIn": [
-        "styles.css",
-        "ts-emitter"
-      ],
-      "listed": false,
-      "demoed": false,
-      "explained": false,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "listed",
-        "demoed",
-        "explained",
-        "variationsShown",
-        "useCase"
-      ],
-      "classification": {
-        "reason": "Focus-ring axis token (axes.ts emits it; accessibility-floor.ts polices the axis at runtime). Issue 552 closed on governance without the reference-site docs; the docs are issue 965.",
-        "reviewBy": "2027-02-01"
-      }
     },
     {
       "token": "--gds-focus-ring-style",
@@ -2326,6 +2302,29 @@
       }
     },
     {
+      "token": "--gds-focus-ring-offset",
+      "role": "focus-ring-offset",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ],
+      "classification": {
+        "reason": "Focus-ring axis token (axes.ts emits it; accessibility-floor.ts polices the axis at runtime). Issue 552 closed on governance without the reference-site docs; the docs are issue 965.",
+        "reviewBy": "2027-02-01"
+      }
+    },
+    {
       "token": "--gds-badge-solid-success-fg",
       "role": "badge-solid-success-fg",
       "declaredIn": [
@@ -3769,10 +3768,44 @@
       ]
     },
     {
+      "token": "--gds-brand-accent",
+      "role": "brand-accent",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
       "token": "--gds-brand-accent-fg",
       "role": "brand-accent-fg",
       "declaredIn": [
         "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-brand-accent-action",
+      "role": "brand-accent-action",
+      "declaredIn": [
+        "styles.css",
+        "ts-emitter"
       ],
       "listed": true,
       "demoed": true,
@@ -4649,38 +4682,6 @@
       "role": "badge-solid-danger",
       "declaredIn": [
         "styles.css"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": true,
-      "gaps": [
-        "variationsShown"
-      ]
-    },
-    {
-      "token": "--gds-brand-accent",
-      "role": "brand-accent",
-      "declaredIn": [
-        "styles.css",
-        "ts-emitter"
-      ],
-      "listed": true,
-      "demoed": true,
-      "explained": true,
-      "variationsShown": false,
-      "useCase": true,
-      "gaps": [
-        "variationsShown"
-      ]
-    },
-    {
-      "token": "--gds-brand-accent-action",
-      "role": "brand-accent-action",
-      "declaredIn": [
-        "styles.css",
-        "ts-emitter"
       ],
       "listed": true,
       "demoed": true,

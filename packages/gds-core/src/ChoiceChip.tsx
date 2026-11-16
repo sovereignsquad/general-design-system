@@ -143,6 +143,8 @@ function SelectionScroller<T extends string>({
       onKeyDown={handleKeyDown}
       style={{
         overflowX: 'auto',
+        // The scroller clips on both axes; room for the focus and selection ring keeps it whole.
+        padding: 'calc(var(--gds-focus-ring-width) + var(--gds-focus-ring-offset))',
         scrollbarWidth: 'thin',
         WebkitOverflowScrolling: 'touch',
       }}

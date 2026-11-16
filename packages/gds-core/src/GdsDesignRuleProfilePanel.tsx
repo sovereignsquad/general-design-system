@@ -4,6 +4,7 @@ import {
   NAMED_TYPE_SCALE_RATIO_LABELS, type GdsThemePresetId,
 } from '@sovereignsquad/gds-theme';
 import { GdsChart, type GdsChartDatum } from './GdsChart';
+import { GdsGrid } from './LayoutPrimitives';
 import { GdsBadge } from './GdsBadge';
 import { designRuleCoverageByPreset } from './generated-design-rule-coverage';
 
@@ -62,7 +63,7 @@ export function GdsDesignRuleProfilePanel({ preset }: GdsDesignRuleProfilePanelP
         different metrics -- token-role count versus real rendered pixel area -- and can
         legitimately diverge. Neither is presented as more "correct" than the other.
       </Text>
-      <Group grow align="flex-start">
+      <GdsGrid columns="auto-fit" minColumnWidth="aside" gap="md">
         <GdsChart
           type="donut"
           title={`${preset}: declared role classification`}
@@ -75,7 +76,7 @@ export function GdsDesignRuleProfilePanel({ preset }: GdsDesignRuleProfilePanelP
           summary={measuredSummary}
           data={measuredData}
         />
-      </Group>
+      </GdsGrid>
       <Group gap="sm">
         <GdsBadge tone="neutral" label={`Type scale: ${typeScale.ratio} (${NAMED_TYPE_SCALE_RATIO_LABELS[typeScale.ratio]})`} />
         <GdsBadge tone="neutral" label={`Color harmony: ${harmony}`} />

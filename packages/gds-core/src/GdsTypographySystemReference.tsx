@@ -55,7 +55,8 @@ export function GdsTypographySystemReference() {
           Three roles a theme assigns a registered lane id to; component source asks for a
           role, never a font family directly.
         </Text>
-        <Table withTableBorder>
+        <Table.ScrollContainer minWidth={0} type="native">
+<Table withTableBorder>
           <Table.Tbody>
             {(['display', 'body', 'mono'] as const).map((role) => (
               <Table.Tr key={role}>
@@ -65,6 +66,7 @@ export function GdsTypographySystemReference() {
             ))}
           </Table.Tbody>
         </Table>
+</Table.ScrollContainer>
       </Stack>
     </Stack>
   );

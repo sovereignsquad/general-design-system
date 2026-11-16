@@ -84,7 +84,7 @@ function InlineMobileNavigation({
         }}
       >
         <Burger opened={false} aria-hidden />
-        <Text size="sm" fw={600}>
+        <Text size="sm" fw={600} visibleFrom="sm">
           Menu
         </Text>
       </Box>
@@ -163,7 +163,7 @@ export function PublicShell({
             wrap="nowrap"
             gap={headerVariant === 'compact' ? 'sm' : 'lg'}
           >
-            <Group wrap="nowrap" gap={headerVariant === 'compact' ? 'xs' : 'sm'} className={classNames?.brand}>
+            <Group wrap="nowrap" gap={headerVariant === 'compact' ? 'xs' : 'sm'} miw={0} className={classNames?.brand}>
               {usesInlineMobileNavigation ? (
                 <InlineMobileNavigation
                   mobileNavigation={mobileNavigation}
@@ -171,12 +171,12 @@ export function PublicShell({
                   mode={mobileNavigationMode}
                 />
               ) : null}
-              <Box>{brand}</Box>
+              <Box miw={0}>{brand}</Box>
             </Group>
             <Group visibleFrom="sm" gap={headerVariant === 'compact' ? 'md' : 'lg'} className={classNames?.navigation}>
               {resolvedNavigation}
             </Group>
-            <Group gap="sm" className={classNames?.actions}>
+            <Group gap="sm" wrap="nowrap" style={{ flexShrink: 0 }} className={classNames?.actions}>
               {actions}
             </Group>
           </Group>

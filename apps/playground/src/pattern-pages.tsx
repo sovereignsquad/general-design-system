@@ -2860,7 +2860,17 @@ function renderEntryDemo(entry: PatternRegistryEntry) {
           title="Map containment"
           description="Shared map/iframe contract keeps embed behavior explicit."
           loading={false}
-          empty="No map source configured for this proof."
+          renderMap={() => (
+            <GdsMap
+              label="Office locations"
+              height="240px"
+              markers={[
+                { id: 'hq', position: { lat: 51.5154, lng: -0.0922 }, accent: 'ocean', label: 'Head office' },
+                { id: 'studio', position: { lat: 51.5033, lng: -0.1195 }, accent: 'plum', label: 'Design studio' },
+              ]}
+              defaultViewport={{ center: { lat: 51.5094, lng: -0.1058 }, zoom: 13 }}
+            />
+          )}
         />
       );
     case 'buttons':

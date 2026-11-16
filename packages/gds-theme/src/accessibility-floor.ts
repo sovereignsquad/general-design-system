@@ -342,7 +342,7 @@ export const gdsAccessibilityFloorRules: readonly GdsFloorRule[] = [
     id: 'primary-cta-text-contrast',
     axis: 'color',
     wcag: '1.4.3 Contrast (Minimum) (AA)',
-    rationale: 'The filled primary button paints `--gds-action-fill-fg` on `--gds-vibe-primary`; its label is normal-weight text (issue 680, #977).',
+    rationale: 'The filled primary button is used for a page\'s main action: it paints `--gds-action-fill-fg` on `--gds-vibe-primary`, and its label is normal-weight text (issue 680, #977).',
     evaluate(ctx) {
       const fill = ctx.tokens['--gds-vibe-primary'];
       const fg = ctx.tokens['--gds-action-fill-fg'];

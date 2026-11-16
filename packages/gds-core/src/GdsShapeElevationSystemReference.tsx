@@ -41,7 +41,8 @@ export function GdsShapeElevationSystemReference() {
           through the same axis <Code>resolveGdsShapeTokens()</Code> emits, falling back to the
           axis&rsquo;s default step when a theme leaves a role undeclared.
         </Text>
-        <Table withTableBorder>
+        <Table.ScrollContainer minWidth={0} type="native">
+<Table withTableBorder>
           <Table.Tbody>
             {GDS_RADIUS_ROLES.map((role) => (
               <Table.Tr key={role}>
@@ -51,6 +52,7 @@ export function GdsShapeElevationSystemReference() {
             ))}
           </Table.Tbody>
         </Table>
+</Table.ScrollContainer>
         {(() => {
           const values = GDS_RADIUS_ROLES.map((role) => shapeTokens[`--gds-radius-${role}`]);
           const distinctCount = new Set(values).size;
@@ -92,7 +94,8 @@ export function GdsShapeElevationSystemReference() {
                     </Stack>
                   </Card>
                   <Paper p="xs">
-                    <Table>
+                    <Table.ScrollContainer minWidth={0} type="native">
+<Table>
                       <Table.Tbody>
                         {(['card', 'panel', 'input', 'button', 'chip', 'modal', 'sheet'] as const).map((role) => (
                           <Table.Tr key={role}>
@@ -102,6 +105,7 @@ export function GdsShapeElevationSystemReference() {
                         ))}
                       </Table.Tbody>
                     </Table>
+</Table.ScrollContainer>
                   </Paper>
                 </Stack>
               </GdsShapeScope>
@@ -137,7 +141,8 @@ export function GdsShapeElevationSystemReference() {
           Same role-over-step discipline as shape: a card and a tooltip never share a
           hand-tuned shadow, they share a role that resolves through <Code>resolveGdsElevationTokens()</Code>.
         </Text>
-        <Table withTableBorder>
+        <Table.ScrollContainer minWidth={0} type="native">
+<Table withTableBorder>
           <Table.Tbody>
             {GDS_ELEVATION_ROLES.map((role) => (
               <Table.Tr key={role}>
@@ -154,6 +159,7 @@ export function GdsShapeElevationSystemReference() {
             ))}
           </Table.Tbody>
         </Table>
+</Table.ScrollContainer>
       </Stack>
     </Stack>
   );
