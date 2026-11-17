@@ -168,7 +168,7 @@ const ReleaseNotesPage = lazy(async () => {
   return { default: module.ReleaseNotesPage };
 });
 const StyleProfilesPage = lazy(async () => {
-  const module = await import('./style-profiles-page');
+  const module = await import('./pattern-pages');
   return { default: module.StyleProfilesPage };
 });
 
