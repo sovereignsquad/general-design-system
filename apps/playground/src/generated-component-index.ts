@@ -1655,6 +1655,16 @@ export const gdsComponentIndex: GdsComponentIndexRow[] = [
     "reason": "Chart wrapper (GdsChart) — variant of the registered reporting chart family."
   },
   {
+    "name": "GdsTableScrollContainer",
+    "status": "registered",
+    "home": {
+      "id": "simple-data-tables",
+      "family": "data",
+      "section": "Search & Data Views"
+    },
+    "alsoAppearsIn": []
+  },
+  {
     "name": "GdsTelemetryProvider",
     "status": "registered",
     "home": {

@@ -122,6 +122,7 @@ export * from './GdsBreadcrumbs';
 export * from './PageHeader';
 export * from './DocsCodeBlock';
 export * from './DocsCodeDisclosure';
+export * from './GdsTableScrollContainer';
 export * from './GdsReleaseNotes.client';
 
 // ── Forms & validation ──

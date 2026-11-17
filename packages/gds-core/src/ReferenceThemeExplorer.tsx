@@ -667,7 +667,7 @@ export function ReferenceThemeExplorer({
                 <Text size="xs">
                   <strong>{copy.bestFor}</strong> {lane.supportedUse}
                 </Text>
-                <Code block fz="10px">
+                <Code block fz="10px" tabIndex={0} role="group" aria-label={lane.label}>
                   {lane.themeKey}
                 </Code>
                 <Button
@@ -841,7 +841,7 @@ export function ReferenceThemeExplorer({
                 <Text fw={700} size="sm">
                   {copy.approvedRemediation}
                 </Text>
-                <Code block>createPublicBrandTheme({`{ flatSurfaces: true, overrides: { primaryColor: 'blue' } }`})</Code>
+                <Code block tabIndex={0} role="group" aria-label={copy.approvedRemediation}>createPublicBrandTheme({`{ flatSurfaces: true, overrides: { primaryColor: 'blue' } }`})</Code>
               </Stack>
             </Paper>
             <Paper withBorder radius="md" p={{ base: 'xs', sm: 'sm', md: 'md' }}>
@@ -849,7 +849,7 @@ export function ReferenceThemeExplorer({
                 <Text fw={700} size="sm">
                   {copy.prohibitedOwnership}
                 </Text>
-                <Code block>extendGdsTheme(...) / createTheme(...) / mergeMantineTheme(...)</Code>
+                <Code block tabIndex={0} role="group" aria-label={copy.prohibitedOwnership}>extendGdsTheme(...) / createTheme(...) / mergeMantineTheme(...)</Code>
               </Stack>
             </Paper>
           </SimpleGrid>

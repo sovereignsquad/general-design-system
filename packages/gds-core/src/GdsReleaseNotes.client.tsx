@@ -7,6 +7,7 @@ import { GdsInlineLink } from './GdsInlineLink';
 import { GdsBox, GdsStack } from './LayoutPrimitives';
 import { SectionPanel } from './SectionPanel';
 import { BodyText, CardTitle, InlineEmphasis, InlineText, MetadataText } from './Typography';
+import { GdsTableScrollContainer } from './GdsTableScrollContainer';
 
 /** A run of inline release-note text. */
 export type GdsReleaseNoteInline =
@@ -122,7 +123,7 @@ function renderBlocks(blocks: GdsReleaseNoteBlock[], issueHref: GdsReleaseNotesP
         return <DocsCodeBlock key={blockKey} code={block.code} language={block.language} withCopy={false} />;
       case 'table':
         return (
-          <Table.ScrollContainer key={blockKey} minWidth={0} type="native">
+          <GdsTableScrollContainer key={blockKey}>
             <Table withTableBorder>
               <Table.Thead>
                 <Table.Tr>{block.header.map((cell, c) => <Table.Th key={c}>{renderInline(cell, issueHref, `${blockKey}-h${c}`)}</Table.Th>)}</Table.Tr>
@@ -133,7 +134,7 @@ function renderBlocks(blocks: GdsReleaseNoteBlock[], issueHref: GdsReleaseNotesP
                 ))}
               </Table.Tbody>
             </Table>
-          </Table.ScrollContainer>
+          </GdsTableScrollContainer>
         );
     }
   });
