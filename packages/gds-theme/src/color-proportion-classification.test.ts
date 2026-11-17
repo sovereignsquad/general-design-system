@@ -33,7 +33,7 @@ describe('color-proportion classification (issue #644)', () => {
     for (const role of DECLARED_ROLES) expect(classified.has(role)).toBe(true);
   });
 
-  it('has a classification entry for every shipped preset (all 25)', () => {
+  it('has a classification entry for every shipped preset', () => {
     expect(ALL_PRESET_IDS.length).toBeGreaterThanOrEqual(25);
     for (const id of ALL_PRESET_IDS) {
       expect(colorProportionClassificationByPreset[id]).toBeDefined();

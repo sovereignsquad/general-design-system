@@ -60,7 +60,7 @@ export const COVERED_ELSEWHERE = {
   'interaction-state': 'Phase 4a',
   'locale-pack-package': 'Phase 4b + verify:i18n-message-parity',
   'locale-pack-site': 'Phase 4b + verify:site-phrase-translations',
-  theme: 'Phase 1 (all 25 presets swept)',
+  theme: 'Phase 1 (every preset swept)',
   route: 'Phase 1 (4 of 24 routes — partial, stated)',
   pattern: 'verify:pattern-catalog-coverage',
 };

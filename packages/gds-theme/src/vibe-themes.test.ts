@@ -143,7 +143,7 @@ describe('vibe-theme semantic role tokens (badge-system foundation)', () => {
     // 4.5:1 requirement and passed every existing gate, because every existing gate
     // checked DESIGNED pairings and this pairing was never designed at all.
     //
-    // Asserting all 25 presets x both schemes rather than sampling is deliberate: the
+    // Asserting every preset x both schemes rather than sampling is deliberate: the
     // fix itself introduced a 4.1:1 failure in harbor light (the hand-authored
     // `support` override winning over a foreground derived against the derived
     // `support`), and only exhaustive checking surfaced it.
