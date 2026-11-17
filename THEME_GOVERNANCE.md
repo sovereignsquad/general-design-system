@@ -270,6 +270,8 @@ a flat tint instead of an invented gradient — same reasoning that neutralises 
 
 **Surface separation threshold (#951).** A sidebar is reported when its fill is within CIE76 2.3 (`GDS_SURFACE_JND_DELTA_E`, the just-noticeable difference given in Sharma's *Digital Color Imaging Handbook*) of both the page and the card. It is reported rather than enforced because, in light schemes, the page and card sit about 1.04:1 apart and a darker sidebar takes `--gds-text-meta` below 4.5:1; a fill ladder there would trade text legibility for decoration. Text legibility on `--gds-bg-sidebar`/`--gds-bg-raised` and the 3:1 `--gds-border-strong` are enforced (`surface-hierarchy-legible`). Details: [SEMANTIC_ROLE_TOKENS.md](docs/SEMANTIC_ROLE_TOKENS.md#surface-hierarchy-sidebar-raised-and-border-roles-951).
 
+**Dark card separation (#986).** In every dark scheme a card stands off the page: its fill is at least `GDS_DARK_CARD_SEPARATION_MIN.fill` (1.2:1) from `--gds-bg-canvas`, or its `--gds-border-card` is at least `GDS_DARK_CARD_SEPARATION_MIN.border` (3:1) against it. The accessibility floor enforces this as `dark-card-separation`. A preset that declares its own dark card surface lifts it toward white until the fill step is met.
+
 **An opaque declared surface is the card (#865).** When a preset's `surfaceLight` or
 `surfaceDark` is opaque, it becomes `--gds-bg-card`/`--gds-bg-surface` for that scheme and paints
 cards flat through `--gds-vibe-card`, with no preset-id selector. A preset that has its own

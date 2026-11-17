@@ -1,6 +1,6 @@
 {
   "presetsChecked": 54,
-  "rulesEvaluated": 19,
+  "rulesEvaluated": 20,
   "violationCount": 0,
   "reportCount": 8,
   "rules": [
@@ -75,6 +75,12 @@
       "axis": "color",
       "wcag": "1.4.11 Non-text Contrast (AA), informative: a surface is not a UI component",
       "rationale": "A sidebar whose fill matches both the page and the card (CIE76 below 2.3, a just-noticeable difference) is told apart only by its border. Reported, not enforced: in light schemes a darker sidebar would take muted text below 4.5:1, so most presets keep a two-level fill and rely on borders and elevation (#951)."
+    },
+    {
+      "id": "dark-card-separation",
+      "axis": "color",
+      "wcag": "1.4.11 Non-text Contrast (AA)",
+      "rationale": "In a dark scheme a card must stand off the page: its fill at least 1.2:1 from the canvas, or its border at least 3:1 against it. Below both, cards and page read as one washed-out surface (#986)."
     },
     {
       "id": "chart-roles-legible",

@@ -31,7 +31,7 @@ export default defineGdsThemePreset({
     shellLight: 'rgba(255, 255, 255, 0.85)',
     shellDark: 'rgba(10, 20, 32, 0.85)',
     surfaceLight: '#ffffff',
-    surfaceDark: '#101b28',
+    surfaceDark: '#1c2633',
     borderLight: 'rgba(0, 114, 178, 0.28)',
     borderDark: 'rgba(86, 180, 233, 0.32)',
     textLight: '#12181f',

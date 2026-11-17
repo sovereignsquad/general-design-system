@@ -39,10 +39,10 @@ describe('card surface from the palette (#865)', () => {
 
   it('the two opaque presets take their declared dark card; light stays white', () => {
     expect(getGdsVibeThemeCssVariables('high-contrast', 'dark')['--gds-bg-card']).toBe('#000000');
-    expect(getGdsVibeThemeCssVariables('colorblind-safe', 'dark')['--gds-bg-card']).toBe('#101b28');
+    expect(getGdsVibeThemeCssVariables('colorblind-safe', 'dark')['--gds-bg-card']).toBe('#1c2633');
     expect(getGdsVibeThemeCssVariables('high-contrast', 'light')['--gds-bg-card']).toBe('#ffffff');
     expect(getGdsVibeThemeCssVariables('colorblind-safe', 'light')['--gds-bg-card']).toBe('#ffffff');
-    expect(getGdsVibeThemeCssVariables('colorblind-safe', 'dark')['--gds-vibe-card']).toBe('#101b28');
+    expect(getGdsVibeThemeCssVariables('colorblind-safe', 'dark')['--gds-vibe-card']).toBe('#1c2633');
     const body = getGdsVibeThemeCssVariables('colorblind-safe', 'dark');
     expect(contrastRatio(body['--gds-text-body'], body['--gds-bg-card'], body['--gds-bg-card']) ?? 0).toBeGreaterThanOrEqual(4.5);
   });
