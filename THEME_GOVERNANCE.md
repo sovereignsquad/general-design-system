@@ -626,6 +626,28 @@ What GDS does not provide for this shape:
 - `withGdsMotion()` remains opt-in only. Shared motion is not part of the canonical base theme.
 - `AccentPanel` is the approved cross-mode accent-surface primitive. If a product needs emphasis or rollout surfaces, start there before inventing page-local color-mode handling.
 
+## Style profiles
+
+A style profile is a visual personality built from the shape, density and elevation axes. It is independent of the colour preset, so any profile combines with any preset (#987).
+
+| Profile | Radius role map | Density | Resting elevation (card, panel, sidebar) | Suited to |
+|---|---|---|---|---|
+| `default` | the preset's own | the preset's own | the preset's own | — |
+| `minimal` | `sm` throughout | comfortable | flat | internal tools, data dashboards |
+| `soft` | `xl` cards, `lg` buttons, pill chips | spacious | step 1 | consumer apps |
+| `structured` | `xs` controls and cards, square images | compact | flat | enterprise and dense operations |
+
+- A profile replaces the radius role map, the density mode and the resting elevation roles. It keeps the preset's radius scale, spacing scale, shadow values, typography and colours, and overlays (modal, drawer, sheet, menu, tooltip) keep their elevation.
+- **Utility radius cap:** the utility roles (`surface`, `input`: tables, lists, sidebars, toolbars, fields) never exceed `md` in any profile (`GDS_UTILITY_RADIUS_ROLES`, `GDS_UTILITY_RADIUS_CAP`), so `soft` does not heavily round a dense utility surface.
+- **Where to set it:**
+  - `useGdsThemePresetState` (`setStyleProfile`, persisted with the selection, `data-gds-style-profile` on `<html>`);
+  - `getGdsVibeThemeCssVariables(preset, scheme, { styleProfile })`;
+  - `GdsVibeThemeScope styleProfile` for a scoped preview;
+  - `applyGdsStyleProfile(axes, profile)` for custom axes.
+- **Theme Lab:** it has a Style profile select.
+- **Floor:** every preset passes the accessibility floor under every profile in both schemes (`style-profiles.test.ts`).
+- **No "vibrant" profile:** vibrancy is a colour decision, made with the colour presets (`vibrant`, `neon-night`, `cosmic` and others). Heading sizes come from the Mantine theme's `headings`, not from the type-axis tokens, so a profile that changed the type scale would change tokens no heading reads.
+
 ## Z-index / stacking layers
 
 GDS does not publish a second, competing z-index scale. `@mantine/core/styles.css` (loaded via the mandatory `@sovereignsquad/gds-theme/styles.css` import) already ships a documented CSS variable scale — `--mantine-z-index-app` (100), `--mantine-z-index-modal` (200), `--mantine-z-index-popover` (300), `--mantine-z-index-overlay` (400), `--mantine-z-index-max` (9999) — and GDS defers to it as the single stacking authority rather than inventing a parallel one that could drift out of sync.

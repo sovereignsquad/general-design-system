@@ -65,6 +65,16 @@ GDS is Mantine-based, so you style by component props and theme tokens, not util
 
 There is no class-name vocabulary to invent. If you reach for a CSS class, you are off-pattern; use a prop or a GDS layout primitive.
 
+**Choosing a look.** Pick a colour preset for the brand and a style profile for the product type:
+
+| Product | Style profile | Why |
+|---|---|---|
+| internal tool, data dashboard | `minimal` | crisp, flat, borders do the separating |
+| consumer app | `soft` | generous radii and spacing |
+| enterprise, dense operations | `structured` | square, compact, framed |
+
+Set the profile with `setStyleProfile` from `useGdsThemePresetState`, or pass `{ styleProfile }` to `getGdsVibeThemeCssVariables`. Tables, lists, sidebars and fields stay at most `md`-rounded in every profile. See [THEME_GOVERNANCE.md "Style profiles"](../THEME_GOVERNANCE.md#style-profiles).
+
 ## 4. Key contracts to honor
 
 - **Semantic actions:** `SemanticButton`, `ActionBar`, `SemanticNavLink`, and page/template actions take a semantic `action` enum (`save`, `add`, `edit`, `delete`, `search`, `settings`, `export`, `refresh`, `submit`, `analytics`, `dashboard`, …), not free text. Use `add` (not "create"), `refresh` (not "retry"). `SemanticButton` takes no children (a type error): its text is the action's vocabulary label, or `label` when the button needs specific text such as "Delete project".
