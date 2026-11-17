@@ -33,10 +33,10 @@ export const DERIVED_PLACEHOLDER = /%[a-z]+%/i;
 
 /** Prose numbers that are written rather than interpolated, with what makes each one true. */
 export const REGISTERED_NUMERIC_CLAIMS = {
-  'Every governed accessibility-floor rule (id, axis, WCAG citation, rationale) and a live audit result across all 25 presets x 2 schemes, computed by auditGdsAccessibilityFloor() — the same function verify:a11y-floor runs.': {
+  'Every governed accessibility-floor rule (id, axis, WCAG citation, rationale) and a live audit result across every preset in both schemes, computed by auditGdsAccessibilityFloor() — the same function verify:a11y-floor runs.': {
     evidence: 'derived',
     ref: 'auditGdsAccessibilityFloor() (packages/gds-theme/src/accessibility-floor.ts): presetsChecked = getGdsVibeThemes().length * 2, computed at call time, never typed.',
-    note: '25 presets x 2 schemes is the CURRENT preset count, stated in prose because the sentence describes the mechanism to a reader, not because it is hand-maintained -- the number the page actually shows (audit.presetsChecked) is the live computed value, and a preset added or removed changes that rendered number automatically without touching this sentence.',
+    note: 'The sentence states no count; the number the page shows (audit.presetsChecked) is computed live, so adding or removing a preset changes it without touching this sentence.',
   },
 };
 
@@ -46,7 +46,7 @@ export const REGISTERED_CLAIMS = {
     ref: 'GdsColorSystemReference embeds GdsAccentContrastMatrix, which calls evaluateGdsAccentContrast() -- the same function verify:accent-contrast runs. Two callers of one function cannot compute two different answers.',
     note: '"Can never disagree" is a structural fact about sharing one function, not a promise about behaviour verify:accent-contrast could drift from unnoticed.',
   },
-  'Every governed accessibility-floor rule (id, axis, WCAG citation, rationale) and a live audit result across all 25 presets x 2 schemes, computed by auditGdsAccessibilityFloor() — the same function verify:a11y-floor runs.': {
+  'Every governed accessibility-floor rule (id, axis, WCAG citation, rationale) and a live audit result across every preset in both schemes, computed by auditGdsAccessibilityFloor() — the same function verify:a11y-floor runs.': {
     evidence: 'derived',
     ref: 'GdsAccessibilitySystemReference calls auditGdsAccessibilityFloor() directly -- the same function packages/gds-theme/src/verify (via verify:a11y-floor) runs.',
     note: 'The rule list and the live verdict both come from the one exported function the gate itself calls; there is no second, hand-maintained copy of either to drift.',
@@ -75,7 +75,7 @@ export const REGISTERED_CLAIMS = {
   'An accent names a category and means the same thing in every theme, which is why it does not shift with the preset the way a tone does.': {
     evidence: 'gate',
     ref: 'verify:accent-contrast',
-    note: 'The accent palette is fixed by default across all 25 presets; a preset MAY override it, and the gate then measures that preset\'s own palette rather than the shared one. The invariant the sentence states — an accent is stable where a tone is tinted — is what that gate enforces.',
+    note: 'The accent palette is fixed by default across every preset; a preset MAY override it, and the gate then measures that preset\'s own palette rather than the shared one. The invariant the sentence states — an accent is stable where a tone is tinted — is what that gate enforces.',
   },
   'Focus never depends on hover-only reveal.': {
     evidence: 'gate',
