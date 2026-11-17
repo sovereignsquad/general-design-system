@@ -10,7 +10,7 @@ The `playground` app is the canonical public website for General Design System d
 - `/themes` — theme explorer and lane comparison (legacy `/tokens`)
 - `/patterns` — pattern catalog and family routes. Each demo has a Usage panel whose code `scripts/generate-pattern-usage.mjs` derives from the demo's source in `src/pattern-pages.tsx`; `verify:pattern-usage` fails when it is stale.
 - `/live-proofs` and family routes for shipped runtime proofs
-- `/style-profiles` — the workspace inbox, asset manager and analytics templates under every style profile, in light and dark; the runtime gates sweep it like every route
+- `/style-profiles` — the workspace inbox, asset manager and analytics templates under every style profile, in the current preset and scheme; the runtime gates sweep it in both schemes like every route
 - `/releases` — release notes, generated from `CHANGELOG.md` by `scripts/generate-release-notes.mjs`
 - `/llms.txt` — the repository's agent index, copied into the build by `scripts/generate-playground-static-routes.mjs`
 - `/request-feature` — canonical request intake for new primitives or policy updates

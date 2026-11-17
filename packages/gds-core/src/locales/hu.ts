@@ -429,4 +429,10 @@ export const hu = {
   'gds.docsCodeDisclosure.loading': "Kód betöltése…",
   'gds.docsCodeDisclosure.error': "A kódot nem sikerült betölteni. Zárja be, majd nyissa meg újra az újrapróbálkozáshoz.",
   'gds.docsCodeBlock.region': "Kód",
+  'gds.tableScroll.region': "Táblázat",
+  'gds.styleProfile.default': "Előre beállított alapértelmezett",
+  'gds.styleProfile.minimal': "Minimális",
+  'gds.styleProfile.soft': "Puha",
+  'gds.styleProfile.structured': "Strukturált",
+  'gds.themeExplorer.styleProfile': "Stílusprofil",
 };

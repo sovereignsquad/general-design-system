@@ -4,11 +4,15 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
+### Translation corrections (#981)
+
+- "Table" was machine-translated as the furniture word in Arabic, German, Spanish, Hebrew, Italian, Russian and Chinese. It is now the data-table noun, taken from each locale's own "Data table" caption, for both the new table scroll label and the existing table/grid toggle (`gds.dataView.table`).
+- The Korean code-block label read "암호" ("password"). It is now "코드", the word the Korean pack uses for code elsewhere.
+
 ### Style profiles side by side (#988)
 
-- New reference-site route `/style-profiles`: the workspace inbox, asset manager or analytics template under every style profile, in light and dark, using the same template demos as the pattern catalog.
-- The rendering, word-wrap, contrast and button gates sweep it like every other route.
-- `GdsVibeThemeScope` sets `data-mantine-color-scheme` on its subtree, so scheme-scoped component styles follow a scoped dark preview.
+- New reference-site route `/style-profiles`: the workspace inbox, asset manager or analytics template under every style profile, in the current colour preset and scheme, using the same template demos as the pattern catalog. The site's scheme switch compares light and dark.
+- The rendering, word-wrap, contrast and button gates sweep it in both schemes, like every other route.
 
 ### Agent entry point on the reference site (#990)
 
