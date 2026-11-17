@@ -4,6 +4,14 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
+### Charts draw by default; gradient strength per style profile (#989)
+
+- `GdsChart` without a `renderer` now draws `line`, `area`, `bar`, `stacked-bar`, `radar` and `heatmap` with the package primitives. Before, every type showed only a metadata card ("Type lane", "Registry family", point count) above the data table.
+- The other eight types (`pie`, `donut`, `scatter`, `bubble`, `funnel`, `treemap`, `candlestick`, `sankey`) still have no default drawing. They show the metadata card and the data table until an adapter `renderer` draws them.
+- The drawing primitives moved to `chart-primitives.tsx`, shared by `GdsChart` and the semantic chart wrappers. `SemanticChartFrame` is still exported from the same entries.
+- The area-chart gradient opacity is set by the style profile: `minimal` 0.16, `soft` 0.36, `structured` 0.12, falling to the baseline. `default` keeps the stylesheet's 0.28. The data line carries the contrast the floor checks, so the fill is decoration.
+- Chart colours in dark mode were already enforced per preset and scheme by the floor rule `chart-roles-legible`: series at 3:1 against the card, axis text at 4.5:1, and no two series alike.
+
 ### Comments and docs cite no internal instruction rules (#981)
 
 - Source comments, a floor rule rationale, a gate error message and five docs no longer justify themselves by citing numbered rules from the agent instruction file. Each keeps the functional statement. The floor rationale change regenerates `docs/ACCESSIBILITY_FLOOR.md`.

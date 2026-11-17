@@ -17,6 +17,8 @@ export interface GdsStyleProfileDefinition {
   density: GdsDensityMode;
   /** Elevation step per role. Overlays (modal, drawer, sheet, menu, tooltip) keep their elevation. */
   elevation: Partial<Record<GdsElevationRole, GdsElevationStep>>;
+  /** Area-chart gradient opacity at the line and at the baseline. The line carries the data; the fill is decoration. */
+  chartAreaOpacity: { start: string; end: string };
 }
 
 /**
@@ -35,18 +37,21 @@ export const GDS_STYLE_PROFILES: Record<Exclude<GdsStyleProfile, 'default'>, Gds
     radius: { card: 'sm', panel: 'sm', surface: 'sm', button: 'sm', input: 'sm', chip: 'sm', badge: 'sm', image: 'sm', thumbnail: 'sm' },
     density: 'comfortable',
     elevation: { card: 0, panel: 0, sidebar: 0 },
+    chartAreaOpacity: { start: '0.16', end: '0.02' },
   },
   // Generous corners and spacing with soft resting elevation.
   soft: {
     radius: { card: 'xl', panel: 'xl', surface: 'md', button: 'lg', input: 'md', chip: 'pill', badge: 'pill', image: 'xl', thumbnail: 'lg', modal: 'xl', drawer: 'xl', sheet: 'xl' },
     density: 'spacious',
     elevation: { card: 1, panel: 1, sidebar: 0 },
+    chartAreaOpacity: { start: '0.36', end: '0.04' },
   },
   // Near-square geometry, compact spacing and flat framed surfaces.
   structured: {
     radius: { card: 'xs', panel: 'xs', surface: 'xs', button: 'xs', input: 'xs', chip: 'xs', badge: 'xs', image: 'none', thumbnail: 'none', modal: 'sm', drawer: 'none', sheet: 'sm' },
     density: 'compact',
     elevation: { card: 0, panel: 0, sidebar: 0 },
+    chartAreaOpacity: { start: '0.12', end: '0' },
   },
 };
 
@@ -54,6 +59,19 @@ const RADIUS_ORDER: readonly GdsRadiusStep[] = ['none', 'xs', 'sm', 'md', 'lg', 
 
 function capped(step: GdsRadiusStep): GdsRadiusStep {
   return RADIUS_ORDER.indexOf(step) > RADIUS_ORDER.indexOf(GDS_UTILITY_RADIUS_CAP) ? GDS_UTILITY_RADIUS_CAP : step;
+}
+
+/**
+ * CSS variables a profile sets outside the axes: the area-chart gradient. Empty for `default`,
+ * which keeps the stylesheet values.
+ */
+export function getGdsStyleProfileCssVariables(profile: GdsStyleProfile = 'default'): Record<string, string> {
+  if (profile === 'default') return {};
+  const { chartAreaOpacity } = GDS_STYLE_PROFILES[profile];
+  return {
+    '--gds-chart-area-opacity-start': chartAreaOpacity.start,
+    '--gds-chart-area-opacity-end': chartAreaOpacity.end,
+  };
 }
 
 /** Narrows an arbitrary value to a style profile, falling back to `default`. */
