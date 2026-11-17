@@ -12,6 +12,7 @@ import {
 import { gdsThemePresetRegistry } from './presets';
 import { neutralVibe } from './presets/default';
 import { normalizeGdsThemePresetId } from './presets/aliases';
+import { applyGdsStyleProfile, type GdsStyleProfile } from './style-profiles';
 
 // Re-exported, not defined here. The public surface is unchanged; the definition moved so
 // that every semantic-role value lives in one module.
@@ -273,8 +274,11 @@ function actionGradientCss(gradient: GdsVibeActionGradient): string {
  * shape TS would otherwise infer: the semantic role set is merged in via
  * `...semanticVariables` below and is real at runtime, but a plain object-literal return
  * type would not carry that merge across a package's compiled `.d.ts` boundary.
+ *
+ * `options.styleProfile` applies a style profile to the preset's shape, density and elevation
+ * axes; colours are unaffected.
  */
-export function getGdsVibeThemeCssVariables(presetId: GdsThemePresetId, colorScheme: 'light' | 'dark'): Record<string, string> {
+export function getGdsVibeThemeCssVariables(presetId: GdsThemePresetId, colorScheme: 'light' | 'dark', options: { styleProfile?: GdsStyleProfile } = {}): Record<string, string> {
   const id = normalizeGdsThemePresetId(presetId);
   const vibe = resolveGdsVibeTheme(id);
   const dark = colorScheme === 'dark';
@@ -336,7 +340,7 @@ export function getGdsVibeThemeCssVariables(presetId: GdsThemePresetId, colorSch
 
   // Axis tokens are scheme-independent — a corner radius does not change between light and
   // dark — so they are merged in once rather than resolved per scheme.
-  const axisVariables = resolveGdsAxisTokens(vibe.axes, id, colorScheme);
+  const axisVariables = resolveGdsAxisTokens(applyGdsStyleProfile(vibe.axes, options.styleProfile), id, colorScheme);
 
   // The reserved ai lane (issue 697) merges in here, before the dark-collapse loop below, so
   // its `-dark` values collapse onto their base names in dark mode exactly like every other
