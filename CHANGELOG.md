@@ -4,6 +4,10 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
+### Dependency advisory accepted: picomatch ReDoS (#992)
+
+- GHSA-fc5q-39xc-vjpf affects `picomatch <=4.0.7`, which has no fixed release yet. It reaches only dev and build tooling (`vite`, `tsup`, `vitest`); no published package depends on it. It is accepted in `DEPENDENCY_AUDIT.md` with a review date of 2026-12-17, and is removed once a fixed release can be adopted.
+
 ### Translation corrections (#981)
 
 - "Table" was machine-translated as the furniture word in Arabic, German, Spanish, Hebrew, Italian, Russian and Chinese. It is now the data-table noun, taken from each locale's own "Data table" caption, for both the new table scroll label and the existing table/grid toggle (`gds.dataView.table`).
