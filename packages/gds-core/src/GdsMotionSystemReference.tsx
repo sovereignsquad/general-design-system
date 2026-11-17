@@ -6,6 +6,7 @@ import {
   GDS_DEFAULT_REACTION_AXIS,
   useGdsReducedMotion,
 } from '@sovereignsquad/gds-theme';
+import { GdsTableScrollContainer } from './GdsTableScrollContainer';
 
 /**
  * Motion system reference: six durations, five easings, seven presets, and the reaction axis
@@ -91,7 +92,7 @@ export function GdsMotionSystemReference() {
           a theme can retune all of it in one place. The values below are the default
           axis&rsquo;s own.
         </Text>
-        <Table.ScrollContainer minWidth={0} type="native">
+        <GdsTableScrollContainer>
 <Table withTableBorder>
           <Table.Tbody>
             <Table.Tr><Table.Td>hover</Table.Td><Table.Td><Code>{String(axis.hover)}</Code></Table.Td></Table.Tr>
@@ -103,7 +104,7 @@ export function GdsMotionSystemReference() {
             <Table.Tr><Table.Td>transition scope</Table.Td><Table.Td><Code>{(axis.transitionScope ?? []).join(', ')}</Code></Table.Td></Table.Tr>
           </Table.Tbody>
         </Table>
-</Table.ScrollContainer>
+</GdsTableScrollContainer>
         <Text size="sm" c="dimmed">
           Wire-up is one call: <Code>withGdsMotion(theme)</Code> — see docs/MOTION_SYSTEM.md.
           Reduced motion collapses every treatment to its documented safe form via the same

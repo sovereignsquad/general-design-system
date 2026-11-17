@@ -573,6 +573,10 @@ export function GdsChart({
     group: item.group ?? '-',
   }));
   const Renderer = renderer ?? DefaultChartRenderer;
+  // Optional columns appear only when some row has a value in them; an all-"-" column only
+  // widens the table.
+  const hasSecondary = tableRows.some((row) => row.secondaryValue !== '-');
+  const hasGroup = tableRows.some((row) => row.group !== '-');
 
   return (
     <ChartTokenPanel
@@ -587,8 +591,8 @@ export function GdsChart({
           columns={[
             { key: 'label', header: 'Label' },
             { key: 'value', header: config.tableValueHeader ?? 'Value' },
-            { key: 'secondaryValue', header: 'Secondary value' },
-            { key: 'group', header: config.groupLabel ?? 'Group' },
+            ...(hasSecondary ? [{ key: 'secondaryValue', header: 'Secondary value' }] : []),
+            ...(hasGroup ? [{ key: 'group', header: config.groupLabel ?? 'Group' }] : []),
           ]}
           rows={tableRows}
         />

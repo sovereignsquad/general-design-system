@@ -92,4 +92,10 @@ describe('QuickStartCard (issue 710)', () => {
     await user.click(button);
     expect(onClick).not.toHaveBeenCalled();
   });
+  it('holds no heading inside the button, only phrasing content', () => {
+    renderWithGds(<QuickStartCard icon="Calendar" label="This weekend" description="Saturday and Sunday" onClick={() => {}} />);
+    const button = screen.getByRole('button', { name: /This weekend/ });
+    expect(button.querySelector('h1, h2, h3, h4, h5, h6')).toBeNull();
+    expect(screen.queryByRole('heading')).toBeNull();
+  });
 });

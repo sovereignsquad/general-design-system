@@ -429,4 +429,5 @@ export const en = {
   'gds.docsCodeDisclosure.loading': "Loading code…",
   'gds.docsCodeDisclosure.error': "The code could not be loaded. Close and reopen to try again.",
   'gds.docsCodeBlock.region': "Code",
+  'gds.tableScroll.region': "Table",
 };

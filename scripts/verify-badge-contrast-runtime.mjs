@@ -7,8 +7,8 @@
 //   2. TOO LOW — the pair resolves opaquely but measures under 4.5:1.
 //
 // Scope: every pattern route, both schemes, at the default preset. Preset-independence is
-// covered numerically instead — packages/gds-theme/src/variant-colors.test.ts sweeps all 25
-// presets x 2 schemes x 14 Mantine colours and reports the worst case.
+// covered numerically instead — packages/gds-theme/src/variant-colors.test.ts sweeps every
+// preset x 2 schemes x 14 Mantine colours and reports the worst case.
 
 import { join } from 'node:path';
 import {

@@ -4747,6 +4747,24 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
     expect(screen.getByText('12')).toBeInTheDocument();
   });
 
+  it('shows the optional fallback columns only when some row has a value in them (#986)', () => {
+    renderWithGds(
+      <GdsChart
+        type="bar"
+        title="Plain bars"
+        summary="Two values, no secondary values or groups."
+        data={[
+          { label: 'A', value: 4 },
+          { label: 'B', value: 9 },
+        ]}
+      />,
+    );
+
+    expect(screen.getByRole('columnheader', { name: 'Label' })).toBeInTheDocument();
+    expect(screen.queryByRole('columnheader', { name: 'Secondary value' })).toBeNull();
+    expect(screen.queryByRole('columnheader', { name: 'Group' })).toBeNull();
+  });
+
   it('applies type-specific Set B chart validation rules and metadata', () => {
     expect(validateGdsChartData('bubble', [
       { label: 'A', value: 4 },

@@ -901,9 +901,9 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     docSection: 'Core Component Contracts',
     family: 'data',
     section: 'Search & Data Views',
-    summary: 'Public and product summary tables need governed loading, empty, error, and threshold-safe states.',
+    summary: 'Public and product summary tables need governed loading, empty, error, and threshold-safe states; a table wider than its container scrolls in a focusable, named region.',
     importPath: '@sovereignsquad/gds-core',
-    sourceComponent: 'SimpleDataTable',
+    sourceComponent: 'SimpleDataTable / GdsTableScrollContainer',
   },
   {
     id: 'admin-data-table',

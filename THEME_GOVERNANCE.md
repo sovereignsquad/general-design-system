@@ -272,6 +272,8 @@ a flat tint instead of an invented gradient — same reasoning that neutralises 
 
 **Dark card separation (#986).** In every dark scheme a card stands off the page: its fill is at least `GDS_DARK_CARD_SEPARATION_MIN.fill` (1.2:1) from `--gds-bg-canvas`, or its `--gds-border-card` is at least `GDS_DARK_CARD_SEPARATION_MIN.border` (3:1) against it. The accessibility floor enforces this as `dark-card-separation`. A preset that declares its own dark card surface lifts it toward white until the fill step is met.
 
+**Base component defaults (#986).** `baseTheme` in `packages/gds-theme/src/theme.ts`, which every lane builds on, gives Modal and Drawer titles `--gds-weight-semibold` (they render as `<h2>`) and makes every ScrollArea viewport focusable, so an overflowing scroll area can be scrolled from the keyboard (WCAG 2.1.1).
+
 **An opaque declared surface is the card (#865).** When a preset's `surfaceLight` or
 `surfaceDark` is opaque, it becomes `--gds-bg-card`/`--gds-bg-surface` for that scheme and paints
 cards flat through `--gds-vibe-card`, with no preset-id selector. A preset that has its own

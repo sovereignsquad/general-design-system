@@ -38,8 +38,8 @@ GDS adopts a small, named **size-class vocabulary** so guidance and code talk ab
 - Text wraps whole words (`overflow-wrap: break-word`). A word breaks only when it is longer than its line. Inline code moves to the next line as a unit.
 - A child of a `Stack` or a non-growing `Group` is never wider than its container.
 - Lay pairs out with `GdsGrid columns="auto-fit" minColumnWidth=…` so they stack when the container is narrow, whatever the viewport. A side-by-side `Group grow` does not stack.
-- Wrap a table in a scroll container, so a wide table scrolls inside its card instead of widening the page.
-- `verify:word-wrap-runtime` fails a build in which any route breaks a word that would have fitted its line, at 390px or 320px. `verify:viewport-reachability-runtime` fails on sideways page scroll.
+- Wrap a table in `GdsTableScrollContainer`, so a wide table scrolls inside its card instead of widening the page. The scroll region is focusable and named, so it can be scrolled from the keyboard.
+- `verify:word-wrap-runtime` fails a build in which any route breaks a word that would have fitted its line, at 390px or 320px. `verify:viewport-reachability-runtime` fails on sideways page scroll. `verify:rendering-runtime` sweeps every route at 390px and 1280px in both schemes. It fails on mixed heading styles within one scope, a heading that looks like body text, a scroll container that overflows by 8px or less, and a scroll region keyboard users cannot reach.
 
 ### `medium` (phones landscape, small tablets)
 - Introduce a second column only where it earns its place (list + peek, filters + results). Otherwise stay single-column.

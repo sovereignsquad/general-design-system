@@ -17,6 +17,22 @@ All notable policy changes to the General Design System are recorded here.
 
 - `high-contrast` keeps its black card: its white border separates it.
 
+### Rendering-quality gate and the defects it found (#986)
+
+- New release gate `verify:rendering-runtime`. It sweeps every reference-site route at 390px and 1280px, in light and dark, and fails on any of:
+  - mixed heading styles within one scope (the page, one pattern entry, one dialog);
+  - a heading that looks like body text (below weight 600 and below 1.125x body size);
+  - a scroll container that overflows by 8px or less;
+  - a scroll region that keyboard users cannot reach.
+- Fixed at the source:
+  - **Scroll areas:** every ScrollArea viewport is focusable by default in the base theme. This covers `Table.ScrollContainer` in scroll-area mode. 29 scroll regions at 390px could not be reached from the keyboard before.
+  - **New `GdsTableScrollContainer`** (`@sovereignsquad/gds-core`): a focusable, named native table scroll region. It replaces the native `Table.ScrollContainer` in the system reference tables, `GdsReleaseNotes` and the admin `DataTable`.
+  - **Raw code blocks:** the block code in `ReferenceThemeExplorer` and `GdsPinSystemReference` is focusable and named.
+  - **Dialog titles:** Modal and Drawer titles render at `--gds-weight-semibold`. The filter drawer title was body weight and size.
+  - **`QuickStartCard`:** the label is emphasised text, not a heading. A heading inside a `<button>` is invalid content and broke the heading outline of the page around it.
+  - **`GdsChart` data table:** the Secondary value and Group columns appear only when some row has a value. Two empty columns made the design-rule panel's table overflow its card by 5px on desktops with a classic scrollbar.
+
+
 ### Compliance: native-element rules no longer flag components (#978)
 
 - `strict.raw-control` and `strict.raw-table` match tag names case-sensitively. Lowercase JSX tags (`<button>`, `<table>`) are native elements and are still reported; a component such as GDS `<Button>`, `<Select>` or `<Table>` is not.
