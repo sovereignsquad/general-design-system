@@ -121,5 +121,6 @@ Start a full page from a governed page template when one matches the task, befor
 - API reference: https://sovereignsquad.github.io/general-design-system/api
 - Live pattern catalog: https://sovereignsquad.github.io/general-design-system/patterns
 - Release notes: https://sovereignsquad.github.io/general-design-system/releases
+- Security policy (private vulnerability reports): SECURITY.md
 - Drop-in agent rules for your repo: TEMPLATES/AGENTS.md.template
 - This file ships inside the umbrella package: `node_modules/@sovereignsquad/gds/llms.txt` matches the installed version.

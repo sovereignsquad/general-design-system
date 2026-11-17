@@ -6,6 +6,8 @@ Last updated: 2026-08-09
 
 This repository is shared design-system infrastructure.
 
+Participation is governed by the [Code of Conduct](CODE_OF_CONDUCT.md). Report security vulnerabilities privately as described in [SECURITY.md](SECURITY.md), never in a public issue.
+
 ## Standing Operating Rules (non-negotiable)
 
 These apply to every change, every contributor (human or agent), regardless
