@@ -127,7 +127,8 @@ export function AdvancedDataTable<T extends Record<string, unknown>>({
     );
   }
 
-  const horizontalSpacing = density === 'compact' ? 'xs' : 'md';
+  // `sm` keeps comfortable rows readable without widening narrow tables past their container.
+  const horizontalSpacing = density === 'compact' ? 'xs' : 'sm';
   const verticalSpacing = density === 'compact' ? 6 : 10;
 
   return (

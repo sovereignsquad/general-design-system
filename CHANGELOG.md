@@ -79,6 +79,7 @@ All notable policy changes to the General Design System are recorded here.
   - **Raw code blocks:** the block code in `ReferenceThemeExplorer` and `GdsPinSystemReference` is focusable and named.
   - **Dialog titles:** Modal and Drawer titles render at `--gds-weight-semibold`. The filter drawer title was body weight and size.
   - **`QuickStartCard`:** the label is emphasised text, not a heading. A heading inside a `<button>` is invalid content and broke the heading outline of the page around it.
+  - **`AdvancedDataTable`:** comfortable density uses `sm` cell padding instead of `md`. Under Mantine 9 the admin data table demo was 7px wider than its scroll area at 390px, which showed a scrollbar for 7px.
   - **`GdsChart` data table:** the Secondary value and Group columns appear only when some row has a value. Two empty columns made the design-rule panel's table overflow its card by 5px on desktops with a classic scrollbar.
 
 
