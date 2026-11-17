@@ -33,4 +33,7 @@ for (const route of staticRoutes) {
 
 copyFileSync(indexPath, join(distRoot, '404.html'));
 
+// The agent index is served from the site as the repository copy itself, so the two cannot differ.
+copyFileSync(join(repoRoot, 'llms.txt'), join(distRoot, 'llms.txt'));
+
 console.log(`Generated ${staticRoutes.length} static playground route shells.`);

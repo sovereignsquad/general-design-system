@@ -58,6 +58,16 @@ Never add a second provider or a second Mantine `MantineProvider`. `GdsProvider`
 - One element that must keep its own explicit styling under a theme preset (a brand-coloured `Paper`, an outline `Button`, a `Popover.Dropdown`, an `AppShell` navbar) carries `data-gds-fixed-tone` — never a `!important` counter-rule against the preset stylesheet. Element-level, not inherited; see THEME_GOVERNANCE.md "Opting one element out of the preset repaint".
 
 <!-- gds:page-templates:start -->
+## Choosing a look
+
+Pick a colour preset for the brand and a style profile for the product type. Profiles change corner radius, density, resting elevation and the area-chart gradient, never colour:
+
+- internal tool or data dashboard: `minimal` (crisp, flat; borders do the separating)
+- consumer app: `soft` (generous radii and spacing)
+- enterprise or dense operations: `structured` (square, compact, framed)
+
+Set it with `setStyleProfile` from `useGdsThemePresetState`, or pass `{ styleProfile }` to `getGdsVibeThemeCssVariables`. Tables, lists, sidebars and fields stay at most `md`-rounded in every profile. Details: THEME_GOVERNANCE.md "Style profiles".
+
 ## Page templates
 
 Start a full page from a governed page template when one matches the task, before composing primitives. Import templates from `@sovereignsquad/gds` (or `@sovereignsquad/gds-core`). Each takes `title`, an optional `state` and `actions`, plus its own content slots; it renders the header, the state gate and the slots from GDS components. `getGdsPageTemplates()` returns the same catalog at runtime.
@@ -121,6 +131,8 @@ Start a full page from a governed page template when one matches the task, befor
 - API reference: https://sovereignsquad.github.io/general-design-system/api
 - Live pattern catalog: https://sovereignsquad.github.io/general-design-system/patterns
 - Release notes: https://sovereignsquad.github.io/general-design-system/releases
+- Usage code for every pattern demo, as JSON keyed by pattern id: https://sovereignsquad.github.io/general-design-system/pattern-usage.json
+- This index on the reference site: https://sovereignsquad.github.io/general-design-system/llms.txt
 - Security policy (private vulnerability reports): SECURITY.md
 - Drop-in agent rules for your repo: TEMPLATES/AGENTS.md.template
 - This file ships inside the umbrella package: `node_modules/@sovereignsquad/gds/llms.txt` matches the installed version.
