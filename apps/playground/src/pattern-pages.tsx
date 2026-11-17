@@ -527,7 +527,7 @@ const templateTrend = [
   { label: 'Week 4', value: 78 },
 ];
 
-function AnalyticsTemplateDemo() {
+export function AnalyticsTemplateDemo() {
   const [period, setPeriod] = useState('30d');
   return (
     <GdsAnalyticsTemplate
@@ -558,7 +558,7 @@ function AnalyticsTemplateDemo() {
   );
 }
 
-function AssetManagerTemplateDemo() {
+export function AssetManagerTemplateDemo() {
   const [selected, setSelected] = useState(2);
   return (
     <GdsAssetManagerTemplate
@@ -592,7 +592,7 @@ function AssetManagerTemplateDemo() {
   );
 }
 
-function WorkspaceInboxTemplateDemo() {
+export function WorkspaceInboxTemplateDemo() {
   const [selected, setSelected] = useState<string | null>('t1');
   return (
     <GdsWorkspaceInboxTemplate

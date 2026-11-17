@@ -38,7 +38,8 @@ export function GdsVibeThemeScope({ presetId, scheme = 'light', styleProfile = '
   const id = normalizeGdsThemePresetId(presetId);
   const variables = getGdsVibeThemeCssVariables(id, scheme, { styleProfile });
   return (
-    <span data-gds-vibe-theme-scope={id} data-gds-style-profile={styleProfile} className={className} style={variables as CSSProperties}>
+    // data-mantine-color-scheme lets Mantine's scheme-scoped component styles follow the preview.
+    <span data-gds-vibe-theme-scope={id} data-gds-style-profile={styleProfile} data-mantine-color-scheme={scheme} className={className} style={variables as CSSProperties}>
       {children}
     </span>
   );

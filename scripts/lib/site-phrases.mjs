@@ -16,6 +16,7 @@ export const TARGET_FILES = [
   'apps/playground/src/product-use-cases.ts',
   'apps/playground/src/site-routes.ts',
   'apps/playground/src/release-notes-page.tsx',
+  'apps/playground/src/style-profiles-page.tsx',
   // Theme preset and vibe labels/descriptions, rendered on /themes and the Theme Lab.
   ...readdirSync(new URL('../../packages/gds-theme/src/presets/', import.meta.url))
     .filter((file) => file.endsWith('.ts'))
