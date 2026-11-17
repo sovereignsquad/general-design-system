@@ -32,73 +32,73 @@
     "packageParity": [
       {
         "locale": "ar",
-        "keys": 429,
+        "keys": 435,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "de",
-        "keys": 429,
+        "keys": 435,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "en",
-        "keys": 429,
+        "keys": 435,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "es",
-        "keys": 429,
+        "keys": 435,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "fr",
-        "keys": 429,
+        "keys": 435,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "he",
-        "keys": 429,
+        "keys": 435,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "hu",
-        "keys": 429,
+        "keys": 435,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "it",
-        "keys": 429,
+        "keys": 435,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "ja",
-        "keys": 429,
+        "keys": 435,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "ko",
-        "keys": 429,
+        "keys": 435,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "ru",
-        "keys": 429,
+        "keys": 435,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "zh",
-        "keys": 429,
+        "keys": 435,
         "missing": 0,
         "extra": 0
       }
@@ -106,67 +106,67 @@
     "siteParity": [
       {
         "locale": "ar",
-        "keys": 2257,
+        "keys": 2273,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "de",
-        "keys": 2257,
+        "keys": 2273,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "es",
-        "keys": 2257,
+        "keys": 2273,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "fr",
-        "keys": 2257,
+        "keys": 2273,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "he",
-        "keys": 2257,
+        "keys": 2273,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "hu",
-        "keys": 2257,
+        "keys": 2273,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "it",
-        "keys": 2257,
+        "keys": 2273,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "ja",
-        "keys": 2257,
+        "keys": 2273,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "ko",
-        "keys": 2257,
+        "keys": 2273,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "ru",
-        "keys": 2257,
+        "keys": 2273,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "zh",
-        "keys": 2257,
+        "keys": 2273,
         "missing": 0,
         "extra": 0
       }
@@ -175,154 +175,154 @@
       {
         "corpus": "site",
         "locale": "de",
-        "total": 2257,
+        "total": 2273,
         "untranslated": 3,
         "rate": 0.13
       },
       {
         "corpus": "site",
         "locale": "ar",
-        "total": 2257,
+        "total": 2273,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "es",
-        "total": 2257,
+        "total": 2273,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "fr",
-        "total": 2257,
+        "total": 2273,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "he",
-        "total": 2257,
+        "total": 2273,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "hu",
-        "total": 2257,
+        "total": 2273,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "it",
-        "total": 2257,
+        "total": 2273,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "ja",
-        "total": 2257,
+        "total": 2273,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "ko",
-        "total": 2257,
+        "total": 2273,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "ru",
-        "total": 2257,
+        "total": 2273,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "site",
         "locale": "zh",
-        "total": 2257,
+        "total": 2273,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "package",
         "locale": "ar",
-        "total": 429,
+        "total": 435,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "package",
         "locale": "de",
-        "total": 429,
+        "total": 435,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "package",
         "locale": "es",
-        "total": 429,
+        "total": 435,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "package",
         "locale": "fr",
-        "total": 429,
+        "total": 435,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "package",
         "locale": "he",
-        "total": 429,
+        "total": 435,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "package",
         "locale": "hu",
-        "total": 429,
+        "total": 435,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "package",
         "locale": "it",
-        "total": 429,
+        "total": 435,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "package",
         "locale": "ja",
-        "total": 429,
+        "total": 435,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "package",
         "locale": "ko",
-        "total": 429,
+        "total": 435,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "package",
         "locale": "ru",
-        "total": 429,
+        "total": 435,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "package",
         "locale": "zh",
-        "total": 429,
+        "total": 435,
         "untranslated": 0,
         "rate": 0
       }
@@ -336,7 +336,7 @@
     "mantineVarsGdsDeclares": 5,
     "mantineVarsGdsConsumes": 94,
     "mantineVarsGdsConsumesButNeverDeclares": 89,
-    "mantineComponentsWithGdsDefaults": 24,
+    "mantineComponentsWithGdsDefaults": 25,
     "mantineComponentsList": [
       "sizes",
       "Popover",
@@ -350,6 +350,7 @@
       "Chip",
       "Modal",
       "Drawer",
+      "ScrollArea",
       "Table",
       "Badge",
       "NavLink",
@@ -370,11 +371,11 @@
     "uncoveredKinds": [
       {
         "kind": "export",
-        "atoms": 1054
+        "atoms": 1081
       },
       {
         "kind": "prop",
-        "atoms": 1254
+        "atoms": 1258
       },
       {
         "kind": "variant",
