@@ -7,7 +7,7 @@ All notable policy changes to the General Design System are recorded here.
 ### Translation corrections (#981)
 
 - "Table" was machine-translated as the furniture word in Arabic, German, Spanish, Hebrew, Italian, Russian and Chinese. It is now the data-table noun, taken from each locale's own "Data table" caption, for both the new table scroll label and the existing table/grid toggle (`gds.dataView.table`).
-- The Korean code-block label read "암호" ("password"). It is now "코드", the word the Korean pack uses for code elsewhere.
+- The Korean code-block label read `암호` ("password"). It is now `코드`, the word the Korean pack uses for code elsewhere.
 
 ### Style profiles side by side (#988)
 
