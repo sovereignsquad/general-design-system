@@ -14,7 +14,7 @@ export function SystemsPage() {
         <ReferenceLinkGrid
           columns={3}
           items={[
-            { id: 'theming', title: 'Theming & the Theme Lab', description: '25 presets, both schemes, the axes that drive every token, and the live lab to try them.', href: '/general-design-system/themes' },
+            { id: 'theming', title: 'Theming & the Theme Lab', description: 'Colour presets in both schemes, style profiles, the axes that drive every token, and the live lab to try them.', href: '/general-design-system/themes' },
             { id: 'badge-system', title: 'Badge system', description: 'Accents, shapes, counts, tags, meaning — one governed vocabulary with contrast measured live.', href: '#entry-badges' },
             { id: 'generated-imagery', title: 'Generated imagery', description: 'Thumbnails, heroes, avatars and marks — deterministic, theme-aware, no photo pipeline.', href: '#entry-generated-imagery' },
             { id: 'motion-system', title: 'Motion tokens', description: 'Six durations, five easings, seven presets, and the reaction axis — live on hover. For interactive button feedback, see Semantic Actions.', href: '/general-design-system/foundations#entry-motion-system' },
