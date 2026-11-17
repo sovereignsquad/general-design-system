@@ -67,6 +67,7 @@ All notable policy changes to the General Design System are recorded here.
 
 ### Rendering-quality gate and the defects it found (#986)
 
+- Every browser-driven gate waits for webfonts (`document.fonts.ready`) after the page renders, so text and table widths are measured in the final font. A Mantine 9 run measured one table 7px too wide before Inter had loaded.
 - New release gate `verify:rendering-runtime`. It sweeps every reference-site route at 390px and 1280px, in light and dark, and fails on any of:
   - mixed heading styles within one scope (the page, one pattern entry, one dialog);
   - a heading that looks like body text (below weight 600 and below 1.125x body size);
