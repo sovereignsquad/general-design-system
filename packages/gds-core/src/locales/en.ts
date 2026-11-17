@@ -430,4 +430,9 @@ export const en = {
   'gds.docsCodeDisclosure.error': "The code could not be loaded. Close and reopen to try again.",
   'gds.docsCodeBlock.region': "Code",
   'gds.tableScroll.region': "Table",
+  'gds.styleProfile.default': "Preset default",
+  'gds.styleProfile.minimal': "Minimal",
+  'gds.styleProfile.soft': "Soft",
+  'gds.styleProfile.structured': "Structured",
+  'gds.themeExplorer.styleProfile': "Style profile",
 };

@@ -4097,7 +4097,8 @@
       "token": "--gds-chart-area-opacity-end",
       "role": "chart-area-opacity-end",
       "declaredIn": [
-        "styles.css"
+        "styles.css",
+        "ts-emitter"
       ],
       "listed": true,
       "demoed": true,
@@ -4887,7 +4888,8 @@
       "token": "--gds-chart-area-opacity-start",
       "role": "chart-area-opacity-start",
       "declaredIn": [
-        "styles.css"
+        "styles.css",
+        "ts-emitter"
       ],
       "listed": true,
       "demoed": true,

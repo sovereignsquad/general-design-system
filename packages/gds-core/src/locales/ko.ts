@@ -428,5 +428,11 @@ export const ko = {
   'gds.docsCodeDisclosure.show': "코드 표시",
   'gds.docsCodeDisclosure.loading': "코드 로드 중…",
   'gds.docsCodeDisclosure.error': "코드를 로드할 수 없습니다. 닫았다가 다시 열어서 시도해 보세요.",
-  'gds.docsCodeBlock.region': "암호",
+  'gds.docsCodeBlock.region': "코드",
+  'gds.tableScroll.region': "테이블",
+  'gds.styleProfile.default': "사전 설정된 기본값",
+  'gds.styleProfile.minimal': "최소",
+  'gds.styleProfile.soft': "부드러운",
+  'gds.styleProfile.structured': "구조화됨",
+  'gds.themeExplorer.styleProfile': "스타일 프로필",
 };

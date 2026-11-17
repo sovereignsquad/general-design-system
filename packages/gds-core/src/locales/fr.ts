@@ -429,4 +429,10 @@ export const fr = {
   'gds.docsCodeDisclosure.loading': "Chargement du code…",
   'gds.docsCodeDisclosure.error': "Le code n'a pas pu être chargé. Fermez et rouvrez pour réessayer.",
   'gds.docsCodeBlock.region': "Code",
+  'gds.tableScroll.region': "Tableau",
+  'gds.styleProfile.default': "Préréglage par défaut",
+  'gds.styleProfile.minimal': "Minimal",
+  'gds.styleProfile.soft': "Doux",
+  'gds.styleProfile.structured': "Structuré",
+  'gds.themeExplorer.styleProfile': "Profil de style",
 };

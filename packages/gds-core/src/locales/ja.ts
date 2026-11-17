@@ -429,4 +429,10 @@ export const ja = {
   'gds.docsCodeDisclosure.loading': "コードを読み込み中…",
   'gds.docsCodeDisclosure.error': "コードをロードできませんでした。閉じて再度開くと、再試行できます。",
   'gds.docsCodeBlock.region': "コード",
+  'gds.tableScroll.region': "テーブル",
+  'gds.styleProfile.default': "プリセットのデフォルト",
+  'gds.styleProfile.minimal': "最小限",
+  'gds.styleProfile.soft': "柔らかい",
+  'gds.styleProfile.structured': "構造化された",
+  'gds.themeExplorer.styleProfile': "スタイルプロファイル",
 };
