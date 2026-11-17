@@ -4,6 +4,11 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
+### Agent entry point on the reference site (#990)
+
+- The reference site serves `llms.txt` at https://sovereignsquad.github.io/general-design-system/llms.txt. The build copies the repository file, so the served copy cannot differ from it.
+- `llms.txt` has a "Choosing a look" section mapping product type to style profile, and links the usage-code JSON for every pattern demo.
+
 ### Charts draw by default; gradient strength per style profile (#989)
 
 - `GdsChart` without a `renderer` now draws `line`, `area`, `bar`, `stacked-bar`, `radar` and `heatmap` with the package primitives. Before, every type showed only a metadata card ("Type lane", "Registry family", point count) above the data table.

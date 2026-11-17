@@ -63,7 +63,7 @@ Next.js App Router, the server/client split and peer dependencies are covered in
 
 GDS is built to be consumed by AI coding agents, not just humans:
 
-- **Universal entry point:** [`llms.txt`](llms.txt) — the machine-readable index any LLM coding tool can read: what GDS is, install, the non-negotiable rules, packages, component families, and where to read more.
+- **Universal entry point:** [`llms.txt`](llms.txt), also served at https://sovereignsquad.github.io/general-design-system/llms.txt: the machine-readable index any LLM coding tool can read. It covers what GDS is, install, the non-negotiable rules, which style profile suits which product, packages, component families, and where to read more.
 - **Agent usage guide:** [`docs/AI_AGENT_GUIDE.md`](docs/AI_AGENT_GUIDE.md) — how an agent installs, loads the GDS stylesheet, wraps the app in `GdsProvider`, styles with props/tokens, and honors the GDS contracts.
 - **Drop-in repo rules:** [`TEMPLATES/AGENTS.md.template`](TEMPLATES/AGENTS.md.template) (the cross-tool `AGENTS.md` standard) — copy into a consuming repo as `AGENTS.md` so every agent session builds with GDS automatically.
 - **Creating a new GDS theme:** [`TEMPLATES/GDS_THEME_CREATION_PROMPT.md`](TEMPLATES/GDS_THEME_CREATION_PROMPT.md) — a copy-pasteable brief for any Claude session (Claude Code, Claude for Design, or plain claude.ai) to prepare a new environment and build a theme lane, including how to responsibly import an externally-produced design (a Figma file, a screenshot, Claude Design output) instead of copying it directly. See [`CONTRIBUTING.md`](CONTRIBUTING.md#importing-an-externally-designed-theme) and [`THEME_GOVERNANCE.md`](THEME_GOVERNANCE.md) for the governing rules.
