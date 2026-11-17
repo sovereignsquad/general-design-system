@@ -10,6 +10,16 @@ import {
   createCdpClient, launchBrowser, startPreviewServer,
   wait, waitForReady, evaluate,
 } from './lib/browser-runtime.mjs';
+import { join } from 'node:path';
+
+const ROOT = new URL('..', import.meta.url).pathname;
+// Expected card colours come from the presets' declared surfaces, not typed in.
+const { getGdsVibeCardSurface, resolveGdsVibeTheme } = await import(join(ROOT, 'packages/gds-theme/dist/index.js'));
+const declaredSurface = (preset, scheme) => {
+  const surface = getGdsVibeCardSurface(resolveGdsVibeTheme(preset), scheme);
+  if (!surface) throw new Error(`${preset} ${scheme} declares no opaque card surface; it cannot be a flat-card case.`);
+  return surface;
+};
 
 const baseUrl = process.env.GDS_CARD_BASE_URL ?? 'http://127.0.0.1:4173/general-design-system';
 const ownsPreviewServer = !process.env.GDS_CARD_BASE_URL;
@@ -66,9 +76,9 @@ try {
   const client = await createCdpClient(session.webSocketDebuggerUrl);
   await client.send('Page.enable');
 
-  for (const [preset, scheme, hex] of [['colorblind-safe', 'dark', '#101b28'], ['colorblind-safe', 'light', '#ffffff'], ['high-contrast', 'dark', '#000000']]) {
+  for (const [preset, scheme] of [['colorblind-safe', 'dark'], ['colorblind-safe', 'light'], ['high-contrast', 'dark']]) {
     await open(client, preset, scheme);
-    expectFlat(`${preset} ${scheme}`, await evaluate(client, CARD), hex);
+    expectFlat(`${preset} ${scheme}`, await evaluate(client, CARD), declaredSurface(preset, scheme));
   }
 
   for (const [preset, scheme] of [['default', 'light'], ['default', 'dark'], ['sunset', 'dark']]) {
