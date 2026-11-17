@@ -469,6 +469,8 @@ Chart rules:
 - treemap data must provide positive node area values
 - candlestick data must provide numeric `open`/`high`/`low`/`close` per point, with `high`/`low` containing the `open`/`close` range
 - sankey data must provide both a `source` and `target` node per flow, with a non-negative `value` as the flow magnitude
+- without a `renderer`, `GdsChart` draws `line`, `area`, `bar`, `stacked-bar`, `radar` and `heatmap` with the package's own primitives. The other types (`pie`, `donut`, `scatter`, `bubble`, `funnel`, `treemap`, `candlestick`, `sankey`) have no default drawing: they show a metadata card and the data-table fallback until an adapter `renderer` draws them
+- the only optional data-table columns, Secondary value and Group, appear when some row has a value for them
 - adapters may render with any approved charting library, but must enter through the `GdsChart` `renderer` contract so GDS keeps state, summary, legend, fallback, and a11y ownership
 - datasets must pass `validateGdsChartData` before rendering; invalid values, missing grouped data, empty data, below-threshold data, and over-budget datasets must become governed states
 - charts must include a text summary that communicates the main result without requiring visual interpretation

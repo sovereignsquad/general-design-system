@@ -7,6 +7,7 @@ import {
   GDS_STYLE_PROFILES,
   GDS_UTILITY_RADIUS_CAP,
   GDS_UTILITY_RADIUS_ROLES,
+  getGdsStyleProfileCssVariables,
   normalizeGdsStyleProfile,
 } from './style-profiles';
 import { createGdsThemePresetSelection } from './theme-runtime';
@@ -57,6 +58,16 @@ describe('style profiles (#987)', () => {
           expect(violations, `${id} ${styleProfile} ${scheme}`).toEqual([]);
         }
       }
+    }
+  });
+
+  it('sets the area-chart gradient per profile and leaves the stylesheet values for default (#989)', () => {
+    expect(getGdsStyleProfileCssVariables('default')).toEqual({});
+    expect(getGdsVibeThemeCssVariables('default', 'dark')['--gds-chart-area-opacity-start']).toBeUndefined();
+    for (const [id, definition] of Object.entries(GDS_STYLE_PROFILES)) {
+      const vars = getGdsVibeThemeCssVariables('default', 'dark', { styleProfile: id as keyof typeof GDS_STYLE_PROFILES });
+      expect(vars['--gds-chart-area-opacity-start'], id).toBe(definition.chartAreaOpacity.start);
+      expect(vars['--gds-chart-area-opacity-end'], id).toBe(definition.chartAreaOpacity.end);
     }
   });
 

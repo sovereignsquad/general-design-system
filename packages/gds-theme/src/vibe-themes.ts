@@ -12,7 +12,7 @@ import {
 import { gdsThemePresetRegistry } from './presets';
 import { neutralVibe } from './presets/default';
 import { normalizeGdsThemePresetId } from './presets/aliases';
-import { applyGdsStyleProfile, type GdsStyleProfile } from './style-profiles';
+import { applyGdsStyleProfile, getGdsStyleProfileCssVariables, type GdsStyleProfile } from './style-profiles';
 
 // Re-exported, not defined here. The public surface is unchanged; the definition moved so
 // that every semantic-role value lives in one module.
@@ -340,7 +340,7 @@ export function getGdsVibeThemeCssVariables(presetId: GdsThemePresetId, colorSch
 
   // Axis tokens are scheme-independent — a corner radius does not change between light and
   // dark — so they are merged in once rather than resolved per scheme.
-  const axisVariables = resolveGdsAxisTokens(applyGdsStyleProfile(vibe.axes, options.styleProfile), id, colorScheme);
+  const axisVariables = { ...resolveGdsAxisTokens(applyGdsStyleProfile(vibe.axes, options.styleProfile), id, colorScheme), ...getGdsStyleProfileCssVariables(options.styleProfile) };
 
   // The reserved ai lane (issue 697) merges in here, before the dark-collapse loop below, so
   // its `-dark` values collapse onto their base names in dark mode exactly like every other
