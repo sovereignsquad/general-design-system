@@ -1,10 +1,10 @@
 {
-  "evaluated": 1300,
+  "evaluated": 1303,
   "gapCount": 344,
-  "excludedCount": 81,
+  "excludedCount": 82,
   "byKind": {
     "prop": {
-      "evaluated": 1177,
+      "evaluated": 1180,
       "gaps": 306
     },
     "variant": {
@@ -1592,7 +1592,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/GdsChart.tsx",
-        "line": 203
+        "line": 204
       },
       "unmet": [
         {
@@ -1606,7 +1606,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/GdsChart.tsx",
-        "line": 203
+        "line": 204
       },
       "unmet": [
         {
@@ -1620,7 +1620,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/GdsChart.tsx",
-        "line": 203
+        "line": 204
       },
       "unmet": [
         {
@@ -1634,7 +1634,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/GdsChart.tsx",
-        "line": 203
+        "line": 204
       },
       "unmet": [
         {
@@ -4584,34 +4584,6 @@
       ]
     },
     {
-      "atom": "SemanticChartFrameProps.title",
-      "kind": "prop",
-      "source": {
-        "file": "packages/gds-core/src/SemanticCharts.tsx",
-        "line": 10
-      },
-      "unmet": [
-        {
-          "obligation": "jsdoc",
-          "why": "no JSDoc block above the declaration"
-        }
-      ]
-    },
-    {
-      "atom": "SemanticChartFrameProps.summary",
-      "kind": "prop",
-      "source": {
-        "file": "packages/gds-core/src/SemanticCharts.tsx",
-        "line": 10
-      },
-      "unmet": [
-        {
-          "obligation": "jsdoc",
-          "why": "no JSDoc block above the declaration"
-        }
-      ]
-    },
-    {
       "atom": "ShareButtonGroupProps.title",
       "kind": "prop",
       "source": {
@@ -4832,6 +4804,34 @@
         {
           "obligation": "variationShown",
           "why": "literal 'panel' is rendered by no playground demo"
+        }
+      ]
+    },
+    {
+      "atom": "SemanticChartFrameProps.title",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/chart-primitives.tsx",
+        "line": 7
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
+        }
+      ]
+    },
+    {
+      "atom": "SemanticChartFrameProps.summary",
+      "kind": "prop",
+      "source": {
+        "file": "packages/gds-core/src/chart-primitives.tsx",
+        "line": 7
+      },
+      "unmet": [
+        {
+          "obligation": "jsdoc",
+          "why": "no JSDoc block above the declaration"
         }
       ]
     }
