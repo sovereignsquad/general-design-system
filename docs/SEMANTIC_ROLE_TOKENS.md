@@ -82,7 +82,7 @@ A preset's declared card surface (`surfaceLight` / `surfaceDark` on `GdsVibeThem
 
 - A hand-authored table (`harbor`, `ochre`) may repeat an opaque surface but never contradict it; a different value throws `GdsCardSurfaceError` at construction.
 - Owned- and local-contrast surfaces reset `--gds-vibe-card`, so cards inside paint the local surface. Forced colours set it to `Canvas`.
-- Changed presets: `high-contrast` dark card `rgb(31, 31, 31)` -> `#000000`, `colorblind-safe` dark card `rgb(39, 48, 59)` -> `#101b28`. Both declare an opaque `#ffffff` light surface, so their light card role stays `#ffffff` and `colorblind-safe` cards now paint flat in both schemes. Every other preset is unchanged.
+- Changed presets: `high-contrast` dark card `rgb(31, 31, 31)` -> `#000000`, `colorblind-safe` dark card `rgb(39, 48, 59)` -> `#101b28` (lifted to `#1c2633` by #986, dark card separation). Both declare an opaque `#ffffff` light surface, so their light card role stays `#ffffff` and `colorblind-safe` cards now paint flat in both schemes. Every other preset is unchanged.
 - A preset with its own per-preset card rule in `styles.css` (the `sunset` to `royal` gradients) should keep its surface translucent; those rules do not read `--gds-vibe-card`.
 
 ### Every preset now defines the full role set (badge-system foundation, #485)
