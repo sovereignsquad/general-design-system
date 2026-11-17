@@ -64,7 +64,10 @@ const AUDIT_EXPRESSION = `(() => {
     if (!scrollsX && !scrollsY) continue;
     const over = Math.max(scrollsX ? el.scrollWidth - el.clientWidth : 0, scrollsY ? el.scrollHeight - el.clientHeight : 0);
     if (over <= 0 || !visible(el)) continue;
-    if (over <= ${NEAR_MISS_PX}) out.nearMiss.push(describe(el) + ' overflows by ' + over + 'px');
+    if (over <= ${NEAR_MISS_PX}) {
+      const cls = (el.className && el.className.toString ? el.className.toString() : '').split(' ').filter(Boolean).slice(0, 3).join('.');
+      out.nearMiss.push(describe(el) + ' overflows by ' + over + 'px [' + (cls || 'no class') + ', scroll ' + el.scrollWidth + 'x' + el.scrollHeight + ', client ' + el.clientWidth + 'x' + el.clientHeight + ', overflow ' + style.overflowX + '/' + style.overflowY + ']');
+    }
     const reachable = el.tabIndex >= 0 || el.querySelector('a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])');
     if (!reachable) out.unreachable.push(describe(el) + ' scrolls ' + over + 'px with nothing focusable');
   }
