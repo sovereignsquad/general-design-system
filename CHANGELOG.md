@@ -4,6 +4,14 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
+### Style profiles (#987)
+
+- New `GdsStyleProfile` (`@sovereignsquad/gds-theme`): `default`, `minimal`, `soft`, `structured`. A profile applies a radius role map, a density mode and resting elevation roles to any preset's axes. The preset's scales, shadows, typography and colours are kept.
+- The utility radius roles (`surface`, `input`) are capped at `md` in every profile.
+- Available through `useGdsThemePresetState` (`setStyleProfile`, persisted), `getGdsVibeThemeCssVariables(…, { styleProfile })`, `GdsVibeThemeScope styleProfile` and `applyGdsStyleProfile`. The Theme Lab has a Style profile select.
+- Every preset passes the accessibility floor under every profile in both schemes.
+- A stored selection without a profile keeps its existing runtime key.
+
 ### Dark cards stand off the page in every preset (#986)
 
 - New accessibility-floor rule `dark-card-separation`. In a dark scheme a card's fill is at least 1.2:1 from the page canvas, or its border is at least 3:1 against it. `GDS_DARK_CARD_SEPARATION_MIN` (`@sovereignsquad/gds-theme`) holds both thresholds.
