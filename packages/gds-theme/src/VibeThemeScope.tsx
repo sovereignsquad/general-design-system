@@ -2,6 +2,7 @@ import type { CSSProperties, ReactNode } from 'react';
 import { getGdsVibeThemeCssVariables } from './vibe-themes';
 import type { GdsThemePresetId } from './theme-presets';
 import { normalizeGdsThemePresetId } from './presets/aliases';
+import type { GdsStyleProfile } from './style-profiles';
 
 /** Props for `GdsVibeThemeScope`. */
 export interface GdsVibeThemeScopeProps {
@@ -9,6 +10,8 @@ export interface GdsVibeThemeScopeProps {
   presetId: GdsThemePresetId;
   /** Light/dark scheme to resolve. Defaults to `light`. */
   scheme?: 'light' | 'dark';
+  /** Style profile applied to the preset's shape, density and elevation axes. Defaults to `default`. */
+  styleProfile?: GdsStyleProfile;
   children: ReactNode;
   className?: string;
 }
@@ -31,11 +34,11 @@ export interface GdsVibeThemeScopeProps {
  * </GdsVibeThemeScope>
  * ```
  */
-export function GdsVibeThemeScope({ presetId, scheme = 'light', children, className }: GdsVibeThemeScopeProps) {
+export function GdsVibeThemeScope({ presetId, scheme = 'light', styleProfile = 'default', children, className }: GdsVibeThemeScopeProps) {
   const id = normalizeGdsThemePresetId(presetId);
-  const variables = getGdsVibeThemeCssVariables(id, scheme);
+  const variables = getGdsVibeThemeCssVariables(id, scheme, { styleProfile });
   return (
-    <span data-gds-vibe-theme-scope={id} className={className} style={variables as CSSProperties}>
+    <span data-gds-vibe-theme-scope={id} data-gds-style-profile={styleProfile} className={className} style={variables as CSSProperties}>
       {children}
     </span>
   );
