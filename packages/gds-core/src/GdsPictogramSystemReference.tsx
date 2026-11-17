@@ -14,7 +14,7 @@ const STATES: GdsPictogramState[] = ['default', 'hover', 'selected', 'disabled']
  * Reference for the activity pictogram system: the shipped family, every contextual treatment
  * and scale and interaction state crossed with every pictogram, the numeric contract, and the
  * source guidelines' usage rules — every count and value below is read from the package
- * exports at render time, never retyped (Rule 14).
+ * exports at render time, never retyped.
  */
 export function GdsPictogramSystemReference() {
   const keys = getGdsActivityPictogramKeys();

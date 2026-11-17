@@ -10,7 +10,7 @@ const MARKERS = [
 describe('GdsMap tile degradation (#570)', () => {
   it('classification is honest: only offline is distinguishable, everything else says so', () => {
     // The browser hides the cause of a cross-origin <img> failure; guessing "rate limited"
-    // or "CSP" from nothing would be a Rule 11 violation encoded in a component.
+    // or "CSP" from nothing would report a cause the component cannot know.
     expect(classifyGdsTileFailure(false)).toBe('offline');
     expect(classifyGdsTileFailure(true)).toBe('indeterminate');
   });

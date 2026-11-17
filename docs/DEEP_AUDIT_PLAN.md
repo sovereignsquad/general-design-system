@@ -518,8 +518,7 @@ complete by omission.
 | `audit/FINDINGS.md` | Ranked findings, each with file, line, evidence, and fix |
 
 Every finding becomes a GitHub issue in the #81 format, on the board, sequenced —
-per the established process. Fixes land in the shared packages, never page-locally
-(Rule 10).
+per the established process. Fixes land in the shared packages, never page-locally.
 
 # Execution order
 

@@ -182,8 +182,8 @@ console.log(`Dependency risk report passed for ${version}: ${report.summary.thir
 if (staleness.deprecatedPackages.length > 0) {
   // console.log, not console.warn: this is a recorded, informational
   // finding for E21's human triage into DEPENDENCY_AUDIT.md, not a build
-  // warning — CLAUDE.md's zero-tolerance gate forbids anything that reads
-  // as a warning in the verify:release chain, so this must stay a plain
+  // warning: nothing in the verify:release chain may read as a warning, so
+  // this must stay a plain
   // status line, never process.exit(1), until a finding is triaged and a
   // decision is made to escalate it to an actual gate.
   console.log(`Staleness notice: ${staleness.deprecatedPackages.length} deprecated package(s) found (not release-blocking — triage into DEPENDENCY_AUDIT.md): ${staleness.deprecatedPackages.join(', ')}`);

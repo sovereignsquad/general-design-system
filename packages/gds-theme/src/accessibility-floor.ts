@@ -424,7 +424,7 @@ export const gdsAccessibilityFloorRules: readonly GdsFloorRule[] = [
     axis: 'color',
     wcag: '1.4.3 Contrast (Minimum) (AA)',
     rationale:
-      'The reserved ai.accent role (issue 697) is a non-text, sub-brand identity colour — the Linen handoff\'s Scout orange, #ff6b35 — never a general text or action fill. White on it measures 2.84:1, clearing neither AA text threshold. This rule measures and prints that number every run so it stays derived (Rule 14), never retyped as prose, without treating a non-text lane as a text-contrast failure it never claimed to pass.',
+      'The reserved ai.accent role (issue 697) is a non-text, sub-brand identity colour — the Linen handoff\'s Scout orange, #ff6b35 — never a general text or action fill. White on it measures 2.84:1, clearing neither AA text threshold. This rule measures and prints that number every run so it stays derived, never retyped as prose, without treating a non-text lane as a text-contrast failure it never claimed to pass.',
     evaluate(ctx) {
       const fill = ctx.tokens['--gds-ai-accent'];
       if (!fill) return [];
