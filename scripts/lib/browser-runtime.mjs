@@ -229,7 +229,12 @@ export async function waitForReady(client, { timeout = 12000, interval = 200 } =
       const hasText = (document.body?.innerText || '').trim().length >= 120;
       return surface && hasText;
     })()`);
-    if (ready) return true;
+    if (ready) {
+      // Webfonts change text metrics; measuring before they load reports layout that the
+      // finished page never has.
+      await evaluate(client, 'document.fonts.ready.then(() => true)');
+      return true;
+    }
     await wait(interval);
   }
   return false;
