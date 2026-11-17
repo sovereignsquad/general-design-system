@@ -167,6 +167,10 @@ const ReleaseNotesPage = lazy(async () => {
   const module = await import('./release-notes-page');
   return { default: module.ReleaseNotesPage };
 });
+const StyleProfilesPage = lazy(async () => {
+  const module = await import('./style-profiles-page');
+  return { default: module.StyleProfilesPage };
+});
 
 function RouteFallback() {
   const { locale } = useGdsTranslation();
@@ -335,6 +339,7 @@ function PlaygroundContent() {
           <Route path="/request-feature" element={<Suspense fallback={<RouteFallback />}><RequestFeaturePage /></Suspense>} />
           <Route path="/ai" element={<Suspense fallback={<RouteFallback />}><AiPage /></Suspense>} />
           <Route path="/releases" element={<Suspense fallback={<RouteFallback />}><ReleaseNotesPage /></Suspense>} />
+          <Route path="/style-profiles" element={<Suspense fallback={<RouteFallback />}><StyleProfilesPage /></Suspense>} />
           {getLegacyRedirects().map((redirect) => (
             <Route
               key={redirect.legacyPath}

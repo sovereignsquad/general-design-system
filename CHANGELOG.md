@@ -4,6 +4,12 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
+### Style profiles side by side (#988)
+
+- New reference-site route `/style-profiles`: the workspace inbox, asset manager or analytics template under every style profile, in light and dark, using the same template demos as the pattern catalog.
+- The rendering, word-wrap, contrast and button gates sweep it like every other route.
+- `GdsVibeThemeScope` sets `data-mantine-color-scheme` on its subtree, so scheme-scoped component styles follow a scoped dark preview.
+
 ### Agent entry point on the reference site (#990)
 
 - The reference site serves `llms.txt` at https://sovereignsquad.github.io/general-design-system/llms.txt. The build copies the repository file, so the served copy cannot differ from it.
