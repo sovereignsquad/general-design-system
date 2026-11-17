@@ -1,6 +1,6 @@
 import { GdsMap } from '@sovereignsquad/gds-core/map';
 import { GdsPinSystemReference, GdsMotionSystemReference, GdsShapeElevationSystemReference, GdsDensitySpacingSystemReference, GdsIconSystemReference, GdsPictogramSystemReference, GdsTypographySystemReference, GdsColorSystemReference, GdsAccessibilitySystemReference, GdsButtonFeedbackReference, GdsInlineLink } from '@sovereignsquad/gds-core';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import {
   AISearchCard,
   BottomTabBar,
@@ -214,7 +214,7 @@ import {
 } from '@sovereignsquad/gds-core';
 // Excluded from the main barrel so consumers who don't use it don't bundle it.
 import { GdsRichTextEditor } from '@sovereignsquad/gds-core/rich-text-editor';
-import { VibeThemePicker, GdsVibeThemeScope, GdsIconStyleContext, getGdsVibeThemes, getGdsVibeThemeCssVariables, type GdsThemePresetId, type GdsBadgeIconStyle } from '@sovereignsquad/gds-theme';
+import { VibeThemePicker, GdsVibeThemeScope, GdsIconStyleContext, getGdsVibeThemes, getGdsVibeThemeCssVariables, GDS_STYLE_PROFILE_IDS, createGdsThemePresetSelection, useGdsAmbientTheme, type GdsThemePresetId, type GdsBadgeIconStyle, type GdsStyleProfile } from '@sovereignsquad/gds-theme';
 import type { GdsCategoryDefinition } from '@sovereignsquad/gds-core';
 import {
   AdminSelect,
@@ -527,7 +527,7 @@ const templateTrend = [
   { label: 'Week 4', value: 78 },
 ];
 
-export function AnalyticsTemplateDemo() {
+function AnalyticsTemplateDemo() {
   const [period, setPeriod] = useState('30d');
   return (
     <GdsAnalyticsTemplate
@@ -558,7 +558,7 @@ export function AnalyticsTemplateDemo() {
   );
 }
 
-export function AssetManagerTemplateDemo() {
+function AssetManagerTemplateDemo() {
   const [selected, setSelected] = useState(2);
   return (
     <GdsAssetManagerTemplate
@@ -592,7 +592,7 @@ export function AssetManagerTemplateDemo() {
   );
 }
 
-export function WorkspaceInboxTemplateDemo() {
+function WorkspaceInboxTemplateDemo() {
   const [selected, setSelected] = useState<string | null>('t1');
   return (
     <GdsWorkspaceInboxTemplate
@@ -4126,6 +4126,54 @@ export function PatternFamilyPage({ family }: { family: PatternFamily }) {
         />
       </ReferenceSection>
       <FamilyEntryBrowser entries={entries} />
+    </DocsPageShell>
+  );
+}
+
+type StyleProfileTemplateId = 'inbox' | 'files' | 'analytics';
+
+const styleProfileTemplates: Record<StyleProfileTemplateId, { label: string; render: () => ReactNode }> = {
+  inbox: { label: 'Workspace inbox', render: () => <WorkspaceInboxTemplateDemo /> },
+  files: { label: 'Asset manager', render: () => <AssetManagerTemplateDemo /> },
+  analytics: { label: 'Analytics', render: () => <AnalyticsTemplateDemo /> },
+};
+
+const styleProfileLabels: Record<GdsStyleProfile, string> = {
+  default: 'Preset default',
+  minimal: 'Minimal',
+  soft: 'Soft',
+  structured: 'Structured',
+};
+
+export function StyleProfilesPage() {
+  const [template, setTemplate] = useState<StyleProfileTemplateId>('inbox');
+  const ambient = useGdsAmbientTheme();
+  // Validates the ambient preset id and maps deprecated ids, falling back to `default`.
+  const presetId = createGdsThemePresetSelection({ preset: ambient.preset as GdsThemePresetId }).preset;
+  return (
+    <DocsPageShell
+      eyebrow="Theming"
+      title="Style profiles side by side"
+      lead="The same shipped template under every style profile, in the current colour preset and scheme. Switch the scheme to compare light and dark. A profile changes corner radius, density, resting elevation and the area-chart gradient; the colours come from the preset."
+    >
+      <GdsStack gap="lg">
+        <PillBar<StyleProfileTemplateId>
+          ariaLabel="Template"
+          value={template}
+          onChange={setTemplate}
+          options={(Object.keys(styleProfileTemplates) as StyleProfileTemplateId[]).map((id) => ({ value: id, label: styleProfileTemplates[id].label }))}
+        />
+        <MetadataText>Every cell renders the template from the package with that profile applied to its own subtree.</MetadataText>
+        <GdsGrid columns="auto-fit" minColumnWidth="content" gap="lg">
+          {GDS_STYLE_PROFILE_IDS.map((profile) => (
+            <SectionPanel key={profile} title={styleProfileLabels[profile]}>
+              <GdsVibeThemeScope presetId={presetId} scheme={ambient.colorScheme} styleProfile={profile}>
+                <BoundedPreviewSurface minHeight="32rem">{styleProfileTemplates[template].render()}</BoundedPreviewSurface>
+              </GdsVibeThemeScope>
+            </SectionPanel>
+          ))}
+        </GdsGrid>
+      </GdsStack>
     </DocsPageShell>
   );
 }
