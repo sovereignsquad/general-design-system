@@ -2,9 +2,62 @@
 
 Status: Active SSOT
 Version: 6.9.0
-Last updated: 2026-11-13
+Last updated: 2026-11-17
 
-`/Users/Shared/Projects/general-design-system` is the cross-project single source of truth for design, UI, and UX.
+[![npm](https://img.shields.io/npm/v/@sovereignsquad/gds)](https://www.npmjs.com/package/@sovereignsquad/gds)
+[![GDS Quality](https://github.com/sovereignsquad/general-design-system/actions/workflows/quality.yml/badge.svg?branch=main)](https://github.com/sovereignsquad/general-design-system/actions/workflows/quality.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+A governed React design system built on Mantine: components, design tokens, theme presets, style profiles and page templates, with accessibility and localization enforced by release gates. This repository is the single source of truth for design, UI and UX across projects.
+
+- **Live reference site:** [sovereignsquad.github.io/general-design-system](https://sovereignsquad.github.io/general-design-system/). Every component renders live, with its usage code.
+- **Release notes:** [/releases](https://sovereignsquad.github.io/general-design-system/releases), built from [CHANGELOG.md](CHANGELOG.md).
+
+## Quick start
+
+```bash
+npm install @sovereignsquad/gds react react-dom
+```
+
+Import the stylesheet once at the app entry, then mount one `GdsProvider` at the root:
+
+```tsx
+import ReactDOM from 'react-dom/client';
+import '@sovereignsquad/gds-theme/styles.css'; // once, before your own styles
+import { GdsProvider, MetricCard, SectionPanel, SemanticButton } from '@sovereignsquad/gds/client';
+
+function App() {
+  return (
+    <SectionPanel title="This week">
+      <MetricCard label="Open requests" value={12} />
+      <SemanticButton action="refresh" />
+    </SectionPanel>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <GdsProvider>
+    <App />
+  </GdsProvider>,
+);
+```
+
+Next.js App Router, the server/client split and peer dependencies are covered in [INSTALLATION_GUIDE.md](INSTALLATION_GUIDE.md).
+
+## What's included
+
+- **Components and patterns:** shells, navigation, forms, data tables, charts, maps, overlays, feedback and access gates. See the [pattern catalog](https://sovereignsquad.github.io/general-design-system/patterns) and [COMPONENTS_AND_PATTERNS.md](COMPONENTS_AND_PATTERNS.md).
+- **Page templates:** dashboards, workspace inbox, asset manager, analytics, settings, CRUD editors and error and empty states.
+- **Theming:** colour presets in light and dark, plus style profiles (`minimal`, `soft`, `structured`) for corner radius, density and elevation. Try them in the [Theme Lab](https://sovereignsquad.github.io/general-design-system/themes). See [THEME_GOVERNANCE.md](THEME_GOVERNANCE.md).
+- **Accessibility:** an accessibility floor enforced for every preset and scheme, plus runtime contrast, word-wrap and rendering checks. See [docs/ACCESSIBILITY_FLOOR.md](docs/ACCESSIBILITY_FLOOR.md).
+- **Localization:** component messages in 12 locales, with right-to-left support. See [Where the language files are](#where-the-language-files-are).
+- **Tooling:** `gds-compliance` adoption checks, an ESLint config and codemods.
+
+## Community
+
+- [CONTRIBUTING.md](CONTRIBUTING.md): how to propose and land a change.
+- [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md): Contributor Covenant 2.1.
+- [SECURITY.md](SECURITY.md): how to report a vulnerability privately.
 
 ## Use with AI coding agents
 
