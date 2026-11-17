@@ -6,6 +6,7 @@ import { applyGdsFontLane, isGdsFontLaneId, resolveGdsFontLane, type GdsFontLane
 import { getGdsThemePresets, resolveGdsThemePreset, type GdsThemePresetId } from './theme-presets';
 import { getGdsVibeThemeCssVariables } from './vibe-themes';
 import { normalizeGdsThemePresetId } from './presets/aliases';
+import { normalizeGdsStyleProfile, type GdsStyleProfile } from './style-profiles';
 
 /** Requested color scheme: fixed `'light'`/`'dark'`, or `'auto'` to follow the OS. */
 export type GdsThemeScheme = 'light' | 'dark' | 'auto';
@@ -26,6 +27,8 @@ export interface GdsStoredThemePresetState {
   brandFlatSurfaces?: boolean;
   /** Editorial-serif flag for the `'brand'` preset lane. */
   brandEditorialSerif?: boolean;
+  /** Style profile applied to the preset's shape, density and elevation axes. Defaults to `default`. */
+  styleProfile?: GdsStyleProfile;
 }
 
 /** A stored selection plus the resolved Mantine theme it produces. */
@@ -56,6 +59,8 @@ export interface UseGdsThemePresetStateResult {
   setScheme: (scheme: GdsThemeScheme) => void;
   /** Updates the font lane only. */
   setFontLane: (fontLane: GdsFontLaneId) => void;
+  /** Updates the style profile only. */
+  setStyleProfile: (styleProfile: GdsStyleProfile) => void;
   /** Updates the brand-lane options only. */
   setBrandOptions: (options: Pick<GdsStoredThemePresetState, 'brandPrimary' | 'brandFlatSurfaces' | 'brandEditorialSerif'>) => void;
   /** Resets to the initial selection. */
@@ -87,7 +92,9 @@ export function createGdsThemePresetSelection(stored: Partial<GdsStoredThemePres
   const brandPrimary = typeof stored.brandPrimary === 'string' ? stored.brandPrimary : 'blue';
   const brandFlatSurfaces = typeof stored.brandFlatSurfaces === 'boolean' ? stored.brandFlatSurfaces : true;
   const brandEditorialSerif = typeof stored.brandEditorialSerif === 'boolean' ? stored.brandEditorialSerif : false;
-  const runtimeKey = `${preset}-${colorScheme}-${brandPrimary}-${brandFlatSurfaces}-${brandEditorialSerif}-${fontLane}`;
+  const styleProfile = normalizeGdsStyleProfile(stored.styleProfile);
+  // The default profile adds nothing, so keys stored before style profiles existed stay valid.
+  const runtimeKey = `${preset}-${colorScheme}-${brandPrimary}-${brandFlatSurfaces}-${brandEditorialSerif}-${fontLane}${styleProfile === 'default' ? '' : `-${styleProfile}`}`;
 
   return {
     preset,
@@ -102,6 +109,7 @@ export function createGdsThemePresetSelection(stored: Partial<GdsStoredThemePres
     brandPrimary,
     brandFlatSurfaces,
     brandEditorialSerif,
+    styleProfile,
   };
 }
 
@@ -131,6 +139,7 @@ function persistSelection(storageKey: string, selection: GdsThemePresetSelection
     brandPrimary: selection.brandPrimary,
     brandFlatSurfaces: selection.brandFlatSurfaces,
     brandEditorialSerif: selection.brandEditorialSerif,
+    styleProfile: selection.styleProfile,
   };
 
   try {
@@ -193,12 +202,13 @@ const OPTIONAL_VIBE_VARIABLES = ['--gds-vibe-card'];
 
 function applyDocumentRuntime(selection: GdsThemePresetSelection) {
   const documentScheme = resolveDocumentScheme(selection);
-  const vibeVariables = getGdsVibeThemeCssVariables(selection.preset, documentScheme);
+  const vibeVariables = getGdsVibeThemeCssVariables(selection.preset, documentScheme, { styleProfile: selection.styleProfile });
 
   document.documentElement.setAttribute('data-mantine-color-scheme', documentScheme);
   document.documentElement.setAttribute('data-gds-theme-preset', selection.preset);
   document.documentElement.setAttribute('data-gds-theme-runtime', selection.runtimeKey ?? `${selection.preset}-${selection.colorScheme}`);
   document.documentElement.setAttribute('data-gds-font-lane', selection.fontLane);
+  document.documentElement.setAttribute('data-gds-style-profile', selection.styleProfile ?? 'default');
   applyFontLaneStylesheet(selection.fontLane);
 
   Object.entries(vibeVariables).forEach(([property, value]) => {
@@ -333,6 +343,10 @@ export function useGdsThemePresetState({
     setSelection((current) => createGdsThemePresetSelection({ ...current, fontLane }));
   }, []);
 
+  const setStyleProfile = useCallback((styleProfile: GdsStyleProfile) => {
+    setSelection((current) => createGdsThemePresetSelection({ ...current, styleProfile }));
+  }, []);
+
   const setBrandOptions = useCallback((options: Pick<GdsStoredThemePresetState, 'brandPrimary' | 'brandFlatSurfaces' | 'brandEditorialSerif'>) => {
     setSelection((current) => createGdsThemePresetSelection({ ...current, ...options }));
   }, []);
@@ -347,6 +361,7 @@ export function useGdsThemePresetState({
     setPreset,
     setScheme,
     setFontLane,
+    setStyleProfile,
     setBrandOptions,
     reset,
   };

@@ -39,6 +39,9 @@ import {
   getGdsVibeThemes,
   resolveGdsThemePreset,
   useGdsTranslation,
+  GDS_STYLE_PROFILE_IDS,
+  normalizeGdsStyleProfile,
+  type GdsStyleProfile,
   type GdsFontLaneId,
   type GdsThemePresetId,
 } from '@sovereignsquad/gds-theme';
@@ -54,6 +57,8 @@ export interface ThemeExplorerSelection {
   /** Resolved Mantine theme for the selected preset and brand options. */
   theme: MantineThemeOverride;
   fontLane?: GdsFontLaneId;
+  /** Style profile applied to the preset's shape, density and elevation axes. */
+  styleProfile?: GdsStyleProfile;
   /** Stable key identifying the current preview configuration. */
   runtimeKey?: string;
   /** Brand primary color, applied only when the `brand` preset is active. */
@@ -357,7 +362,13 @@ export function ReferenceThemeExplorer({
   initialSelection?: ThemeExplorerSelection;
   onSelectionChange?: (selection: ThemeExplorerSelection) => void;
 }) {
-  const { locale } = useGdsTranslation();
+  const { locale, t } = useGdsTranslation();
+  const styleProfileLabels: Record<GdsStyleProfile, string> = {
+    default: t('gds.styleProfile.default', 'Preset default'),
+    minimal: t('gds.styleProfile.minimal', 'Minimal'),
+    soft: t('gds.styleProfile.soft', 'Soft'),
+    structured: t('gds.styleProfile.structured', 'Structured'),
+  };
   const copy = resolveExplorerCopy(locale);
   const previewMessages = useMemo(() => getGdsMessages(locale), [locale]);
   const [preset, setPreset] = useState<ThemePresetId>(initialSelection?.preset ?? 'default');
@@ -366,6 +377,7 @@ export function ReferenceThemeExplorer({
   const [brandFlatSurfaces, setBrandFlatSurfaces] = useState(initialSelection?.brandFlatSurfaces ?? true);
   const [brandEditorialSerif, setBrandEditorialSerif] = useState(initialSelection?.brandEditorialSerif ?? false);
   const [fontLane, setFontLane] = useState<GdsFontLaneId>(initialSelection?.fontLane ?? 'inter');
+  const [styleProfile, setStyleProfile] = useState<GdsStyleProfile>(initialSelection?.styleProfile ?? 'default');
   const [comparisonEnabled, setComparisonEnabled] = useState(false);
   const [comparisonPreset, setComparisonPreset] = useState<ThemePresetId>('editorial');
   const availableComparisonPresets = presetCatalog.filter((item) => item.id !== preset).map((item) => item.id);
@@ -403,7 +415,7 @@ export function ReferenceThemeExplorer({
   const effectiveColorScheme = resolvePreviewColorScheme(preset, colorScheme);
   const effectiveComparisonScheme = resolvePreviewColorScheme(comparisonPreset, colorScheme);
 
-  const previewKey = `${preset}-${effectiveColorScheme}-${brandPrimary}-${brandFlatSurfaces}-${brandEditorialSerif}-${fontLane}`;
+  const previewKey = `${preset}-${effectiveColorScheme}-${brandPrimary}-${brandFlatSurfaces}-${brandEditorialSerif}-${fontLane}${styleProfile === 'default' ? '' : `-${styleProfile}`}`;
   const comparisonPreviewKey = `${comparisonPreset}-${effectiveComparisonScheme}-${brandPrimary}-${brandFlatSurfaces}-${brandEditorialSerif}-${fontLane}`;
   const previewRootId = `gds-theme-preview-${previewKey}`;
   const comparisonPreviewRootId = `gds-theme-preview-${comparisonPreviewKey}`;
@@ -419,12 +431,13 @@ export function ReferenceThemeExplorer({
       colorScheme: effectiveColorScheme,
       theme: selectedTheme,
       fontLane,
+      styleProfile,
       runtimeKey: previewKey,
       brandPrimary,
       brandFlatSurfaces,
       brandEditorialSerif,
     });
-  }, [onSelectionChange, preset, effectiveColorScheme, selectedTheme, fontLane, previewKey, brandPrimary, brandFlatSurfaces, brandEditorialSerif]);
+  }, [onSelectionChange, preset, effectiveColorScheme, selectedTheme, fontLane, styleProfile, previewKey, brandPrimary, brandFlatSurfaces, brandEditorialSerif]);
 
   useEffect(() => {
     if (comparisonPreset !== preset) {
@@ -443,6 +456,7 @@ export function ReferenceThemeExplorer({
     setComparisonEnabled(false);
     setComparisonPreset('editorial');
     setFontLane('inter');
+    setStyleProfile('default');
   };
 
   return (
@@ -488,6 +502,14 @@ export function ReferenceThemeExplorer({
                   value={fontLane}
                   onChange={(event) => setFontLane((event.currentTarget.value as GdsFontLaneId) || 'inter')}
                   data={getGdsFontLanes().map((lane) => ({ value: lane.id, label: lane.label }))}
+                />
+              </FormField>
+              <FormField label={t('gds.themeExplorer.styleProfile', 'Style profile')}>
+                <NativeSelect
+                  aria-label={t('gds.themeExplorer.styleProfile', 'Style profile')}
+                  value={styleProfile}
+                  onChange={(event) => setStyleProfile(normalizeGdsStyleProfile(event.currentTarget.value))}
+                  data={GDS_STYLE_PROFILE_IDS.map((id) => ({ value: id, label: styleProfileLabels[id] }))}
                 />
               </FormField>
               <Button variant="default" size="sm" onClick={reset}>
