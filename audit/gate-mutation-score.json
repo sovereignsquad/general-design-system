@@ -1,7 +1,7 @@
 {
-  "releaseChainGates": 56,
+  "releaseChainGates": 57,
   "gatesWithMutants": 41,
-  "gatesExempted": 18,
+  "gatesExempted": 19,
   "mutantsRun": 60,
   "killed": 60,
   "gateMutationSuiteScore": 100,
