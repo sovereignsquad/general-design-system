@@ -237,7 +237,7 @@
         "packages/gds-core/src/GdsFormControls.tsx",
         "packages/gds-core/src/MediaWithFallback.tsx",
         "packages/gds-core/src/ProviderCTA.tsx",
-        "packages/gds-core/src/SemanticCharts.tsx"
+        "packages/gds-core/src/chart-primitives.tsx"
       ]
     },
     {
@@ -263,8 +263,8 @@
         "packages/gds-core/src/GdsColorSystemReference.tsx",
         "packages/gds-core/src/PartnerDiscovery.tsx",
         "packages/gds-core/src/SemanticButton.tsx",
-        "packages/gds-core/src/SemanticCharts.tsx",
         "packages/gds-core/src/TrustLayer.client.tsx",
+        "packages/gds-core/src/chart-primitives.tsx",
         "packages/gds-theme/src/theme.ts",
         "packages/gds-theme/styles.css"
       ]
@@ -645,7 +645,7 @@
         "packages/gds-core/src/PartnerDiscovery.tsx",
         "packages/gds-core/src/PublicShell.tsx",
         "packages/gds-core/src/SemanticButton.tsx",
-        "packages/gds-core/src/SemanticCharts.tsx",
+        "packages/gds-core/src/chart-primitives.tsx",
         "packages/gds-core/src/generated-brand-badge.ts",
         "packages/gds-theme/src/presets/vibrant.ts",
         "packages/gds-theme/src/theme.ts",
@@ -838,7 +838,7 @@
       "files": [
         "packages/gds-core/src/GdsRichTextEditor.client.tsx",
         "packages/gds-core/src/SafeStyles.tsx",
-        "packages/gds-core/src/SemanticCharts.tsx",
+        "packages/gds-core/src/chart-primitives.tsx",
         "packages/gds-theme/styles.css"
       ]
     },
@@ -853,7 +853,7 @@
         "packages/gds-core/src/EditorialHero.tsx",
         "packages/gds-core/src/ReferenceThemeExplorer.tsx",
         "packages/gds-core/src/SafeStyles.tsx",
-        "packages/gds-core/src/SemanticCharts.tsx"
+        "packages/gds-core/src/chart-primitives.tsx"
       ]
     },
     {
@@ -962,7 +962,7 @@
         "packages/gds-core/src/ListingCard.tsx",
         "packages/gds-core/src/QuickStartCard.tsx",
         "packages/gds-core/src/SafeStyles.tsx",
-        "packages/gds-core/src/SemanticCharts.tsx"
+        "packages/gds-core/src/chart-primitives.tsx"
       ]
     },
     {
