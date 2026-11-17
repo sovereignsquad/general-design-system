@@ -8003,7 +8003,7 @@
       },
       "surface-dark": {
         "$type": "color",
-        "$value": "#101b28",
+        "$value": "#1c2633",
         "$description": "colorblind-safe surface-dark (dark mode)",
         "$extensions": {
           "com.sovereignsquad.gds": {
@@ -8897,7 +8897,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "#ffffff",
-                "dark": "#ffffff"
+                "dark": "#000000"
               }
             }
           }
@@ -8912,7 +8912,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "#0072b2",
-                "dark": "rgb(48, 141, 193)"
+                "dark": "rgb(69, 152, 199)"
               }
             }
           }
@@ -8957,7 +8957,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "rgb(243, 220, 219)",
-                "dark": "rgb(52, 42, 51)"
+                "dark": "rgb(62, 51, 61)"
               }
             }
           }
@@ -8987,7 +8987,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "rgb(226, 228, 231)",
-                "dark": "rgb(33, 44, 57)"
+                "dark": "rgb(45, 55, 68)"
               }
             }
           }
@@ -9017,7 +9017,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "#ffffff",
-                "dark": "#101b28"
+                "dark": "#1c2633"
               }
             }
           }
@@ -9047,7 +9047,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "rgb(218, 235, 231)",
-                "dark": "rgb(35, 53, 59)"
+                "dark": "rgb(45, 62, 68)"
               }
             }
           }
@@ -9077,7 +9077,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "rgb(236, 229, 222)",
-                "dark": "rgb(49, 49, 43)"
+                "dark": "rgb(59, 58, 52)"
               }
             }
           }
@@ -9137,7 +9137,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "#475569",
-                "dark": "rgb(121, 131, 146)"
+                "dark": "rgb(134, 143, 157)"
               }
             }
           }
@@ -9302,7 +9302,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "#ffffff",
-                "dark": "#101b28"
+                "dark": "#1c2633"
               }
             }
           }
@@ -9377,7 +9377,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "#ffffff",
-                "dark": "rgb(40, 50, 61)"
+                "dark": "rgb(51, 60, 71)"
               }
             }
           }
@@ -9407,7 +9407,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "#ffffff",
-                "dark": "#101b28"
+                "dark": "#1c2633"
               }
             }
           }
@@ -9437,7 +9437,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "rgb(121, 142, 153)",
-                "dark": "rgb(80, 110, 131)"
+                "dark": "rgb(87, 116, 137)"
               }
             }
           }
@@ -9452,7 +9452,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "rgb(184, 216, 233)",
-                "dark": "rgb(38, 76, 102)"
+                "dark": "rgb(47, 83, 109)"
               }
             }
           }
@@ -9557,7 +9557,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "#475569",
-                "dark": "rgb(121, 131, 146)"
+                "dark": "rgb(134, 143, 157)"
               }
             }
           }
@@ -10562,7 +10562,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "#ffffff",
-                "dark": "rgb(40, 50, 61)"
+                "dark": "rgb(51, 60, 71)"
               }
             }
           }
@@ -10592,7 +10592,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "rgb(248, 229, 214)",
-                "dark": "rgb(49, 44, 44)"
+                "dark": "rgb(59, 53, 53)"
               }
             }
           }
@@ -11387,7 +11387,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "#475569",
-                "dark": "rgb(121, 131, 146)"
+                "dark": "rgb(134, 143, 157)"
               }
             }
           }
@@ -31211,7 +31211,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "rgb(243, 220, 219)",
-                "dark": "rgb(62, 46, 51)"
+                "dark": "rgb(68, 52, 56)"
               }
             }
           }
@@ -31241,7 +31241,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "rgb(219, 232, 241)",
-                "dark": "rgb(41, 56, 70)"
+                "dark": "rgb(47, 62, 75)"
               }
             }
           }
@@ -31271,7 +31271,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "#ffffff",
-                "dark": "#1c2027"
+                "dark": "#23272d"
               }
             }
           }
@@ -31301,7 +31301,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "rgb(227, 236, 229)",
-                "dark": "rgb(46, 58, 58)"
+                "dark": "rgb(52, 64, 63)"
               }
             }
           }
@@ -31331,7 +31331,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "rgb(246, 236, 221)",
-                "dark": "rgb(59, 53, 42)"
+                "dark": "rgb(65, 59, 47)"
               }
             }
           }
@@ -31556,7 +31556,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "#ffffff",
-                "dark": "#1c2027"
+                "dark": "#23272d"
               }
             }
           }
@@ -31631,7 +31631,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "#ffffff",
-                "dark": "rgb(51, 54, 61)"
+                "dark": "rgb(57, 61, 66)"
               }
             }
           }
@@ -31661,7 +31661,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "#ffffff",
-                "dark": "#1c2027"
+                "dark": "#23272d"
               }
             }
           }
@@ -31691,7 +31691,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "rgb(150, 149, 142)",
-                "dark": "rgb(101, 106, 113)"
+                "dark": "rgb(116, 121, 127)"
               }
             }
           }
@@ -32816,7 +32816,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "#ffffff",
-                "dark": "rgb(51, 54, 61)"
+                "dark": "rgb(57, 61, 66)"
               }
             }
           }
@@ -32846,7 +32846,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "rgb(245, 226, 216)",
-                "dark": "rgb(63, 46, 42)"
+                "dark": "rgb(69, 52, 47)"
               }
             }
           }
@@ -34920,7 +34920,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "rgb(243, 220, 219)",
-                "dark": "rgb(57, 40, 44)"
+                "dark": "rgb(65, 48, 51)"
               }
             }
           }
@@ -34950,7 +34950,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "rgb(225, 226, 228)",
-                "dark": "rgb(46, 49, 56)"
+                "dark": "rgb(53, 57, 63)"
               }
             }
           }
@@ -34980,7 +34980,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "#ffffff",
-                "dark": "#16191f"
+                "dark": "#1f2228"
               }
             }
           }
@@ -35010,7 +35010,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "rgb(224, 232, 221)",
-                "dark": "rgb(41, 52, 44)"
+                "dark": "rgb(49, 60, 52)"
               }
             }
           }
@@ -35040,7 +35040,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "rgb(236, 229, 214)",
-                "dark": "rgb(54, 47, 36)"
+                "dark": "rgb(62, 54, 43)"
               }
             }
           }
@@ -35265,7 +35265,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "#ffffff",
-                "dark": "#16191f"
+                "dark": "#1f2228"
               }
             }
           }
@@ -35340,7 +35340,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "#ffffff",
-                "dark": "rgb(45, 48, 53)"
+                "dark": "rgb(53, 56, 61)"
               }
             }
           }
@@ -35370,7 +35370,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "#ffffff",
-                "dark": "#16191f"
+                "dark": "#1f2228"
               }
             }
           }
@@ -35400,7 +35400,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "rgb(140, 134, 117)",
-                "dark": "rgb(100, 105, 112)"
+                "dark": "rgb(116, 120, 126)"
               }
             }
           }
@@ -36525,7 +36525,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "#ffffff",
-                "dark": "rgb(45, 48, 53)"
+                "dark": "rgb(53, 56, 61)"
               }
             }
           }
@@ -36555,7 +36555,7 @@
               "lane": "semantic",
               "scheme": {
                 "light": "rgb(245, 236, 217)",
-                "dark": "rgb(55, 51, 41)"
+                "dark": "rgb(63, 59, 48)"
               }
             }
           }

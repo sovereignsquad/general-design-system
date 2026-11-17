@@ -4,6 +4,19 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
+### Dark cards stand off the page in every preset (#986)
+
+- New accessibility-floor rule `dark-card-separation`. In a dark scheme a card's fill is at least 1.2:1 from the page canvas, or its border is at least 3:1 against it. `GDS_DARK_CARD_SEPARATION_MIN` (`@sovereignsquad/gds-theme`) holds both thresholds.
+- Three presets declared a dark card too close to the page, with a border too faint to compensate. Each is lifted toward white by the smallest step that meets the rule:
+
+  | Preset | Dark card before | After | Fill step |
+  |---|---|---|---|
+  | `harbor` | `#1c2027` | `#23272d` | 1.10 → 1.20 |
+  | `ochre` | `#16191f` | `#1f2228` | 1.11 → 1.22 |
+  | `colorblind-safe` | `#101b28` | `#1c2633` | 1.07 → 1.21 |
+
+- `high-contrast` keeps its black card: its white border separates it.
+
 ### Compliance: native-element rules no longer flag components (#978)
 
 - `strict.raw-control` and `strict.raw-table` match tag names case-sensitively. Lowercase JSX tags (`<button>`, `<table>`) are native elements and are still reported; a component such as GDS `<Button>`, `<Select>` or `<Table>` is not.

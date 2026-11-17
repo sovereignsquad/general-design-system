@@ -16,7 +16,7 @@ is not enforced yet. Severity is set per finding inside each rule's `evaluate`, 
 This file is GENERATED from `packages/gds-theme/src/accessibility-floor.ts`. A floor described
 differently from how it is checked is a floor nobody can rely on — run `npm run docs:a11y-floor`.
 
-## Rules (19)
+## Rules (20)
 
 - **focus-ring-min-width** (reaction axis, 2.4.11 Focus Appearance (AA)) — Below 2px a focus ring is not reliably visible, and a keyboard user has no other indication of where they are.
 - **focus-ring-is-not-removed** (reaction axis, 2.4.7 Focus Visible (AA)) — A theme must not be able to erase focus indication by setting the ring to none or transparent.
@@ -30,6 +30,7 @@ differently from how it is checked is a floor nobody can rely on — run `npm ru
 - **nav-states-legible** (color axis, 1.4.3 Contrast (Minimum) (AA); 1.4.11 Non-text Contrast (AA)) — The active navigation item is where the user is; its label must be readable and its indicator visible against the sidebar (#955, #944).
 - **message-bubbles-legible** (color axis, 1.4.3 Contrast (Minimum) (AA)) — A message bubble is the content of a conversation; its text must be readable for both sides (#957).
 - **surface-separation** (color axis, 1.4.11 Non-text Contrast (AA), informative: a surface is not a UI component) — A sidebar whose fill matches both the page and the card (CIE76 below 2.3, a just-noticeable difference) is told apart only by its border. Reported, not enforced: in light schemes a darker sidebar would take muted text below 4.5:1, so most presets keep a two-level fill and rely on borders and elevation (#951).
+- **dark-card-separation** (color axis, 1.4.11 Non-text Contrast (AA)) — In a dark scheme a card must stand off the page: its fill at least 1.2:1 from the canvas, or its border at least 3:1 against it. Below both, cards and page read as one washed-out surface (#986).
 - **chart-roles-legible** (color axis, 1.4.11 Non-text Contrast (AA); 1.4.3 Contrast (Minimum) (AA)) — A chart series that fades into the card cannot be read or told apart, and axis labels are text.
 - **primary-cta-text-contrast** (color axis, 1.4.3 Contrast (Minimum) (AA)) — The filled primary button is used for a page's main action: it paints `--gds-action-fill-fg` on `--gds-vibe-primary`, and its label is normal-weight text (issue 680, #977).
 - **action-fill-separation** (color axis, 1.4.11 Non-text Contrast (AA)) — A filled button or accent mark that matches the page or card it sits on cannot be told apart from it (#977).

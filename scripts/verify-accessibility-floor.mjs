@@ -59,7 +59,18 @@ const canaryTokens = {
   '--gds-vibe-action-gradient': 'linear-gradient(135deg, #7c3cff, #ffee00)',
   '--gds-vibe-action-gradient-fg': '#ffffff',
 };
-const canary = validateGdsAccessibilityFloor({ presetId: 'canary', scheme: 'light', tokens: canaryTokens });
+// Dark-only rules need a dark context: a card, border and page of one colour breach
+// dark-card-separation.
+const darkCanaryTokens = {
+  ...getGdsVibeThemeCssVariables('default', 'dark'),
+  '--gds-bg-canvas': '#101010',
+  '--gds-bg-card': '#101010',
+  '--gds-border-card': '#101010',
+};
+const canary = [
+  ...validateGdsAccessibilityFloor({ presetId: 'canary', scheme: 'light', tokens: canaryTokens }),
+  ...validateGdsAccessibilityFloor({ presetId: 'canary', scheme: 'dark', tokens: darkCanaryTokens }),
+];
 const canaryRules = new Set(canary.map((v) => v.ruleId));
 if (canaryRules.size < gdsAccessibilityFloorRules.length) {
   console.error(`FAIL canary detected only ${canaryRules.size} of ${gdsAccessibilityFloorRules.length} rules.`);

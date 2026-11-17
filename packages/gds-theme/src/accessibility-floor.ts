@@ -13,6 +13,7 @@ import {
   GDS_CONTROL_SIZES,
   GDS_MIN_TARGET_PX,
 } from './axes';
+import { GDS_DARK_CARD_SEPARATION_MIN } from './semantic-token-source';
 import { getGdsVibeThemeCssVariables, getGdsVibeThemes } from './vibe-themes';
 
 /**
@@ -312,6 +313,27 @@ export const gdsAccessibilityFloorRules: readonly GdsFloorRule[] = [
       if (toPage >= GDS_SURFACE_JND_DELTA_E || toCard >= GDS_SURFACE_JND_DELTA_E) return [];
       return [report(ctx, this, `sidebar ${sidebar}: dE ${toPage.toFixed(1)} from page, ${toCard.toFixed(1)} from card`, `>= ${GDS_SURFACE_JND_DELTA_E} from at least one`,
         'The sidebar is separated by its border only. Tint the preset\'s shell or canvas in the semantic token source (vibe-themes.ts) if a filled separation is wanted.')];
+    },
+  },
+  {
+    id: 'dark-card-separation',
+    axis: 'color',
+    wcag: '1.4.11 Non-text Contrast (AA)',
+    rationale: `In a dark scheme a card must stand off the page: its fill at least ${GDS_DARK_CARD_SEPARATION_MIN.fill}:1 from the canvas, or its border at least ${GDS_DARK_CARD_SEPARATION_MIN.border}:1 against it. Below both, cards and page read as one washed-out surface (#986).`,
+    evaluate(ctx) {
+      if (ctx.scheme !== 'dark') return [];
+      const canvas = ctx.tokens['--gds-bg-canvas'];
+      const card = ctx.tokens['--gds-bg-card'];
+      if (!canvas || !card) {
+        return [violation(ctx, this, `--gds-bg-canvas ${canvas ?? 'missing'}, --gds-bg-card ${card ?? 'missing'}`, 'both emitted', 'Emit both from the semantic token source.')];
+      }
+      const fill = contrastRatio(card, canvas, canvas) ?? 1;
+      const borderToken = ctx.tokens['--gds-border-card'];
+      const border = borderToken ? contrastRatio(borderToken, canvas, card) ?? 1 : 1;
+      if (fill >= GDS_DARK_CARD_SEPARATION_MIN.fill || border >= GDS_DARK_CARD_SEPARATION_MIN.border) return [];
+      return [violation(ctx, this, `card ${card} on canvas ${canvas}: fill ${fill.toFixed(2)}:1, border ${border.toFixed(2)}:1`,
+        `fill >= ${GDS_DARK_CARD_SEPARATION_MIN.fill}:1 or border >= ${GDS_DARK_CARD_SEPARATION_MIN.border}:1`,
+        'Lift the preset\'s dark card surface (surfaceDark, or bg.card in the semantic token source) toward white until the fill step is met.')];
     },
   },
   {
