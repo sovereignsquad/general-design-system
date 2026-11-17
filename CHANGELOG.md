@@ -4,6 +4,12 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
+### README, security policy and code of conduct (#979)
+
+- The README opens with a one-line description, npm, CI and licence badges, a quick start that installs the umbrella, loads the stylesheet and mounts `GdsProvider`, a summary of what is included, and links to the contributing guide, code of conduct and security policy. The local filesystem path it opened with is removed.
+- New `SECURITY.md`: report vulnerabilities privately through GitHub's private vulnerability reporting, not in public issues.
+- New `CODE_OF_CONDUCT.md`: Contributor Covenant 2.1. Reports reach the maintainers through a content-free issue that opens a private channel.
+
 ### Style profiles (#987)
 
 - New `GdsStyleProfile` (`@sovereignsquad/gds-theme`): `default`, `minimal`, `soft`, `structured`. A profile applies a radius role map, a density mode and resting elevation roles to any preset's axes. The preset's scales, shadows, typography and colours are kept.
