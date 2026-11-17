@@ -57,13 +57,13 @@
       "reviewBy": "2027-08-01"
     },
     {
-      "at": "packages/gds-core/src/ReferenceThemeExplorer.tsx:309",
+      "at": "packages/gds-core/src/ReferenceThemeExplorer.tsx:314",
       "value": "18",
       "category": "debt",
       "reviewBy": "2026-12-01"
     },
     {
-      "at": "packages/gds-core/src/ReferenceThemeExplorer.tsx:723",
+      "at": "packages/gds-core/src/ReferenceThemeExplorer.tsx:745",
       "value": "12",
       "category": "debt",
       "reviewBy": "2026-12-01"
