@@ -68,7 +68,7 @@ for (const [text, where] of found) {
 // already excluded by the identifier test during collection, so this matches on words, not length.
 for (const [text, where] of visibleStrings) {
   if (!/\bdemos?\b/i.test(text)) continue;
-  problems.push(`${where}\n    CALLS A PROOF A DEMO: "${text.slice(0, 120)}"\n    The reference site is documentation with proofs (Rule 15). "Demo" invites staging; say what the surface actually is.`);
+  problems.push(`${where}\n    CALLS A PROOF A DEMO: "${text.slice(0, 120)}"\n    The reference site is documentation with proofs. "Demo" invites staging; say what the surface actually is.`);
 }
 
 // Flags a rename fused to the tail of another word (a malformed substring replacement).

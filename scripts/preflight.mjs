@@ -1,4 +1,4 @@
-// CLAUDE.md Rule 13 — the CI-equivalent local run, in one command.
+// The CI-equivalent local run, in one command.
 //
 // Three consecutive red CI runs on `main` were each pushed after a local
 // `npm run verify:release` that exited 0. The claim "I tested locally" was true every

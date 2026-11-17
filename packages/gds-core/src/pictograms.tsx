@@ -159,7 +159,7 @@ export interface GdsPictogramUsageRule {
 }
 
 /**
- * The source guidelines' usage rules, shipped as data so documentation derives them (Rule 14)
+ * The source guidelines' usage rules, shipped as data so documentation derives them
  * instead of retyping prose that could drift from what the guidelines actually say.
  */
 export const gdsPictogramUsageRules: readonly GdsPictogramUsageRule[] = [

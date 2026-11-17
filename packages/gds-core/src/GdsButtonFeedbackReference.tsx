@@ -20,7 +20,7 @@ type FeedbackRow = {
 
 // Every vocabulary action that declares a success-feedback config, read from GdsVocabulary at
 // render time. An action added or re-coloured in the vocabulary changes this table with no edit
-// here (Rule 14).
+// here.
 const feedbackRows: FeedbackRow[] = Object.entries(GdsVocabulary)
   .filter(([, config]) => Boolean(config.feedback))
   .map(([action, config]) => ({

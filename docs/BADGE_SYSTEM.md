@@ -434,7 +434,7 @@ import { GdsBadge, GdsMapPinBadge } from '@sovereignsquad/gds-core';
   badge/pin with no `emoji` renders its Tabler `icon` even when the mode is
   `'emoji'` — icon is the gap-filler, not the default. Deliberately not a
   "does this device render this glyph" check: that's unreliable across
-  browsers, untestable in CI without flaking (Rule 1), and would break
+  browsers, untestable in CI without flaking, and would break
   `GdsGeneratedThumbnail`'s server/client determinism guarantee for a
   component that never reads `emoji` in the first place.
 - **Emoji renders on a fixed dark-neutral disc, never the badge's own

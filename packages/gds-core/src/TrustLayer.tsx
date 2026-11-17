@@ -35,7 +35,7 @@ export interface TrustBadgeProps {
   label?: GdsTrustLabel;
 }
 
-/** Source-of-truth mapping, exported so documentation derives from it (Rule 14). */
+/** Source-of-truth mapping, exported so documentation derives from it. */
 export const TRUST_BADGE_DEFINITIONS: Record<
   GdsTrustLabel,
   { tone: 'success' | 'warning' | 'danger' | 'neutral'; icon: GdsIconKey; messageId: string }

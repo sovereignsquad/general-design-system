@@ -11,7 +11,7 @@ import type { GdsVocabularyPack, SemanticActionId } from './vocabulary';
 /**
  * How long a transient success/error feedback treatment stays on the button before it reverts
  * to its resting label. Exported so documentation surfaces read the real value rather than
- * restating it (Rule 14) -- a change here changes both the behaviour and the page.
+ * restating it, so a change here changes both the behaviour and the page.
  */
 export const GDS_BUTTON_FEEDBACK_DURATION_MS = 2000;
 

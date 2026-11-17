@@ -4,6 +4,11 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
+### Comments and docs cite no internal instruction rules (#981)
+
+- Source comments, a floor rule rationale, a gate error message and five docs no longer justify themselves by citing numbered rules from the agent instruction file. Each keeps the functional statement. The floor rationale change regenerates `docs/ACCESSIBILITY_FLOOR.md`.
+- The audit scripts' "Rule 1" and "Rule 2" refer to the audit plan's own numbered checks (`docs/DEEP_AUDIT_PLAN.md`) and are unchanged.
+
 ### Stale preset counts (#980)
 
 - Comments, test names and coverage metadata no longer state a preset count. They say "every preset", or point to the test that measures the claim. Historical measurements are labelled with the preset count at the time.
