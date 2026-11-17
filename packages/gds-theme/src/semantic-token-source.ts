@@ -485,7 +485,7 @@ export function deriveVibeSemanticCssVariables(vibe: GdsVibeTheme): Record<strin
   const supportLight = mixCssColors(vibe.mutedLight, accentLight, 0.6, vibe.canvasLight);
   const supportDark = mixCssColors(vibe.mutedDark, accentDark, 0.6, vibe.canvasDark);
   // `support` is a background the theme picks freely, so neither a light nor a dark
-  // foreground can be assumed across 25 presets x 2 schemes; derive it.
+  // foreground can be assumed across every preset and both schemes; derive it.
   const textOnSupportLight = readableForeground(supportLight, 4.5, vibe.canvasLight);
   const textOnSupportDark = readableForeground(supportDark, 4.5, vibe.canvasDark);
 

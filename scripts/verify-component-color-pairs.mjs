@@ -102,7 +102,7 @@ const inactive = (f) => /disabled/i.test(`${f.bgToken}${f.fgToken}`);
 const reported = findings.filter(inactive);
 const enforced = findings.filter((f) => !inactive(f));
 
-// Worst case per (file, token pair): 25 presets x 2 schemes of the same defect is one defect.
+// Worst case per (file, token pair): every preset x 2 schemes of the same defect is one defect.
 const worst = new Map();
 for (const f of enforced) {
   const key = `${f.file}|${f.bgToken}|${f.fgToken}`;

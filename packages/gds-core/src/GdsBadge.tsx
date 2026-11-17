@@ -30,7 +30,7 @@ export type GdsBadgeTone = 'success' | 'warning' | 'danger' | 'info' | 'neutral'
  * closed-union precedent of 9 of 11 surveyed design systems). Fixed sRGB
  * values, all verified ≥ 4.5:1 against their white foreground via
  * `pickGdsAutoForeground` — the palette is theme-independent so category
- * colors stay stable across all 25 presets.
+ * colors stay stable across every preset.
  */
 export type GdsBadgeAccentName =
   | 'plum'
@@ -55,8 +55,8 @@ interface BadgeColors {
  *
  * This table previously paired a fixed white foreground with a variable background, and read
  * `-dark` for three tones while `success` read the light one. Measured: with white text,
- * `--gds-state-success` fails 4.5:1 in 9 of 25 presets in LIGHT mode (class-usa 4.10, sunset
- * 4.40). The inconsistency is why it survived — three tones were pinned dark and one was not.
+ * `--gds-state-success` failed 4.5:1 in 9 of the 25 presets shipped at the time, in LIGHT mode
+ * (class-usa 4.10, sunset 4.40). The inconsistency is why it survived — three tones were pinned dark and one was not.
  *
  * Both halves of each pair now come from the theme, derived against each other per preset and
  * per scheme, so the badge follows the scheme AND the contrast is guaranteed rather than

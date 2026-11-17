@@ -18,8 +18,8 @@ const baseTheme: MantineTheme = mergeMantineTheme(DEFAULT_THEME, createTheme({
    * The tint is composed with `color-mix` against a real surface, producing an opaque colour
    * whose contrast can be measured. The foreground is the governed body text rather than a
    * shade of the hue, since a fixed shade fails on some hues (below 4.5:1 on orange/green).
-   * The neutral pairing measures 9.14:1 at worst across all 25 presets x 2 schemes x 14
-   * Mantine colours.
+   * variant-colors.test.ts requires the neutral pairing to clear 4.5:1 for every preset, both
+   * schemes and all 14 Mantine colours.
    *
    * Visible change: light-variant badge text is neutral instead of hue-tinted. The tint
    * itself still carries the colour.

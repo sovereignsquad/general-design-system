@@ -188,8 +188,8 @@ function checkRole(
  * `vibe.canvasLight`), not the derived `--gds-*` semantic roles that actually paint
  * components — those were previously unscored.
  *
- * Measured across all 25 presets in both schemes before being made blocking; all 450 checks
- * pass today.
+ * Measured across the 25 presets shipped at the time, in both schemes (450 checks), before
+ * being made blocking.
  *
  * `--gds-border-card` on `--gds-bg-card` is deliberately not here: it measures below 3:1 in
  * 47 of 50 cells, but WCAG 1.4.11 governs UI components and meaningful graphics, and a
