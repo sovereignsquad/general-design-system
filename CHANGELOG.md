@@ -4,6 +4,11 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
+### Stale preset counts (#980)
+
+- Comments, test names and coverage metadata no longer state a preset count. They say "every preset", or point to the test that measures the claim. Historical measurements are labelled with the preset count at the time.
+- The accessibility floor reference says the rules run over every preset in both schemes, instead of a fixed number. The live audit beside it already shows the measured count.
+
 ### README, security policy and code of conduct (#979)
 
 - The README opens with a one-line description, npm, CI and licence badges, a quick start that installs the umbrella, loads the stylesheet and mounts `GdsProvider`, a summary of what is included, and links to the contributing guide, code of conduct and security policy. The local filesystem path it opened with is removed.

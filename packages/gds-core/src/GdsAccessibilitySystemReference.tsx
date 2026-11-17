@@ -4,9 +4,8 @@ import { SimpleDataTable } from './SimpleDataTable';
 
 /**
  * Reference for the accessibility floor axis: every governed rule, and a live audit result
- * across all 25 presets x 2 schemes, read from auditGdsAccessibilityFloor() -- the same
- * function verify:a11y-floor runs. A page claiming an accessibility floor holds is itself a
- * claim this system can check, so it is computed here, not asserted in prose (Rule 14).
+ * across every preset x 2 schemes, read from auditGdsAccessibilityFloor(), the same function
+ * verify:a11y-floor runs. The result is computed here, not stated in prose.
  */
 export function GdsAccessibilitySystemReference() {
   const audit = auditGdsAccessibilityFloor();
@@ -31,7 +30,7 @@ export function GdsAccessibilitySystemReference() {
       <Stack gap="2xs">
         <Text fw={700}>The rules — minimums no theme may cross</Text>
         <Text size="sm">
-          Every rule is checkable from resolved tokens alone, so it runs over all 25 presets in
+          Every rule is checkable from resolved tokens alone, so it runs over every preset in
           both schemes without a browser. Rules needing real rendered geometry belong to the
           runtime harness instead (forced-colors, focus-ring, touch-target-floor).
         </Text>

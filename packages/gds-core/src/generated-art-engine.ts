@@ -199,7 +199,7 @@ export interface ResolveGdsGeneratedPaletteHexOptions extends GdsGeneratedPalett
  * {@link gdsGeneratedPaletteCssRefs} (already a static literal). `'theme'`
  * mode requires either `themePresetId` (looked up via
  * `getGdsVibeThemeCssVariables`, which already derives real `--gds-brand-*`
- * hex values for all 25 built-in presets) or an explicit `colors` override
+ * hex values for every built-in preset) or an explicit `colors` override
  * for a custom brand theme — there is deliberately no silent fallback
  * guess when neither is given, since guessing a consumer's brand color
  * wrong is worse than a clear error at build time.

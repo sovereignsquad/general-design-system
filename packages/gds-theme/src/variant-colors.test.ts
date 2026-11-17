@@ -61,7 +61,7 @@ describe('light-variant governance (issue 597)', () => {
 
 describe('derived badge foregrounds (issue 597)', () => {
   // Every pair emitted as "<fill>" + "<fill>-fg" claims to be legible. That claim is worth
-  // exactly as much as the sweep behind it, so it is swept: all 25 presets, both schemes.
+  // exactly as much as the sweep behind it, so it is swept: every preset, both schemes.
   const PAIRS = [
     '--gds-badge-solid-success', '--gds-badge-solid-warning', '--gds-badge-solid-danger',
     '--gds-badge-solid-info', '--gds-badge-solid-neutral',

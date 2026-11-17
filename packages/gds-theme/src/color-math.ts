@@ -199,7 +199,7 @@ export function hueAngleDistance(h1: number, h2: number): number {
  * Picks a readable foreground for `background` by trying white first, then black,
  * then falling back to whichever reached the higher ratio. Used for roles that sit on
  * a colour the theme chooses freely (e.g. `support`), where neither a light nor a dark
- * foreground can be assumed correct across 25 presets and two schemes.
+ * foreground can be assumed correct across every preset and both schemes.
  */
 export function readableForeground(background: string, minRatio: number, fallback: string): string {
   const candidates = ['#ffffff', '#000000'];
