@@ -13,8 +13,8 @@ at all, and why the load-bearing decisions went the way they did — so they are
 purpose or not at all.
 
 Where this document names a number or a contract, the value lives in source and is cited;
-nothing here is a second copy that can drift (Rule 14). Where a capability does not exist yet,
-this document says so and names the issue that carries it (Rule 15) — an honest gap is
+nothing here is a second copy that can drift. Where a capability does not exist yet,
+this document says so and names the issue that carries it: an honest gap is
 documentation; a workaround that looks like the system is a lie about the system.
 
 ## 1. What GDS owns, what the product owns

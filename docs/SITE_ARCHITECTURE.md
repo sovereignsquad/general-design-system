@@ -20,7 +20,7 @@ vocabulary appeared on no page at all.
 3. **Nothing shipped is invisible.** Every public export appears on a discoverable page; the
    component census is the completeness oracle and a gate holds the claim
    (`verify:component-catalog-parity`; Phase 2 extends it to one-canonical-page-each).
-4. **Structure is site data; capability is GDS** (Rule 16). Reorganising never forks a
+4. **Structure is site data; capability is GDS.** Reorganising never forks a
    component — a page needing something new means the package grows first.
 
 ## Target shape (phased)

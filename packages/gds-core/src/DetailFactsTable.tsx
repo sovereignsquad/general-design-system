@@ -43,7 +43,7 @@ export interface DetailFact {
 
 /**
  * Fixed width, in pixels, of {@link DetailFactsTable}'s label column. Exported so
- * documentation surfaces can read the real value instead of restating it (Rule 14).
+ * documentation surfaces can read the real value instead of restating it.
  */
 export const GDS_DETAIL_FACTS_LABEL_COLUMN_PX = 130;
 
