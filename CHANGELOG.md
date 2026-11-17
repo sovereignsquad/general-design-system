@@ -63,6 +63,7 @@ All notable policy changes to the General Design System are recorded here.
   | `colorblind-safe` | `#101b28` | `#1c2633` | 1.07 → 1.21 |
 
 - `high-contrast` keeps its black card: its white border separates it.
+- `verify:card-surface-runtime` reads the expected flat-card colours from the presets' declared surfaces instead of a typed list.
 
 ### Rendering-quality gate and the defects it found (#986)
 
