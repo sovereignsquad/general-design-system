@@ -1159,7 +1159,7 @@ const rawPatternRegistry: RawPatternRegistryEntry[] = [
     docSection: 'Core Component Contracts',
     family: 'foundations',
     section: 'Accessibility',
-    summary: 'Every governed accessibility-floor rule (id, axis, WCAG citation, rationale) and a live audit result across all 25 presets x 2 schemes, computed by auditGdsAccessibilityFloor() — the same function verify:a11y-floor runs.',
+    summary: 'Every governed accessibility-floor rule (id, axis, WCAG citation, rationale) and a live audit result across every preset in both schemes, computed by auditGdsAccessibilityFloor() — the same function verify:a11y-floor runs.',
     importPath: '@sovereignsquad/gds-core',
     sourceComponent: 'GdsAccessibilitySystemReference',
   },
