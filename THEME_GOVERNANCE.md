@@ -630,12 +630,12 @@ What GDS does not provide for this shape:
 
 A style profile is a visual personality built from the shape, density and elevation axes. It is independent of the colour preset, so any profile combines with any preset (#987).
 
-| Profile | Radius role map | Density | Resting elevation (card, panel, sidebar) | Suited to |
-|---|---|---|---|---|
-| `default` | the preset's own | the preset's own | the preset's own | — |
-| `minimal` | `sm` throughout | comfortable | flat | internal tools, data dashboards |
-| `soft` | `xl` cards, `lg` buttons, pill chips | spacious | step 1 | consumer apps |
-| `structured` | `xs` controls and cards, square images | compact | flat | enterprise and dense operations |
+| Profile | Radius role map | Density | Resting elevation (card, panel, sidebar) | Area-chart gradient (start → baseline) | Suited to |
+|---|---|---|---|---|---|
+| `default` | the preset's own | the preset's own | the preset's own | stylesheet default, 0.28 → 0.02 | — |
+| `minimal` | `sm` throughout | comfortable | flat | 0.16 → 0.02 | internal tools, data dashboards |
+| `soft` | `xl` cards, `lg` buttons, pill chips | spacious | step 1 | 0.36 → 0.04 | consumer apps |
+| `structured` | `xs` controls and cards, square images | compact | flat | 0.12 → 0 | enterprise and dense operations |
 
 - A profile replaces the radius role map, the density mode and the resting elevation roles. It keeps the preset's radius scale, spacing scale, shadow values, typography and colours, and overlays (modal, drawer, sheet, menu, tooltip) keep their elevation.
 - **Utility radius cap:** the utility roles (`surface`, `input`: tables, lists, sidebars, toolbars, fields) never exceed `md` in any profile (`GDS_UTILITY_RADIUS_ROLES`, `GDS_UTILITY_RADIUS_CAP`), so `soft` does not heavily round a dense utility surface.

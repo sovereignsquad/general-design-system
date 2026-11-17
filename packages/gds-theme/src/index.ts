@@ -46,7 +46,7 @@ export { DOMINANT_ROLES, SECONDARY_ROLES, ACCENT_ROLES, colorProportionClassific
 export { resolveGdsTypeScaleProfile, NAMED_TYPE_SCALE_RATIO_LABELS } from './type-scale-profile';
 export { resolveGdsColorHarmonyProfile } from './color-harmony-classification';
 export { getGdsVibeThemes, resolveGdsVibeTheme, getGdsVibeThemeCssVariables, getGdsDefaultLaneCssVariables, getGdsVibeCardSurface, GdsCardSurfaceError, deriveVibeSemanticCssVariables, getGdsAiAccentLane } from './vibe-themes';
-export { applyGdsStyleProfile, normalizeGdsStyleProfile, GDS_STYLE_PROFILES, GDS_STYLE_PROFILE_IDS, GDS_UTILITY_RADIUS_CAP, GDS_UTILITY_RADIUS_ROLES, type GdsStyleProfile, type GdsStyleProfileDefinition } from './style-profiles';
+export { applyGdsStyleProfile, getGdsStyleProfileCssVariables, normalizeGdsStyleProfile, GDS_STYLE_PROFILES, GDS_STYLE_PROFILE_IDS, GDS_UTILITY_RADIUS_CAP, GDS_UTILITY_RADIUS_ROLES, type GdsStyleProfile, type GdsStyleProfileDefinition } from './style-profiles';
 export type { GdsVibeTheme, GdsAiAccentLane } from './vibe-themes';
 export { VibeThemePicker } from './VibeThemePicker.client';
 export type { VibeThemePickerProps } from './VibeThemePicker.client';

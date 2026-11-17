@@ -4526,9 +4526,28 @@ npm install @mantine/core @mantine/hooks @mantine/modals @mantine/notifications 
     );
 
     expect(screen.getByRole('heading', { name: 'Heatmap contract' })).toBeInTheDocument();
-    expect(screen.getByText('Type lane: heatmap')).toBeInTheDocument();
-    expect(screen.getByText('Registry family: matrix')).toBeInTheDocument();
-    expect(screen.getByText('Cell A')).toBeInTheDocument();
+    // A heatmap is drawn by default, so the metadata card is not shown.
+    expect(screen.getByRole('img', { name: 'Heatmap contract' })).toBeInTheDocument();
+    expect(screen.queryByText('Type lane: heatmap')).toBeNull();
+    expect(screen.getAllByText('Cell A').length).toBeGreaterThan(0);
+  });
+
+  it('draws line, area, bar, stacked-bar, radar and heatmap by default, and shows the metadata card for types without a drawing (#989)', () => {
+    const data = [{ label: 'A', value: 4 }, { label: 'B', value: 9 }];
+    const { container, unmount } = renderWithGds(<GdsChart type="line" title="Drawn line" summary="Two points." data={data} />);
+    expect(container.querySelector('svg')).not.toBeNull();
+    expect(screen.queryByText('Type lane: line')).toBeNull();
+    unmount();
+
+    renderWithGds(
+      <GdsChart
+        type="funnel"
+        title="Funnel contract"
+        summary="Stages without a drawing yet."
+        data={[{ label: 'Visit', value: 100 }, { label: 'Buy', value: 20 }]}
+      />,
+    );
+    expect(screen.getByText('Type lane: funnel')).toBeInTheDocument();
   });
 
   it('validates chart schemas, thresholds, and rendering budgets before adapter rendering', () => {

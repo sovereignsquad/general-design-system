@@ -3,6 +3,7 @@ import { useId } from 'react';
 import { Badge, Group, Paper, Stack, Text } from '@mantine/core';
 import { ChartTokenPanel, type ChartTokenPanelState } from './ChartTokenPanel';
 import { SimpleDataTable } from './SimpleDataTable';
+import { semanticRenderer, type SemanticRendererKind } from './chart-primitives';
 
 /** Every chart type GDS governs, across the cartesian, part-to-whole, radial, matrix, hierarchy, process, financial, and flow families. */
 export type GdsChartType =
@@ -515,7 +516,21 @@ export function validateGdsChartData(
   };
 }
 
-function DefaultChartRenderer({ type, title, summary, data, definition, labelledBy, describedBy }: GdsChartRendererContext) {
+// Chart types that have a drawing. Every other type renders its metadata card; the data table
+// fallback renders for all types.
+const DRAWN_CHART_TYPES: Partial<Record<GdsChartType, SemanticRendererKind>> = {
+  line: 'line',
+  area: 'area',
+  bar: 'bar',
+  'stacked-bar': 'stacked-bar',
+  radar: 'radar',
+  heatmap: 'heatmap',
+};
+
+function DefaultChartRenderer(context: GdsChartRendererContext) {
+  const { type, title, summary, data, definition, labelledBy, describedBy } = context;
+  const drawn = DRAWN_CHART_TYPES[type];
+  if (drawn) return semanticRenderer(drawn, 'primary')(context);
   return (
     <Paper withBorder radius="md" p="md" role="img" aria-labelledby={labelledBy} aria-describedby={describedBy}>
       <Stack gap="sm">
