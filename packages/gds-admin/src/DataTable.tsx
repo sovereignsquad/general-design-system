@@ -1,7 +1,7 @@
 import type { Key, ReactNode } from 'react';
 import { Table, Paper, LoadingOverlay } from '@mantine/core';
 import { useGdsTranslation } from '@sovereignsquad/gds-theme';
-import { StateBlock } from '@sovereignsquad/gds-core';
+import { GdsTableScrollContainer, StateBlock } from '@sovereignsquad/gds-core';
 
 /** Column definition for {@link DataTable}. */
 export interface DataTableColumn<T> {
@@ -47,7 +47,7 @@ export function DataTable<T extends Record<string, unknown>>({ data, columns, lo
   return (
     <Paper withBorder pos="relative" style={{ overflow: 'hidden' }}>
       <LoadingOverlay visible={loading} zIndex={1000} overlayProps={{ radius: 'sm', blur: 2 }} />
-      <Table.ScrollContainer minWidth={0} type="native">
+      <GdsTableScrollContainer>
 <Table striped highlightOnHover>
         <Table.Thead>
           <Table.Tr>
@@ -68,7 +68,7 @@ export function DataTable<T extends Record<string, unknown>>({ data, columns, lo
           ))}
         </Table.Tbody>
       </Table>
-</Table.ScrollContainer>
+</GdsTableScrollContainer>
     </Paper>
   );
 }

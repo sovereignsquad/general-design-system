@@ -3,7 +3,7 @@ import { Code, Group, Stack, Table, Text } from '@mantine/core';
 import {
   GDS_ACCENT_SHADES, getGdsContrastRatio, getGdsVibeThemeCssVariables,
   resolveGdsAccentTokens, type GdsAccentName, type GdsThemePresetId,
-  useGdsAmbientTheme,
+  useGdsAmbientTheme, useGdsTranslation,
 } from '@sovereignsquad/gds-theme';
 import { GdsBadge } from './GdsBadge';
 import { GDS_PIN_HEAD_CENTER_OFFSET, GDS_PIN_ICON_SCALE, GDS_PIN_SELECTED_SCALE, GdsMapPinBadge } from './GdsMapPinBadge';
@@ -29,6 +29,7 @@ export function GdsPinSystemReference({
   preset, colorScheme, accents = DEFAULT_ACCENTS,
 }: GdsPinSystemReferenceProps) {
   // Defaults to the active theme; explicit props override for per-preset composition.
+  const { t } = useGdsTranslation();
   const ambient = useGdsAmbientTheme();
   const activePreset = preset ?? ambient.preset;
   const activeScheme = colorScheme ?? ambient.colorScheme;
@@ -94,7 +95,7 @@ export function GdsPinSystemReference({
           centre in the 24-unit path space — so the offset is exactly <Code>-1/24</Code>:
         </Text>
         {/* Value read from source, not retyped. */}
-        <Code block>{`transform: ${GDS_PIN_HEAD_CENTER_OFFSET} scale(${GDS_PIN_ICON_SCALE})`}</Code>
+        <Code block tabIndex={0} role="group" aria-label={t('gds.docsCodeBlock.region', 'Code')}>{`transform: ${GDS_PIN_HEAD_CENTER_OFFSET} scale(${GDS_PIN_ICON_SCALE})`}</Code>
         <Text size="sm" c="dimmed">
           The rule is &ldquo;centre on the pin&rsquo;s circle&rdquo;, not a number tuned until it looked
           right. The visible dome&rsquo;s midpoint is a <em>different</em> point — centring on the dome

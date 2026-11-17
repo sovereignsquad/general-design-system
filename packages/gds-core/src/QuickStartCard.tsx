@@ -1,7 +1,7 @@
 import { GDS_MIN_TARGET_PX } from '@sovereignsquad/gds-theme';
 import { GdsIcon } from './icons';
 import type { GdsIconName } from './icons';
-import { CardTitle, MetadataText } from './Typography';
+import { InlineEmphasis, MetadataText } from './Typography';
 
 /**
  * QuickStartCard (issue 710).
@@ -82,8 +82,9 @@ export function QuickStartCard({ icon, label, description, onClick, disabled = f
       >
         <GdsIcon icon={icon} />
       </span>
-      <div style={{ overflowWrap: 'break-word' }}>
-        <CardTitle>{label}</CardTitle>
+      {/* A button holds phrasing content only, so the label is emphasised text, not a heading. */}
+      <div style={{ overflowWrap: 'break-word', display: 'grid' }}>
+        <InlineEmphasis component="span">{label}</InlineEmphasis>
         {description ? <MetadataText>{description}</MetadataText> : null}
       </div>
     </button>

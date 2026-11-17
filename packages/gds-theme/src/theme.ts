@@ -151,14 +151,29 @@ const baseTheme: MantineTheme = mergeMantineTheme(DEFAULT_THEME, createTheme({
         radius: 'var(--gds-radius-chip)',
       },
     },
+    // Dialog titles are headings: they render as <h2>, so they carry heading weight rather than
+    // the body weight Mantine gives them.
     Modal: {
       defaultProps: {
         radius: 'var(--gds-radius-modal)',
+      },
+      styles: {
+        title: { fontWeight: 'var(--gds-weight-semibold)' },
       },
     },
     Drawer: {
       defaultProps: {
         radius: 'var(--gds-radius-drawer)',
+      },
+      styles: {
+        title: { fontWeight: 'var(--gds-weight-semibold)' },
+      },
+    },
+    // A scroll area whose content overflows must be reachable from the keyboard (WCAG 2.1.1):
+    // the viewport is focusable, so arrow keys scroll it even when it holds nothing focusable.
+    ScrollArea: {
+      defaultProps: {
+        viewportProps: { tabIndex: 0 },
       },
     },
     Table: {

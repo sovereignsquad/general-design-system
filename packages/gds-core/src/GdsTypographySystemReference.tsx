@@ -2,6 +2,7 @@ import { Code, Group, Stack, Table, Text } from '@mantine/core';
 import {
   GDS_TEXT_STEPS, GDS_WEIGHT_NAMES, resolveGdsTypographyTokens,
 } from '@sovereignsquad/gds-theme';
+import { GdsTableScrollContainer } from './GdsTableScrollContainer';
 
 /** Reference for the typography axis: sizes, weights, and font lanes read from resolveGdsTypographyTokens(). */
 export function GdsTypographySystemReference() {
@@ -55,7 +56,7 @@ export function GdsTypographySystemReference() {
           Three roles a theme assigns a registered lane id to; component source asks for a
           role, never a font family directly.
         </Text>
-        <Table.ScrollContainer minWidth={0} type="native">
+        <GdsTableScrollContainer>
 <Table withTableBorder>
           <Table.Tbody>
             {(['display', 'body', 'mono'] as const).map((role) => (
@@ -66,7 +67,7 @@ export function GdsTypographySystemReference() {
             ))}
           </Table.Tbody>
         </Table>
-</Table.ScrollContainer>
+</GdsTableScrollContainer>
       </Stack>
     </Stack>
   );

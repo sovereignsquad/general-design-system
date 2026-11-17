@@ -6,6 +6,7 @@ import {
   GDS_PICTOGRAM_DISABLED_OPACITY,
   type GdsPictogramTreatment, type GdsPictogramScale, type GdsPictogramState,
 } from './pictograms';
+import { GdsTableScrollContainer } from './GdsTableScrollContainer';
 
 const STATES: GdsPictogramState[] = ['default', 'hover', 'selected', 'disabled'];
 
@@ -53,7 +54,7 @@ export function GdsPictogramSystemReference() {
           resolve to their own default scale (<Code>GDS_PICTOGRAM_TREATMENT_SCALE</Code>) and
           stroke weight — the path data itself never changes across a row.
         </Text>
-        <Table.ScrollContainer minWidth={0} type="native">
+        <GdsTableScrollContainer>
 <Table withTableBorder>
           <Table.Thead>
             <Table.Tr>
@@ -76,7 +77,7 @@ export function GdsPictogramSystemReference() {
             ))}
           </Table.Tbody>
         </Table>
-</Table.ScrollContainer>
+</GdsTableScrollContainer>
       </Stack>
 
       <Stack gap="2xs">
@@ -104,7 +105,7 @@ export function GdsPictogramSystemReference() {
           introduces a new hue: <Code>hover</Code> is a surface-level cue owned by the host, so
           the drawing itself is identical to <Code>default</Code>.
         </Text>
-        <Table.ScrollContainer minWidth={0} type="native">
+        <GdsTableScrollContainer>
 <Table withTableBorder>
           <Table.Thead>
             <Table.Tr>
@@ -125,7 +126,7 @@ export function GdsPictogramSystemReference() {
             ))}
           </Table.Tbody>
         </Table>
-</Table.ScrollContainer>
+</GdsTableScrollContainer>
       </Stack>
 
       <Stack gap="2xs">
@@ -135,7 +136,7 @@ export function GdsPictogramSystemReference() {
           {GDS_PICTOGRAM_HERO_LAYERS.length - 1} larger, fainter, offset echoes of the identical
           path — depth from transform and opacity alone, never a second colour.
         </Text>
-        <Table.ScrollContainer minWidth={0} type="native">
+        <GdsTableScrollContainer>
 <Table withTableBorder>
           <Table.Thead>
             <Table.Tr>
@@ -158,7 +159,7 @@ export function GdsPictogramSystemReference() {
             ))}
           </Table.Tbody>
         </Table>
-</Table.ScrollContainer>
+</GdsTableScrollContainer>
         <Group gap="xl" align="center">
           <GdsPictogram pictogram="basketball" treatment="hero" label="Basketball, hero treatment" />
           <GdsPictogram pictogram="camps" treatment="hero" label="Camps, hero treatment" />
@@ -167,7 +168,7 @@ export function GdsPictogramSystemReference() {
 
       <Stack gap="2xs">
         <Text fw={700}>Numeric contract — read from the exports, never retyped</Text>
-        <Table.ScrollContainer minWidth={0} type="native">
+        <GdsTableScrollContainer>
 <Table withTableBorder>
           <Table.Tbody>
             <Table.Tr>
@@ -196,7 +197,7 @@ export function GdsPictogramSystemReference() {
             ))}
           </Table.Tbody>
         </Table>
-</Table.ScrollContainer>
+</GdsTableScrollContainer>
       </Stack>
 
       <Stack gap="2xs">

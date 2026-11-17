@@ -74,6 +74,7 @@ export * from './SocialAuthButtons';
 export * from './ArticleShell';
 export * from './DocsCodeBlock';
 export * from './DocsCodeDisclosure';
+export * from './GdsTableScrollContainer';
 export * from './GdsReleaseNotes.client';
 export * from './CtaButtonGroup';
 export * from './DocsPageShell';

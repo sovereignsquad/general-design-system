@@ -3,6 +3,7 @@ import {
   GDS_SPACE_STEPS, GDS_CONTROL_SIZES, GDS_MIN_TARGET_PX, GDS_CONTROL_HEIGHT_EXCEPTIONS,
   resolveGdsDensityTokens,
 } from '@sovereignsquad/gds-theme';
+import { GdsTableScrollContainer } from './GdsTableScrollContainer';
 
 /** Reference for the density/spacing axis: spacing steps and control heights read from resolveGdsDensityTokens(). */
 export function GdsDensitySpacingSystemReference() {
@@ -44,7 +45,7 @@ export function GdsDensitySpacingSystemReference() {
           spacious density mode scales spacing freely, but a control height only shrinks below
           the floor when the size carries a recorded exception below.
         </Text>
-        <Table.ScrollContainer minWidth={0} type="native">
+        <GdsTableScrollContainer>
 <Table withTableBorder>
           <Table.Tbody>
             {GDS_CONTROL_SIZES.map((size) => (
@@ -60,7 +61,7 @@ export function GdsDensitySpacingSystemReference() {
             ))}
           </Table.Tbody>
         </Table>
-</Table.ScrollContainer>
+</GdsTableScrollContainer>
       </Stack>
     </Stack>
   );
