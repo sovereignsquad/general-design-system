@@ -116,7 +116,7 @@ export function deriveClassUsaSemanticTokens(ramps: ClassUsaColorRamps): Record<
   const white = '#ffffff';
   const textBody = '#1f3a5c';
   const darkCanvas = '#14171c';
-  const darkSurface = '#1c2027';
+  const darkSurface = '#23272d';
 
   return {
     'brand.primary': { light: navy, dark: '#f2ede4' },
@@ -163,7 +163,7 @@ export function deriveGoldAthleteSemanticTokens(ramps: GoldAthleteColorRamps): R
   const slate = ramps.slate[6];
   const white = '#ffffff';
   const darkPage = ramps.charcoal[9];
-  const darkSurface = '#16191f';
+  const darkSurface = '#1f2228';
 
   return {
     'brand.primary': { light: charcoal, dark: ivory },
@@ -287,6 +287,13 @@ export const GDS_GOLD_ATHLETE_SHELL = { light: 'rgba(255, 255, 255, 0.92)', dark
 
 /** Minimum luminance contrast between the card and a raised surface above it (dark scheme). */
 export const GDS_SURFACE_STEP_MIN = 1.05;
+
+/**
+ * Dark-scheme card separation from the page: the card fill is at least `fill` apart from the
+ * canvas, or the card border is at least `border` apart from it (WCAG 1.4.11 non-text
+ * contrast). Below both, cards and page read as one flat surface.
+ */
+export const GDS_DARK_CARD_SEPARATION_MIN = { fill: 1.2, border: 3 } as const;
 
 function opaqueOver(color: string | undefined, backdrop: string): string {
   const top = color ? parseCssColor(color) : null;

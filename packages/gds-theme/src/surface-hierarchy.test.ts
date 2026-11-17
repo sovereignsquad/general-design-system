@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { GDS_SURFACE_JND_DELTA_E, validateGdsAccessibilityFloor } from './accessibility-floor';
 import { createBrandTheme } from './brand-tokens';
 import { contrastRatio, deltaE76 } from './color-math';
-import { emitSurfaceHierarchyCssVariables, GDS_CLASS_USA_SHELL, GDS_SURFACE_STEP_MIN } from './semantic-token-source';
+import { emitSurfaceHierarchyCssVariables, GDS_CLASS_USA_SHELL, GDS_DARK_CARD_SEPARATION_MIN, GDS_SURFACE_STEP_MIN } from './semantic-token-source';
 import { getGdsVibeThemeCssVariables, getGdsVibeThemes } from './vibe-themes';
 
 const ROLES = ['--gds-bg-sidebar', '--gds-bg-raised', '--gds-border-subtle', '--gds-border-strong'];
@@ -72,5 +72,27 @@ describe('surface hierarchy roles (#951)', () => {
         expect(t['--gds-message-other-bg']).toBe(t['--gds-bg-raised']);
       }
     }
+  });
+});
+
+describe('dark card separation (#986)', () => {
+  const floor = (scheme: 'light' | 'dark', tokens: Record<string, string>) =>
+    validateGdsAccessibilityFloor({ presetId: 'fixture', scheme, tokens: { ...getGdsVibeThemeCssVariables('default', scheme), ...tokens } })
+      .filter((v) => v.ruleId === 'dark-card-separation');
+
+  it('every preset separates its dark card from the page by fill or border', () => {
+    for (const { id } of getGdsVibeThemes()) {
+      const t = getGdsVibeThemeCssVariables(id, 'dark');
+      const fill = contrastRatio(t['--gds-bg-card'], t['--gds-bg-canvas'], t['--gds-bg-canvas']) ?? 1;
+      const border = contrastRatio(t['--gds-border-card'], t['--gds-bg-canvas'], t['--gds-bg-card']) ?? 1;
+      expect(fill >= GDS_DARK_CARD_SEPARATION_MIN.fill || border >= GDS_DARK_CARD_SEPARATION_MIN.border, `${id}: fill ${fill}, border ${border}`).toBe(true);
+    }
+  });
+
+  it('fails a washed-out dark card, passes one with a strong border, and ignores light schemes', () => {
+    const flat = { '--gds-bg-canvas': '#14171c', '--gds-bg-card': '#1c2027', '--gds-border-card': '#2c323b' };
+    expect(floor('dark', flat)).toHaveLength(1);
+    expect(floor('dark', { ...flat, '--gds-border-card': '#ffffff' })).toEqual([]);
+    expect(floor('light', flat)).toEqual([]);
   });
 });
