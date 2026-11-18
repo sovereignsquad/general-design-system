@@ -81,7 +81,7 @@ resolves it. None may be reported as a defect before that phase produces evidenc
 | # | Question | Phase |
 | --- | --- | --- |
 | Q1 | DTCG exposes 17 roles/theme; runtime emits 102 `--gds-*` properties. Is the published token graph materially incomplete for design-tool consumers? | 2 |
-| Q2 | `-dark`-suffixed sibling keys are still emitted (`--gds-accent-dark`, …). Is this correct post-5.0.2 resolution, or residue of the pattern HANDOVER §2 identifies as the illegibility bug? | 1 |
+| Q2 | `-dark`-suffixed sibling keys are still emitted (`--gds-accent-dark`, …). Is this correct post-5.0.2 resolution, or residue of the pattern an earlier revision of HANDOVER.md (in git history) identifies as the illegibility bug? | 1 |
 | Q3 | Do the shipped transitions actually use the declared motion scale? | 4 |
 | Q4 | 2 `:hover` rules total. Does GDS govern any interaction micro-motion, or is all of it Mantine default? | 4 |
 | Q5 | 12 package locales vs. 8 site packs. Are `ja`, `ko`, `zh` unreachable on the site? | 4 |

@@ -110,10 +110,9 @@ these, not clash with or duplicate one.
   claims — Rule 12 specifically requires you to state exactly what you
   tested and where, local build vs. actually deployed, before calling
   anything "done").
-- Read `HANDOVER.md` at the repo root for current project state and a full
-  environment-bootstrap brief (Node/npm versions, headless-Chrome/CDP setup
-  for live verification, the local static-serve pattern that exactly
-  mirrors the deployed site, GitHub access requirements).
+- Read `HANDOVER.md` (maintainer notes) at the repo root for the commands,
+  the conventions that are easy to get wrong, and the headless-Chrome/CDP
+  pattern used for live verification against a local build.
 - Read `THEME_GOVERNANCE.md` in full — it is the authoritative rulebook for
   what you're about to do. Sections that matter most for this task:
   "CSS VibeThemes", "Dark-mode rule", "Theme trust hardening", "Approved
@@ -167,7 +166,7 @@ these, not clash with or duplicate one.
 - Verify EVERY text/background pairing your new theme produces meets WCAG
   AA (4.5:1 for normal text, 3:1 for large text / UI components) in BOTH
   light and dark, computed from real rendered `getComputedStyle()` values
-  — not visual impression, not assumption. `HANDOVER.md` §6 has the exact
+  — not visual impression, not assumption. `HANDOVER.md` §3 has the exact
   local-build + headless-Chrome verification pattern this repo uses.
 - No decorative gradient/glow/colored-shadow if `flatSurfaces: true` — the
   shared CSS rules will neutralize it, but don't design against something
