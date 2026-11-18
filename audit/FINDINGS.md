@@ -87,8 +87,9 @@ override at `:1079–1086`.
 
 So the same nine values have **two independent definitions** — a hand-maintained
 TS emitter that nothing calls, and a hand-maintained CSS block that everything
-uses. This is the identical dual-source pattern that `HANDOVER.md` §2 records as
-the cause of the 5.0.1/5.0.2 dark-mode defect.
+uses. This is the identical dual-source pattern that an earlier revision of
+`HANDOVER.md` (in git history) recorded as the cause of the 5.0.1/5.0.2
+dark-mode defect.
 
 **Fix:** either call the emitter and delete the static block, or delete the
 emitter and keep the static block. Not both.
