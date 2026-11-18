@@ -225,7 +225,7 @@ literal-values allowlist, and a closing "open items, don't guess" list — is
    `getComputedStyle()` values on the live pattern catalog routes
    (`/patterns`, `/patterns/operations`, `/patterns/foundations`,
    `/patterns/data`) — not visual impression, not the Theme Lab preview card
-   alone. `HANDOVER.md`'s environment-bootstrap section has the
+   alone. `HANDOVER.md` §3 (Live verification) has the
    headless-Chrome/CDP pattern this repo uses for that check.
 
 5. **Register and verify like any other lane.** Default-export the preset from

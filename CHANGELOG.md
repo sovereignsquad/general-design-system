@@ -4,6 +4,11 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
+### Maintainer notes replace the session handover (#993)
+
+- `HANDOVER.md` was a session log from September with a stale version, commit and next steps, and it restated the agent instruction rules. It is now current maintainer notes: commands, conventions and gotchas checked against source, the live-verification helpers in `scripts/lib/browser-runtime.mjs`, and how to read gate output.
+- The filename is unchanged, so links resolve. `CONTRIBUTING.md`, the theme creation prompt and two audit records now point to its current sections, or to the earlier revision in git history.
+
 ### Dependency advisory accepted: picomatch ReDoS (#992)
 
 - GHSA-fc5q-39xc-vjpf affects `picomatch <=4.0.7`, which has no fixed release yet. It reaches only dev and build tooling (`vite`, `tsup`, `vitest`); no published package depends on it. It is accepted in `DEPENDENCY_AUDIT.md` with a review date of 2026-12-17, and is removed once a fixed release can be adopted.
