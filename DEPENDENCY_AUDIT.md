@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 6.9.0
-Last updated: 2026-11-13
+Last updated: 2026-11-25
 
 This repository treats published runtime package dependencies and local reference/tooling dependencies differently.
 
@@ -16,14 +16,7 @@ This repository treats published runtime package dependencies and local referenc
 
 ## Accepted Dev / Reference Tooling Advisories
 
-### GHSA-fc5q-39xc-vjpf
-
-- Owner: moldovancsaba
-- Review date: 2026-12-17
-- Scope: dev and build tooling only. `picomatch` is reached through `vite` 8.3.8, `tsup` 8.5.1 (`tinyglobby` → `fdir`) and `vitest` 4.1.12. No published GDS package depends on it, and `npm audit --omit=dev` reports nothing.
-- Severity: high (ReDoS through single-branch repeated extglobs).
-- Reason: the affected range is `picomatch <=4.0.7`, and 4.0.7 is the latest published release, so there is no fixed version to move to. Triggering the ReDoS needs an attacker-controlled glob pattern; the tooling here only matches patterns written in the repository's own config files. Tracked in #992.
-- Operational behavior: when a fixed `picomatch` is published, add a root override to it and remove this entry. `verify:dependency-audit` fails once `npm audit` stops reporting the advisory, and again when the review date passes.
+None. `npm audit` reports no advisories as of 2026-11-25.
 
 An accepted advisory is a `### GHSA-…` entry in this section with `Owner:`, `Review date: YYYY-MM-DD`, `Scope:`, `Severity:`, a reason and operational behavior. `scripts/verify-dependency-audit.mjs` reads this section as the only list, and fails when an accepted entry's review date has passed or when `npm audit` no longer reports it.
 

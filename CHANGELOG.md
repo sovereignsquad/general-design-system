@@ -4,6 +4,10 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
+### Picomatch advisory exception removed (#994)
+
+- `npm audit` no longer reports GHSA-fc5q-39xc-vjpf for the installed `picomatch` 4.0.7, so the exception accepted under #992 is removed from `DEPENDENCY_AUDIT.md`. The accepted-advisory list is empty again.
+
 ### Maintainer notes replace the session handover (#993)
 
 - `HANDOVER.md` was a session log from September with a stale version, commit and next steps, and it restated the agent instruction rules. It is now current maintainer notes: commands, conventions and gotchas checked against source, the live-verification helpers in `scripts/lib/browser-runtime.mjs`, and how to read gate output.
