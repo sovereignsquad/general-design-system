@@ -36,17 +36,24 @@ const feedbackRows: FeedbackRow[] = Object.entries(GdsVocabulary)
 
 const totalActions = Object.keys(GdsVocabulary).length;
 
-type MotionRow = { action: string; pending: string; success: string; confirm: string } & Record<string, unknown>;
+type MotionRow = { action: string; press: string; pending: string; success: string; confirm: string } & Record<string, unknown>;
 
-// Every vocabulary action that declares a motion, read from GdsVocabulary at render time.
+// Every vocabulary action's motion, read from GdsVocabulary at render time.
 const motionRows: MotionRow[] = Object.entries(GdsVocabulary as Record<string, SemanticActionDefinition>)
   .filter(([, config]) => Boolean(config.motion))
   .map(([action, config]) => ({
     action,
+    press: config.motion!.press ?? '—',
     pending: config.motion!.pending ?? 'spinner',
     success: config.motion!.success ?? 'pop',
     confirm: config.motion!.confirm ? 'yes' : 'no',
   }));
+
+// Actions whose pending or success motion is their own, demonstrated through onAction.
+const cycleRows = motionRows.filter((row) => {
+  const motion = (GdsVocabulary as Record<string, SemanticActionDefinition>)[row.action]!.motion!;
+  return Boolean(motion.success || (motion.pending && motion.pending !== 'spinner') || motion.confirm);
+});
 
 // One step under and one step over the pending delay, so the demo shows both paths.
 const DEMO_LATENCIES = {
@@ -58,6 +65,18 @@ function simulatedAction(latencyMs: number, succeed: boolean) {
   return () => new Promise<void>((resolve, reject) => {
     setTimeout(() => (succeed ? resolve() : reject(new Error('Simulated failure'))), latencyMs);
   });
+}
+
+function PressMotionCatalog() {
+  return (
+    <SimpleGrid cols={{ base: 1, xs: 2, sm: 3, md: 4 }} spacing="xs" data-gds-button-press-reference="">
+      {motionRows.map((row) => (
+        <Group key={row.action} gap="xs" wrap="nowrap" data-gds-button-press-demo={row.action}>
+          <SemanticButton action={row.action as never} variant="light" />
+        </Group>
+      ))}
+    </SimpleGrid>
+  );
 }
 
 function ActionMotionDemo() {
@@ -84,7 +103,7 @@ function ActionMotionDemo() {
         />
       </Group>
       <SimpleGrid cols={{ base: 1, xs: 2, md: 3 }} spacing="xs">
-        {motionRows.map((row) => (
+        {cycleRows.map((row) => (
           <Group key={row.action} gap="xs" wrap="nowrap" data-gds-button-motion-demo={row.action}>
             <SemanticButton action={row.action as never} onAction={run} />
           </Group>
@@ -232,8 +251,15 @@ export function GdsButtonFeedbackReference() {
           {GDS_BUTTON_CONFIRM_WINDOW_MS}ms. Each button reserves the width of its widest state, so
           the layout does not move, and a live region announces pending, success and error.
         </Text>
+        <Text size="sm">
+          Every action also has a click motion, played once on each click whether or not the
+          button runs an <code>onAction</code>: chosen from what its icon depicts, so the bell
+          rings, the gear turns, the eye blinks and the trash lid lifts. Click any of the{' '}
+          {motionRows.length} buttons below.
+        </Text>
+        <PressMotionCatalog />
         <Text size="sm" c="dimmed">
-          The actions below are simulated: each waits the selected time, then succeeds or fails.
+          The actions below run a simulated <code>onAction</code>: each waits the selected time, then succeeds or fails.
           With reduced motion turned on in the operating system, nothing moves: icons and labels
           swap without animation.
         </Text>
@@ -241,6 +267,7 @@ export function GdsButtonFeedbackReference() {
         <SimpleDataTable<MotionRow>
           columns={[
             { key: 'action', header: 'Action' },
+            { key: 'press', header: 'Click motion' },
             { key: 'pending', header: 'Pending motion' },
             { key: 'success', header: 'Success motion' },
             { key: 'confirm', header: 'Confirm first' },

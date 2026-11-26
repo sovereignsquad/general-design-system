@@ -145,14 +145,39 @@ describe('SemanticButton onAction micro-interactions (#995)', () => {
     expect(screen.queryByRole('status')).toBeNull();
   });
 
-  it('declares only known motions in the vocabulary', () => {
-    const pending = ['spinner', 'spin', 'bob-down', 'bob-up'];
+  it('gives every vocabulary action a click motion, and declares only known motions', () => {
+    const pending = ['spinner', 'spin', 'bob-down', 'bob-up', 'orbit', 'breathe', 'rewind', 'feed', 'rings'];
     const success = ['fly-off', 'check-draw', 'check-pop', 'turn', 'pop', 'draw'];
-    const withMotion = Object.entries(GdsVocabulary as Record<string, SemanticActionDefinition>).filter(([, config]) => config.motion);
-    expect(withMotion.map(([name]) => name).sort()).toEqual(['add', 'complete', 'copy', 'delete', 'download', 'refresh', 'reward', 'save', 'send', 'upload']);
-    for (const [name, config] of withMotion) {
+    const entries = Object.entries(GdsVocabulary as Record<string, SemanticActionDefinition>);
+    for (const [name, config] of entries) {
+      expect(config.motion?.press, `${name} has no click motion`).toBeTruthy();
       if (config.motion!.pending) expect(pending, name).toContain(config.motion!.pending);
       if (config.motion!.success) expect(success, name).toContain(config.motion!.success);
     }
+    expect(entries.filter(([, config]) => config.motion?.success).map(([name]) => name).sort())
+      .toEqual(['add', 'complete', 'copy', 'delete', 'download', 'refresh', 'reward', 'save', 'send', 'upload']);
+  });
+
+  it('plays the click motion on a plain click, retriggers it, and keeps the label (#1000)', () => {
+    renderButton(<SemanticButton action="notifications" />);
+    expect(button().querySelector('[data-gds-button-press]')).toBeNull();
+    fireEvent.click(button());
+    const first = button().querySelector('[data-gds-button-press="ring"]');
+    expect(first).toBeTruthy();
+    fireEvent.click(button());
+    const second = button().querySelector('[data-gds-button-press="ring"]');
+    expect(second).toBeTruthy();
+    expect(second).not.toBe(first);
+    expect(screen.getByRole('button', { name: 'Notifications' })).toBeInTheDocument();
+  });
+
+  it('plays the click motion when an action starts, and not again when the button returns to rest', async () => {
+    renderButton(<SemanticButton action="settings" onAction={() => Promise.resolve()} />);
+    fireEvent.click(button());
+    expect(button().querySelector('[data-gds-button-press="turn"]')).toBeTruthy();
+    await advance(0);
+    await advance(GDS_BUTTON_FEEDBACK_DURATION_MS);
+    expect(button()).not.toHaveAttribute('data-gds-button-phase');
+    expect(button().querySelector('[data-gds-button-press]')).toBeNull();
   });
 });

@@ -1,6 +1,6 @@
 {
   "generatedAt": null,
-  "commit": "1a20fc2fb70611a93d604505fbdf297fc9fc2a69",
+  "commit": "1e6beaf30af23dc4b3194e6555fe43c1dde8d40a",
   "counts": {
     "token-published": 524,
     "token-declared": 272,
@@ -10,8 +10,8 @@
     "prop": 1258,
     "variant": 117,
     "motion-token": 11,
-    "motion-shipped": 20,
-    "motion-keyframes": 10,
+    "motion-shipped": 93,
+    "motion-keyframes": 48,
     "motion-reduced-guard": 3,
     "interaction-state": 44,
     "locale-pack-package": 12,
@@ -8204,7 +8204,7 @@
       "name": "--ghost",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1851
+        "line": 1983
       }
     },
     {
@@ -8213,7 +8213,7 @@
       "name": "--gds-vibe-swatch",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 2016
+        "line": 2148
       }
     },
     {
@@ -8222,7 +8222,7 @@
       "name": "--mark-offset",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 2094
+        "line": 2226
       }
     },
     {
@@ -8231,7 +8231,7 @@
       "name": "--description-color",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 2198
+        "line": 2330
       }
     },
     {
@@ -8906,7 +8906,7 @@
       "name": "--mantine-z-index-overlay",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1768
+        "line": 1900
       }
     },
     {
@@ -8915,7 +8915,7 @@
       "name": "--gds-tour-spotlight-radius",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1773
+        "line": 1905
       }
     },
     {
@@ -8924,7 +8924,7 @@
       "name": "--gds-overlay-scrim",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1774
+        "line": 1906
       }
     },
     {
@@ -8933,7 +8933,7 @@
       "name": "--mantine-radius-md",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1796
+        "line": 1928
       }
     },
     {
@@ -8942,7 +8942,7 @@
       "name": "--mantine-color-text",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1798
+        "line": 1930
       }
     },
     {
@@ -8951,7 +8951,7 @@
       "name": "--gds-border-card",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1799
+        "line": 1931
       }
     },
     {
@@ -8960,7 +8960,7 @@
       "name": "--mantine-color-gray-3",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1799
+        "line": 1931
       }
     },
     {
@@ -8969,7 +8969,7 @@
       "name": "--mantine-shadow-lg",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1800
+        "line": 1932
       }
     },
     {
@@ -8978,7 +8978,7 @@
       "name": "--gds-font-size-xs",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1804
+        "line": 1936
       }
     },
     {
@@ -8987,7 +8987,7 @@
       "name": "--gds-space-xs",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1826
+        "line": 1958
       }
     },
     {
@@ -8996,7 +8996,7 @@
       "name": "--gds-space-2xs",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1838
+        "line": 1970
       }
     },
     {
@@ -9005,7 +9005,7 @@
       "name": "--gds-space-sm",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1838
+        "line": 1970
       }
     },
     {
@@ -9014,7 +9014,7 @@
       "name": "--mantine-color-gray-4",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1855
+        "line": 1987
       }
     },
     {
@@ -9023,7 +9023,7 @@
       "name": "--mantine-primary-color-contrast",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1859
+        "line": 1991
       }
     },
     {
@@ -9032,7 +9032,7 @@
       "name": "--gds-badge-stack-size",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1872
+        "line": 2004
       }
     },
     {
@@ -9041,7 +9041,7 @@
       "name": "--gds-badge-stack-layer-scale",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1883
+        "line": 2015
       }
     },
     {
@@ -9050,7 +9050,7 @@
       "name": "--gds-space-md",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1948
+        "line": 2080
       }
     },
     {
@@ -9059,7 +9059,7 @@
       "name": "--gds-bg-surface",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1951
+        "line": 2083
       }
     },
     {
@@ -9068,7 +9068,7 @@
       "name": "--gds-control-height-sm",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 2121
+        "line": 2253
       }
     },
     {
@@ -9077,7 +9077,7 @@
       "name": "--gds-radius-pill",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 2123
+        "line": 2255
       }
     },
     {
@@ -9086,7 +9086,7 @@
       "name": "--gds-vibe-swatch",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 2125
+        "line": 2257
       }
     },
     {
@@ -9095,7 +9095,7 @@
       "name": "--gds-elevation-card",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 2135
+        "line": 2267
       }
     },
     {
@@ -9104,7 +9104,7 @@
       "name": "--gds-elevation-panel",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 2140
+        "line": 2272
       }
     },
     {
@@ -9113,7 +9113,7 @@
       "name": "--gds-radius-xs",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 2154
+        "line": 2286
       }
     },
     {
@@ -9122,7 +9122,7 @@
       "name": "--gds-nav-hover-bg",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 2188
+        "line": 2320
       }
     },
     {
@@ -9131,7 +9131,7 @@
       "name": "--gds-nav-active-bg",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 2193
+        "line": 2325
       }
     },
     {
@@ -9140,7 +9140,7 @@
       "name": "--gds-nav-active-fg",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 2194
+        "line": 2326
       }
     },
     {
@@ -9149,7 +9149,7 @@
       "name": "--gds-focus-ring-width",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 2195
+        "line": 2327
       }
     },
     {
@@ -9158,7 +9158,7 @@
       "name": "--gds-nav-active-indicator",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 2195
+        "line": 2327
       }
     },
     {
@@ -42251,56 +42251,713 @@
       "name": "animation",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1684
+        "line": 1714
       }
     },
     {
-      "id": "motion-shipped:transition#4196",
+      "id": "motion-shipped:animation#4196",
       "kind": "motion-shipped",
-      "name": "transition",
+      "name": "animation",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1685
+        "line": 1715
       }
     },
     {
-      "id": "motion-shipped:transition#4197",
+      "id": "motion-shipped:animation#4197",
       "kind": "motion-shipped",
-      "name": "transition",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1716
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4198",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1717
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4199",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1718
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4200",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1719
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4201",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1720
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4202",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1721
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4203",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1722
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4204",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1723
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4205",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1724
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4206",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1725
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4207",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1726
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4208",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1727
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4209",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1728
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4210",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1729
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4211",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1730
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4212",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1731
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4213",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1732
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4214",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1733
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4215",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1734
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4216",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1735
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4217",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1736
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4218",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1737
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4219",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1738
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4220",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1740
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4221",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1741
+      }
+    },
+    {
+      "id": "motion-shipped:animation-delay#4222",
+      "kind": "motion-shipped",
+      "name": "animation-delay",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1742
+      }
+    },
+    {
+      "id": "motion-shipped:animation-delay#4223",
+      "kind": "motion-shipped",
+      "name": "animation-delay",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1743
+      }
+    },
+    {
+      "id": "motion-shipped:animation-delay#4224",
+      "kind": "motion-shipped",
+      "name": "animation-delay",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1744
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4225",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1746
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4226",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1747
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4227",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1748
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4228",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1749
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4229",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1751
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4230",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1753
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4231",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1754
+      }
+    },
+    {
+      "id": "motion-shipped:animation-delay#4232",
+      "kind": "motion-shipped",
+      "name": "animation-delay",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1755
+      }
+    },
+    {
+      "id": "motion-shipped:animation-delay#4233",
+      "kind": "motion-shipped",
+      "name": "animation-delay",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1756
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4234",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1757
+      }
+    },
+    {
+      "id": "motion-shipped:animation-delay#4235",
+      "kind": "motion-shipped",
+      "name": "animation-delay",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1758
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4236",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1760
+      }
+    },
+    {
+      "id": "motion-shipped:animation-delay#4237",
+      "kind": "motion-shipped",
+      "name": "animation-delay",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1761
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4238",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1762
+      }
+    },
+    {
+      "id": "motion-shipped:animation-delay#4239",
+      "kind": "motion-shipped",
+      "name": "animation-delay",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1763
+      }
+    },
+    {
+      "id": "motion-shipped:animation-delay#4240",
+      "kind": "motion-shipped",
+      "name": "animation-delay",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1764
+      }
+    },
+    {
+      "id": "motion-shipped:animation-delay#4241",
+      "kind": "motion-shipped",
+      "name": "animation-delay",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1765
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4242",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1766
+      }
+    },
+    {
+      "id": "motion-shipped:animation-delay#4243",
+      "kind": "motion-shipped",
+      "name": "animation-delay",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1767
+      }
+    },
+    {
+      "id": "motion-shipped:animation-delay#4244",
+      "kind": "motion-shipped",
+      "name": "animation-delay",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1768
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4245",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1769
+      }
+    },
+    {
+      "id": "motion-shipped:animation-delay#4246",
+      "kind": "motion-shipped",
+      "name": "animation-delay",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1770
+      }
+    },
+    {
+      "id": "motion-shipped:animation-delay#4247",
+      "kind": "motion-shipped",
+      "name": "animation-delay",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1771
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4248",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1773
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4249",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1774
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4250",
+      "kind": "motion-shipped",
+      "name": "animation",
       "source": {
         "file": "packages/gds-theme/styles.css",
         "line": 1775
       }
     },
     {
-      "id": "motion-shipped:transition#4198",
+      "id": "motion-shipped:animation#4251",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1776
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4252",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1777
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4253",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1778
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4254",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1779
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4255",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1780
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4256",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1781
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4257",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1782
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4258",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1783
+      }
+    },
+    {
+      "id": "motion-shipped:animation-delay#4259",
+      "kind": "motion-shipped",
+      "name": "animation-delay",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1784
+      }
+    },
+    {
+      "id": "motion-shipped:animation-delay#4260",
+      "kind": "motion-shipped",
+      "name": "animation-delay",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1785
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4261",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1788
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4262",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1789
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4263",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1790
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4264",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1791
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4265",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1792
+      }
+    },
+    {
+      "id": "motion-shipped:animation-delay#4266",
+      "kind": "motion-shipped",
+      "name": "animation-delay",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1793
+      }
+    },
+    {
+      "id": "motion-shipped:animation-delay#4267",
+      "kind": "motion-shipped",
+      "name": "animation-delay",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1794
+      }
+    },
+    {
+      "id": "motion-shipped:animation#4268",
+      "kind": "motion-shipped",
+      "name": "animation",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1816
+      }
+    },
+    {
+      "id": "motion-shipped:transition#4269",
       "kind": "motion-shipped",
       "name": "transition",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1801
+        "line": 1817
       }
     },
     {
-      "id": "motion-shipped:transition#4199",
+      "id": "motion-shipped:transition#4270",
       "kind": "motion-shipped",
       "name": "transition",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1920
+        "line": 1907
       }
     },
     {
-      "id": "motion-shipped:transition#4200",
+      "id": "motion-shipped:transition#4271",
       "kind": "motion-shipped",
       "name": "transition",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 2136
+        "line": 1933
       }
     },
     {
-      "id": "motion-keyframes:gds-chat-typing#4201",
+      "id": "motion-shipped:transition#4272",
+      "kind": "motion-shipped",
+      "name": "transition",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 2052
+      }
+    },
+    {
+      "id": "motion-shipped:transition#4273",
+      "kind": "motion-shipped",
+      "name": "transition",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 2268
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-chat-typing#4274",
       "kind": "motion-keyframes",
       "name": "gds-chat-typing",
       "source": {
@@ -42309,7 +42966,7 @@
       }
     },
     {
-      "id": "motion-keyframes:gds-button-fly-off#4202",
+      "id": "motion-keyframes:gds-button-fly-off#4275",
       "kind": "motion-keyframes",
       "name": "gds-button-fly-off",
       "source": {
@@ -42318,7 +42975,7 @@
       }
     },
     {
-      "id": "motion-keyframes:gds-button-turn-out#4203",
+      "id": "motion-keyframes:gds-button-turn-out#4276",
       "kind": "motion-keyframes",
       "name": "gds-button-turn-out",
       "source": {
@@ -42327,7 +42984,7 @@
       }
     },
     {
-      "id": "motion-keyframes:gds-button-pop-in#4204",
+      "id": "motion-keyframes:gds-button-pop-in#4277",
       "kind": "motion-keyframes",
       "name": "gds-button-pop-in",
       "source": {
@@ -42336,7 +42993,7 @@
       }
     },
     {
-      "id": "motion-keyframes:gds-button-pop#4205",
+      "id": "motion-keyframes:gds-button-pop#4278",
       "kind": "motion-keyframes",
       "name": "gds-button-pop",
       "source": {
@@ -42345,7 +43002,7 @@
       }
     },
     {
-      "id": "motion-keyframes:gds-button-draw#4206",
+      "id": "motion-keyframes:gds-button-draw#4279",
       "kind": "motion-keyframes",
       "name": "gds-button-draw",
       "source": {
@@ -42354,7 +43011,7 @@
       }
     },
     {
-      "id": "motion-keyframes:gds-button-spin#4207",
+      "id": "motion-keyframes:gds-button-spin#4280",
       "kind": "motion-keyframes",
       "name": "gds-button-spin",
       "source": {
@@ -42363,7 +43020,7 @@
       }
     },
     {
-      "id": "motion-keyframes:gds-button-bob-down#4208",
+      "id": "motion-keyframes:gds-button-bob-down#4281",
       "kind": "motion-keyframes",
       "name": "gds-button-bob-down",
       "source": {
@@ -42372,7 +43029,7 @@
       }
     },
     {
-      "id": "motion-keyframes:gds-button-bob-up#4209",
+      "id": "motion-keyframes:gds-button-bob-up#4282",
       "kind": "motion-keyframes",
       "name": "gds-button-bob-up",
       "source": {
@@ -42381,7 +43038,7 @@
       }
     },
     {
-      "id": "motion-keyframes:gds-button-shake#4210",
+      "id": "motion-keyframes:gds-button-shake#4283",
       "kind": "motion-keyframes",
       "name": "gds-button-shake",
       "source": {
@@ -42390,34 +43047,376 @@
       }
     },
     {
-      "id": "motion-reduced-guard:prefers-reduced-motion#4211",
+      "id": "motion-keyframes:gds-button-ring#4284",
+      "kind": "motion-keyframes",
+      "name": "gds-button-ring",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1675
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-button-clapper#4285",
+      "kind": "motion-keyframes",
+      "name": "gds-button-clapper",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1676
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-button-rock#4286",
+      "kind": "motion-keyframes",
+      "name": "gds-button-rock",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1677
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-button-turn#4287",
+      "kind": "motion-keyframes",
+      "name": "gds-button-turn",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1678
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-button-quarter#4288",
+      "kind": "motion-keyframes",
+      "name": "gds-button-quarter",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1679
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-button-rewind#4289",
+      "kind": "motion-keyframes",
+      "name": "gds-button-rewind",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1680
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-button-blink#4290",
+      "kind": "motion-keyframes",
+      "name": "gds-button-blink",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1681
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-button-nudge-right#4291",
+      "kind": "motion-keyframes",
+      "name": "gds-button-nudge-right",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1682
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-button-nudge-left#4292",
+      "kind": "motion-keyframes",
+      "name": "gds-button-nudge-left",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1683
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-button-nudge-up-right#4293",
+      "kind": "motion-keyframes",
+      "name": "gds-button-nudge-up-right",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1684
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-button-nudge-down-right#4294",
+      "kind": "motion-keyframes",
+      "name": "gds-button-nudge-down-right",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1685
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-button-drop#4295",
+      "kind": "motion-keyframes",
+      "name": "gds-button-drop",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1686
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-button-bounce#4296",
+      "kind": "motion-keyframes",
+      "name": "gds-button-bounce",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1687
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-button-celebrate#4297",
+      "kind": "motion-keyframes",
+      "name": "gds-button-celebrate",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1688
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-button-scribble#4298",
+      "kind": "motion-keyframes",
+      "name": "gds-button-scribble",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1689
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-button-swing#4299",
+      "kind": "motion-keyframes",
+      "name": "gds-button-swing",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1690
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-button-flip#4300",
+      "kind": "motion-keyframes",
+      "name": "gds-button-flip",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1691
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-button-page#4301",
+      "kind": "motion-keyframes",
+      "name": "gds-button-page",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1692
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-button-shutter#4302",
+      "kind": "motion-keyframes",
+      "name": "gds-button-shutter",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1693
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-button-flicker#4303",
+      "kind": "motion-keyframes",
+      "name": "gds-button-flicker",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1694
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-button-squeeze#4304",
+      "kind": "motion-keyframes",
+      "name": "gds-button-squeeze",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1695
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-button-wave#4305",
+      "kind": "motion-keyframes",
+      "name": "gds-button-wave",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1696
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-button-launch#4306",
+      "kind": "motion-keyframes",
+      "name": "gds-button-launch",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1697
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-button-orbit#4307",
+      "kind": "motion-keyframes",
+      "name": "gds-button-orbit",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1698
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-button-separate-a#4308",
+      "kind": "motion-keyframes",
+      "name": "gds-button-separate-a",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1699
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-button-separate-b#4309",
+      "kind": "motion-keyframes",
+      "name": "gds-button-separate-b",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1700
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-button-slide-in#4310",
+      "kind": "motion-keyframes",
+      "name": "gds-button-slide-in",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1701
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-button-fade-sequence#4311",
+      "kind": "motion-keyframes",
+      "name": "gds-button-fade-sequence",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1702
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-button-grow#4312",
+      "kind": "motion-keyframes",
+      "name": "gds-button-grow",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1703
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-button-lid#4313",
+      "kind": "motion-keyframes",
+      "name": "gds-button-lid",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1704
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-button-flap#4314",
+      "kind": "motion-keyframes",
+      "name": "gds-button-flap",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1705
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-button-knob#4315",
+      "kind": "motion-keyframes",
+      "name": "gds-button-knob",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1706
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-button-sweep#4316",
+      "kind": "motion-keyframes",
+      "name": "gds-button-sweep",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1707
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-button-needle#4317",
+      "kind": "motion-keyframes",
+      "name": "gds-button-needle",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1708
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-button-draw-long#4318",
+      "kind": "motion-keyframes",
+      "name": "gds-button-draw-long",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1709
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-button-swap-up#4319",
+      "kind": "motion-keyframes",
+      "name": "gds-button-swap-up",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1710
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-button-swap-down#4320",
+      "kind": "motion-keyframes",
+      "name": "gds-button-swap-down",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1711
+      }
+    },
+    {
+      "id": "motion-keyframes:gds-button-breathe#4321",
+      "kind": "motion-keyframes",
+      "name": "gds-button-breathe",
+      "source": {
+        "file": "packages/gds-theme/styles.css",
+        "line": 1712
+      }
+    },
+    {
+      "id": "motion-reduced-guard:prefers-reduced-motion#4322",
       "kind": "motion-reduced-guard",
       "name": "prefers-reduced-motion",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1665
+        "line": 1796
       }
     },
     {
-      "id": "motion-reduced-guard:prefers-reduced-motion#4212",
+      "id": "motion-reduced-guard:prefers-reduced-motion#4323",
       "kind": "motion-reduced-guard",
       "name": "prefers-reduced-motion",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1917
+        "line": 2049
       }
     },
     {
-      "id": "motion-reduced-guard:prefers-reduced-motion#4213",
+      "id": "motion-reduced-guard:prefers-reduced-motion#4324",
       "kind": "motion-reduced-guard",
       "name": "prefers-reduced-motion",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 2131
+        "line": 2263
       }
     },
     {
-      "id": "interaction-state:hover#4214",
+      "id": "interaction-state:hover#4325",
       "kind": "interaction-state",
       "name": "hover",
       "source": {
@@ -42426,7 +43425,7 @@
       }
     },
     {
-      "id": "interaction-state:active#4215",
+      "id": "interaction-state:active#4326",
       "kind": "interaction-state",
       "name": "active",
       "source": {
@@ -42435,7 +43434,7 @@
       }
     },
     {
-      "id": "interaction-state:hover#4216",
+      "id": "interaction-state:hover#4327",
       "kind": "interaction-state",
       "name": "hover",
       "source": {
@@ -42444,7 +43443,7 @@
       }
     },
     {
-      "id": "interaction-state:active#4217",
+      "id": "interaction-state:active#4328",
       "kind": "interaction-state",
       "name": "active",
       "source": {
@@ -42453,7 +43452,7 @@
       }
     },
     {
-      "id": "interaction-state:hover#4218",
+      "id": "interaction-state:hover#4329",
       "kind": "interaction-state",
       "name": "hover",
       "source": {
@@ -42462,7 +43461,7 @@
       }
     },
     {
-      "id": "interaction-state:active#4219",
+      "id": "interaction-state:active#4330",
       "kind": "interaction-state",
       "name": "active",
       "source": {
@@ -42471,7 +43470,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#4220",
+      "id": "interaction-state:focus-visible#4331",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -42480,7 +43479,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#4221",
+      "id": "interaction-state:focus-visible#4332",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -42489,7 +43488,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#4222",
+      "id": "interaction-state:focus-visible#4333",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -42498,7 +43497,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#4223",
+      "id": "interaction-state:focus-visible#4334",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -42507,7 +43506,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#4224",
+      "id": "interaction-state:focus-visible#4335",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -42516,7 +43515,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#4225",
+      "id": "interaction-state:focus-visible#4336",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -42525,7 +43524,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#4226",
+      "id": "interaction-state:focus-visible#4337",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -42534,7 +43533,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#4227",
+      "id": "interaction-state:focus-visible#4338",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -42543,7 +43542,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#4228",
+      "id": "interaction-state:focus-visible#4339",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -42552,7 +43551,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#4229",
+      "id": "interaction-state:focus-visible#4340",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -42561,7 +43560,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#4230",
+      "id": "interaction-state:focus-visible#4341",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -42570,7 +43569,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#4231",
+      "id": "interaction-state:focus-visible#4342",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -42579,7 +43578,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#4232",
+      "id": "interaction-state:focus-visible#4343",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -42588,7 +43587,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#4233",
+      "id": "interaction-state:focus-visible#4344",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -42597,7 +43596,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#4234",
+      "id": "interaction-state:focus-visible#4345",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -42606,7 +43605,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#4235",
+      "id": "interaction-state:focus-visible#4346",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -42615,7 +43614,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#4236",
+      "id": "interaction-state:focus-visible#4347",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -42624,7 +43623,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#4237",
+      "id": "interaction-state:focus-visible#4348",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -42633,7 +43632,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#4238",
+      "id": "interaction-state:focus-visible#4349",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -42642,7 +43641,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#4239",
+      "id": "interaction-state:focus-visible#4350",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -42651,7 +43650,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#4240",
+      "id": "interaction-state:focus-visible#4351",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -42660,7 +43659,7 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#4241",
+      "id": "interaction-state:focus-visible#4352",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
@@ -42669,7 +43668,7 @@
       }
     },
     {
-      "id": "interaction-state:disabled#4242",
+      "id": "interaction-state:disabled#4353",
       "kind": "interaction-state",
       "name": "disabled",
       "source": {
@@ -42678,7 +43677,7 @@
       }
     },
     {
-      "id": "interaction-state:disabled#4243",
+      "id": "interaction-state:disabled#4354",
       "kind": "interaction-state",
       "name": "disabled",
       "source": {
@@ -42687,7 +43686,7 @@
       }
     },
     {
-      "id": "interaction-state:disabled#4244",
+      "id": "interaction-state:disabled#4355",
       "kind": "interaction-state",
       "name": "disabled",
       "source": {
@@ -42696,7 +43695,7 @@
       }
     },
     {
-      "id": "interaction-state:disabled#4245",
+      "id": "interaction-state:disabled#4356",
       "kind": "interaction-state",
       "name": "disabled",
       "source": {
@@ -42705,7 +43704,7 @@
       }
     },
     {
-      "id": "interaction-state:hover#4246",
+      "id": "interaction-state:hover#4357",
       "kind": "interaction-state",
       "name": "hover",
       "source": {
@@ -42714,7 +43713,7 @@
       }
     },
     {
-      "id": "interaction-state:disabled#4247",
+      "id": "interaction-state:disabled#4358",
       "kind": "interaction-state",
       "name": "disabled",
       "source": {
@@ -42723,7 +43722,7 @@
       }
     },
     {
-      "id": "interaction-state:active#4248",
+      "id": "interaction-state:active#4359",
       "kind": "interaction-state",
       "name": "active",
       "source": {
@@ -42732,7 +43731,7 @@
       }
     },
     {
-      "id": "interaction-state:disabled#4249",
+      "id": "interaction-state:disabled#4360",
       "kind": "interaction-state",
       "name": "disabled",
       "source": {
@@ -42741,79 +43740,79 @@
       }
     },
     {
-      "id": "interaction-state:focus-visible#4250",
+      "id": "interaction-state:focus-visible#4361",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1844
+        "line": 1976
       }
     },
     {
-      "id": "interaction-state:hover#4251",
+      "id": "interaction-state:hover#4362",
       "kind": "interaction-state",
       "name": "hover",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1851
+        "line": 1983
       }
     },
     {
-      "id": "interaction-state:hover#4252",
+      "id": "interaction-state:hover#4363",
       "kind": "interaction-state",
       "name": "hover",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1954
+        "line": 2086
       }
     },
     {
-      "id": "interaction-state:focus-visible#4253",
+      "id": "interaction-state:focus-visible#4364",
       "kind": "interaction-state",
       "name": "focus-visible",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 1957
+        "line": 2089
       }
     },
     {
-      "id": "interaction-state:hover#4254",
+      "id": "interaction-state:hover#4365",
       "kind": "interaction-state",
       "name": "hover",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 2138
+        "line": 2270
       }
     },
     {
-      "id": "interaction-state:disabled#4255",
+      "id": "interaction-state:disabled#4366",
       "kind": "interaction-state",
       "name": "disabled",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 2138
+        "line": 2270
       }
     },
     {
-      "id": "interaction-state:hover#4256",
+      "id": "interaction-state:hover#4367",
       "kind": "interaction-state",
       "name": "hover",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 2187
+        "line": 2319
       }
     },
     {
-      "id": "interaction-state:hover#4257",
+      "id": "interaction-state:hover#4368",
       "kind": "interaction-state",
       "name": "hover",
       "source": {
         "file": "packages/gds-theme/styles.css",
-        "line": 2191
+        "line": 2323
       }
     },
     {
-      "id": "locale-pack-package:ar#4258",
+      "id": "locale-pack-package:ar#4369",
       "kind": "locale-pack-package",
       "name": "ar",
       "source": {
@@ -42823,7 +43822,7 @@
       "keyCount": 448
     },
     {
-      "id": "locale-pack-package:de#4259",
+      "id": "locale-pack-package:de#4370",
       "kind": "locale-pack-package",
       "name": "de",
       "source": {
@@ -42833,7 +43832,7 @@
       "keyCount": 448
     },
     {
-      "id": "locale-pack-package:en#4260",
+      "id": "locale-pack-package:en#4371",
       "kind": "locale-pack-package",
       "name": "en",
       "source": {
@@ -42843,7 +43842,7 @@
       "keyCount": 448
     },
     {
-      "id": "locale-pack-package:es#4261",
+      "id": "locale-pack-package:es#4372",
       "kind": "locale-pack-package",
       "name": "es",
       "source": {
@@ -42853,7 +43852,7 @@
       "keyCount": 448
     },
     {
-      "id": "locale-pack-package:fr#4262",
+      "id": "locale-pack-package:fr#4373",
       "kind": "locale-pack-package",
       "name": "fr",
       "source": {
@@ -42863,7 +43862,7 @@
       "keyCount": 448
     },
     {
-      "id": "locale-pack-package:he#4263",
+      "id": "locale-pack-package:he#4374",
       "kind": "locale-pack-package",
       "name": "he",
       "source": {
@@ -42873,7 +43872,7 @@
       "keyCount": 448
     },
     {
-      "id": "locale-pack-package:hu#4264",
+      "id": "locale-pack-package:hu#4375",
       "kind": "locale-pack-package",
       "name": "hu",
       "source": {
@@ -42883,7 +43882,7 @@
       "keyCount": 448
     },
     {
-      "id": "locale-pack-package:it#4265",
+      "id": "locale-pack-package:it#4376",
       "kind": "locale-pack-package",
       "name": "it",
       "source": {
@@ -42893,7 +43892,7 @@
       "keyCount": 448
     },
     {
-      "id": "locale-pack-package:ja#4266",
+      "id": "locale-pack-package:ja#4377",
       "kind": "locale-pack-package",
       "name": "ja",
       "source": {
@@ -42903,7 +43902,7 @@
       "keyCount": 448
     },
     {
-      "id": "locale-pack-package:ko#4267",
+      "id": "locale-pack-package:ko#4378",
       "kind": "locale-pack-package",
       "name": "ko",
       "source": {
@@ -42913,7 +43912,7 @@
       "keyCount": 448
     },
     {
-      "id": "locale-pack-package:ru#4268",
+      "id": "locale-pack-package:ru#4379",
       "kind": "locale-pack-package",
       "name": "ru",
       "source": {
@@ -42923,7 +43922,7 @@
       "keyCount": 448
     },
     {
-      "id": "locale-pack-package:zh#4269",
+      "id": "locale-pack-package:zh#4380",
       "kind": "locale-pack-package",
       "name": "zh",
       "source": {
@@ -42933,7 +43932,7 @@
       "keyCount": 448
     },
     {
-      "id": "locale-pack-site:ar#4270",
+      "id": "locale-pack-site:ar#4381",
       "kind": "locale-pack-site",
       "name": "ar",
       "source": {
@@ -42943,7 +43942,7 @@
       "keyCount": 2273
     },
     {
-      "id": "locale-pack-site:de#4271",
+      "id": "locale-pack-site:de#4382",
       "kind": "locale-pack-site",
       "name": "de",
       "source": {
@@ -42953,7 +43952,7 @@
       "keyCount": 2273
     },
     {
-      "id": "locale-pack-site:es#4272",
+      "id": "locale-pack-site:es#4383",
       "kind": "locale-pack-site",
       "name": "es",
       "source": {
@@ -42963,7 +43962,7 @@
       "keyCount": 2273
     },
     {
-      "id": "locale-pack-site:fr#4273",
+      "id": "locale-pack-site:fr#4384",
       "kind": "locale-pack-site",
       "name": "fr",
       "source": {
@@ -42973,7 +43972,7 @@
       "keyCount": 2273
     },
     {
-      "id": "locale-pack-site:he#4274",
+      "id": "locale-pack-site:he#4385",
       "kind": "locale-pack-site",
       "name": "he",
       "source": {
@@ -42983,7 +43982,7 @@
       "keyCount": 2273
     },
     {
-      "id": "locale-pack-site:hu#4275",
+      "id": "locale-pack-site:hu#4386",
       "kind": "locale-pack-site",
       "name": "hu",
       "source": {
@@ -42993,7 +43992,7 @@
       "keyCount": 2273
     },
     {
-      "id": "locale-pack-site:it#4276",
+      "id": "locale-pack-site:it#4387",
       "kind": "locale-pack-site",
       "name": "it",
       "source": {
@@ -43003,7 +44002,7 @@
       "keyCount": 2273
     },
     {
-      "id": "locale-pack-site:ja#4277",
+      "id": "locale-pack-site:ja#4388",
       "kind": "locale-pack-site",
       "name": "ja",
       "source": {
@@ -43013,7 +44012,7 @@
       "keyCount": 2273
     },
     {
-      "id": "locale-pack-site:ko#4278",
+      "id": "locale-pack-site:ko#4389",
       "kind": "locale-pack-site",
       "name": "ko",
       "source": {
@@ -43023,7 +44022,7 @@
       "keyCount": 2273
     },
     {
-      "id": "locale-pack-site:ru#4279",
+      "id": "locale-pack-site:ru#4390",
       "kind": "locale-pack-site",
       "name": "ru",
       "source": {
@@ -43033,7 +44032,7 @@
       "keyCount": 2273
     },
     {
-      "id": "locale-pack-site:zh#4280",
+      "id": "locale-pack-site:zh#4391",
       "kind": "locale-pack-site",
       "name": "zh",
       "source": {
@@ -43043,7 +44042,7 @@
       "keyCount": 2273
     },
     {
-      "id": "route:/#4281",
+      "id": "route:/#4392",
       "kind": "route",
       "name": "/",
       "source": {
@@ -43052,7 +44051,7 @@
       }
     },
     {
-      "id": "route:/patterns#4282",
+      "id": "route:/patterns#4393",
       "kind": "route",
       "name": "/patterns",
       "source": {
@@ -43061,7 +44060,7 @@
       }
     },
     {
-      "id": "route:/foundations#4283",
+      "id": "route:/foundations#4394",
       "kind": "route",
       "name": "/foundations",
       "source": {
@@ -43070,7 +44069,7 @@
       }
     },
     {
-      "id": "route:/patterns/public#4284",
+      "id": "route:/patterns/public#4395",
       "kind": "route",
       "name": "/patterns/public",
       "source": {
@@ -43079,7 +44078,7 @@
       }
     },
     {
-      "id": "route:/patterns/operations#4285",
+      "id": "route:/patterns/operations#4396",
       "kind": "route",
       "name": "/patterns/operations",
       "source": {
@@ -43088,7 +44087,7 @@
       }
     },
     {
-      "id": "route:/patterns/data#4286",
+      "id": "route:/patterns/data#4397",
       "kind": "route",
       "name": "/patterns/data",
       "source": {
@@ -43097,7 +44096,7 @@
       }
     },
     {
-      "id": "route:/patterns/access#4287",
+      "id": "route:/patterns/access#4398",
       "kind": "route",
       "name": "/patterns/access",
       "source": {
@@ -43106,7 +44105,7 @@
       }
     },
     {
-      "id": "route:/patterns/feedback#4288",
+      "id": "route:/patterns/feedback#4399",
       "kind": "route",
       "name": "/patterns/feedback",
       "source": {
@@ -43115,7 +44114,7 @@
       }
     },
     {
-      "id": "route:/components#4289",
+      "id": "route:/components#4400",
       "kind": "route",
       "name": "/components",
       "source": {
@@ -43124,7 +44123,7 @@
       }
     },
     {
-      "id": "route:/systems#4290",
+      "id": "route:/systems#4401",
       "kind": "route",
       "name": "/systems",
       "source": {
@@ -43133,7 +44132,7 @@
       }
     },
     {
-      "id": "route:/coverage#4291",
+      "id": "route:/coverage#4402",
       "kind": "route",
       "name": "/coverage",
       "source": {
@@ -43142,7 +44141,7 @@
       }
     },
     {
-      "id": "route:/api#4292",
+      "id": "route:/api#4403",
       "kind": "route",
       "name": "/api",
       "source": {
@@ -43151,7 +44150,7 @@
       }
     },
     {
-      "id": "route:/maturity#4293",
+      "id": "route:/maturity#4404",
       "kind": "route",
       "name": "/maturity",
       "source": {
@@ -43160,7 +44159,7 @@
       }
     },
     {
-      "id": "route:/use-cases#4294",
+      "id": "route:/use-cases#4405",
       "kind": "route",
       "name": "/use-cases",
       "source": {
@@ -43169,7 +44168,7 @@
       }
     },
     {
-      "id": "route:/install#4295",
+      "id": "route:/install#4406",
       "kind": "route",
       "name": "/install",
       "source": {
@@ -43178,7 +44177,7 @@
       }
     },
     {
-      "id": "route:/governance#4296",
+      "id": "route:/governance#4407",
       "kind": "route",
       "name": "/governance",
       "source": {
@@ -43187,7 +44186,7 @@
       }
     },
     {
-      "id": "route:/themes#4297",
+      "id": "route:/themes#4408",
       "kind": "route",
       "name": "/themes",
       "source": {
@@ -43196,7 +44195,7 @@
       }
     },
     {
-      "id": "route:/live-proofs#4298",
+      "id": "route:/live-proofs#4409",
       "kind": "route",
       "name": "/live-proofs",
       "source": {
@@ -43205,7 +44204,7 @@
       }
     },
     {
-      "id": "route:/live-proofs/surfaces#4299",
+      "id": "route:/live-proofs/surfaces#4410",
       "kind": "route",
       "name": "/live-proofs/surfaces",
       "source": {
@@ -43214,7 +44213,7 @@
       }
     },
     {
-      "id": "route:/live-proofs/layouts#4300",
+      "id": "route:/live-proofs/layouts#4411",
       "kind": "route",
       "name": "/live-proofs/layouts",
       "source": {
@@ -43223,7 +44222,7 @@
       }
     },
     {
-      "id": "route:/live-proofs/semantics#4301",
+      "id": "route:/live-proofs/semantics#4412",
       "kind": "route",
       "name": "/live-proofs/semantics",
       "source": {
@@ -43232,7 +44231,7 @@
       }
     },
     {
-      "id": "route:/live-proofs/food#4302",
+      "id": "route:/live-proofs/food#4413",
       "kind": "route",
       "name": "/live-proofs/food",
       "source": {
@@ -43241,7 +44240,7 @@
       }
     },
     {
-      "id": "route:/live-proofs/playback#4303",
+      "id": "route:/live-proofs/playback#4414",
       "kind": "route",
       "name": "/live-proofs/playback",
       "source": {
@@ -43250,7 +44249,7 @@
       }
     },
     {
-      "id": "route:/live-proofs/analytics#4304",
+      "id": "route:/live-proofs/analytics#4415",
       "kind": "route",
       "name": "/live-proofs/analytics",
       "source": {
@@ -43259,7 +44258,7 @@
       }
     },
     {
-      "id": "route:/request-feature#4305",
+      "id": "route:/request-feature#4416",
       "kind": "route",
       "name": "/request-feature",
       "source": {
@@ -43268,7 +44267,7 @@
       }
     },
     {
-      "id": "route:/ai#4306",
+      "id": "route:/ai#4417",
       "kind": "route",
       "name": "/ai",
       "source": {
@@ -43277,7 +44276,7 @@
       }
     },
     {
-      "id": "route:/releases#4307",
+      "id": "route:/releases#4418",
       "kind": "route",
       "name": "/releases",
       "source": {
@@ -43286,7 +44285,7 @@
       }
     },
     {
-      "id": "route:/style-profiles#4308",
+      "id": "route:/style-profiles#4419",
       "kind": "route",
       "name": "/style-profiles",
       "source": {
@@ -43295,7 +44294,7 @@
       }
     },
     {
-      "id": "pattern:stable-shell#4309",
+      "id": "pattern:stable-shell#4420",
       "kind": "pattern",
       "name": "stable-shell",
       "source": {
@@ -43304,7 +44303,7 @@
       }
     },
     {
-      "id": "pattern:primary-navigation#4310",
+      "id": "pattern:primary-navigation#4421",
       "kind": "pattern",
       "name": "primary-navigation",
       "source": {
@@ -43313,7 +44312,7 @@
       }
     },
     {
-      "id": "pattern:mobile-navigation#4311",
+      "id": "pattern:mobile-navigation#4422",
       "kind": "pattern",
       "name": "mobile-navigation",
       "source": {
@@ -43322,7 +44321,7 @@
       }
     },
     {
-      "id": "pattern:page-headers#4312",
+      "id": "pattern:page-headers#4423",
       "kind": "pattern",
       "name": "page-headers",
       "source": {
@@ -43331,7 +44330,7 @@
       }
     },
     {
-      "id": "pattern:theme-toggle#4313",
+      "id": "pattern:theme-toggle#4424",
       "kind": "pattern",
       "name": "theme-toggle",
       "source": {
@@ -43340,7 +44339,7 @@
       }
     },
     {
-      "id": "pattern:form-field#4314",
+      "id": "pattern:form-field#4425",
       "kind": "pattern",
       "name": "form-field",
       "source": {
@@ -43349,7 +44348,7 @@
       }
     },
     {
-      "id": "pattern:game-board-tile#4315",
+      "id": "pattern:game-board-tile#4426",
       "kind": "pattern",
       "name": "game-board-tile",
       "source": {
@@ -43358,7 +44357,7 @@
       }
     },
     {
-      "id": "pattern:shell-contracts#4316",
+      "id": "pattern:shell-contracts#4427",
       "kind": "pattern",
       "name": "shell-contracts",
       "source": {
@@ -43367,7 +44366,7 @@
       }
     },
     {
-      "id": "pattern:discovery-shell#4317",
+      "id": "pattern:discovery-shell#4428",
       "kind": "pattern",
       "name": "discovery-shell",
       "source": {
@@ -43376,7 +44375,7 @@
       }
     },
     {
-      "id": "pattern:sidebar-navigation#4318",
+      "id": "pattern:sidebar-navigation#4429",
       "kind": "pattern",
       "name": "sidebar-navigation",
       "source": {
@@ -43385,7 +44384,7 @@
       }
     },
     {
-      "id": "pattern:dashboards#4319",
+      "id": "pattern:dashboards#4430",
       "kind": "pattern",
       "name": "dashboards",
       "source": {
@@ -43394,7 +44393,7 @@
       }
     },
     {
-      "id": "pattern:forms#4320",
+      "id": "pattern:forms#4431",
       "kind": "pattern",
       "name": "forms",
       "source": {
@@ -43403,7 +44402,7 @@
       }
     },
     {
-      "id": "pattern:admin-editor-flows#4321",
+      "id": "pattern:admin-editor-flows#4432",
       "kind": "pattern",
       "name": "admin-editor-flows",
       "source": {
@@ -43412,7 +44411,7 @@
       }
     },
     {
-      "id": "pattern:search-filters-lists#4322",
+      "id": "pattern:search-filters-lists#4433",
       "kind": "pattern",
       "name": "search-filters-lists",
       "source": {
@@ -43421,7 +44420,7 @@
       }
     },
     {
-      "id": "pattern:destructive-actions#4323",
+      "id": "pattern:destructive-actions#4434",
       "kind": "pattern",
       "name": "destructive-actions",
       "source": {
@@ -43430,7 +44429,7 @@
       }
     },
     {
-      "id": "pattern:pattern-service-reuse#4324",
+      "id": "pattern:pattern-service-reuse#4435",
       "kind": "pattern",
       "name": "pattern-service-reuse",
       "source": {
@@ -43439,7 +44438,7 @@
       }
     },
     {
-      "id": "pattern:maturity-capabilities#4325",
+      "id": "pattern:maturity-capabilities#4436",
       "kind": "pattern",
       "name": "maturity-capabilities",
       "source": {
@@ -43448,7 +44447,7 @@
       }
     },
     {
-      "id": "pattern:semantic-actions#4326",
+      "id": "pattern:semantic-actions#4437",
       "kind": "pattern",
       "name": "semantic-actions",
       "source": {
@@ -43457,7 +44456,7 @@
       }
     },
     {
-      "id": "pattern:detail-surfaces#4327",
+      "id": "pattern:detail-surfaces#4438",
       "kind": "pattern",
       "name": "detail-surfaces",
       "source": {
@@ -43466,7 +44465,7 @@
       }
     },
     {
-      "id": "pattern:embed-surfaces#4328",
+      "id": "pattern:embed-surfaces#4439",
       "kind": "pattern",
       "name": "embed-surfaces",
       "source": {
@@ -43475,7 +44474,7 @@
       }
     },
     {
-      "id": "pattern:buttons#4329",
+      "id": "pattern:buttons#4440",
       "kind": "pattern",
       "name": "buttons",
       "source": {
@@ -43484,7 +44483,7 @@
       }
     },
     {
-      "id": "pattern:choice-chips#4330",
+      "id": "pattern:choice-chips#4441",
       "kind": "pattern",
       "name": "choice-chips",
       "source": {
@@ -43493,7 +44492,7 @@
       }
     },
     {
-      "id": "pattern:icon-buttons#4331",
+      "id": "pattern:icon-buttons#4442",
       "kind": "pattern",
       "name": "icon-buttons",
       "source": {
@@ -43502,7 +44501,7 @@
       }
     },
     {
-      "id": "pattern:inputs#4332",
+      "id": "pattern:inputs#4443",
       "kind": "pattern",
       "name": "inputs",
       "source": {
@@ -43511,7 +44510,7 @@
       }
     },
     {
-      "id": "pattern:selects-combobox#4333",
+      "id": "pattern:selects-combobox#4444",
       "kind": "pattern",
       "name": "selects-combobox",
       "source": {
@@ -43520,7 +44519,7 @@
       }
     },
     {
-      "id": "pattern:checkboxes-radios#4334",
+      "id": "pattern:checkboxes-radios#4445",
       "kind": "pattern",
       "name": "checkboxes-radios",
       "source": {
@@ -43529,7 +44528,7 @@
       }
     },
     {
-      "id": "pattern:product-cards#4335",
+      "id": "pattern:product-cards#4446",
       "kind": "pattern",
       "name": "product-cards",
       "source": {
@@ -43538,7 +44537,7 @@
       }
     },
     {
-      "id": "pattern:public-product-cards#4336",
+      "id": "pattern:public-product-cards#4447",
       "kind": "pattern",
       "name": "public-product-cards",
       "source": {
@@ -43547,7 +44546,7 @@
       }
     },
     {
-      "id": "pattern:media-card#4337",
+      "id": "pattern:media-card#4448",
       "kind": "pattern",
       "name": "media-card",
       "source": {
@@ -43556,7 +44555,7 @@
       }
     },
     {
-      "id": "pattern:accent-panels#4338",
+      "id": "pattern:accent-panels#4449",
       "kind": "pattern",
       "name": "accent-panels",
       "source": {
@@ -43565,7 +44564,7 @@
       }
     },
     {
-      "id": "pattern:metric-cards#4339",
+      "id": "pattern:metric-cards#4450",
       "kind": "pattern",
       "name": "metric-cards",
       "source": {
@@ -43574,7 +44573,7 @@
       }
     },
     {
-      "id": "pattern:data-toolbars#4340",
+      "id": "pattern:data-toolbars#4451",
       "kind": "pattern",
       "name": "data-toolbars",
       "source": {
@@ -43583,7 +44582,7 @@
       }
     },
     {
-      "id": "pattern:state-blocks#4341",
+      "id": "pattern:state-blocks#4452",
       "kind": "pattern",
       "name": "state-blocks",
       "source": {
@@ -43592,7 +44591,7 @@
       }
     },
     {
-      "id": "pattern:surface-presentation#4342",
+      "id": "pattern:surface-presentation#4453",
       "kind": "pattern",
       "name": "surface-presentation",
       "source": {
@@ -43601,7 +44600,7 @@
       }
     },
     {
-      "id": "pattern:action-bar#4343",
+      "id": "pattern:action-bar#4454",
       "kind": "pattern",
       "name": "action-bar",
       "source": {
@@ -43610,7 +44609,7 @@
       }
     },
     {
-      "id": "pattern:listing-card#4344",
+      "id": "pattern:listing-card#4455",
       "kind": "pattern",
       "name": "listing-card",
       "source": {
@@ -43619,7 +44618,7 @@
       }
     },
     {
-      "id": "pattern:share-button-group#4345",
+      "id": "pattern:share-button-group#4456",
       "kind": "pattern",
       "name": "share-button-group",
       "source": {
@@ -43628,7 +44627,7 @@
       }
     },
     {
-      "id": "pattern:public-food-card#4346",
+      "id": "pattern:public-food-card#4457",
       "kind": "pattern",
       "name": "public-food-card",
       "source": {
@@ -43637,7 +44636,7 @@
       }
     },
     {
-      "id": "pattern:food-menu-section#4347",
+      "id": "pattern:food-menu-section#4458",
       "kind": "pattern",
       "name": "food-menu-section",
       "source": {
@@ -43646,7 +44645,7 @@
       }
     },
     {
-      "id": "pattern:map-panel#4348",
+      "id": "pattern:map-panel#4459",
       "kind": "pattern",
       "name": "map-panel",
       "source": {
@@ -43655,7 +44654,7 @@
       }
     },
     {
-      "id": "pattern:detail-profile-shell#4349",
+      "id": "pattern:detail-profile-shell#4460",
       "kind": "pattern",
       "name": "detail-profile-shell",
       "source": {
@@ -43664,7 +44663,7 @@
       }
     },
     {
-      "id": "pattern:detail-facts-provider-cta#4350",
+      "id": "pattern:detail-facts-provider-cta#4461",
       "kind": "pattern",
       "name": "detail-facts-provider-cta",
       "source": {
@@ -43673,7 +44672,7 @@
       }
     },
     {
-      "id": "pattern:trust-layer#4351",
+      "id": "pattern:trust-layer#4462",
       "kind": "pattern",
       "name": "trust-layer",
       "source": {
@@ -43682,7 +44681,7 @@
       }
     },
     {
-      "id": "pattern:public-flow-shell#4352",
+      "id": "pattern:public-flow-shell#4463",
       "kind": "pattern",
       "name": "public-flow-shell",
       "source": {
@@ -43691,7 +44690,7 @@
       }
     },
     {
-      "id": "pattern:playback-surface#4353",
+      "id": "pattern:playback-surface#4464",
       "kind": "pattern",
       "name": "playback-surface",
       "source": {
@@ -43700,7 +44699,7 @@
       }
     },
     {
-      "id": "pattern:public-shells#4354",
+      "id": "pattern:public-shells#4465",
       "kind": "pattern",
       "name": "public-shells",
       "source": {
@@ -43709,7 +44708,7 @@
       }
     },
     {
-      "id": "pattern:public-nav#4355",
+      "id": "pattern:public-nav#4466",
       "kind": "pattern",
       "name": "public-nav",
       "source": {
@@ -43718,7 +44717,7 @@
       }
     },
     {
-      "id": "pattern:auth-shells#4356",
+      "id": "pattern:auth-shells#4467",
       "kind": "pattern",
       "name": "auth-shells",
       "source": {
@@ -43727,7 +44726,7 @@
       }
     },
     {
-      "id": "pattern:social-auth-buttons#4357",
+      "id": "pattern:social-auth-buttons#4468",
       "kind": "pattern",
       "name": "social-auth-buttons",
       "source": {
@@ -43736,7 +44735,7 @@
       }
     },
     {
-      "id": "pattern:provider-identity-buttons#4358",
+      "id": "pattern:provider-identity-buttons#4469",
       "kind": "pattern",
       "name": "provider-identity-buttons",
       "source": {
@@ -43745,7 +44744,7 @@
       }
     },
     {
-      "id": "pattern:article-shells#4359",
+      "id": "pattern:article-shells#4470",
       "kind": "pattern",
       "name": "article-shells",
       "source": {
@@ -43754,7 +44753,7 @@
       }
     },
     {
-      "id": "pattern:docs-page-shell#4360",
+      "id": "pattern:docs-page-shell#4471",
       "kind": "pattern",
       "name": "docs-page-shell",
       "source": {
@@ -43763,7 +44762,7 @@
       }
     },
     {
-      "id": "pattern:docs-shell#4361",
+      "id": "pattern:docs-shell#4472",
       "kind": "pattern",
       "name": "docs-shell",
       "source": {
@@ -43772,7 +44771,7 @@
       }
     },
     {
-      "id": "pattern:reference-section#4362",
+      "id": "pattern:reference-section#4473",
       "kind": "pattern",
       "name": "reference-section",
       "source": {
@@ -43781,7 +44780,7 @@
       }
     },
     {
-      "id": "pattern:reference-link-grid#4363",
+      "id": "pattern:reference-link-grid#4474",
       "kind": "pattern",
       "name": "reference-link-grid",
       "source": {
@@ -43790,7 +44789,7 @@
       }
     },
     {
-      "id": "pattern:reference-locale-notice#4364",
+      "id": "pattern:reference-locale-notice#4475",
       "kind": "pattern",
       "name": "reference-locale-notice",
       "source": {
@@ -43799,7 +44798,7 @@
       }
     },
     {
-      "id": "pattern:reference-theme-explorer#4365",
+      "id": "pattern:reference-theme-explorer#4476",
       "kind": "pattern",
       "name": "reference-theme-explorer",
       "source": {
@@ -43808,7 +44807,7 @@
       }
     },
     {
-      "id": "pattern:pin-system#4366",
+      "id": "pattern:pin-system#4477",
       "kind": "pattern",
       "name": "pin-system",
       "source": {
@@ -43817,7 +44816,7 @@
       }
     },
     {
-      "id": "pattern:gds-map#4367",
+      "id": "pattern:gds-map#4478",
       "kind": "pattern",
       "name": "gds-map",
       "source": {
@@ -43826,7 +44825,7 @@
       }
     },
     {
-      "id": "pattern:accent-contrast-matrix#4368",
+      "id": "pattern:accent-contrast-matrix#4479",
       "kind": "pattern",
       "name": "accent-contrast-matrix",
       "source": {
@@ -43835,7 +44834,7 @@
       }
     },
     {
-      "id": "pattern:design-rule-profile-panel#4369",
+      "id": "pattern:design-rule-profile-panel#4480",
       "kind": "pattern",
       "name": "design-rule-profile-panel",
       "source": {
@@ -43844,7 +44843,7 @@
       }
     },
     {
-      "id": "pattern:reference-site-shell#4370",
+      "id": "pattern:reference-site-shell#4481",
       "kind": "pattern",
       "name": "reference-site-shell",
       "source": {
@@ -43853,7 +44852,7 @@
       }
     },
     {
-      "id": "pattern:editorial-hero#4371",
+      "id": "pattern:editorial-hero#4482",
       "kind": "pattern",
       "name": "editorial-hero",
       "source": {
@@ -43862,7 +44861,7 @@
       }
     },
     {
-      "id": "pattern:feature-band#4372",
+      "id": "pattern:feature-band#4483",
       "kind": "pattern",
       "name": "feature-band",
       "source": {
@@ -43871,7 +44870,7 @@
       }
     },
     {
-      "id": "pattern:browse-surface#4373",
+      "id": "pattern:browse-surface#4484",
       "kind": "pattern",
       "name": "browse-surface",
       "source": {
@@ -43880,7 +44879,7 @@
       }
     },
     {
-      "id": "pattern:editorial-cards#4374",
+      "id": "pattern:editorial-cards#4485",
       "kind": "pattern",
       "name": "editorial-cards",
       "source": {
@@ -43889,7 +44888,7 @@
       }
     },
     {
-      "id": "pattern:generated-imagery#4375",
+      "id": "pattern:generated-imagery#4486",
       "kind": "pattern",
       "name": "generated-imagery",
       "source": {
@@ -43898,7 +44897,7 @@
       }
     },
     {
-      "id": "pattern:logo-lockup#4376",
+      "id": "pattern:logo-lockup#4487",
       "kind": "pattern",
       "name": "logo-lockup",
       "source": {
@@ -43907,7 +44906,7 @@
       }
     },
     {
-      "id": "pattern:consumer-sections#4377",
+      "id": "pattern:consumer-sections#4488",
       "kind": "pattern",
       "name": "consumer-sections",
       "source": {
@@ -43916,7 +44915,7 @@
       }
     },
     {
-      "id": "pattern:consumer-dashboard-grid#4378",
+      "id": "pattern:consumer-dashboard-grid#4489",
       "kind": "pattern",
       "name": "consumer-dashboard-grid",
       "source": {
@@ -43925,7 +44924,7 @@
       }
     },
     {
-      "id": "pattern:media-fields#4379",
+      "id": "pattern:media-fields#4490",
       "kind": "pattern",
       "name": "media-fields",
       "source": {
@@ -43934,7 +44933,7 @@
       }
     },
     {
-      "id": "pattern:content-operations-editor#4380",
+      "id": "pattern:content-operations-editor#4491",
       "kind": "pattern",
       "name": "content-operations-editor",
       "source": {
@@ -43943,7 +44942,7 @@
       }
     },
     {
-      "id": "pattern:admin-app-shell#4381",
+      "id": "pattern:admin-app-shell#4492",
       "kind": "pattern",
       "name": "admin-app-shell",
       "source": {
@@ -43952,7 +44951,7 @@
       }
     },
     {
-      "id": "pattern:editor-scaffold#4382",
+      "id": "pattern:editor-scaffold#4493",
       "kind": "pattern",
       "name": "editor-scaffold",
       "source": {
@@ -43961,7 +44960,7 @@
       }
     },
     {
-      "id": "pattern:kanban-board#4383",
+      "id": "pattern:kanban-board#4494",
       "kind": "pattern",
       "name": "kanban-board",
       "source": {
@@ -43970,7 +44969,7 @@
       }
     },
     {
-      "id": "pattern:form-section#4384",
+      "id": "pattern:form-section#4495",
       "kind": "pattern",
       "name": "form-section",
       "source": {
@@ -43979,7 +44978,7 @@
       }
     },
     {
-      "id": "pattern:workspace-header#4385",
+      "id": "pattern:workspace-header#4496",
       "kind": "pattern",
       "name": "workspace-header",
       "source": {
@@ -43988,7 +44987,7 @@
       }
     },
     {
-      "id": "pattern:section-panels#4386",
+      "id": "pattern:section-panels#4497",
       "kind": "pattern",
       "name": "section-panels",
       "source": {
@@ -43997,7 +44996,7 @@
       }
     },
     {
-      "id": "pattern:public-brand-footer#4387",
+      "id": "pattern:public-brand-footer#4498",
       "kind": "pattern",
       "name": "public-brand-footer",
       "source": {
@@ -44006,7 +45005,7 @@
       }
     },
     {
-      "id": "pattern:public-site-footer#4388",
+      "id": "pattern:public-site-footer#4499",
       "kind": "pattern",
       "name": "public-site-footer",
       "source": {
@@ -44015,7 +45014,7 @@
       }
     },
     {
-      "id": "pattern:filter-drawer#4389",
+      "id": "pattern:filter-drawer#4500",
       "kind": "pattern",
       "name": "filter-drawer",
       "source": {
@@ -44024,7 +45023,7 @@
       }
     },
     {
-      "id": "pattern:docs-code-blocks#4390",
+      "id": "pattern:docs-code-blocks#4501",
       "kind": "pattern",
       "name": "docs-code-blocks",
       "source": {
@@ -44033,7 +45032,7 @@
       }
     },
     {
-      "id": "pattern:release-notes#4391",
+      "id": "pattern:release-notes#4502",
       "kind": "pattern",
       "name": "release-notes",
       "source": {
@@ -44042,7 +45041,7 @@
       }
     },
     {
-      "id": "pattern:cta-button-groups#4392",
+      "id": "pattern:cta-button-groups#4503",
       "kind": "pattern",
       "name": "cta-button-groups",
       "source": {
@@ -44051,7 +45050,7 @@
       }
     },
     {
-      "id": "pattern:upload-surfaces#4393",
+      "id": "pattern:upload-surfaces#4504",
       "kind": "pattern",
       "name": "upload-surfaces",
       "source": {
@@ -44060,7 +45059,7 @@
       }
     },
     {
-      "id": "pattern:access-summaries#4394",
+      "id": "pattern:access-summaries#4505",
       "kind": "pattern",
       "name": "access-summaries",
       "source": {
@@ -44069,7 +45068,7 @@
       }
     },
     {
-      "id": "pattern:access-recovery-panels#4395",
+      "id": "pattern:access-recovery-panels#4506",
       "kind": "pattern",
       "name": "access-recovery-panels",
       "source": {
@@ -44078,7 +45077,7 @@
       }
     },
     {
-      "id": "pattern:access-gates#4396",
+      "id": "pattern:access-gates#4507",
       "kind": "pattern",
       "name": "access-gates",
       "source": {
@@ -44087,7 +45086,7 @@
       }
     },
     {
-      "id": "pattern:placeholder-panels#4397",
+      "id": "pattern:placeholder-panels#4508",
       "kind": "pattern",
       "name": "placeholder-panels",
       "source": {
@@ -44096,7 +45095,7 @@
       }
     },
     {
-      "id": "pattern:simple-data-tables#4398",
+      "id": "pattern:simple-data-tables#4509",
       "kind": "pattern",
       "name": "simple-data-tables",
       "source": {
@@ -44105,7 +45104,7 @@
       }
     },
     {
-      "id": "pattern:admin-data-table#4399",
+      "id": "pattern:admin-data-table#4510",
       "kind": "pattern",
       "name": "admin-data-table",
       "source": {
@@ -44114,7 +45113,7 @@
       }
     },
     {
-      "id": "pattern:responsive-data-view#4400",
+      "id": "pattern:responsive-data-view#4511",
       "kind": "pattern",
       "name": "responsive-data-view",
       "source": {
@@ -44123,7 +45122,7 @@
       }
     },
     {
-      "id": "pattern:stats-strip#4401",
+      "id": "pattern:stats-strip#4512",
       "kind": "pattern",
       "name": "stats-strip",
       "source": {
@@ -44132,7 +45131,7 @@
       }
     },
     {
-      "id": "pattern:info-card#4402",
+      "id": "pattern:info-card#4513",
       "kind": "pattern",
       "name": "info-card",
       "source": {
@@ -44141,7 +45140,7 @@
       }
     },
     {
-      "id": "pattern:semantic-nav-link#4403",
+      "id": "pattern:semantic-nav-link#4514",
       "kind": "pattern",
       "name": "semantic-nav-link",
       "source": {
@@ -44150,7 +45149,7 @@
       }
     },
     {
-      "id": "pattern:empty-state#4404",
+      "id": "pattern:empty-state#4515",
       "kind": "pattern",
       "name": "empty-state",
       "source": {
@@ -44159,7 +45158,7 @@
       }
     },
     {
-      "id": "pattern:stats-sections#4405",
+      "id": "pattern:stats-sections#4516",
       "kind": "pattern",
       "name": "stats-sections",
       "source": {
@@ -44168,7 +45167,7 @@
       }
     },
     {
-      "id": "pattern:tree-view#4406",
+      "id": "pattern:tree-view#4517",
       "kind": "pattern",
       "name": "tree-view",
       "source": {
@@ -44177,7 +45176,7 @@
       }
     },
     {
-      "id": "pattern:bulk-action-bar#4407",
+      "id": "pattern:bulk-action-bar#4518",
       "kind": "pattern",
       "name": "bulk-action-bar",
       "source": {
@@ -44186,7 +45185,7 @@
       }
     },
     {
-      "id": "pattern:thread-list#4408",
+      "id": "pattern:thread-list#4519",
       "kind": "pattern",
       "name": "thread-list",
       "source": {
@@ -44195,7 +45194,7 @@
       }
     },
     {
-      "id": "pattern:message-thread#4409",
+      "id": "pattern:message-thread#4520",
       "kind": "pattern",
       "name": "message-thread",
       "source": {
@@ -44204,7 +45203,7 @@
       }
     },
     {
-      "id": "pattern:analytics-template#4410",
+      "id": "pattern:analytics-template#4521",
       "kind": "pattern",
       "name": "analytics-template",
       "source": {
@@ -44213,7 +45212,7 @@
       }
     },
     {
-      "id": "pattern:asset-manager-template#4411",
+      "id": "pattern:asset-manager-template#4522",
       "kind": "pattern",
       "name": "asset-manager-template",
       "source": {
@@ -44222,7 +45221,7 @@
       }
     },
     {
-      "id": "pattern:workspace-inbox-template#4412",
+      "id": "pattern:workspace-inbox-template#4523",
       "kind": "pattern",
       "name": "workspace-inbox-template",
       "source": {
@@ -44231,7 +45230,7 @@
       }
     },
     {
-      "id": "pattern:reporting-contracts#4413",
+      "id": "pattern:reporting-contracts#4524",
       "kind": "pattern",
       "name": "reporting-contracts",
       "source": {
@@ -44240,7 +45239,7 @@
       }
     },
     {
-      "id": "pattern:alerts#4414",
+      "id": "pattern:alerts#4525",
       "kind": "pattern",
       "name": "alerts",
       "source": {
@@ -44249,7 +45248,7 @@
       }
     },
     {
-      "id": "pattern:loaders-skeletons#4415",
+      "id": "pattern:loaders-skeletons#4526",
       "kind": "pattern",
       "name": "loaders-skeletons",
       "source": {
@@ -44258,7 +45257,7 @@
       }
     },
     {
-      "id": "pattern:notifications#4416",
+      "id": "pattern:notifications#4527",
       "kind": "pattern",
       "name": "notifications",
       "source": {
@@ -44267,7 +45266,7 @@
       }
     },
     {
-      "id": "pattern:motion-system#4417",
+      "id": "pattern:motion-system#4528",
       "kind": "pattern",
       "name": "motion-system",
       "source": {
@@ -44276,7 +45275,7 @@
       }
     },
     {
-      "id": "pattern:shape-elevation#4418",
+      "id": "pattern:shape-elevation#4529",
       "kind": "pattern",
       "name": "shape-elevation",
       "source": {
@@ -44285,7 +45284,7 @@
       }
     },
     {
-      "id": "pattern:density-spacing#4419",
+      "id": "pattern:density-spacing#4530",
       "kind": "pattern",
       "name": "density-spacing",
       "source": {
@@ -44294,7 +45293,7 @@
       }
     },
     {
-      "id": "pattern:icon-system#4420",
+      "id": "pattern:icon-system#4531",
       "kind": "pattern",
       "name": "icon-system",
       "source": {
@@ -44303,7 +45302,7 @@
       }
     },
     {
-      "id": "pattern:activity-pictograms#4421",
+      "id": "pattern:activity-pictograms#4532",
       "kind": "pattern",
       "name": "activity-pictograms",
       "source": {
@@ -44312,7 +45311,7 @@
       }
     },
     {
-      "id": "pattern:typography#4422",
+      "id": "pattern:typography#4533",
       "kind": "pattern",
       "name": "typography",
       "source": {
@@ -44321,7 +45320,7 @@
       }
     },
     {
-      "id": "pattern:color-theming#4423",
+      "id": "pattern:color-theming#4534",
       "kind": "pattern",
       "name": "color-theming",
       "source": {
@@ -44330,7 +45329,7 @@
       }
     },
     {
-      "id": "pattern:accessibility-floor#4424",
+      "id": "pattern:accessibility-floor#4535",
       "kind": "pattern",
       "name": "accessibility-floor",
       "source": {
@@ -44339,7 +45338,7 @@
       }
     },
     {
-      "id": "pattern:button-feedback#4425",
+      "id": "pattern:button-feedback#4536",
       "kind": "pattern",
       "name": "button-feedback",
       "source": {
@@ -44348,7 +45347,7 @@
       }
     },
     {
-      "id": "pattern:badges#4426",
+      "id": "pattern:badges#4537",
       "kind": "pattern",
       "name": "badges",
       "source": {
@@ -44357,7 +45356,7 @@
       }
     },
     {
-      "id": "pattern:modals#4427",
+      "id": "pattern:modals#4538",
       "kind": "pattern",
       "name": "modals",
       "source": {
@@ -44366,7 +45365,7 @@
       }
     },
     {
-      "id": "pattern:drawers#4428",
+      "id": "pattern:drawers#4539",
       "kind": "pattern",
       "name": "drawers",
       "source": {
@@ -44375,7 +45374,7 @@
       }
     },
     {
-      "id": "pattern:small-screen-priority#4429",
+      "id": "pattern:small-screen-priority#4540",
       "kind": "pattern",
       "name": "small-screen-priority",
       "source": {
@@ -44384,7 +45383,7 @@
       }
     },
     {
-      "id": "pattern:table-responsive-strategies#4430",
+      "id": "pattern:table-responsive-strategies#4541",
       "kind": "pattern",
       "name": "table-responsive-strategies",
       "source": {
@@ -44393,7 +45392,7 @@
       }
     },
     {
-      "id": "pattern:mobile-action-density#4431",
+      "id": "pattern:mobile-action-density#4542",
       "kind": "pattern",
       "name": "mobile-action-density",
       "source": {
@@ -44402,7 +45401,7 @@
       }
     },
     {
-      "id": "pattern:searchable-selection#4432",
+      "id": "pattern:searchable-selection#4543",
       "kind": "pattern",
       "name": "searchable-selection",
       "source": {
@@ -44411,7 +45410,7 @@
       }
     },
     {
-      "id": "pattern:vocabulary-extension-lane#4433",
+      "id": "pattern:vocabulary-extension-lane#4544",
       "kind": "pattern",
       "name": "vocabulary-extension-lane",
       "source": {
@@ -44420,7 +45419,7 @@
       }
     },
     {
-      "id": "pattern:partner-discovery-system#4434",
+      "id": "pattern:partner-discovery-system#4545",
       "kind": "pattern",
       "name": "partner-discovery-system",
       "source": {
@@ -44429,7 +45428,7 @@
       }
     },
     {
-      "id": "pattern:bottom-tab-navigation#4435",
+      "id": "pattern:bottom-tab-navigation#4546",
       "kind": "pattern",
       "name": "bottom-tab-navigation",
       "source": {
@@ -44438,7 +45437,7 @@
       }
     },
     {
-      "id": "pattern:searchable-select#4436",
+      "id": "pattern:searchable-select#4547",
       "kind": "pattern",
       "name": "searchable-select",
       "source": {
@@ -44447,7 +45446,7 @@
       }
     },
     {
-      "id": "pattern:fit-score-chip#4437",
+      "id": "pattern:fit-score-chip#4548",
       "kind": "pattern",
       "name": "fit-score-chip",
       "source": {
@@ -44456,7 +45455,7 @@
       }
     },
     {
-      "id": "pattern:conversation-surface#4438",
+      "id": "pattern:conversation-surface#4549",
       "kind": "pattern",
       "name": "conversation-surface",
       "source": {
@@ -44465,7 +45464,7 @@
       }
     },
     {
-      "id": "pattern:meaning-badge#4439",
+      "id": "pattern:meaning-badge#4550",
       "kind": "pattern",
       "name": "meaning-badge",
       "source": {
@@ -44474,7 +45473,7 @@
       }
     },
     {
-      "id": "pattern:media-with-fallback#4440",
+      "id": "pattern:media-with-fallback#4551",
       "kind": "pattern",
       "name": "media-with-fallback",
       "source": {
@@ -44483,7 +45482,7 @@
       }
     },
     {
-      "id": "pattern:number-stepper#4441",
+      "id": "pattern:number-stepper#4552",
       "kind": "pattern",
       "name": "number-stepper",
       "source": {
@@ -44492,7 +45491,7 @@
       }
     },
     {
-      "id": "pattern:ai-search-card#4442",
+      "id": "pattern:ai-search-card#4553",
       "kind": "pattern",
       "name": "ai-search-card",
       "source": {
@@ -44501,7 +45500,7 @@
       }
     },
     {
-      "id": "pattern:hero-search-panel#4443",
+      "id": "pattern:hero-search-panel#4554",
       "kind": "pattern",
       "name": "hero-search-panel",
       "source": {
@@ -44510,7 +45509,7 @@
       }
     },
     {
-      "id": "pattern:quick-start-card#4444",
+      "id": "pattern:quick-start-card#4555",
       "kind": "pattern",
       "name": "quick-start-card",
       "source": {
@@ -44519,7 +45518,7 @@
       }
     },
     {
-      "id": "theme:amber#4445",
+      "id": "theme:amber#4556",
       "kind": "theme",
       "name": "amber",
       "source": {
@@ -44528,7 +45527,7 @@
       }
     },
     {
-      "id": "theme:gilded#4446",
+      "id": "theme:gilded#4557",
       "kind": "theme",
       "name": "gilded",
       "source": {
@@ -44537,7 +45536,7 @@
       }
     },
     {
-      "id": "theme:aurora#4447",
+      "id": "theme:aurora#4558",
       "kind": "theme",
       "name": "aurora",
       "source": {
@@ -44546,7 +45545,7 @@
       }
     },
     {
-      "id": "theme:brand#4448",
+      "id": "theme:brand#4559",
       "kind": "theme",
       "name": "brand",
       "source": {
@@ -44555,7 +45554,7 @@
       }
     },
     {
-      "id": "theme:harbor#4449",
+      "id": "theme:harbor#4560",
       "kind": "theme",
       "name": "harbor",
       "source": {
@@ -44564,7 +45563,7 @@
       }
     },
     {
-      "id": "theme:colorblind-safe#4450",
+      "id": "theme:colorblind-safe#4561",
       "kind": "theme",
       "name": "colorblind-safe",
       "source": {
@@ -44573,7 +45572,7 @@
       }
     },
     {
-      "id": "theme:coral#4451",
+      "id": "theme:coral#4562",
       "kind": "theme",
       "name": "coral",
       "source": {
@@ -44582,7 +45581,7 @@
       }
     },
     {
-      "id": "theme:cosmic#4452",
+      "id": "theme:cosmic#4563",
       "kind": "theme",
       "name": "cosmic",
       "source": {
@@ -44591,7 +45590,7 @@
       }
     },
     {
-      "id": "theme:dark-public#4453",
+      "id": "theme:dark-public#4564",
       "kind": "theme",
       "name": "dark-public",
       "source": {
@@ -44600,7 +45599,7 @@
       }
     },
     {
-      "id": "theme:default#4454",
+      "id": "theme:default#4565",
       "kind": "theme",
       "name": "default",
       "source": {
@@ -44609,7 +45608,7 @@
       }
     },
     {
-      "id": "theme:editorial#4455",
+      "id": "theme:editorial#4566",
       "kind": "theme",
       "name": "editorial",
       "source": {
@@ -44618,7 +45617,7 @@
       }
     },
     {
-      "id": "theme:flat-surface#4456",
+      "id": "theme:flat-surface#4567",
       "kind": "theme",
       "name": "flat-surface",
       "source": {
@@ -44627,7 +45626,7 @@
       }
     },
     {
-      "id": "theme:forest#4457",
+      "id": "theme:forest#4568",
       "kind": "theme",
       "name": "forest",
       "source": {
@@ -44636,7 +45635,7 @@
       }
     },
     {
-      "id": "theme:ochre#4458",
+      "id": "theme:ochre#4569",
       "kind": "theme",
       "name": "ochre",
       "source": {
@@ -44645,7 +45644,7 @@
       }
     },
     {
-      "id": "theme:high-contrast#4459",
+      "id": "theme:high-contrast#4570",
       "kind": "theme",
       "name": "high-contrast",
       "source": {
@@ -44654,7 +45653,7 @@
       }
     },
     {
-      "id": "theme:mint#4460",
+      "id": "theme:mint#4571",
       "kind": "theme",
       "name": "mint",
       "source": {
@@ -44663,7 +45662,7 @@
       }
     },
     {
-      "id": "theme:neon-night#4461",
+      "id": "theme:neon-night#4572",
       "kind": "theme",
       "name": "neon-night",
       "source": {
@@ -44672,7 +45671,7 @@
       }
     },
     {
-      "id": "theme:oceanic#4462",
+      "id": "theme:oceanic#4573",
       "kind": "theme",
       "name": "oceanic",
       "source": {
@@ -44681,7 +45680,7 @@
       }
     },
     {
-      "id": "theme:orchid#4463",
+      "id": "theme:orchid#4574",
       "kind": "theme",
       "name": "orchid",
       "source": {
@@ -44690,7 +45689,7 @@
       }
     },
     {
-      "id": "theme:meadow#4464",
+      "id": "theme:meadow#4575",
       "kind": "theme",
       "name": "meadow",
       "source": {
@@ -44699,7 +45698,7 @@
       }
     },
     {
-      "id": "theme:partner-discovery#4465",
+      "id": "theme:partner-discovery#4576",
       "kind": "theme",
       "name": "partner-discovery",
       "source": {
@@ -44708,7 +45707,7 @@
       }
     },
     {
-      "id": "theme:royal#4466",
+      "id": "theme:royal#4577",
       "kind": "theme",
       "name": "royal",
       "source": {
@@ -44717,7 +45716,7 @@
       }
     },
     {
-      "id": "theme:ruby#4467",
+      "id": "theme:ruby#4578",
       "kind": "theme",
       "name": "ruby",
       "source": {
@@ -44726,7 +45725,7 @@
       }
     },
     {
-      "id": "theme:skyline#4468",
+      "id": "theme:skyline#4579",
       "kind": "theme",
       "name": "skyline",
       "source": {
@@ -44735,7 +45734,7 @@
       }
     },
     {
-      "id": "theme:sunset#4469",
+      "id": "theme:sunset#4580",
       "kind": "theme",
       "name": "sunset",
       "source": {
@@ -44744,7 +45743,7 @@
       }
     },
     {
-      "id": "theme:warm#4470",
+      "id": "theme:warm#4581",
       "kind": "theme",
       "name": "warm",
       "source": {
@@ -44753,7 +45752,7 @@
       }
     },
     {
-      "id": "theme:linen#4471",
+      "id": "theme:linen#4582",
       "kind": "theme",
       "name": "linen",
       "source": {
@@ -44762,7 +45761,7 @@
       }
     },
     {
-      "id": "accent:plum#4472",
+      "id": "accent:plum#4583",
       "kind": "accent",
       "name": "plum",
       "source": {
@@ -44772,7 +45771,7 @@
       "value": "#7c3a6e"
     },
     {
-      "id": "accent:indigo#4473",
+      "id": "accent:indigo#4584",
       "kind": "accent",
       "name": "indigo",
       "source": {
@@ -44782,7 +45781,7 @@
       "value": "#3f4d9e"
     },
     {
-      "id": "accent:ocean#4474",
+      "id": "accent:ocean#4585",
       "kind": "accent",
       "name": "ocean",
       "source": {
@@ -44792,7 +45791,7 @@
       "value": "#1f6e8c"
     },
     {
-      "id": "accent:teal#4475",
+      "id": "accent:teal#4586",
       "kind": "accent",
       "name": "teal",
       "source": {
@@ -44802,7 +45801,7 @@
       "value": "#0f766e"
     },
     {
-      "id": "accent:forest#4476",
+      "id": "accent:forest#4587",
       "kind": "accent",
       "name": "forest",
       "source": {
@@ -44812,7 +45811,7 @@
       "value": "#2f6b3a"
     },
     {
-      "id": "accent:bronze#4477",
+      "id": "accent:bronze#4588",
       "kind": "accent",
       "name": "bronze",
       "source": {
@@ -44822,7 +45821,7 @@
       "value": "#8a5a00"
     },
     {
-      "id": "accent:terracotta#4478",
+      "id": "accent:terracotta#4589",
       "kind": "accent",
       "name": "terracotta",
       "source": {
@@ -44832,7 +45831,7 @@
       "value": "#b04a2f"
     },
     {
-      "id": "accent:magenta#4479",
+      "id": "accent:magenta#4590",
       "kind": "accent",
       "name": "magenta",
       "source": {
@@ -44842,7 +45841,7 @@
       "value": "#a52a6c"
     },
     {
-      "id": "accent:slate#4480",
+      "id": "accent:slate#4591",
       "kind": "accent",
       "name": "slate",
       "source": {
@@ -44852,7 +45851,7 @@
       "value": "#52606d"
     },
     {
-      "id": "accent:grape#4481",
+      "id": "accent:grape#4592",
       "kind": "accent",
       "name": "grape",
       "source": {

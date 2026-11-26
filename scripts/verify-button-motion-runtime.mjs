@@ -6,7 +6,8 @@
 // 2. A success straight from rest plays the exit motion (send flies off, add turns out).
 // 3. A failure shakes the button and keeps its width; the live region announces each phase.
 // 4. Hover lifts (on a mouse device) and press sinks a button by the reaction tokens.
-// 5. Under prefers-reduced-motion nothing animates and exit layers are not shown.
+// 5. Every action runs its click motion on a plain click and keeps its label (#1000).
+// 6. Under prefers-reduced-motion nothing animates and exit layers are not shown.
 import {
   createCdpClient,
   evaluate,
@@ -25,6 +26,11 @@ const PENDING_ANIMATION = {
   spin: 'gds-button-spin',
   'bob-down': 'gds-button-bob-down',
   'bob-up': 'gds-button-bob-up',
+  orbit: 'gds-button-orbit',
+  breathe: 'gds-button-breathe',
+  rewind: 'gds-button-rewind',
+  feed: 'gds-button-drop',
+  rings: 'gds-button-fade-sequence',
 };
 const SUCCESS_ANIMATION_AFTER_PENDING = {
   'fly-off': ['gds-button-pop-in'],
@@ -34,6 +40,45 @@ const SUCCESS_ANIMATION_AFTER_PENDING = {
   draw: ['gds-button-draw'],
   pop: ['gds-button-pop'],
 };
+// Click motion -> keyframes that must run (#1000).
+const PRESS_ANIMATION = {
+  'arrow-in': ['gds-button-nudge-right'], 'arrow-out': ['gds-button-nudge-right'], bars: ['gds-button-grow'],
+  blink: ['gds-button-blink'], bounce: ['gds-button-bounce'], celebrate: ['gds-button-celebrate'], cells: ['gds-button-pop'],
+  date: ['gds-button-fade-sequence'], dip: ['gds-button-drop'], draw: ['gds-button-draw-long'], 'draw-last': ['gds-button-draw-long'],
+  'draw-stagger': ['gds-button-draw-long'], drop: ['gds-button-drop'], feed: ['gds-button-drop'], flap: ['gds-button-flap'],
+  flicker: ['gds-button-flicker'], flip: ['gds-button-flip'], join: ['gds-button-slide-in'], knob: ['gds-button-knob'],
+  launch: ['gds-button-launch'], lid: ['gds-button-lid'], needle: ['gds-button-needle'],
+  'nudge-down-right': ['gds-button-nudge-down-right'], 'nudge-left': ['gds-button-nudge-left'], 'nudge-right': ['gds-button-nudge-right'],
+  'nudge-up-right': ['gds-button-nudge-up-right'], orbit: ['gds-button-orbit'], page: ['gds-button-page'], plus: ['gds-button-pop'],
+  pop: ['gds-button-pop'], quarter: ['gds-button-quarter'], rewind: ['gds-button-rewind'], ring: ['gds-button-ring', 'gds-button-clapper'],
+  rings: ['gds-button-fade-sequence'], rock: ['gds-button-rock'], rows: ['gds-button-slide-in'], scribble: ['gds-button-scribble'],
+  separate: ['gds-button-separate-a', 'gds-button-separate-b'], share: ['gds-button-nudge-up-right', 'gds-button-nudge-down-right'],
+  shutter: ['gds-button-shutter'], squeeze: ['gds-button-squeeze'], swap: ['gds-button-swap-down', 'gds-button-swap-up'],
+  sweep: ['gds-button-sweep'], swing: ['gds-button-swing'], turn: ['gds-button-turn'], wave: ['gds-button-wave'],
+};
+
+function pressProbe(action) {
+  return `(async () => {
+    const root = document.querySelector('[data-gds-button-press-reference]');
+    if (!root) return { error: 'no [data-gds-button-press-reference] on the page' };
+    const button = root.querySelector('[data-gds-button-press-demo="${action}"] button');
+    if (!button) return { error: 'no click-motion demo button for ${action}' };
+    button.scrollIntoView({ block: 'center' });
+    await new Promise((r) => setTimeout(r, 30));
+    const label = button.textContent;
+    button.click();
+    const seen = new Set();
+    const start = performance.now();
+    while (performance.now() - start < 250) {
+      for (const a of document.getAnimations()) {
+        if (a.effect && a.effect.target && button.contains(a.effect.target) && a.playState === 'running') seen.add(a.animationName);
+      }
+      await new Promise((r) => setTimeout(r, 10));
+    }
+    return { animations: [...seen], press: button.querySelector('[data-gds-button-press]')?.getAttribute('data-gds-button-press') ?? null, labelKept: button.textContent === label };
+  })()`;
+}
+
 const SUCCESS_ANIMATION_FROM_REST = {
   'fly-off': ['gds-button-fly-off', 'gds-button-pop-in'],
   turn: ['gds-button-turn-out', 'gds-button-pop-in'],
@@ -126,6 +171,7 @@ const browserSession = await launchChromeBrowser({
 const problems = [];
 const sameWidth = (widths) => widths.every((w) => Math.abs(w - widths[0]) < 0.5);
 let checked = 0;
+let checkedPresses = 0;
 
 async function open(client) {
   await client.send('Page.navigate', { url: `${baseUrl.replace(/\/$/, '')}${route}` });
@@ -136,6 +182,7 @@ async function open(client) {
 try {
   const vocabulary = await readVocabularyMotions();
   if (vocabulary.length === 0) throw new Error('No vocabulary action declares a motion — refusing to pass vacuously.');
+  const cycleActions = vocabulary.filter(({ motion }) => motion.success || (motion.pending && motion.pending !== 'spinner') || motion.confirm);
   const client = await createCdpClient(browserSession.webSocketDebuggerUrl);
   await client.send('Page.enable');
   await client.send('Emulation.setDeviceMetricsOverride', { width: 1280, height: 900, deviceScaleFactor: 1, mobile: false });
@@ -147,9 +194,9 @@ try {
     await client.close();
     throw new Error('missing demo');
   }
-  for (const { name } of vocabulary) if (!demoed.includes(name)) problems.push(`${name}: declares a motion but has no live demo.`);
+  for (const { name } of cycleActions) if (!demoed.includes(name)) problems.push(`${name}: declares its own pending or success motion but has no onAction demo.`);
 
-  for (const { name, motion } of vocabulary) {
+  for (const { name, motion } of cycleActions) {
     const confirm = Boolean(motion.confirm);
     const slow = await evaluate(client, cycleProbe(name, { outcome: 'success', speed: 'slow', confirm }));
     checked += 1;
@@ -175,6 +222,20 @@ try {
       }
     }
   }
+
+  let pressChecked = 0;
+  for (const { name, motion } of vocabulary) {
+    if (!motion.press) { problems.push(`${name}: declares no click motion.`); continue; }
+    const result = await evaluate(client, pressProbe(name));
+    pressChecked += 1;
+    if (result.error) { problems.push(`${name}: ${result.error}`); continue; }
+    if (result.press !== motion.press) problems.push(`${name}: click should mark press "${motion.press}", marked ${result.press}.`);
+    for (const expected of PRESS_ANIMATION[motion.press] ?? []) {
+      if (!result.animations.includes(expected)) problems.push(`${name}: click motion "${motion.press}" should run ${expected}, running: [${result.animations.join(', ')}].`);
+    }
+    if (!result.labelKept) problems.push(`${name}: a plain click changed the label.`);
+  }
+  checkedPresses = pressChecked;
 
   const failure = await evaluate(client, cycleProbe('save', { outcome: 'error', speed: 'fast', confirm: false }));
   if (failure.settledPhase !== 'error') problems.push(`save: a failing action settled as ${failure.settledPhase}.`);
@@ -208,7 +269,11 @@ try {
   // Reduced motion: nothing animates, exit layers are hidden, press does not move.
   await client.send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: 'reduce' }] });
   await open(client);
-  for (const { name, motion } of vocabulary) {
+  for (const { name } of vocabulary) {
+    const result = await evaluate(client, pressProbe(name));
+    if (result.animations?.length) problems.push(`${name} (reduced motion): click motion animates: [${result.animations.join(', ')}].`);
+  }
+  for (const { name, motion } of cycleActions) {
     const confirm = Boolean(motion.confirm);
     const slow = await evaluate(client, cycleProbe(name, { outcome: 'success', speed: 'slow', confirm }));
     if (slow.pendingAnimations?.length) problems.push(`${name} (reduced motion): pending animates: [${slow.pendingAnimations.join(', ')}].`);
@@ -246,5 +311,5 @@ if (problems.length > 0) {
   for (const p of problems) console.error(`- ${p}`);
   process.exit(1);
 }
-console.log(`Button motion passed: ${checked} vocabulary actions run their pending and success motion and keep their width; failure shakes; hover lifts and press sinks by the reaction tokens; nothing animates under reduced motion.`);
+console.log(`Button motion passed: ${checkedPresses} actions run their click motion and keep their label; ${checked} run their pending and success motion and keep their width; failure shakes; hover lifts and press sinks by the reaction tokens; nothing animates under reduced motion.`);
 process.exit(0);

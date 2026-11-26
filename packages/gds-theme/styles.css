@@ -1662,6 +1662,137 @@ html[data-gds-theme-preset] .mantine-Button-root:active:where(:not([data-loading
   animation: gds-button-shake var(--gds-motion-duration-slower) var(--gds-motion-ease-standard);
 }
 
+/*
+ * SemanticButton click motions (#1000). One per vocabulary action (`motion.press`), played once
+ * on every click. Part-level motions address the Tabler icon's paths by position.
+ */
+[data-gds-button-press] svg,
+[data-gds-button-press] path {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes gds-button-ring { 0%, 100% { transform: rotate(0); } 20% { transform: rotate(-14deg); } 40% { transform: rotate(12deg); } 60% { transform: rotate(-8deg); } 80% { transform: rotate(5deg); } }
+@keyframes gds-button-clapper { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10%); } 50% { transform: translateX(10%); } 75% { transform: translateX(-5%); } }
+@keyframes gds-button-rock { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-10deg); } 50% { transform: rotate(10deg); } 75% { transform: rotate(-5deg); } }
+@keyframes gds-button-turn { from { transform: rotate(0); } to { transform: rotate(180deg); } }
+@keyframes gds-button-quarter { from { transform: rotate(0); } to { transform: rotate(90deg); } }
+@keyframes gds-button-rewind { from { transform: rotate(0); } to { transform: rotate(-360deg); } }
+@keyframes gds-button-blink { 0%, 100% { transform: scaleY(1); } 45%, 55% { transform: scaleY(0.1); } }
+@keyframes gds-button-nudge-right { 0%, 100% { transform: translateX(0); } 40% { transform: translateX(22%); } }
+@keyframes gds-button-nudge-left { 0%, 100% { transform: translateX(0); } 40% { transform: translateX(-22%); } }
+@keyframes gds-button-nudge-up-right { 0%, 100% { transform: translate(0, 0); } 40% { transform: translate(17%, -17%); } }
+@keyframes gds-button-nudge-down-right { 0%, 100% { transform: translate(0, 0); } 40% { transform: translate(17%, 17%); } }
+@keyframes gds-button-drop { 0%, 100% { transform: translateY(0); } 40% { transform: translateY(22%); } 70% { transform: translateY(-5%); } }
+@keyframes gds-button-bounce { 0%, 100% { transform: translateY(0) scale(1); } 35% { transform: translateY(-22%) scale(1.08); } 65% { transform: translateY(0) scale(0.96); } }
+@keyframes gds-button-celebrate { 0%, 100% { transform: translateY(0) rotate(0); } 30% { transform: translateY(-28%) rotate(-10deg); } 60% { transform: translateY(-11%) rotate(8deg); } }
+@keyframes gds-button-scribble { 0%, 100% { transform: translate(0, 0) rotate(0); } 25% { transform: translate(-11%, 5%) rotate(-8deg); } 50% { transform: translate(11%, -5%) rotate(6deg); } 75% { transform: translate(-5%, 5%) rotate(-4deg); } }
+@keyframes gds-button-swing { 0%, 100% { transform: rotate(0); } 30% { transform: rotate(18deg); } 65% { transform: rotate(-10deg); } }
+@keyframes gds-button-flip { from { transform: rotateY(0); } to { transform: rotateY(360deg); } }
+@keyframes gds-button-page { 0%, 100% { transform: rotateY(0); } 50% { transform: rotateY(70deg); } }
+@keyframes gds-button-shutter { 0%, 100% { transform: scale(1); opacity: 1; } 30% { transform: scale(0.82); opacity: 0.4; } }
+@keyframes gds-button-flicker { 0%, 100% { opacity: 1; } 20% { opacity: 0.2; } 40% { opacity: 1; } 60% { opacity: 0.4; } }
+@keyframes gds-button-squeeze { 0%, 100% { transform: scale(1, 1); } 40% { transform: scale(0.8, 1.1); } }
+@keyframes gds-button-wave { 0%, 100% { transform: skewY(0); } 33% { transform: skewY(-8deg); } 66% { transform: skewY(6deg); } }
+@keyframes gds-button-launch { 0% { transform: translate(0, 0) scale(1); opacity: 1; } 45% { transform: translate(44%, -44%) scale(0.6); opacity: 0; } 46% { transform: translate(-33%, 33%) scale(0.6); opacity: 0; } 100% { transform: translate(0, 0) scale(1); opacity: 1; } }
+@keyframes gds-button-orbit { 0%, 100% { transform: translate(0, 0); } 25% { transform: translate(-11%, -11%); } 50% { transform: translate(0, -17%); } 75% { transform: translate(11%, -5%); } }
+@keyframes gds-button-separate-a { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(14%, 14%); } }
+@keyframes gds-button-separate-b { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-14%, -14%); } }
+@keyframes gds-button-slide-in { from { transform: translateX(-60%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+@keyframes gds-button-fade-sequence { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+@keyframes gds-button-grow { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(0.4); } }
+@keyframes gds-button-lid { 0%, 100% { transform: translateY(0) rotate(0); } 40% { transform: translateY(-60%) rotate(-12deg); } }
+@keyframes gds-button-flap { 0%, 100% { transform: scaleY(1); } 45% { transform: scaleY(-1); } }
+@keyframes gds-button-knob { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(100%); } }
+@keyframes gds-button-sweep { 0% { transform: translateX(0); opacity: 1; } 50% { transform: translateX(60%); opacity: 0; } 51% { transform: translateX(-60%); opacity: 0; } 100% { transform: translateX(0); opacity: 1; } }
+@keyframes gds-button-needle { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-70deg); } }
+@keyframes gds-button-draw-long { from { stroke-dashoffset: 60; } to { stroke-dashoffset: 0; } }
+@keyframes gds-button-swap-up { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-17%); } }
+@keyframes gds-button-swap-down { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(17%); } }
+@keyframes gds-button-breathe { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.88); opacity: 0.55; } }
+
+[data-gds-button-press='ring'] svg { transform-origin: 50% 8%; animation: gds-button-ring var(--gds-motion-duration-slower) var(--gds-motion-ease-standard); }
+[data-gds-button-press='ring'] path:nth-of-type(2) { animation: gds-button-clapper var(--gds-motion-duration-slower) var(--gds-motion-ease-standard); }
+[data-gds-button-press='rock'] svg { transform-origin: 50% 90%; animation: gds-button-rock var(--gds-motion-duration-slower) var(--gds-motion-ease-standard); }
+[data-gds-button-press='turn'] svg { animation: gds-button-turn var(--gds-motion-duration-slower) var(--gds-motion-ease-emphasis); }
+[data-gds-button-press='quarter'] svg { animation: gds-button-quarter var(--gds-motion-duration-base) var(--gds-motion-ease-emphasis); }
+[data-gds-button-press='rewind'] svg { animation: gds-button-rewind var(--gds-motion-duration-slower) var(--gds-motion-ease-standard); }
+[data-gds-button-press='blink'] svg { animation: gds-button-blink var(--gds-motion-duration-slower) var(--gds-motion-ease-standard); }
+[data-gds-button-press='nudge-right'] svg { animation: gds-button-nudge-right var(--gds-motion-duration-slower) var(--gds-motion-ease-emphasis); }
+[data-gds-button-press='nudge-left'] svg { animation: gds-button-nudge-left var(--gds-motion-duration-slower) var(--gds-motion-ease-emphasis); }
+[data-gds-button-press='nudge-up-right'] svg { animation: gds-button-nudge-up-right var(--gds-motion-duration-slower) var(--gds-motion-ease-emphasis); }
+[data-gds-button-press='nudge-down-right'] svg { animation: gds-button-nudge-down-right var(--gds-motion-duration-slower) var(--gds-motion-ease-emphasis); }
+[data-gds-button-press='drop'] svg { animation: gds-button-drop var(--gds-motion-duration-slower) var(--gds-motion-ease-emphasis); }
+[data-gds-button-press='bounce'] svg { animation: gds-button-bounce var(--gds-motion-duration-slower) var(--gds-motion-ease-emphasis); }
+[data-gds-button-press='pop'] svg { animation: gds-button-pop var(--gds-motion-duration-slower) var(--gds-motion-ease-emphasis); }
+[data-gds-button-press='celebrate'] svg { animation: gds-button-celebrate var(--gds-motion-duration-slower) var(--gds-motion-ease-emphasis); }
+[data-gds-button-press='scribble'] svg { animation: gds-button-scribble var(--gds-motion-duration-slower) var(--gds-motion-ease-standard); }
+[data-gds-button-press='swing'] svg { transform-origin: 50% 10%; animation: gds-button-swing var(--gds-motion-duration-slower) var(--gds-motion-ease-emphasis); }
+[data-gds-button-press='flip'] svg { animation: gds-button-flip var(--gds-motion-duration-slower) var(--gds-motion-ease-standard); }
+[data-gds-button-press='page'] svg { transform-origin: 0% 50%; animation: gds-button-page var(--gds-motion-duration-slower) var(--gds-motion-ease-standard); }
+[data-gds-button-press='shutter'] svg { animation: gds-button-shutter var(--gds-motion-duration-slow) var(--gds-motion-ease-standard); }
+[data-gds-button-press='flicker'] svg { animation: gds-button-flicker var(--gds-motion-duration-slower) linear; }
+[data-gds-button-press='squeeze'] svg { animation: gds-button-squeeze var(--gds-motion-duration-slower) var(--gds-motion-ease-emphasis); }
+[data-gds-button-press='wave'] svg { transform-origin: 0% 50%; animation: gds-button-wave var(--gds-motion-duration-slower) var(--gds-motion-ease-standard); }
+[data-gds-button-press='launch'] svg { animation: gds-button-launch var(--gds-motion-duration-slower) var(--gds-motion-ease-exit); }
+[data-gds-button-press='orbit'] svg { animation: gds-button-orbit var(--gds-motion-duration-slower) var(--gds-motion-ease-standard); }
+[data-gds-button-press='draw'] path,
+[data-gds-button-press='draw-last'] path:last-of-type { stroke-dasharray: 60; animation: gds-button-draw-long var(--gds-motion-duration-slower) var(--gds-motion-ease-entrance) both; }
+[data-gds-button-press='draw-stagger'] path { stroke-dasharray: 60; animation: gds-button-draw-long var(--gds-motion-duration-slow) var(--gds-motion-ease-entrance) both; }
+[data-gds-button-press='draw-stagger'] path:nth-of-type(2) { animation-delay: calc(var(--gds-motion-duration-fast) / 3); }
+[data-gds-button-press='draw-stagger'] path:nth-of-type(3) { animation-delay: calc(var(--gds-motion-duration-fast) * 2 / 3); }
+[data-gds-button-press='draw-stagger'] path:nth-of-type(n + 4) { animation-delay: var(--gds-motion-duration-fast); }
+[data-gds-button-press='lid'] path:nth-of-type(1),
+[data-gds-button-press='lid'] path:nth-of-type(5) { transform-origin: 0% 100%; animation: gds-button-lid var(--gds-motion-duration-slower) var(--gds-motion-ease-emphasis); }
+[data-gds-button-press='separate'] path:nth-of-type(1) { animation: gds-button-separate-a var(--gds-motion-duration-slower) var(--gds-motion-ease-emphasis); }
+[data-gds-button-press='separate'] path:nth-of-type(2) { animation: gds-button-separate-b var(--gds-motion-duration-slower) var(--gds-motion-ease-emphasis); }
+[data-gds-button-press='separate'] path:nth-of-type(n + 3) { animation: gds-button-pop var(--gds-motion-duration-slower) var(--gds-motion-ease-emphasis); }
+[data-gds-button-press='join'] path:nth-of-type(3),
+[data-gds-button-press='join'] path:nth-of-type(4) { animation: gds-button-slide-in var(--gds-motion-duration-slower) var(--gds-motion-ease-entrance) both; }
+[data-gds-button-press='plus'] path:nth-of-type(2),
+[data-gds-button-press='plus'] path:nth-of-type(3) { animation: gds-button-pop var(--gds-motion-duration-slower) var(--gds-motion-ease-emphasis); }
+[data-gds-button-press='bars'] path { transform-origin: 50% 100%; animation: gds-button-grow var(--gds-motion-duration-slower) var(--gds-motion-ease-emphasis); }
+[data-gds-button-press='bars'] path:nth-of-type(2) { animation-delay: calc(var(--gds-motion-duration-fast) / 2); }
+[data-gds-button-press='bars'] path:nth-of-type(3) { animation-delay: var(--gds-motion-duration-fast); }
+[data-gds-button-press='dip'] path { animation: gds-button-drop var(--gds-motion-duration-slow) var(--gds-motion-ease-emphasis); }
+[data-gds-button-press='dip'] path:nth-of-type(2) { animation-delay: calc(var(--gds-motion-duration-fast) * 3 / 4); }
+[data-gds-button-press='date'] path:nth-of-type(5),
+[data-gds-button-press='date'] path:nth-of-type(6) { animation: gds-button-fade-sequence var(--gds-motion-duration-slower) linear; }
+[data-gds-button-press='date'] path:nth-of-type(6) { animation-delay: calc(var(--gds-motion-duration-fast) * 2 / 3); }
+[data-gds-button-press='cells'] path { animation: gds-button-pop var(--gds-motion-duration-slow) var(--gds-motion-ease-emphasis) both; }
+[data-gds-button-press='cells'] path:nth-of-type(2) { animation-delay: calc(var(--gds-motion-duration-fast) / 2); }
+[data-gds-button-press='cells'] path:nth-of-type(3) { animation-delay: var(--gds-motion-duration-fast); }
+[data-gds-button-press='cells'] path:nth-of-type(4) { animation-delay: calc(var(--gds-motion-duration-fast) * 3 / 2); }
+[data-gds-button-press='rows'] path:nth-of-type(-n + 3) { animation: gds-button-slide-in var(--gds-motion-duration-slow) var(--gds-motion-ease-entrance) both; }
+[data-gds-button-press='rows'] path:nth-of-type(2) { animation-delay: calc(var(--gds-motion-duration-fast) / 2); }
+[data-gds-button-press='rows'] path:nth-of-type(3) { animation-delay: var(--gds-motion-duration-fast); }
+[data-gds-button-press='sweep'] path { animation: gds-button-sweep var(--gds-motion-duration-slower) var(--gds-motion-ease-standard); }
+[data-gds-button-press='sweep'] path:nth-of-type(2) { animation-delay: calc(var(--gds-motion-duration-fast) / 2); }
+[data-gds-button-press='sweep'] path:nth-of-type(3) { animation-delay: var(--gds-motion-duration-fast); }
+[data-gds-button-press='arrow-in'] path:nth-of-type(2),
+[data-gds-button-press='arrow-in'] path:nth-of-type(3) { animation: gds-button-nudge-right var(--gds-motion-duration-slower) var(--gds-motion-ease-emphasis); }
+[data-gds-button-press='arrow-out'] path:nth-of-type(4) { animation: gds-button-nudge-right var(--gds-motion-duration-slower) var(--gds-motion-ease-emphasis); }
+[data-gds-button-press='knob'] path:nth-of-type(1) { animation: gds-button-knob var(--gds-motion-duration-slower) var(--gds-motion-ease-emphasis); }
+[data-gds-button-press='swap'] path:nth-of-type(1) { animation: gds-button-swap-down var(--gds-motion-duration-slower) var(--gds-motion-ease-emphasis); }
+[data-gds-button-press='swap'] path:nth-of-type(2) { animation: gds-button-swap-up var(--gds-motion-duration-slower) var(--gds-motion-ease-emphasis); }
+[data-gds-button-press='feed'] path:nth-of-type(3) { animation: gds-button-drop var(--gds-motion-duration-slower) var(--gds-motion-ease-standard); }
+[data-gds-button-press='flap'] path:nth-of-type(2) { transform-origin: 50% 0%; animation: gds-button-flap var(--gds-motion-duration-slower) var(--gds-motion-ease-standard); }
+[data-gds-button-press='needle'] path:nth-of-type(2) { transform-origin: 0% 100%; animation: gds-button-needle var(--gds-motion-duration-slower) var(--gds-motion-ease-emphasis); }
+[data-gds-button-press='share'] path:nth-of-type(2) { animation: gds-button-nudge-up-right var(--gds-motion-duration-slower) var(--gds-motion-ease-emphasis); }
+[data-gds-button-press='share'] path:nth-of-type(3) { animation: gds-button-nudge-down-right var(--gds-motion-duration-slower) var(--gds-motion-ease-emphasis); }
+[data-gds-button-press='rings'] path { animation: gds-button-fade-sequence var(--gds-motion-duration-slower) linear; }
+[data-gds-button-press='rings'] path:nth-of-type(2) { animation-delay: calc(var(--gds-motion-duration-fast) / 2); }
+[data-gds-button-press='rings'] path:nth-of-type(3) { animation-delay: var(--gds-motion-duration-fast); }
+
+/* Pending loops added by #1000. */
+[data-gds-button-motion='orbit'] { animation: gds-button-orbit var(--gds-motion-duration-ambient) var(--gds-motion-ease-standard) infinite; }
+[data-gds-button-motion='breathe'] { animation: gds-button-breathe calc(var(--gds-motion-duration-ambient) * 1.6) var(--gds-motion-ease-standard) infinite; }
+[data-gds-button-motion='rewind'] { animation: gds-button-rewind var(--gds-motion-duration-ambient) linear infinite; }
+[data-gds-button-motion='feed'] path:nth-of-type(3) { animation: gds-button-drop var(--gds-motion-duration-ambient) var(--gds-motion-ease-standard) infinite; }
+[data-gds-button-motion='rings'] path { animation: gds-button-fade-sequence var(--gds-motion-duration-ambient) linear infinite; }
+[data-gds-button-motion='rings'] path:nth-of-type(2) { animation-delay: calc(var(--gds-motion-duration-ambient) * 0.15); }
+[data-gds-button-motion='rings'] path:nth-of-type(3) { animation-delay: calc(var(--gds-motion-duration-ambient) * 0.3); }
+
 @media (prefers-reduced-motion: reduce) {
   :root {
 /* gds:motion-reduced:start — generated by scripts/generate-motion-css.mjs, do not edit by hand */
@@ -1680,7 +1811,8 @@ html[data-gds-theme-preset] .mantine-Button-root:active:where(:not([data-loading
 
   html[data-gds-theme-preset] a,
   html[data-gds-theme-preset] button,
-  html[data-gds-theme-preset] [data-gds-motion] {
+  html[data-gds-theme-preset] [data-gds-motion],
+  html[data-gds-theme-preset] [data-gds-motion] * {
     animation: none !important;
     transition: none !important;
     transform: none !important;

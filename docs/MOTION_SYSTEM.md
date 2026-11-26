@@ -115,7 +115,27 @@ Each action's motion is declared in the vocabulary (`GdsVocabulary[action].motio
 | `reward` | spinner | icon pops |
 | `complete` | spinner | icon draws |
 
-Actions without a declared motion use the spinner and pop their own success icon. The keyframes are `gds-button-*` in `styles.css`; they animate only `transform`, `opacity` and stroke offset, on the motion tokens. `verify:button-motion-runtime` checks every declared motion on the reference site, the width, the hover and press transforms, and that nothing animates under reduced motion.
+Actions without a declared success motion use the spinner and pop their own success icon. Some actions have their own pending loop instead of the spinner: `search` (the lens circles), `record` (breathes), `restore` and `reset` (turn back), `print` (the page feeds), `export` and `import` (the arrow bobs), `habit` (the rings light in turn).
+
+### Click motions
+
+Every vocabulary action also declares `motion.press`, a click motion played once on every click of a `SemanticButton`, with or without `onAction`. It is chosen from what the action's icon depicts, after Apple's SF Symbols effects and the animated icon sets (lucide-animated, Lordicon):
+
+| Kind | Click motions | Examples |
+| --- | --- | --- |
+| Whole icon | `ring`, `rock`, `swing`, `turn`, `quarter`, `rewind`, `blink`, `bounce`, `pop`, `celebrate`, `scribble`, `flip`, `page`, `shutter`, `flicker`, `squeeze`, `wave`, `launch`, `orbit`, `drop`, `nudge-left`, `nudge-right`, `nudge-up-right`, `nudge-down-right` | notifications rings, settings turns, eye blinks, trophy celebrates, play nudges right |
+| Strokes | `draw`, `draw-last`, `draw-stagger` | home draws its outline, check draws its tick, language draws stroke by stroke |
+| One part of the icon | `lid`, `separate`, `join`, `plus`, `bars`, `dip`, `date`, `cells`, `rows`, `sweep`, `arrow-in`, `arrow-out`, `knob`, `swap`, `feed`, `flap`, `needle`, `share`, `rings` | delete lifts the lid, duplicate separates the sheets, users slides the second person in, mail opens the flap |
+
+The full action-by-action table is on the reference site's Button Micro-feedback page, read from `GdsVocabulary`. Rules:
+
+- One motion per meaning: actions that mean the same share a motion (duplicate and clone separate; back and reply nudge left).
+- Discrete and short: every click motion runs on the `base`, `slow` or `slower` token (under 500ms) and plays once. A repeated click restarts it. A button returning to rest after a result does not replay it.
+- No icon motion on hover; Apple advises against motion on frequent interactions.
+- A plain click never changes the label; only `onAction` and `feedbackState` do, so navigation actions keep theirs.
+- Part-level motions address the Tabler icon's paths by position (`path:nth-of-type`), so a vocabulary pack that swaps an action's icon should also choose a whole-icon motion.
+
+`verify:button-motion-runtime` clicks every action on the reference site and fails when its click motion does not run, when a plain click changes the label, or when anything animates under reduced motion. The keyframes are `gds-button-*` in `styles.css`; they animate only `transform`, `opacity` and stroke offset, on the motion tokens. `verify:button-motion-runtime` checks every declared motion on the reference site, the width, the hover and press transforms, and that nothing animates under reduced motion.
 
 ## Reduced Motion
 

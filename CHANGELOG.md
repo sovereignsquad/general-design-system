@@ -4,6 +4,29 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
+### A click motion for every button action (#1000)
+
+- Every one of the 85 vocabulary actions now has its own click motion (`motion.press`), played once on every click of a `SemanticButton`, with or without `onAction`. Each motion is chosen from what the action's icon depicts:
+  - notifications rings its bell and swings the clapper;
+  - settings turns its gear;
+  - eye and preview blink;
+  - delete lifts the trash lid;
+  - duplicate and clone separate their two sheets;
+  - users slides the second person in;
+  - mail opens its flap;
+  - history and restore turn back;
+  - analytics grows its bars;
+  - print feeds its page;
+  - trophy, crown, grade and certificate jump and tilt;
+  - currency spins like a coin;
+  - goal waves its flag.
+- Some motions follow Apple's SF Symbols effects or the animated icon sets (lucide-animated, Lordicon); the others are GDS's own.
+- Click motions are short (under 500ms, on the motion tokens) and restart on a repeated click. They do not replay when a button returns to rest after a result. There is no icon motion on hover, and a plain click never changes the label.
+- New pending loops: `search` (the lens circles), `record` (breathes), `restore` and `reset` (turn back), `print` (the page feeds), `export` and `import` (the arrow bobs), `habit` (the rings light in turn).
+- Under reduced motion nothing moves; the reduced-motion rule now also stops motion on an icon's individual paths.
+- The Button Micro-feedback page has a click-motion catalog of all 85 actions, and its motion table gains a click-motion column.
+- `verify:button-motion-runtime` clicks every action and fails when its click motion does not run, when a plain click changes the label, or when anything animates under reduced motion.
+
 ### Reviewed corrections for site-only phrases (#999)
 
 - Site phrases with no package message had no correction path, so wrong-sense machine translations stayed. They are now corrected in a reviewed list, `scripts/site-phrase-corrections.mjs`, which the generator applies after the package labels. It holds 68 Chinese and 66 Korean entries, for example "Components" (`成分`, "ingredients", now `组件`), "Slug" (`蛞蝓`, the animal, now `别名`), "Browse" (`먹다`, "eat", now `둘러보기`) and "Lists" (`기울기`, "slope", now `목록`).

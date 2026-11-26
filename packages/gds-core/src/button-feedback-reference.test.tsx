@@ -36,7 +36,7 @@ describe('GdsButtonFeedbackReference', () => {
     // against a number that would go stale when the vocabulary gains a colour. Excludes the
     // outline-accent/gradient brand-intent demo added by issue 700, which renders its own
     // fixed set of buttons unrelated to the vocabulary's colour count.
-    const liveFeedbackButtons = screen.getAllByRole('button').filter((button) => !button.closest('[data-gds-brand-intent-demo], [data-gds-button-variant-reference], [data-gds-button-motion-reference]'));
+    const liveFeedbackButtons = screen.getAllByRole('button').filter((button) => !button.closest('[data-gds-brand-intent-demo], [data-gds-button-variant-reference], [data-gds-button-motion-reference], [data-gds-button-press-reference]'));
     expect(liveFeedbackButtons).toHaveLength(distinctColors.size * 2);
   });
 
@@ -56,14 +56,22 @@ describe('GdsButtonFeedbackReference', () => {
     expect(probes).toEqual(['filled', 'light', 'outline', 'subtle', 'default', 'red-filled', 'red-light']);
   });
 
-  it('demos every vocabulary action that declares a motion, live (#995)', () => {
+  it('demos every action with its own pending or success motion through onAction (#995)', () => {
     renderReference();
-    const declared = Object.entries(GdsVocabulary as Record<string, SemanticActionDefinition>).filter(([, config]) => config.motion).map(([name]) => name);
+    const declared = Object.entries(GdsVocabulary as Record<string, SemanticActionDefinition>)
+      .filter(([, config]) => config.motion && (config.motion.success || (config.motion.pending && config.motion.pending !== 'spinner') || config.motion.confirm))
+      .map(([name]) => name);
     const demoed = [...document.querySelectorAll('[data-gds-button-motion-demo]')].map((el) => el.getAttribute('data-gds-button-motion-demo'));
     expect(demoed).toEqual(declared);
     for (const name of declared) {
       expect(document.querySelector(`[data-gds-button-motion-demo='${name}'] button`)).toBeTruthy();
     }
+  });
+
+  it('shows every vocabulary action in the click-motion catalog (#1000)', () => {
+    renderReference();
+    const demoed = [...document.querySelectorAll('[data-gds-button-press-demo]')].map((el) => el.getAttribute('data-gds-button-press-demo'));
+    expect(demoed).toEqual(Object.keys(GdsVocabulary));
   });
 
   it('lists every vocabulary action that declares a feedback config', () => {

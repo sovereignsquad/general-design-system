@@ -144,20 +144,26 @@ function pendingLabel(action: SemanticActionId, t: (id: string, fallback: string
   }
 }
 
-function Layer({ motion, after, children }: { motion?: string; after?: 'exit'; children: React.ReactNode }) {
+function Layer({ motion, after, press, children }: { motion?: string; after?: 'exit'; press?: string; children: React.ReactNode }) {
   return (
-    <span data-gds-motion={motion ? '' : undefined} data-gds-button-motion={motion} data-gds-button-motion-after={after}>
+    <span
+      data-gds-motion={motion || press ? '' : undefined}
+      data-gds-button-motion={motion}
+      data-gds-button-motion-after={after}
+      data-gds-button-press={press}
+    >
       {children}
     </span>
   );
 }
 
-function ButtonIcon({ phase, motion, Icon, SuccessIcon, fromRest }: {
+function ButtonIcon({ phase, motion, Icon, SuccessIcon, fromRest, pressed }: {
   phase: GdsButtonPhase;
   motion: GdsButtonMotion | undefined;
   Icon: IconComponent;
   SuccessIcon: IconComponent;
   fromRest: boolean;
+  pressed: boolean;
 }) {
   let layers: React.ReactNode;
   if (phase === 'pending') {
@@ -186,7 +192,7 @@ function ButtonIcon({ phase, motion, Icon, SuccessIcon, fromRest }: {
   } else if (phase === 'error') {
     layers = <Layer><IconX size={ICON_SIZE} /></Layer>;
   } else {
-    layers = <Layer><Icon size={ICON_SIZE} /></Layer>;
+    layers = <Layer press={pressed ? motion?.press : undefined}><Icon size={ICON_SIZE} /></Layer>;
   }
   return <span data-gds-button-icon="">{layers}</span>;
 }
@@ -226,6 +232,10 @@ export function SemanticButton({
   const [phase, setPhaseState] = useState<GdsButtonPhase>('idle');
   const [cycle, setCycle] = useState(0);
   const [fromRest, setFromRest] = useState(true);
+  // The click motion plays in the phase the click put the button in, and never again when it
+  // later returns to that phase.
+  const [presses, setPresses] = useState(0);
+  const [pressPhase, setPressPhase] = useState<GdsButtonPhase | null>(null);
   const phaseRef = useRef<GdsButtonPhase>('idle');
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
   const alive = useRef(true);
@@ -233,6 +243,11 @@ export function SemanticButton({
   const setPhase = useCallback((next: GdsButtonPhase) => {
     phaseRef.current = next;
     setPhaseState(next);
+    if (next !== 'busy' && next !== 'confirm') setPressPhase(null);
+  }, []);
+  const press = useCallback((during: GdsButtonPhase) => {
+    setPresses((n) => n + 1);
+    setPressPhase(during);
   }, []);
   const clearTimers = useCallback(() => {
     for (const timer of timers.current) clearTimeout(timer);
@@ -270,6 +285,7 @@ export function SemanticButton({
 
   const handleClick = useCallback(async (event: React.MouseEvent<HTMLButtonElement>) => {
     if (!onAction) {
+      press('idle');
       onClick?.(event);
       return;
     }
@@ -280,11 +296,13 @@ export function SemanticButton({
     }
     clearTimers();
     if (motion?.confirm && current !== 'confirm') {
+      press('confirm');
       setPhase('confirm');
       later(GDS_BUTTON_CONFIRM_WINDOW_MS, () => setPhase('idle'));
       return;
     }
     onClick?.(event);
+    press('busy');
     setCycle((n) => n + 1);
     setPhase('busy');
     let shownAt = 0;
@@ -308,7 +326,7 @@ export function SemanticButton({
     setCycle((n) => n + 1);
     setPhase(ok ? 'success' : 'error');
     later(GDS_BUTTON_FEEDBACK_DURATION_MS, () => setPhase('idle'));
-  }, [onAction, onClick, motion?.confirm, clearTimers, later, setPhase]);
+  }, [onAction, onClick, motion?.confirm, clearTimers, later, setPhase, press]);
 
   const restLabel: React.ReactNode = labelOverride ?? getSemanticActionLabel(action, t, vocabularyPacks);
   const feedbackConfig = config.feedback ?? { icon: IconCheck, color: 'teal', messageId: 'gds.feedback.saved' };
@@ -373,7 +391,7 @@ export function SemanticButton({
       <Button
         {...buttonRest}
         onClick={handleClick}
-        leftSection={<ButtonIcon key={`${phase}-${cycle}`} phase={phase} motion={motion} Icon={config.icon} SuccessIcon={feedbackConfig.icon} fromRest={fromRest} />}
+        leftSection={<ButtonIcon key={`${phase}-${cycle}-${pressPhase === phase ? presses : 0}`} phase={phase} motion={motion} Icon={config.icon} SuccessIcon={feedbackConfig.icon} fromRest={fromRest} pressed={pressPhase === phase} />}
         loading={loading}
         color={color}
         data-gds-brand-button={brandButtonAttr}
