@@ -2,7 +2,7 @@
 
 Status: Active SSOT
 Version: 6.9.0
-Last updated: 2026-08-08
+Last updated: 2026-11-26
 
 GDS motion is a governed token and preset system. Consumers must use `@sovereignsquad/gds-theme` motion exports instead of route-local transition durations, custom easing curves, animation-only loading states, or unbounded overlay motion.
 
@@ -58,6 +58,7 @@ Duration tokens:
 - `base`: `180ms`
 - `slow`: `240ms`
 - `slower`: `360ms`
+- `ambient`: `1000ms`, for looping motion only (a typing indicator, a pending spinner)
 
 Easing tokens:
 
@@ -79,6 +80,43 @@ Use named presets rather than inventing motion locally:
 - `skeleton`: loading skeleton shimmer or pulse timing
 - `state`: color, border, disabled, validation, and status changes
 
+## Button Reactions And Micro-interactions
+
+Every Mantine `Button` under a GDS theme reacts to the pointer through the reaction axis tokens:
+
+- on a mouse device (`@media (hover: hover)`), hover lifts the button by `--gds-reaction-hover-lift`
+- press sinks it to `--gds-reaction-pressed-scale` (default `0.97`, no lift)
+- a pending (`aria-disabled`), loading or disabled button does not react
+
+`SemanticButton` runs an action's whole feedback cycle from a promise:
+
+```tsx
+<SemanticButton action="save" onAction={() => saveDraft()} />
+```
+
+- **Pending.** Shown only if the promise is still running after `GDS_BUTTON_PENDING_DELAY_MS` (500ms), then held at least `GDS_BUTTON_PENDING_MIN_MS` (200ms), so a fast action never flashes a spinner. The label changes to the action's pending text ("Saving…") and the icon runs the action's pending motion. Clicks are ignored and the button is `aria-disabled`, so it keeps keyboard focus.
+- **Success or error.** The button shows the result for `GDS_BUTTON_FEEDBACK_DURATION_MS` (2000ms), then returns to rest. Success runs the action's success motion; error turns the button red, shows a cross, shakes briefly and shows "Failed".
+- **Confirm first.** An action declaring `motion.confirm` (`delete`) asks "Click again to confirm" on the first click and disarms after `GDS_BUTTON_CONFIRM_WINDOW_MS` (3000ms).
+- **No layout shift.** A button with `onAction` or `feedbackState` reserves the width of its widest label.
+- **Announcements.** A polite live region announces pending, success and the full error message.
+
+Each action's motion is declared in the vocabulary (`GdsVocabulary[action].motion`):
+
+| Action | Pending | Success |
+| --- | --- | --- |
+| `send` | spinner | icon flies off, check pops in |
+| `save` | spinner | check draws |
+| `copy` | spinner | check pops in |
+| `delete` | spinner (after confirm) | check pops in |
+| `add` | spinner | icon turns a quarter, check pops in |
+| `download` | arrow bobs down | check draws |
+| `upload` | arrow bobs up | check draws |
+| `refresh` | icon spins | check pops in |
+| `reward` | spinner | icon pops |
+| `complete` | spinner | icon draws |
+
+Actions without a declared motion use the spinner and pop their own success icon. The keyframes are `gds-button-*` in `styles.css`; they animate only `transform`, `opacity` and stroke offset, on the motion tokens. `verify:button-motion-runtime` checks every declared motion on the reference site, the width, the hover and press transforms, and that nothing animates under reduced motion.
+
 ## Reduced Motion
 
 `getGdsMotionPreset(id, 'reduce')` removes transform movement and keeps only short opacity or immediate state changes where useful.
@@ -90,6 +128,8 @@ Use named presets rather than inventing motion locally:
 - `shouldAnimate: false`
 - linear easing
 - no transform
+
+Under reduced motion the button cycle keeps its labels, colours and announcements; icons and labels swap without animation, loops stop, and the hover and press transforms are off.
 
 The shipped CSS also declares motion variables and resets transition/animation/transform for reduced-motion users under:
 

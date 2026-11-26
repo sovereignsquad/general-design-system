@@ -3,9 +3,9 @@
   "darkSiblingsExcluded": 37,
   "cellsEvaluated": 1395,
   "obligationsSatisfied": {
-    "listed": 134,
-    "demoed": 156,
-    "explained": 119,
+    "listed": 138,
+    "demoed": 160,
+    "explained": 123,
     "variationsShown": 44,
     "useCase": 29
   },
@@ -788,44 +788,6 @@
       }
     },
     {
-      "token": "--gds-reaction-hover",
-      "role": "reaction-hover",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": false,
-      "demoed": false,
-      "explained": false,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "listed",
-        "demoed",
-        "explained",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-reaction-hover-lift",
-      "role": "reaction-hover-lift",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": false,
-      "demoed": false,
-      "explained": false,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "listed",
-        "demoed",
-        "explained",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
       "token": "--gds-reaction-hover-scale",
       "role": "reaction-hover-scale",
       "declaredIn": [
@@ -885,63 +847,6 @@
     {
       "token": "--gds-reaction-active-scale",
       "role": "reaction-active-scale",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": false,
-      "demoed": false,
-      "explained": false,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "listed",
-        "demoed",
-        "explained",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-reaction-pressed",
-      "role": "reaction-pressed",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": false,
-      "demoed": false,
-      "explained": false,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "listed",
-        "demoed",
-        "explained",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-reaction-pressed-lift",
-      "role": "reaction-pressed-lift",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": false,
-      "demoed": false,
-      "explained": false,
-      "variationsShown": false,
-      "useCase": false,
-      "gaps": [
-        "listed",
-        "demoed",
-        "explained",
-        "variationsShown",
-        "useCase"
-      ]
-    },
-    {
-      "token": "--gds-reaction-pressed-scale",
-      "role": "reaction-pressed-scale",
       "declaredIn": [
         "styles.css"
       ],
@@ -2325,6 +2230,24 @@
       }
     },
     {
+      "token": "--gds-reaction-pressed-lift",
+      "role": "reaction-pressed-lift",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": false,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "listed",
+        "explained",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
       "token": "--gds-badge-solid-success-fg",
       "role": "badge-solid-success-fg",
       "declaredIn": [
@@ -2774,23 +2697,6 @@
       ]
     },
     {
-      "token": "--gds-motion-ease-exit",
-      "role": "motion-ease-exit",
-      "declaredIn": [
-        "styles.css"
-      ],
-      "listed": true,
-      "demoed": false,
-      "explained": false,
-      "variationsShown": true,
-      "useCase": false,
-      "gaps": [
-        "demoed",
-        "explained",
-        "useCase"
-      ]
-    },
-    {
       "token": "--gds-density",
       "role": "density",
       "declaredIn": [
@@ -2939,6 +2845,40 @@
     {
       "token": "--gds-elevation-0",
       "role": "elevation-0",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": false,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "demoed",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-reaction-hover",
+      "role": "reaction-hover",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": false,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "demoed",
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-reaction-pressed",
+      "role": "reaction-pressed",
       "declaredIn": [
         "styles.css"
       ],
@@ -3208,6 +3148,22 @@
     {
       "token": "--gds-motion-ease-entrance",
       "role": "motion-ease-entrance",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": false,
+      "variationsShown": true,
+      "useCase": false,
+      "gaps": [
+        "explained",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-motion-ease-exit",
+      "role": "motion-ease-exit",
       "declaredIn": [
         "styles.css"
       ],
@@ -3602,6 +3558,38 @@
         "reason": "axes.ts emits the list of transitioned properties into it; it is read back by the transition machinery rather than styled against. Its demo/variation story needs the motion documentation (F2) to exist first. Tracked by issue 965.",
         "reviewBy": "2027-02-01"
       }
+    },
+    {
+      "token": "--gds-reaction-hover-lift",
+      "role": "reaction-hover-lift",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
+    },
+    {
+      "token": "--gds-reaction-pressed-scale",
+      "role": "reaction-pressed-scale",
+      "declaredIn": [
+        "styles.css"
+      ],
+      "listed": true,
+      "demoed": true,
+      "explained": true,
+      "variationsShown": false,
+      "useCase": false,
+      "gaps": [
+        "variationsShown",
+        "useCase"
+      ]
     },
     {
       "token": "--gds-focus-ring",

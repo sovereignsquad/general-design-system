@@ -227,6 +227,17 @@ describe('motion and reaction axes (issue 558)', () => {
     const loud = resolveGdsReactionTokens({ hover: 'pronounced' }, 'probe');
     expect(loud['--gds-reaction-hover-lift']).toBe('-4px');
   });
+
+  it('presses sink: no lift and a scale below 1, defaulting to 0.97 (#995)', () => {
+    const defaults = resolveGdsReactionTokens(undefined, 'probe');
+    expect(defaults['--gds-reaction-pressed-lift']).toBe('0');
+    expect(defaults['--gds-reaction-pressed-scale']).toBe('0.97');
+    for (const intensity of ['subtle', 'standard', 'pronounced'] as const) {
+      const scale = Number(resolveGdsReactionTokens({ pressed: intensity }, 'probe')['--gds-reaction-pressed-scale']);
+      expect(scale, intensity).toBeLessThan(1);
+    }
+    expect(resolveGdsReactionTokens({ pressed: 'none' }, 'probe')['--gds-reaction-pressed-scale']).toBe('1');
+  });
 });
 
 describe('layout axis (issue 698)', () => {

@@ -8,10 +8,10 @@ export const GdsVocabulary = {
   play: { id: 'gds.action.play', defaultMessage: 'Play', icon: GdsIcons.Play, feedback: { icon: GdsIcons.Play, color: 'teal', messageId: 'gds.feedback.started' } },
   start: { id: 'gds.action.start', defaultMessage: 'Start', icon: GdsIcons.Start, feedback: { icon: GdsIcons.Start, color: 'teal', messageId: 'gds.feedback.started' } },
   users: { id: 'gds.action.users', defaultMessage: 'Users', icon: GdsIcons.Users, feedback: { icon: GdsIcons.Users, color: 'teal', messageId: 'gds.feedback.loaded' } },
-  add: { id: 'gds.action.add', defaultMessage: 'Add', icon: GdsIcons.Add, feedback: { icon: GdsIcons.Add, color: 'teal', messageId: 'gds.feedback.added' } },
+  add: { id: 'gds.action.add', defaultMessage: 'Add', icon: GdsIcons.Add, feedback: { icon: GdsIcons.Success, color: 'teal', messageId: 'gds.feedback.added' }, motion: { pending: 'spinner', success: 'turn' } },
   edit: { id: 'gds.action.edit', defaultMessage: 'Edit', icon: GdsIcons.Edit, feedback: { icon: GdsIcons.Edit, color: 'teal', messageId: 'gds.feedback.edited' } },
-  delete: { id: 'gds.action.delete', defaultMessage: 'Delete', icon: GdsIcons.Delete, feedback: { icon: GdsIcons.Delete, color: 'red', messageId: 'gds.feedback.deleted' } },
-  save: { id: 'gds.action.save', defaultMessage: 'Save', icon: GdsIcons.Save, feedback: { icon: GdsIcons.Save, color: 'teal', messageId: 'gds.feedback.saved' } },
+  delete: { id: 'gds.action.delete', defaultMessage: 'Delete', icon: GdsIcons.Delete, feedback: { icon: GdsIcons.Success, color: 'red', messageId: 'gds.feedback.deleted' }, motion: { pending: 'spinner', success: 'check-pop', confirm: true } },
+  save: { id: 'gds.action.save', defaultMessage: 'Save', icon: GdsIcons.Save, feedback: { icon: GdsIcons.Success, color: 'teal', messageId: 'gds.feedback.saved' }, motion: { pending: 'spinner', success: 'check-draw' } },
   cancel: { id: 'gds.action.cancel', defaultMessage: 'Cancel', icon: GdsIcons.Cancel, feedback: { icon: GdsIcons.Cancel, color: 'red', messageId: 'gds.feedback.canceled' } },
   confirm: { id: 'gds.action.confirm', defaultMessage: 'Confirm', icon: GdsIcons.Confirm, feedback: { icon: GdsIcons.Confirm, color: 'teal', messageId: 'gds.feedback.confirmed' } },
   close: { id: 'gds.action.close', defaultMessage: 'Close', icon: GdsIcons.Close, feedback: { icon: GdsIcons.Close, color: 'gray', messageId: 'gds.feedback.closed' } },
@@ -23,18 +23,18 @@ export const GdsVocabulary = {
   gallery: { id: 'gds.action.gallery', defaultMessage: 'Gallery', icon: GdsIcons.Gallery, feedback: { icon: GdsIcons.Gallery, color: 'teal', messageId: 'gds.feedback.opened' } },
   history: { id: 'gds.action.history', defaultMessage: 'History', icon: GdsIcons.History, feedback: { icon: GdsIcons.History, color: 'teal', messageId: 'gds.feedback.opened' } },
   profile: { id: 'gds.action.profile', defaultMessage: 'Profile', icon: GdsIcons.Profile, feedback: { icon: GdsIcons.Profile, color: 'teal', messageId: 'gds.feedback.opened' } },
-  send: { id: 'gds.action.send', defaultMessage: 'Send', icon: GdsIcons.Send, feedback: { icon: GdsIcons.Send, color: 'blue', messageId: 'gds.feedback.sent' } },
+  send: { id: 'gds.action.send', defaultMessage: 'Send', icon: GdsIcons.Send, feedback: { icon: GdsIcons.Success, color: 'blue', messageId: 'gds.feedback.sent' }, motion: { pending: 'spinner', success: 'fly-off' } },
   reply: { id: 'gds.action.reply', defaultMessage: 'Reply', icon: GdsIcons.Reply, feedback: { icon: GdsIcons.Reply, color: 'blue', messageId: 'gds.feedback.replied' } },
   forward: { id: 'gds.action.forward', defaultMessage: 'Forward', icon: GdsIcons.Forward, feedback: { icon: GdsIcons.Forward, color: 'blue', messageId: 'gds.feedback.forwarded' } },
   attach: { id: 'gds.action.attach', defaultMessage: 'Attach', icon: GdsIcons.Attach, feedback: { icon: GdsIcons.Attach, color: 'teal', messageId: 'gds.feedback.attached' } },
-  upload: { id: 'gds.action.upload', defaultMessage: 'Upload', icon: GdsIcons.Upload, feedback: { icon: GdsIcons.Upload, color: 'teal', messageId: 'gds.feedback.uploaded' } },
-  download: { id: 'gds.action.download', defaultMessage: 'Download', icon: GdsIcons.Download, feedback: { icon: GdsIcons.Download, color: 'teal', messageId: 'gds.feedback.downloaded' } },
+  upload: { id: 'gds.action.upload', defaultMessage: 'Upload', icon: GdsIcons.Upload, feedback: { icon: GdsIcons.Success, color: 'teal', messageId: 'gds.feedback.uploaded' }, motion: { pending: 'bob-up', success: 'check-draw' } },
+  download: { id: 'gds.action.download', defaultMessage: 'Download', icon: GdsIcons.Download, feedback: { icon: GdsIcons.Success, color: 'teal', messageId: 'gds.feedback.downloaded' }, motion: { pending: 'bob-down', success: 'check-draw' } },
   print: { id: 'gds.action.print', defaultMessage: 'Print', icon: GdsIcons.Print, feedback: { icon: GdsIcons.Print, color: 'teal', messageId: 'gds.feedback.printed' } },
-  copy: { id: 'gds.action.copy', defaultMessage: 'Copy', icon: GdsIcons.Copy, feedback: { icon: GdsIcons.Copy, color: 'teal', messageId: 'gds.feedback.copied' } },
+  copy: { id: 'gds.action.copy', defaultMessage: 'Copy', icon: GdsIcons.Copy, feedback: { icon: GdsIcons.Success, color: 'teal', messageId: 'gds.feedback.copied' }, motion: { pending: 'spinner', success: 'check-pop' } },
   duplicate: { id: 'gds.action.duplicate', defaultMessage: 'Duplicate', icon: GdsIcons.Duplicate, feedback: { icon: GdsIcons.Duplicate, color: 'teal', messageId: 'gds.feedback.duplicated' } },
   check: { id: 'gds.action.check', defaultMessage: 'Check', icon: GdsIcons.Check, feedback: { icon: GdsIcons.Check, color: 'teal', messageId: 'gds.feedback.checked' } },
   uncheck: { id: 'gds.action.uncheck', defaultMessage: 'Uncheck', icon: GdsIcons.Uncheck, feedback: { icon: GdsIcons.Uncheck, color: 'red', messageId: 'gds.feedback.unchecked' } },
-  complete: { id: 'gds.action.complete', defaultMessage: 'Complete', icon: GdsIcons.Complete, feedback: { icon: GdsIcons.Complete, color: 'teal', messageId: 'gds.feedback.completed' } },
+  complete: { id: 'gds.action.complete', defaultMessage: 'Complete', icon: GdsIcons.Complete, feedback: { icon: GdsIcons.Complete, color: 'teal', messageId: 'gds.feedback.completed' }, motion: { pending: 'spinner', success: 'draw' } },
   clear: { id: 'gds.action.clear', defaultMessage: 'Clear', icon: GdsIcons.Clear, feedback: { icon: GdsIcons.Clear, color: 'red', messageId: 'gds.feedback.cleared' } },
   capture: { id: 'gds.action.capture', defaultMessage: 'Capture', icon: GdsIcons.Capture, feedback: { icon: GdsIcons.Capture, color: 'teal', messageId: 'gds.feedback.captured' } },
   record: { id: 'gds.action.record', defaultMessage: 'Record', icon: GdsIcons.Record, feedback: { icon: GdsIcons.Record, color: 'teal', messageId: 'gds.feedback.recorded' } },
@@ -51,13 +51,13 @@ export const GdsVocabulary = {
   habit: { id: 'gds.action.habit', defaultMessage: 'Habit', icon: GdsIcons.Habit, feedback: { icon: GdsIcons.Habit, color: 'teal', messageId: 'gds.feedback.done' } },
   goal: { id: 'gds.action.goal', defaultMessage: 'Goal', icon: GdsIcons.Goal, feedback: { icon: GdsIcons.Goal, color: 'teal', messageId: 'gds.feedback.done' } },
   streak: { id: 'gds.action.streak', defaultMessage: 'Streak', icon: GdsIcons.Streak, feedback: { icon: GdsIcons.Streak, color: 'teal', messageId: 'gds.feedback.done' } },
-  reward: { id: 'gds.action.reward', defaultMessage: 'Reward', icon: GdsIcons.Reward, feedback: { icon: GdsIcons.Reward, color: 'yellow', messageId: 'gds.feedback.rewarded' } },
+  reward: { id: 'gds.action.reward', defaultMessage: 'Reward', icon: GdsIcons.Reward, feedback: { icon: GdsIcons.Reward, color: 'yellow', messageId: 'gds.feedback.rewarded' }, motion: { pending: 'spinner', success: 'pop' } },
   trophy: { id: 'gds.action.trophy', defaultMessage: 'Trophy', icon: GdsIcons.Trophy, feedback: { icon: GdsIcons.Trophy, color: 'yellow', messageId: 'gds.feedback.rewarded' } },
   crown: { id: 'gds.action.crown', defaultMessage: 'Crown', icon: GdsIcons.Crown, feedback: { icon: GdsIcons.Crown, color: 'yellow', messageId: 'gds.feedback.rewarded' } },
   pause: { id: 'gds.action.pause', defaultMessage: 'Pause', icon: GdsIcons.Pause, feedback: { icon: GdsIcons.Pause, color: 'teal', messageId: 'gds.feedback.paused' } },
   message: { id: 'gds.action.message', defaultMessage: 'Message', icon: GdsIcons.Message, feedback: { icon: GdsIcons.Message, color: 'blue', messageId: 'gds.feedback.sent' } },
   mail: { id: 'gds.action.mail', defaultMessage: 'Mail', icon: GdsIcons.Mail, feedback: { icon: GdsIcons.Mail, color: 'blue', messageId: 'gds.feedback.mailed' } },
-  refresh: { id: 'gds.action.refresh', defaultMessage: 'Refresh', icon: GdsIcons.Refresh, feedback: { icon: GdsIcons.Refresh, color: 'teal', messageId: 'gds.feedback.refreshed' } },
+  refresh: { id: 'gds.action.refresh', defaultMessage: 'Refresh', icon: GdsIcons.Refresh, feedback: { icon: GdsIcons.Success, color: 'teal', messageId: 'gds.feedback.refreshed' }, motion: { pending: 'spin', success: 'check-pop' } },
   trendingUp: { id: 'gds.action.trendingUp', defaultMessage: 'Trending Up', icon: GdsIcons.TrendingUp, feedback: { icon: GdsIcons.TrendingUp, color: 'teal', messageId: 'gds.feedback.done' } },
   trendingDown: { id: 'gds.action.trendingDown', defaultMessage: 'Trending Down', icon: GdsIcons.TrendingDown, feedback: { icon: GdsIcons.TrendingDown, color: 'teal', messageId: 'gds.feedback.done' } },
   currency: { id: 'gds.action.currency', defaultMessage: 'Currency', icon: GdsIcons.Currency, feedback: { icon: GdsIcons.Currency, color: 'teal', messageId: 'gds.feedback.done' } },
@@ -98,7 +98,28 @@ export type VocabularyResolver = (id: string, defaultMessage: string) => string;
 
 type BaseSemanticActionDefinition = (typeof GdsVocabulary)[SemanticAction];
 
-/** Full definition of a semantic action: message id/default, icon, and optional aria label, destructive flag, and feedback. */
+/**
+ * Icon motion while an action's promise is pending. `spinner` replaces the icon with a loader;
+ * `spin`, `bob-down` and `bob-up` move the action's own icon.
+ */
+export type GdsButtonPendingMotion = 'spinner' | 'spin' | 'bob-down' | 'bob-up';
+
+/**
+ * Icon motion when an action succeeds. `fly-off` sends the icon away and pops a check in;
+ * `check-draw` and `check-pop` show a check; `turn` rotates the icon a quarter into a check;
+ * `pop` and `draw` animate the success icon itself.
+ */
+export type GdsButtonSuccessMotion = 'fly-off' | 'check-draw' | 'check-pop' | 'turn' | 'pop' | 'draw';
+
+/** How a `SemanticButton` animates this action. Every motion is disabled under reduced motion. */
+export interface GdsButtonMotion {
+  pending?: GdsButtonPendingMotion;
+  success?: GdsButtonSuccessMotion;
+  /** The first click asks for confirmation; a second click within the confirm window runs the action. */
+  confirm?: boolean;
+}
+
+/** Full definition of a semantic action: message id/default, icon, and optional aria label, destructive flag, feedback and motion. */
 export interface SemanticActionDefinition {
   id: string;
   defaultMessage: string;
@@ -106,6 +127,7 @@ export interface SemanticActionDefinition {
   ariaLabel?: string;
   destructive?: boolean;
   feedback?: BaseSemanticActionDefinition['feedback'];
+  motion?: GdsButtonMotion;
 }
 
 /** A namespaced bundle of custom semantic actions that can be merged into the vocabulary. */

@@ -32,73 +32,73 @@
     "packageParity": [
       {
         "locale": "ar",
-        "keys": 435,
+        "keys": 448,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "de",
-        "keys": 435,
+        "keys": 448,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "en",
-        "keys": 435,
+        "keys": 448,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "es",
-        "keys": 435,
+        "keys": 448,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "fr",
-        "keys": 435,
+        "keys": 448,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "he",
-        "keys": 435,
+        "keys": 448,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "hu",
-        "keys": 435,
+        "keys": 448,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "it",
-        "keys": 435,
+        "keys": 448,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "ja",
-        "keys": 435,
+        "keys": 448,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "ko",
-        "keys": 435,
+        "keys": 448,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "ru",
-        "keys": 435,
+        "keys": 448,
         "missing": 0,
         "extra": 0
       },
       {
         "locale": "zh",
-        "keys": 435,
+        "keys": 448,
         "missing": 0,
         "extra": 0
       }
@@ -252,77 +252,77 @@
       {
         "corpus": "package",
         "locale": "ar",
-        "total": 435,
+        "total": 448,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "package",
         "locale": "de",
-        "total": 435,
+        "total": 448,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "package",
         "locale": "es",
-        "total": 435,
+        "total": 448,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "package",
         "locale": "fr",
-        "total": 435,
+        "total": 448,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "package",
         "locale": "he",
-        "total": 435,
+        "total": 448,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "package",
         "locale": "hu",
-        "total": 435,
+        "total": 448,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "package",
         "locale": "it",
-        "total": 435,
+        "total": 448,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "package",
         "locale": "ja",
-        "total": 435,
+        "total": 448,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "package",
         "locale": "ko",
-        "total": 435,
+        "total": 448,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "package",
         "locale": "ru",
-        "total": 435,
+        "total": 448,
         "untranslated": 0,
         "rate": 0
       },
       {
         "corpus": "package",
         "locale": "zh",
-        "total": 435,
+        "total": 448,
         "untranslated": 0,
         "rate": 0
       }

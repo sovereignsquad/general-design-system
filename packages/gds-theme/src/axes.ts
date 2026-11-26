@@ -883,6 +883,17 @@ const REACTION_VALUES: Record<GdsReactionIntensity, { lift: string; scale: strin
   pronounced: { lift: '-4px', scale: '1.04' },
 };
 
+/**
+ * Pressed-state reaction: the control sinks rather than rises, so it has no lift and a scale
+ * below 1. Hover and active keep {@link REACTION_VALUES}.
+ */
+const PRESSED_REACTION_VALUES: Record<GdsReactionIntensity, { lift: string; scale: string }> = {
+  none: { lift: '0', scale: '1' },
+  subtle: { lift: '0', scale: '0.98' },
+  standard: { lift: '0', scale: '0.97' },
+  pronounced: { lift: '0', scale: '0.95' },
+};
+
 /** The default focus ring: 2px is the floor, not a preference. */
 export const GDS_DEFAULT_FOCUS_RING: GdsFocusRingSpec = {
   width: '2px',
@@ -895,7 +906,7 @@ export const GDS_DEFAULT_FOCUS_RING: GdsFocusRingSpec = {
 export const GDS_DEFAULT_REACTION_AXIS: GdsReactionAxis = {
   hover: 'standard',
   active: 'subtle',
-  pressed: 'subtle',
+  pressed: 'standard',
   focusRing: GDS_DEFAULT_FOCUS_RING,
   transitionScope: ['color', 'background', 'border', 'shadow', 'transform'],
 };
@@ -971,8 +982,9 @@ export function resolveGdsReactionTokens(axis: GdsReactionAxis = GDS_DEFAULT_REA
     const intensity = merged[state] ?? 'standard';
     if (!REACTION_VALUES[intensity]) throw new GdsAxisError(`${themeId}: reaction intensity "${intensity}" for "${state}" is not none/subtle/standard/pronounced.`);
     tokens[`--gds-reaction-${state}`] = intensity;
-    tokens[`--gds-reaction-${state}-lift`] = REACTION_VALUES[intensity].lift;
-    tokens[`--gds-reaction-${state}-scale`] = REACTION_VALUES[intensity].scale;
+    const values = state === 'pressed' ? PRESSED_REACTION_VALUES[intensity] : REACTION_VALUES[intensity];
+    tokens[`--gds-reaction-${state}-lift`] = values.lift;
+    tokens[`--gds-reaction-${state}-scale`] = values.scale;
   }
   return tokens;
 }

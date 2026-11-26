@@ -1,10 +1,14 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Badge, Box, Button, Group, Stack, Text } from '@mantine/core';
+import { Badge, Box, Button, Group, SegmentedControl, SimpleGrid, Stack, Text } from '@mantine/core';
 import { GdsVocabulary } from './vocabulary';
+import type { SemanticActionDefinition } from './vocabulary';
 import {
+  GDS_BUTTON_CONFIRM_WINDOW_MS,
   GDS_BUTTON_FEEDBACK_DURATION_MS,
+  GDS_BUTTON_PENDING_DELAY_MS,
+  GDS_BUTTON_PENDING_MIN_MS,
   GDS_BUTTON_GRADIENT_TEXT_FLOOR,
   GDS_BUTTON_OUTLINE_ACCENT_STROKE_PX,
   SemanticButton,
@@ -31,6 +35,64 @@ const feedbackRows: FeedbackRow[] = Object.entries(GdsVocabulary)
   }));
 
 const totalActions = Object.keys(GdsVocabulary).length;
+
+type MotionRow = { action: string; pending: string; success: string; confirm: string } & Record<string, unknown>;
+
+// Every vocabulary action that declares a motion, read from GdsVocabulary at render time.
+const motionRows: MotionRow[] = Object.entries(GdsVocabulary as Record<string, SemanticActionDefinition>)
+  .filter(([, config]) => Boolean(config.motion))
+  .map(([action, config]) => ({
+    action,
+    pending: config.motion!.pending ?? 'spinner',
+    success: config.motion!.success ?? 'pop',
+    confirm: config.motion!.confirm ? 'yes' : 'no',
+  }));
+
+// One step under and one step over the pending delay, so the demo shows both paths.
+const DEMO_LATENCIES = {
+  fast: Math.round(GDS_BUTTON_PENDING_DELAY_MS / 2),
+  slow: GDS_BUTTON_PENDING_DELAY_MS * 3,
+};
+
+function simulatedAction(latencyMs: number, succeed: boolean) {
+  return () => new Promise<void>((resolve, reject) => {
+    setTimeout(() => (succeed ? resolve() : reject(new Error('Simulated failure'))), latencyMs);
+  });
+}
+
+function ActionMotionDemo() {
+  const [outcome, setOutcome] = useState<'success' | 'error'>('success');
+  const [speed, setSpeed] = useState<'fast' | 'slow'>('slow');
+  const run = simulatedAction(DEMO_LATENCIES[speed], outcome === 'success');
+  return (
+    <Stack gap="xs" data-gds-button-motion-reference="">
+      <Group gap="sm" wrap="wrap">
+        <SegmentedControl
+          aria-label="Simulated outcome"
+          value={outcome}
+          onChange={(value) => setOutcome(value as 'success' | 'error')}
+          data={[{ value: 'success', label: 'Succeeds' }, { value: 'error', label: 'Fails' }]}
+        />
+        <SegmentedControl
+          aria-label="Simulated duration"
+          value={speed}
+          onChange={(value) => setSpeed(value as 'fast' | 'slow')}
+          data={[
+            { value: 'fast', label: `${DEMO_LATENCIES.fast}ms` },
+            { value: 'slow', label: `${DEMO_LATENCIES.slow}ms` },
+          ]}
+        />
+      </Group>
+      <SimpleGrid cols={{ base: 1, xs: 2, md: 3 }} spacing="xs">
+        {motionRows.map((row) => (
+          <Group key={row.action} gap="xs" wrap="nowrap" data-gds-button-motion-demo={row.action}>
+            <SemanticButton action={row.action as never} onAction={run} />
+          </Group>
+        ))}
+      </SimpleGrid>
+    </Stack>
+  );
+}
 // One representative action per distinct feedback colour, so the live proof below covers every
 // colour the system actually uses rather than a hand-picked three.
 const representativeByColor = Array.from(
@@ -155,6 +217,40 @@ export function GdsButtonFeedbackReference() {
       </Stack>
 
       <Stack gap="2xs">
+        <Group gap="xs" align="center">
+          <Text fw={700}>Action micro-interactions — onAction</Text>
+          <Badge variant="light">pending after {GDS_BUTTON_PENDING_DELAY_MS}ms</Badge>
+          <Badge variant="light">pending at least {GDS_BUTTON_PENDING_MIN_MS}ms</Badge>
+        </Group>
+        <Text size="sm">
+          Pass the action as <code>onAction</code> and the button runs the whole cycle from its
+          promise. An action that settles within {GDS_BUTTON_PENDING_DELAY_MS}ms goes straight to
+          its result; a slower one shows its pending motion and label, held at least{' '}
+          {GDS_BUTTON_PENDING_MIN_MS}ms so it never flickers. Clicks are ignored while it runs and
+          the button stays focusable (<code>aria-disabled</code>). The result shows for{' '}
+          {GDS_BUTTON_FEEDBACK_DURATION_MS}ms. Delete asks for a second click within{' '}
+          {GDS_BUTTON_CONFIRM_WINDOW_MS}ms. Each button reserves the width of its widest state, so
+          the layout does not move, and a live region announces pending, success and error.
+        </Text>
+        <Text size="sm" c="dimmed">
+          The actions below are simulated: each waits the selected time, then succeeds or fails.
+          With reduced motion turned on in the operating system, nothing moves: icons and labels
+          swap without animation.
+        </Text>
+        <ActionMotionDemo />
+        <SimpleDataTable<MotionRow>
+          columns={[
+            { key: 'action', header: 'Action' },
+            { key: 'pending', header: 'Pending motion' },
+            { key: 'success', header: 'Success motion' },
+            { key: 'confirm', header: 'Confirm first' },
+          ]}
+          rows={motionRows}
+          getRowKey={(row) => row.action}
+        />
+      </Stack>
+
+      <Stack gap="2xs">
         <Text fw={700}>Success feedback is per action</Text>
         <Text size="sm">
           {feedbackRows.length} of {totalActions} governed actions declare their own success
@@ -193,10 +289,11 @@ export function GdsButtonFeedbackReference() {
       <Stack gap="2xs">
         <Text fw={700}>Error feedback is uniform</Text>
         <Text size="sm">
-          Where success is per action, the error treatment is fixed: the same cross icon and the
-          `gds.feedback.error` message key for every action, so a failure reads the same way
-          wherever it appears. Pass `feedbackText` to replace the label in either state — the icon
-          stays governed.
+          Where success is per action, the error treatment is fixed for every action: the same
+          cross icon, a short shake, the short `gds.feedback.failed` label on the button (so it
+          keeps its width), and the full `gds.feedback.error` message in the live region, so a
+          failure reads the same way wherever it appears. Pass `feedbackText` to replace the label
+          in either state — the icon stays governed.
         </Text>
       </Stack>
 

@@ -1,7 +1,7 @@
 {
   "declared": 362,
-  "referenced": 173,
-  "extensionPoints": 121,
+  "referenced": 177,
+  "extensionPoints": 117,
   "pendingWireUp": 0,
   "unreachableCount": 0,
   "budget": 0,
@@ -665,13 +665,6 @@
       "declaredIn": "packages/gds-theme/styles.css"
     },
     {
-      "token": "--gds-motion-ease-exit",
-      "classification": "extension-point",
-      "reason": "Published easing-scale step, unused by current transitions. Same disposition as --gds-motion-duration-instant, tracked by #584.",
-      "reviewBy": "2026-12-01",
-      "declaredIn": "packages/gds-theme/styles.css"
-    },
-    {
       "token": "--gds-nav-inactiveOnInverse",
       "classification": "extension-point",
       "reason": "Inactive-item colour for navigation on an inverse surface. GDS's BottomTabBar computes its own inactive colour from --gds-text-on-inverse; this role is the published value for a consumer-built inverse nav.",
@@ -742,13 +735,6 @@
       "declaredIn": "getGdsVibeThemeCssVariables"
     },
     {
-      "token": "--gds-reaction-hover-lift",
-      "classification": "extension-point",
-      "reason": "Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.",
-      "reviewBy": "2027-08-01",
-      "declaredIn": "getGdsVibeThemeCssVariables"
-    },
-    {
       "token": "--gds-reaction-hover-scale",
       "classification": "extension-point",
       "reason": "Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.",
@@ -757,20 +743,6 @@
     },
     {
       "token": "--gds-reaction-pressed",
-      "classification": "extension-point",
-      "reason": "Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.",
-      "reviewBy": "2027-08-01",
-      "declaredIn": "getGdsVibeThemeCssVariables"
-    },
-    {
-      "token": "--gds-reaction-pressed-lift",
-      "classification": "extension-point",
-      "reason": "Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.",
-      "reviewBy": "2027-08-01",
-      "declaredIn": "getGdsVibeThemeCssVariables"
-    },
-    {
-      "token": "--gds-reaction-pressed-scale",
       "classification": "extension-point",
       "reason": "Reaction-axis token (issue 558). Emitted for every preset so a component reads interaction feedback and focus geometry from the theme rather than deciding it locally.",
       "reviewBy": "2027-08-01",

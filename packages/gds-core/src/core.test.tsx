@@ -847,7 +847,8 @@ describe('@sovereignsquad/gds-core', () => {
     expect(screen.getByRole('button', { name: 'Saved' })).toBeInTheDocument();
 
     rerender(<SemanticButton action="save" feedbackState="error" />);
-    expect(screen.getByRole('button', { name: 'Something went wrong' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Failed' })).toBeInTheDocument();
+    expect(screen.getByRole('status')).toHaveTextContent('Something went wrong');
   });
 
   it('resolves semantic icon tones without consumer color strings', () => {
@@ -1044,7 +1045,7 @@ describe('@sovereignsquad/gds-core', () => {
       expect(screen.getByRole('button', { name: 'Save' })).toHaveAttribute('data-gds-brand-button', 'outline-accent');
 
       rerender(<SemanticButton action="save" brandVariant="outline-accent" feedbackState="error" />);
-      expect(screen.getByRole('button', { name: 'Something went wrong' })).not.toHaveAttribute('data-gds-brand-button');
+      expect(screen.getByRole('button', { name: 'Failed' })).not.toHaveAttribute('data-gds-brand-button');
 
       act(() => { vi.advanceTimersByTime(GDS_BUTTON_FEEDBACK_DURATION_MS); });
       rerender(<SemanticButton action="save" brandVariant="outline-accent" feedbackState={null} />);

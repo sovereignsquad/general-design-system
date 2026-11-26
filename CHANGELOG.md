@@ -4,6 +4,27 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
+### Button micro-interactions (#995)
+
+- `SemanticButton` takes `onAction`, a function returning a promise, and runs the whole feedback cycle from it. Pending appears only if the promise is still running after 500ms and then stays at least 200ms, so fast actions never flash a spinner. The result shows for 2s. Clicks are ignored while it runs, and the button stays focusable (`aria-disabled`, not `disabled`). `onClick` still fires when the action starts.
+- Each vocabulary action can declare its motion (`motion.pending`, `motion.success`, `motion.confirm`):
+  - `send`: the icon flies off and a check pops in.
+  - `save`: a check draws itself.
+  - `copy`: a check pops in.
+  - `delete`: asks "Click again to confirm" first, then a check pops in.
+  - `add`: the icon turns a quarter into a check.
+  - `download` and `upload`: the arrow bobs while pending.
+  - `refresh`: the icon spins while pending.
+  - `reward`: the icon pops.
+  - `complete`: the icon draws itself.
+  - Pending labels come from new `gds.pending.*` messages ("Saving…").
+- Errors shake the button and show a short "Failed" (`gds.feedback.failed`) instead of "Something went wrong", so the button keeps its width; the live region still announces "Something went wrong". This applies to `feedbackState="error"` too.
+- A button with `onAction` or `feedbackState` reserves the width of its widest label, and has a live region that announces pending, success and error.
+- Every Mantine button under a GDS theme now lifts on hover by `--gds-reaction-hover-lift` (mouse devices only), and sinks on press to `--gds-reaction-pressed-scale`. The pressed reaction now sinks instead of growing: the default is `standard`, scale 0.97 with no lift, where it was a 1px lift and scale 1.01.
+- Under reduced motion nothing moves: icons and labels swap, loops stop, and hover and press do not transform.
+- The Button Micro-feedback page has a live `onAction` demo for every action with a declared motion; you can choose whether it succeeds or fails, and whether it runs faster or slower than the pending delay.
+- New release gate `verify:button-motion-runtime` checks, for every declared motion, its pending and success animations and that the width is unchanged. It also checks the failure shake, the hover and press transforms, and that nothing animates under reduced motion.
+
 ### Picomatch advisory exception removed (#994)
 
 - `npm audit` no longer reports GHSA-fc5q-39xc-vjpf for the installed `picomatch` 4.0.7, so the exception accepted under #992 is removed from `DEPENDENCY_AUDIT.md`. The accepted-advisory list is empty again.

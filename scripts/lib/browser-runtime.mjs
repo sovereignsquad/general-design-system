@@ -85,6 +85,7 @@ export async function launchBrowser({
   windowSize,
   verificationLabel,
   unrefBrowser = false,
+  extraArgs = [],
 }) {
   const chromePath = resolveChromePath();
   if (!chromePath) {
@@ -106,6 +107,7 @@ export async function launchBrowser({
     `--remote-debugging-port=${port}`,
     '--remote-debugging-address=127.0.0.1',
     `--user-data-dir=${userDataDir}`,
+    ...extraArgs,
     'about:blank',
   ], {
     stdio: ['ignore', 'ignore', 'pipe'],

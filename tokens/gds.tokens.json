@@ -3691,45 +3691,45 @@
         },
         "reaction-pressed": {
           "$type": "com.sovereignsquad.gds.cssKeyword",
-          "$value": "subtle",
+          "$value": "standard",
           "$description": "default semantic role \"reaction-pressed\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed",
               "lane": "semantic",
               "scheme": {
-                "light": "subtle",
-                "dark": "subtle"
+                "light": "standard",
+                "dark": "standard"
               }
             }
           }
         },
         "reaction-pressed-lift": {
           "$type": "dimension",
-          "$value": "-1px",
+          "$value": "0",
           "$description": "default semantic role \"reaction-pressed-lift\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-lift",
               "lane": "semantic",
               "scheme": {
-                "light": "-1px",
-                "dark": "-1px"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
         },
         "reaction-pressed-scale": {
           "$type": "number",
-          "$value": "1.01",
+          "$value": "0.97",
           "$description": "default semantic role \"reaction-pressed-scale\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-scale",
               "lane": "semantic",
               "scheme": {
-                "light": "1.01",
-                "dark": "1.01"
+                "light": "0.97",
+                "dark": "0.97"
               }
             }
           }
@@ -7400,45 +7400,45 @@
         },
         "reaction-pressed": {
           "$type": "com.sovereignsquad.gds.cssKeyword",
-          "$value": "subtle",
+          "$value": "standard",
           "$description": "high-contrast semantic role \"reaction-pressed\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed",
               "lane": "semantic",
               "scheme": {
-                "light": "subtle",
-                "dark": "subtle"
+                "light": "standard",
+                "dark": "standard"
               }
             }
           }
         },
         "reaction-pressed-lift": {
           "$type": "dimension",
-          "$value": "-1px",
+          "$value": "0",
           "$description": "high-contrast semantic role \"reaction-pressed-lift\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-lift",
               "lane": "semantic",
               "scheme": {
-                "light": "-1px",
-                "dark": "-1px"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
         },
         "reaction-pressed-scale": {
           "$type": "number",
-          "$value": "1.01",
+          "$value": "0.97",
           "$description": "high-contrast semantic role \"reaction-pressed-scale\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-scale",
               "lane": "semantic",
               "scheme": {
-                "light": "1.01",
-                "dark": "1.01"
+                "light": "0.97",
+                "dark": "0.97"
               }
             }
           }
@@ -11109,45 +11109,45 @@
         },
         "reaction-pressed": {
           "$type": "com.sovereignsquad.gds.cssKeyword",
-          "$value": "subtle",
+          "$value": "standard",
           "$description": "colorblind-safe semantic role \"reaction-pressed\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed",
               "lane": "semantic",
               "scheme": {
-                "light": "subtle",
-                "dark": "subtle"
+                "light": "standard",
+                "dark": "standard"
               }
             }
           }
         },
         "reaction-pressed-lift": {
           "$type": "dimension",
-          "$value": "-1px",
+          "$value": "0",
           "$description": "colorblind-safe semantic role \"reaction-pressed-lift\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-lift",
               "lane": "semantic",
               "scheme": {
-                "light": "-1px",
-                "dark": "-1px"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
         },
         "reaction-pressed-scale": {
           "$type": "number",
-          "$value": "1.01",
+          "$value": "0.97",
           "$description": "colorblind-safe semantic role \"reaction-pressed-scale\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-scale",
               "lane": "semantic",
               "scheme": {
-                "light": "1.01",
-                "dark": "1.01"
+                "light": "0.97",
+                "dark": "0.97"
               }
             }
           }
@@ -14818,45 +14818,45 @@
         },
         "reaction-pressed": {
           "$type": "com.sovereignsquad.gds.cssKeyword",
-          "$value": "subtle",
+          "$value": "standard",
           "$description": "dark-public semantic role \"reaction-pressed\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed",
               "lane": "semantic",
               "scheme": {
-                "light": "subtle",
-                "dark": "subtle"
+                "light": "standard",
+                "dark": "standard"
               }
             }
           }
         },
         "reaction-pressed-lift": {
           "$type": "dimension",
-          "$value": "-1px",
+          "$value": "0",
           "$description": "dark-public semantic role \"reaction-pressed-lift\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-lift",
               "lane": "semantic",
               "scheme": {
-                "light": "-1px",
-                "dark": "-1px"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
         },
         "reaction-pressed-scale": {
           "$type": "number",
-          "$value": "1.01",
+          "$value": "0.97",
           "$description": "dark-public semantic role \"reaction-pressed-scale\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-scale",
               "lane": "semantic",
               "scheme": {
-                "light": "1.01",
-                "dark": "1.01"
+                "light": "0.97",
+                "dark": "0.97"
               }
             }
           }
@@ -18527,45 +18527,45 @@
         },
         "reaction-pressed": {
           "$type": "com.sovereignsquad.gds.cssKeyword",
-          "$value": "subtle",
+          "$value": "standard",
           "$description": "flat-surface semantic role \"reaction-pressed\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed",
               "lane": "semantic",
               "scheme": {
-                "light": "subtle",
-                "dark": "subtle"
+                "light": "standard",
+                "dark": "standard"
               }
             }
           }
         },
         "reaction-pressed-lift": {
           "$type": "dimension",
-          "$value": "-1px",
+          "$value": "0",
           "$description": "flat-surface semantic role \"reaction-pressed-lift\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-lift",
               "lane": "semantic",
               "scheme": {
-                "light": "-1px",
-                "dark": "-1px"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
         },
         "reaction-pressed-scale": {
           "$type": "number",
-          "$value": "1.01",
+          "$value": "0.97",
           "$description": "flat-surface semantic role \"reaction-pressed-scale\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-scale",
               "lane": "semantic",
               "scheme": {
-                "light": "1.01",
-                "dark": "1.01"
+                "light": "0.97",
+                "dark": "0.97"
               }
             }
           }
@@ -22236,45 +22236,45 @@
         },
         "reaction-pressed": {
           "$type": "com.sovereignsquad.gds.cssKeyword",
-          "$value": "subtle",
+          "$value": "standard",
           "$description": "editorial semantic role \"reaction-pressed\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed",
               "lane": "semantic",
               "scheme": {
-                "light": "subtle",
-                "dark": "subtle"
+                "light": "standard",
+                "dark": "standard"
               }
             }
           }
         },
         "reaction-pressed-lift": {
           "$type": "dimension",
-          "$value": "-1px",
+          "$value": "0",
           "$description": "editorial semantic role \"reaction-pressed-lift\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-lift",
               "lane": "semantic",
               "scheme": {
-                "light": "-1px",
-                "dark": "-1px"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
         },
         "reaction-pressed-scale": {
           "$type": "number",
-          "$value": "1.01",
+          "$value": "0.97",
           "$description": "editorial semantic role \"reaction-pressed-scale\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-scale",
               "lane": "semantic",
               "scheme": {
-                "light": "1.01",
-                "dark": "1.01"
+                "light": "0.97",
+                "dark": "0.97"
               }
             }
           }
@@ -25945,45 +25945,45 @@
         },
         "reaction-pressed": {
           "$type": "com.sovereignsquad.gds.cssKeyword",
-          "$value": "subtle",
+          "$value": "standard",
           "$description": "brand semantic role \"reaction-pressed\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed",
               "lane": "semantic",
               "scheme": {
-                "light": "subtle",
-                "dark": "subtle"
+                "light": "standard",
+                "dark": "standard"
               }
             }
           }
         },
         "reaction-pressed-lift": {
           "$type": "dimension",
-          "$value": "-1px",
+          "$value": "0",
           "$description": "brand semantic role \"reaction-pressed-lift\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-lift",
               "lane": "semantic",
               "scheme": {
-                "light": "-1px",
-                "dark": "-1px"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
         },
         "reaction-pressed-scale": {
           "$type": "number",
-          "$value": "1.01",
+          "$value": "0.97",
           "$description": "brand semantic role \"reaction-pressed-scale\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-scale",
               "lane": "semantic",
               "scheme": {
-                "light": "1.01",
-                "dark": "1.01"
+                "light": "0.97",
+                "dark": "0.97"
               }
             }
           }
@@ -29654,45 +29654,45 @@
         },
         "reaction-pressed": {
           "$type": "com.sovereignsquad.gds.cssKeyword",
-          "$value": "subtle",
+          "$value": "standard",
           "$description": "partner-discovery semantic role \"reaction-pressed\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed",
               "lane": "semantic",
               "scheme": {
-                "light": "subtle",
-                "dark": "subtle"
+                "light": "standard",
+                "dark": "standard"
               }
             }
           }
         },
         "reaction-pressed-lift": {
           "$type": "dimension",
-          "$value": "-1px",
+          "$value": "0",
           "$description": "partner-discovery semantic role \"reaction-pressed-lift\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-lift",
               "lane": "semantic",
               "scheme": {
-                "light": "-1px",
-                "dark": "-1px"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
         },
         "reaction-pressed-scale": {
           "$type": "number",
-          "$value": "1.01",
+          "$value": "0.97",
           "$description": "partner-discovery semantic role \"reaction-pressed-scale\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-scale",
               "lane": "semantic",
               "scheme": {
-                "light": "1.01",
-                "dark": "1.01"
+                "light": "0.97",
+                "dark": "0.97"
               }
             }
           }
@@ -33363,45 +33363,45 @@
         },
         "reaction-pressed": {
           "$type": "com.sovereignsquad.gds.cssKeyword",
-          "$value": "subtle",
+          "$value": "standard",
           "$description": "harbor semantic role \"reaction-pressed\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed",
               "lane": "semantic",
               "scheme": {
-                "light": "subtle",
-                "dark": "subtle"
+                "light": "standard",
+                "dark": "standard"
               }
             }
           }
         },
         "reaction-pressed-lift": {
           "$type": "dimension",
-          "$value": "-1px",
+          "$value": "0",
           "$description": "harbor semantic role \"reaction-pressed-lift\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-lift",
               "lane": "semantic",
               "scheme": {
-                "light": "-1px",
-                "dark": "-1px"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
         },
         "reaction-pressed-scale": {
           "$type": "number",
-          "$value": "1.01",
+          "$value": "0.97",
           "$description": "harbor semantic role \"reaction-pressed-scale\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-scale",
               "lane": "semantic",
               "scheme": {
-                "light": "1.01",
-                "dark": "1.01"
+                "light": "0.97",
+                "dark": "0.97"
               }
             }
           }
@@ -37072,45 +37072,45 @@
         },
         "reaction-pressed": {
           "$type": "com.sovereignsquad.gds.cssKeyword",
-          "$value": "subtle",
+          "$value": "standard",
           "$description": "ochre semantic role \"reaction-pressed\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed",
               "lane": "semantic",
               "scheme": {
-                "light": "subtle",
-                "dark": "subtle"
+                "light": "standard",
+                "dark": "standard"
               }
             }
           }
         },
         "reaction-pressed-lift": {
           "$type": "dimension",
-          "$value": "-1px",
+          "$value": "0",
           "$description": "ochre semantic role \"reaction-pressed-lift\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-lift",
               "lane": "semantic",
               "scheme": {
-                "light": "-1px",
-                "dark": "-1px"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
         },
         "reaction-pressed-scale": {
           "$type": "number",
-          "$value": "1.01",
+          "$value": "0.97",
           "$description": "ochre semantic role \"reaction-pressed-scale\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-scale",
               "lane": "semantic",
               "scheme": {
-                "light": "1.01",
-                "dark": "1.01"
+                "light": "0.97",
+                "dark": "0.97"
               }
             }
           }
@@ -40781,45 +40781,45 @@
         },
         "reaction-pressed": {
           "$type": "com.sovereignsquad.gds.cssKeyword",
-          "$value": "subtle",
+          "$value": "standard",
           "$description": "meadow semantic role \"reaction-pressed\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed",
               "lane": "semantic",
               "scheme": {
-                "light": "subtle",
-                "dark": "subtle"
+                "light": "standard",
+                "dark": "standard"
               }
             }
           }
         },
         "reaction-pressed-lift": {
           "$type": "dimension",
-          "$value": "-1px",
+          "$value": "0",
           "$description": "meadow semantic role \"reaction-pressed-lift\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-lift",
               "lane": "semantic",
               "scheme": {
-                "light": "-1px",
-                "dark": "-1px"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
         },
         "reaction-pressed-scale": {
           "$type": "number",
-          "$value": "1.01",
+          "$value": "0.97",
           "$description": "meadow semantic role \"reaction-pressed-scale\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-scale",
               "lane": "semantic",
               "scheme": {
-                "light": "1.01",
-                "dark": "1.01"
+                "light": "0.97",
+                "dark": "0.97"
               }
             }
           }
@@ -44535,45 +44535,45 @@
         },
         "reaction-pressed": {
           "$type": "com.sovereignsquad.gds.cssKeyword",
-          "$value": "subtle",
+          "$value": "standard",
           "$description": "linen semantic role \"reaction-pressed\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed",
               "lane": "semantic",
               "scheme": {
-                "light": "subtle",
-                "dark": "subtle"
+                "light": "standard",
+                "dark": "standard"
               }
             }
           }
         },
         "reaction-pressed-lift": {
           "$type": "dimension",
-          "$value": "-1px",
+          "$value": "0",
           "$description": "linen semantic role \"reaction-pressed-lift\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-lift",
               "lane": "semantic",
               "scheme": {
-                "light": "-1px",
-                "dark": "-1px"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
         },
         "reaction-pressed-scale": {
           "$type": "number",
-          "$value": "1.01",
+          "$value": "0.97",
           "$description": "linen semantic role \"reaction-pressed-scale\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-scale",
               "lane": "semantic",
               "scheme": {
-                "light": "1.01",
-                "dark": "1.01"
+                "light": "0.97",
+                "dark": "0.97"
               }
             }
           }
@@ -48244,45 +48244,45 @@
         },
         "reaction-pressed": {
           "$type": "com.sovereignsquad.gds.cssKeyword",
-          "$value": "subtle",
+          "$value": "standard",
           "$description": "sunset semantic role \"reaction-pressed\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed",
               "lane": "semantic",
               "scheme": {
-                "light": "subtle",
-                "dark": "subtle"
+                "light": "standard",
+                "dark": "standard"
               }
             }
           }
         },
         "reaction-pressed-lift": {
           "$type": "dimension",
-          "$value": "-1px",
+          "$value": "0",
           "$description": "sunset semantic role \"reaction-pressed-lift\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-lift",
               "lane": "semantic",
               "scheme": {
-                "light": "-1px",
-                "dark": "-1px"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
         },
         "reaction-pressed-scale": {
           "$type": "number",
-          "$value": "1.01",
+          "$value": "0.97",
           "$description": "sunset semantic role \"reaction-pressed-scale\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-scale",
               "lane": "semantic",
               "scheme": {
-                "light": "1.01",
-                "dark": "1.01"
+                "light": "0.97",
+                "dark": "0.97"
               }
             }
           }
@@ -51953,45 +51953,45 @@
         },
         "reaction-pressed": {
           "$type": "com.sovereignsquad.gds.cssKeyword",
-          "$value": "subtle",
+          "$value": "standard",
           "$description": "oceanic semantic role \"reaction-pressed\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed",
               "lane": "semantic",
               "scheme": {
-                "light": "subtle",
-                "dark": "subtle"
+                "light": "standard",
+                "dark": "standard"
               }
             }
           }
         },
         "reaction-pressed-lift": {
           "$type": "dimension",
-          "$value": "-1px",
+          "$value": "0",
           "$description": "oceanic semantic role \"reaction-pressed-lift\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-lift",
               "lane": "semantic",
               "scheme": {
-                "light": "-1px",
-                "dark": "-1px"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
         },
         "reaction-pressed-scale": {
           "$type": "number",
-          "$value": "1.01",
+          "$value": "0.97",
           "$description": "oceanic semantic role \"reaction-pressed-scale\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-scale",
               "lane": "semantic",
               "scheme": {
-                "light": "1.01",
-                "dark": "1.01"
+                "light": "0.97",
+                "dark": "0.97"
               }
             }
           }
@@ -55662,45 +55662,45 @@
         },
         "reaction-pressed": {
           "$type": "com.sovereignsquad.gds.cssKeyword",
-          "$value": "subtle",
+          "$value": "standard",
           "$description": "forest semantic role \"reaction-pressed\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed",
               "lane": "semantic",
               "scheme": {
-                "light": "subtle",
-                "dark": "subtle"
+                "light": "standard",
+                "dark": "standard"
               }
             }
           }
         },
         "reaction-pressed-lift": {
           "$type": "dimension",
-          "$value": "-1px",
+          "$value": "0",
           "$description": "forest semantic role \"reaction-pressed-lift\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-lift",
               "lane": "semantic",
               "scheme": {
-                "light": "-1px",
-                "dark": "-1px"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
         },
         "reaction-pressed-scale": {
           "$type": "number",
-          "$value": "1.01",
+          "$value": "0.97",
           "$description": "forest semantic role \"reaction-pressed-scale\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-scale",
               "lane": "semantic",
               "scheme": {
-                "light": "1.01",
-                "dark": "1.01"
+                "light": "0.97",
+                "dark": "0.97"
               }
             }
           }
@@ -59371,45 +59371,45 @@
         },
         "reaction-pressed": {
           "$type": "com.sovereignsquad.gds.cssKeyword",
-          "$value": "subtle",
+          "$value": "standard",
           "$description": "ruby semantic role \"reaction-pressed\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed",
               "lane": "semantic",
               "scheme": {
-                "light": "subtle",
-                "dark": "subtle"
+                "light": "standard",
+                "dark": "standard"
               }
             }
           }
         },
         "reaction-pressed-lift": {
           "$type": "dimension",
-          "$value": "-1px",
+          "$value": "0",
           "$description": "ruby semantic role \"reaction-pressed-lift\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-lift",
               "lane": "semantic",
               "scheme": {
-                "light": "-1px",
-                "dark": "-1px"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
         },
         "reaction-pressed-scale": {
           "$type": "number",
-          "$value": "1.01",
+          "$value": "0.97",
           "$description": "ruby semantic role \"reaction-pressed-scale\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-scale",
               "lane": "semantic",
               "scheme": {
-                "light": "1.01",
-                "dark": "1.01"
+                "light": "0.97",
+                "dark": "0.97"
               }
             }
           }
@@ -63080,45 +63080,45 @@
         },
         "reaction-pressed": {
           "$type": "com.sovereignsquad.gds.cssKeyword",
-          "$value": "subtle",
+          "$value": "standard",
           "$description": "amber semantic role \"reaction-pressed\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed",
               "lane": "semantic",
               "scheme": {
-                "light": "subtle",
-                "dark": "subtle"
+                "light": "standard",
+                "dark": "standard"
               }
             }
           }
         },
         "reaction-pressed-lift": {
           "$type": "dimension",
-          "$value": "-1px",
+          "$value": "0",
           "$description": "amber semantic role \"reaction-pressed-lift\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-lift",
               "lane": "semantic",
               "scheme": {
-                "light": "-1px",
-                "dark": "-1px"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
         },
         "reaction-pressed-scale": {
           "$type": "number",
-          "$value": "1.01",
+          "$value": "0.97",
           "$description": "amber semantic role \"reaction-pressed-scale\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-scale",
               "lane": "semantic",
               "scheme": {
-                "light": "1.01",
-                "dark": "1.01"
+                "light": "0.97",
+                "dark": "0.97"
               }
             }
           }
@@ -66789,45 +66789,45 @@
         },
         "reaction-pressed": {
           "$type": "com.sovereignsquad.gds.cssKeyword",
-          "$value": "subtle",
+          "$value": "standard",
           "$description": "neon-night semantic role \"reaction-pressed\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed",
               "lane": "semantic",
               "scheme": {
-                "light": "subtle",
-                "dark": "subtle"
+                "light": "standard",
+                "dark": "standard"
               }
             }
           }
         },
         "reaction-pressed-lift": {
           "$type": "dimension",
-          "$value": "-1px",
+          "$value": "0",
           "$description": "neon-night semantic role \"reaction-pressed-lift\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-lift",
               "lane": "semantic",
               "scheme": {
-                "light": "-1px",
-                "dark": "-1px"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
         },
         "reaction-pressed-scale": {
           "$type": "number",
-          "$value": "1.01",
+          "$value": "0.97",
           "$description": "neon-night semantic role \"reaction-pressed-scale\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-scale",
               "lane": "semantic",
               "scheme": {
-                "light": "1.01",
-                "dark": "1.01"
+                "light": "0.97",
+                "dark": "0.97"
               }
             }
           }
@@ -70498,45 +70498,45 @@
         },
         "reaction-pressed": {
           "$type": "com.sovereignsquad.gds.cssKeyword",
-          "$value": "subtle",
+          "$value": "standard",
           "$description": "skyline semantic role \"reaction-pressed\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed",
               "lane": "semantic",
               "scheme": {
-                "light": "subtle",
-                "dark": "subtle"
+                "light": "standard",
+                "dark": "standard"
               }
             }
           }
         },
         "reaction-pressed-lift": {
           "$type": "dimension",
-          "$value": "-1px",
+          "$value": "0",
           "$description": "skyline semantic role \"reaction-pressed-lift\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-lift",
               "lane": "semantic",
               "scheme": {
-                "light": "-1px",
-                "dark": "-1px"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
         },
         "reaction-pressed-scale": {
           "$type": "number",
-          "$value": "1.01",
+          "$value": "0.97",
           "$description": "skyline semantic role \"reaction-pressed-scale\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-scale",
               "lane": "semantic",
               "scheme": {
-                "light": "1.01",
-                "dark": "1.01"
+                "light": "0.97",
+                "dark": "0.97"
               }
             }
           }
@@ -74207,45 +74207,45 @@
         },
         "reaction-pressed": {
           "$type": "com.sovereignsquad.gds.cssKeyword",
-          "$value": "subtle",
+          "$value": "standard",
           "$description": "aurora semantic role \"reaction-pressed\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed",
               "lane": "semantic",
               "scheme": {
-                "light": "subtle",
-                "dark": "subtle"
+                "light": "standard",
+                "dark": "standard"
               }
             }
           }
         },
         "reaction-pressed-lift": {
           "$type": "dimension",
-          "$value": "-1px",
+          "$value": "0",
           "$description": "aurora semantic role \"reaction-pressed-lift\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-lift",
               "lane": "semantic",
               "scheme": {
-                "light": "-1px",
-                "dark": "-1px"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
         },
         "reaction-pressed-scale": {
           "$type": "number",
-          "$value": "1.01",
+          "$value": "0.97",
           "$description": "aurora semantic role \"reaction-pressed-scale\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-scale",
               "lane": "semantic",
               "scheme": {
-                "light": "1.01",
-                "dark": "1.01"
+                "light": "0.97",
+                "dark": "0.97"
               }
             }
           }
@@ -77916,45 +77916,45 @@
         },
         "reaction-pressed": {
           "$type": "com.sovereignsquad.gds.cssKeyword",
-          "$value": "subtle",
+          "$value": "standard",
           "$description": "coral semantic role \"reaction-pressed\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed",
               "lane": "semantic",
               "scheme": {
-                "light": "subtle",
-                "dark": "subtle"
+                "light": "standard",
+                "dark": "standard"
               }
             }
           }
         },
         "reaction-pressed-lift": {
           "$type": "dimension",
-          "$value": "-1px",
+          "$value": "0",
           "$description": "coral semantic role \"reaction-pressed-lift\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-lift",
               "lane": "semantic",
               "scheme": {
-                "light": "-1px",
-                "dark": "-1px"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
         },
         "reaction-pressed-scale": {
           "$type": "number",
-          "$value": "1.01",
+          "$value": "0.97",
           "$description": "coral semantic role \"reaction-pressed-scale\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-scale",
               "lane": "semantic",
               "scheme": {
-                "light": "1.01",
-                "dark": "1.01"
+                "light": "0.97",
+                "dark": "0.97"
               }
             }
           }
@@ -81625,45 +81625,45 @@
         },
         "reaction-pressed": {
           "$type": "com.sovereignsquad.gds.cssKeyword",
-          "$value": "subtle",
+          "$value": "standard",
           "$description": "mint semantic role \"reaction-pressed\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed",
               "lane": "semantic",
               "scheme": {
-                "light": "subtle",
-                "dark": "subtle"
+                "light": "standard",
+                "dark": "standard"
               }
             }
           }
         },
         "reaction-pressed-lift": {
           "$type": "dimension",
-          "$value": "-1px",
+          "$value": "0",
           "$description": "mint semantic role \"reaction-pressed-lift\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-lift",
               "lane": "semantic",
               "scheme": {
-                "light": "-1px",
-                "dark": "-1px"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
         },
         "reaction-pressed-scale": {
           "$type": "number",
-          "$value": "1.01",
+          "$value": "0.97",
           "$description": "mint semantic role \"reaction-pressed-scale\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-scale",
               "lane": "semantic",
               "scheme": {
-                "light": "1.01",
-                "dark": "1.01"
+                "light": "0.97",
+                "dark": "0.97"
               }
             }
           }
@@ -85334,45 +85334,45 @@
         },
         "reaction-pressed": {
           "$type": "com.sovereignsquad.gds.cssKeyword",
-          "$value": "subtle",
+          "$value": "standard",
           "$description": "orchid semantic role \"reaction-pressed\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed",
               "lane": "semantic",
               "scheme": {
-                "light": "subtle",
-                "dark": "subtle"
+                "light": "standard",
+                "dark": "standard"
               }
             }
           }
         },
         "reaction-pressed-lift": {
           "$type": "dimension",
-          "$value": "-1px",
+          "$value": "0",
           "$description": "orchid semantic role \"reaction-pressed-lift\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-lift",
               "lane": "semantic",
               "scheme": {
-                "light": "-1px",
-                "dark": "-1px"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
         },
         "reaction-pressed-scale": {
           "$type": "number",
-          "$value": "1.01",
+          "$value": "0.97",
           "$description": "orchid semantic role \"reaction-pressed-scale\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-scale",
               "lane": "semantic",
               "scheme": {
-                "light": "1.01",
-                "dark": "1.01"
+                "light": "0.97",
+                "dark": "0.97"
               }
             }
           }
@@ -89043,45 +89043,45 @@
         },
         "reaction-pressed": {
           "$type": "com.sovereignsquad.gds.cssKeyword",
-          "$value": "subtle",
+          "$value": "standard",
           "$description": "royal semantic role \"reaction-pressed\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed",
               "lane": "semantic",
               "scheme": {
-                "light": "subtle",
-                "dark": "subtle"
+                "light": "standard",
+                "dark": "standard"
               }
             }
           }
         },
         "reaction-pressed-lift": {
           "$type": "dimension",
-          "$value": "-1px",
+          "$value": "0",
           "$description": "royal semantic role \"reaction-pressed-lift\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-lift",
               "lane": "semantic",
               "scheme": {
-                "light": "-1px",
-                "dark": "-1px"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
         },
         "reaction-pressed-scale": {
           "$type": "number",
-          "$value": "1.01",
+          "$value": "0.97",
           "$description": "royal semantic role \"reaction-pressed-scale\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-scale",
               "lane": "semantic",
               "scheme": {
-                "light": "1.01",
-                "dark": "1.01"
+                "light": "0.97",
+                "dark": "0.97"
               }
             }
           }
@@ -92752,45 +92752,45 @@
         },
         "reaction-pressed": {
           "$type": "com.sovereignsquad.gds.cssKeyword",
-          "$value": "subtle",
+          "$value": "standard",
           "$description": "warm semantic role \"reaction-pressed\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed",
               "lane": "semantic",
               "scheme": {
-                "light": "subtle",
-                "dark": "subtle"
+                "light": "standard",
+                "dark": "standard"
               }
             }
           }
         },
         "reaction-pressed-lift": {
           "$type": "dimension",
-          "$value": "-1px",
+          "$value": "0",
           "$description": "warm semantic role \"reaction-pressed-lift\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-lift",
               "lane": "semantic",
               "scheme": {
-                "light": "-1px",
-                "dark": "-1px"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
         },
         "reaction-pressed-scale": {
           "$type": "number",
-          "$value": "1.01",
+          "$value": "0.97",
           "$description": "warm semantic role \"reaction-pressed-scale\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-scale",
               "lane": "semantic",
               "scheme": {
-                "light": "1.01",
-                "dark": "1.01"
+                "light": "0.97",
+                "dark": "0.97"
               }
             }
           }
@@ -96461,45 +96461,45 @@
         },
         "reaction-pressed": {
           "$type": "com.sovereignsquad.gds.cssKeyword",
-          "$value": "subtle",
+          "$value": "standard",
           "$description": "gilded semantic role \"reaction-pressed\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed",
               "lane": "semantic",
               "scheme": {
-                "light": "subtle",
-                "dark": "subtle"
+                "light": "standard",
+                "dark": "standard"
               }
             }
           }
         },
         "reaction-pressed-lift": {
           "$type": "dimension",
-          "$value": "-1px",
+          "$value": "0",
           "$description": "gilded semantic role \"reaction-pressed-lift\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-lift",
               "lane": "semantic",
               "scheme": {
-                "light": "-1px",
-                "dark": "-1px"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
         },
         "reaction-pressed-scale": {
           "$type": "number",
-          "$value": "1.01",
+          "$value": "0.97",
           "$description": "gilded semantic role \"reaction-pressed-scale\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-scale",
               "lane": "semantic",
               "scheme": {
-                "light": "1.01",
-                "dark": "1.01"
+                "light": "0.97",
+                "dark": "0.97"
               }
             }
           }
@@ -100170,45 +100170,45 @@
         },
         "reaction-pressed": {
           "$type": "com.sovereignsquad.gds.cssKeyword",
-          "$value": "subtle",
+          "$value": "standard",
           "$description": "cosmic semantic role \"reaction-pressed\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed",
               "lane": "semantic",
               "scheme": {
-                "light": "subtle",
-                "dark": "subtle"
+                "light": "standard",
+                "dark": "standard"
               }
             }
           }
         },
         "reaction-pressed-lift": {
           "$type": "dimension",
-          "$value": "-1px",
+          "$value": "0",
           "$description": "cosmic semantic role \"reaction-pressed-lift\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-lift",
               "lane": "semantic",
               "scheme": {
-                "light": "-1px",
-                "dark": "-1px"
+                "light": "0",
+                "dark": "0"
               }
             }
           }
         },
         "reaction-pressed-scale": {
           "$type": "number",
-          "$value": "1.01",
+          "$value": "0.97",
           "$description": "cosmic semantic role \"reaction-pressed-scale\" — the value GDS components render for this role.",
           "$extensions": {
             "com.sovereignsquad.gds": {
               "role": "reaction-pressed-scale",
               "lane": "semantic",
               "scheme": {
-                "light": "1.01",
-                "dark": "1.01"
+                "light": "0.97",
+                "dark": "0.97"
               }
             }
           }
