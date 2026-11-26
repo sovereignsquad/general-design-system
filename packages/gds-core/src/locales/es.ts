@@ -367,7 +367,7 @@ export const es = {
   'gds.gdsPageTemplates.state.retrying.title': "Reintentando",
   'gds.gdsPageTemplates.state.saving.title': "Ahorro",
   'gds.gdsPageTemplates.state.permissionDenied.title': "Permiso denegado",
-  'gds.gdsPageTemplates.state.notFound.title': "Extraviado",
+  'gds.gdsPageTemplates.state.notFound.title': "No encontrado",
   'gds.gdsPageTemplates.state.loading.description': "Cargando los últimos datos.",
   'gds.gdsPageTemplates.state.empty.description': "Aún no hay datos disponibles para esta página.",
   'gds.gdsPageTemplates.state.ready.description': "La página está lista.",

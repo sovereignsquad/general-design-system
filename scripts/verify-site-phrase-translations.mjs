@@ -3,6 +3,7 @@ import { resolve } from 'node:path';
 import { parse } from '@babel/parser';
 import traverseModule from '@babel/traverse';
 import { TARGET_FILES as targetFiles, extractPhrases } from './lib/site-phrases.mjs';
+import { readLabelIndexes } from './lib/package-label-precedence.mjs';
 
 const traverse = traverseModule.default ?? traverseModule;
 const root = process.cwd();
@@ -62,6 +63,25 @@ for (const phrase of requiredPhrases) {
   }
 }
 
+// A short label a package message also translates must carry the package value (issue 996).
+const labelIndexes = readLabelIndexes(root, localeIds.filter((locale) => locale !== 'en'));
+let packageLabelChecks = 0;
+for (const phrase of requiredPhrases) {
+  for (const [locale, index] of Object.entries(labelIndexes)) {
+    const expected = index.labels.get(phrase);
+    if (expected === undefined) continue;
+    packageLabelChecks += 1;
+    const actual = localeMaps[locale][phrase];
+    if (actual !== expected) {
+      failures.push(
+        `generated-site-phrases/${locale}.ts has ${JSON.stringify(phrase)} -> ${JSON.stringify(actual)}; `
+        + `packages/gds-core/src/locales/${locale}.ts translates it ${JSON.stringify(expected)}. `
+        + 'Run node scripts/generate-site-phrase-translations.mjs.',
+      );
+    }
+  }
+}
+
 if (failures.length > 0) {
   console.error('Site phrase translation verification failed:');
   for (const failure of failures) {
@@ -70,4 +90,4 @@ if (failures.length > 0) {
   process.exit(1);
 }
 
-console.log(`Site phrase translation verification passed for ${requiredPhrases.size} phrases across ${localeIds.length} locales.`);
+console.log(`Site phrase translation verification passed for ${requiredPhrases.size} phrases across ${localeIds.length} locales (${packageLabelChecks} short labels match their package pack value).`);

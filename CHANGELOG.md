@@ -4,6 +4,13 @@ All notable policy changes to the General Design System are recorded here.
 
 ## Unreleased
 
+### Short site labels follow the package message packs (#996)
+
+- `scripts/generate-site-phrase-translations.mjs` gives a site phrase the package pack value when it is a short label (capitalised, at most three words, no punctuation) and every package message with that English text agrees in the locale. Package packs are hand-correctable, so one correction now fixes the component and the reference site. `verify-site-phrase-translations.mjs` fails when a site pack disagrees with that value. 219 site values across 11 locales changed, all to the existing package value.
+- The site now shows the `Save` correction from #995 (`保存` / `저장`). Wrong-sense zh and ko package labels corrected, and with them the site. Saving was ko `절약` ("thrift"), now `저장 중`. Home is now `首页` / `홈`, Profile `个人资料` / `프로필` (was "outline"), Sort `排序` / `정렬` (was "kind"), Gallery `图库` / `갤러리` (ko was "mine shaft"). Dismiss and Dismissed were "fire an employee", now `关闭` / `닫기`. Refreshing was "refreshing drink", now `正在刷新` / `새로고침 중`. Progress is now `进度` / `진행률` (was "improvement"), Export zh `导出` (was "exports"), Analytics ko `분석` (was "hermeneutics"), Search ko `검색`. Message, Rating, Reward, Trophy, Summary, Editor, Event, Primary, More, Verify, Play, Notice and Failed also take the UI sense.
+- Korean button labels in dictionary verb form now use the label form: Explore (`탐구하다` → `탐색`), Add, Close, Send, Submit, Verify, Finish, Retry, Reset, Increase, Decrease, Back.
+- Hebrew Cancel contained an Arabic letter (`ביטول` → `ביטול`); Spanish "Not found" read "misplaced" (`Extraviado` → `No encontrado`).
+
 ### Button micro-interactions (#995)
 
 - `SemanticButton` takes `onAction`, a function returning a promise, and runs the whole feedback cycle from it. Pending appears only if the promise is still running after 500ms and then stays at least 200ms, so fast actions never flash a spinner. The result shows for 2s. Clicks are ignored while it runs, and the button stays focusable (`aria-disabled`, not `disabled`). `onClick` still fires when the action starts.

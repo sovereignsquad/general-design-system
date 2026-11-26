@@ -232,10 +232,26 @@ As with the site phrases, **the wording is machine translation and has not been 
 human.** The same single-word limits below apply, and for the same reason.
 
 **Site phrase packs are regenerated**, so an edit there is overwritten on the next
-`npm run artifacts:refresh`. The generator keeps any existing non-empty value, with **one
-exception**: a value identical to its English source is retried when another locale translated
-the same phrase (issue 588), because that is the signature of a missed translation. So a
-deliberate "this term stays in English" needs to be recorded, not just typed.
+`npm run artifacts:refresh`. The generator keeps any existing non-empty value, with **two
+exceptions**:
+
+- **Short labels follow the package packs** (issue 996). A site phrase that is a short label
+  (capitalised, at most three words, no punctuation) and equals the English text of package
+  messages takes that locale's package value, as long as every message with that English text
+  agrees in the locale. To correct a wrong-sense short label on the site, correct it in
+  `packages/gds-core/src/locales/<locale>.ts` and run `npm run artifacts:refresh`; one edit fixes
+  the component and the site. Labels whose package messages disagree (zh `Back`: 上一步 in the
+  tour, 后退 elsewhere) keep their site value. `verify-site-phrase-translations.mjs` fails when a
+  site pack disagrees with the package value. Lower-case fragments the package composes with a
+  field name (`is required.`) are excluded, because their word order is the component's, not
+  the site's.
+- **Untranslated values are retried**: a value identical to its English source is retried when
+  another locale translated the same phrase (issue 588), because that is the signature of a
+  missed translation. So a deliberate "this term stays in English" needs to be recorded, not
+  just typed.
+
+A short label with no package message has no correction path yet; it keeps its machine
+translation.
 
 ### Where the phrase packs come from
 

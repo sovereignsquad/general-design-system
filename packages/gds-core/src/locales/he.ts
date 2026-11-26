@@ -16,7 +16,7 @@ export const he = {
   'gds.action.edit': 'ערוך',
   'gds.action.delete': 'מחק',
   'gds.action.save': 'שמור',
-  'gds.action.cancel': 'ביטول',
+  'gds.action.cancel': "ביטול",
   'gds.action.confirm': 'אישור',
   'gds.action.close': 'סגור',
   'gds.action.language': 'שפה',
