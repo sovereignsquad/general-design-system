@@ -997,7 +997,7 @@ describe('@sovereignsquad/gds-compliance strict mode', () => {
     const fixture = createFixture({
       'gds-adoption.json': JSON.stringify({
         schemaVersion: 1,
-        gdsVersion: '6.9.0',
+        gdsVersion: '6.10.0',
         productArchetype: 'admin',
         requiredContracts: [],
         localAdapters: [],

@@ -2,7 +2,7 @@
 
 All notable policy changes to the General Design System are recorded here.
 
-## Unreleased
+## 6.10.0 - 2026-11-26 — Promise-driven button micro-interactions, style profiles, neutral preset and API names with aliases kept, a rendering-quality gate, charts that draw by default, release notes on the reference site, and translation corrections that now reach the site from the package packs (#977-#996)
 
 ### Short site labels follow the package message packs (#996)
 

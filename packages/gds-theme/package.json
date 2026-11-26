@@ -1,6 +1,6 @@
 {
   "name": "@sovereignsquad/gds-theme",
-  "version": "6.9.0",
+  "version": "6.10.0",
   "description": "GDS design tokens, theme presets, font lanes, motion system and stylesheet.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

@@ -31,7 +31,7 @@ specificity, so the element keeps its own styling and nothing else in the cascad
 Element-level, not inherited. Contract and test: `THEME_GOVERNANCE.md`, "Opting one element
 out of the preset repaint".
 
-Release status: `data-gds-fixed-tone` first ships in 6.9.0; it is not in 6.7.0 or any earlier
+Release status: `data-gds-fixed-tone` first ships in 6.10.0; it is not in 6.7.0 or any earlier
 release. A consumer on 6.7.0 or earlier has no element-level opt-out.
 
 It is the sanctioned alternative to `!important` against a preset rule. The rules for a

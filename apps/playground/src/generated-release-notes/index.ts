@@ -9,8 +9,7 @@ async function load(file: string): Promise<GdsRelease[]> {
 
 /** Release groups in changelog order: id, release count, and a loader for its releases. */
 export const releaseGroups: Array<{ id: string; count: number; load: () => Promise<GdsRelease[]> }> = [
-  { id: "unreleased", count: 1, load: () => load('vunreleased.json') },
-  { id: "6", count: 10, load: () => load('v6.json') },
+  { id: "6", count: 11, load: () => load('v6.json') },
   { id: "5", count: 3, load: () => load('v5.json') },
   { id: "4", count: 17, load: () => load('v4.json') },
   { id: "3", count: 49, load: () => load('v3.json') },

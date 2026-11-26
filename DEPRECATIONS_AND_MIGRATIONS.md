@@ -1,7 +1,7 @@
 # Deprecations & Migrations
 
 Status: Active SSOT
-Version: 6.9.0
+Version: 6.10.0
 Last updated: 2026-11-13
 
 This document defines how `@sovereignsquad/gds-*` contracts are deprecated, replaced, and removed.
@@ -109,7 +109,7 @@ If a deprecation is introduced too early:
 - `migrationGuide`: replace each lookup with `var(--gds-accent-<name>-<shade>)`. The exports hold values resolved once for the light scheme (`resolveGdsAccentTokens(undefined, 'light')`), so they do not follow the active theme; the custom properties do. Accessibility: re-run contrast checks on badge and pin compositions after migrating, because the rendered values now change with the theme
 - `riskLevel`: low
 
-### Activity- and family-specific names replaced by generic ones (release after 6.9.0, #985)
+### Activity- and family-specific names replaced by generic ones (6.10.0, #985)
 
 - `contract` (all in `@sovereignsquad/gds-core`):
   - `DetailFactsTable` value keys `ageRange` and `activityType`;
@@ -119,7 +119,7 @@ If a deprecation is introduced too early:
   - the fact ids `audience` and `category`, with labels "Audience" and "Category" in every locale pack;
   - the props `category` and `audience`;
   - `tip` on both the place and the labels.
-- `deprecatedIn`: the release after 6.9.0.
+- `deprecatedIn`: 6.10.0.
 - `removalTarget`: 8.0.0, as stated in the TSDoc on each name.
 - `detectionRule`: the `@deprecated` TSDoc tag on each name. No lint or compliance rule.
 - `migrationGuide`: rename the key or prop. When both are set, the new name wins.
@@ -129,14 +129,14 @@ If a deprecation is introduced too early:
 
 `partnerDiscoveryDefaultAmenities` is a neutral set in the same release: free wifi, step-free access, quiet area, power outlets, card payments, pet friendly, outdoor seating and reservations. The set through 6.9.0 (high chairs, booster seats, changing table, menu mods, stroller storage, kids options, outdoor seating, reservations) is exported as `partnerDiscoveryFamilyAmenities`. Pass it to `PartnerDiscoveryFilters` to keep it. Saved filter state that holds the old amenity ids keeps working only with that set.
 
-### Client-named theme presets renamed (release after 6.9.0, #985)
+### Client-named theme presets renamed (6.10.0, #985)
 
 - `contract`: the preset ids `class-usa`, `gold-athlete`, `padel-africa`, `your-field` and `athlete-gold`, and the exports `classUsaThemePreset` and `goldAthleteThemePreset` (`@sovereignsquad/gds-theme`).
 - `replacement`:
   - ids `harbor`, `ochre`, `meadow`, `linen` and `gilded`;
   - exports `harborThemePreset` and `ochreThemePreset`;
   - `GDS_THEME_PRESET_ALIASES` maps each old id to its replacement, and `normalizeGdsThemePresetId` applies the map.
-- `deprecatedIn`: the release after 6.9.0.
+- `deprecatedIn`: 6.10.0.
 - `removalTarget`: 8.0.0.
 - `detectionRule`: the `@deprecated` TSDoc tag on the alias map, the alias type and the two old exports. No lint or compliance rule.
 - `migrationGuide`: replace each old id with its new one, in code and in stored selections.
@@ -218,8 +218,8 @@ The names an app on `3.9.0` changes when it moves to the current release. Instal
 | Export subpath | `ReferenceThemeExplorer`, `ThemeExplorerSelection`, `ThemePresetId`, `ThemeSchemeId` from `@sovereignsquad/gds-core` and `@sovereignsquad/gds-core/client` | `@sovereignsquad/gds-core/reference-theme-explorer` | 5.0.0 | [record](#referencethemeexplorer-moved-to-a-dedicated-subpath-500) |
 | Type members and Mantine color keys | `ClassUsaColorRampName` `'terracotta'`, `'sage'`; `classUsaTerracotta`, `classUsaSage` | `'brand'`, `'action'`, `'trust'`; `classUsaBrand`, `classUsaAction`, `classUsaTrust` | 6.0.0 | [record](#class-usa-re-based-onto-its-v2-palette-classusacolorrampname-and-classusa-mantine-keys-renamed-600) |
 | Exports, deprecated and still present | `gdsBadgeAccentColors`, `gdsBadgeAccentShades` | `var(--gds-accent-<name>-<shade>)` | 6.1.0 | [record](#gdsbadgeaccentcolors-and-gdsbadgeaccentshades-derived-from-the-accent-axis-610) |
-| Keys and props, aliases kept | `DetailFactsTable` `ageRange`/`activityType`; `GdsMapPinPreviewCard` `activity`/`ageRange`; `parentTip` | `audience`/`category`; `category`/`audience`; `tip` | after 6.9.0 | [record](#activity--and-family-specific-names-replaced-by-generic-ones-release-after-690-985) |
-| Preset ids, aliases kept | `class-usa`, `gold-athlete`, `padel-africa`, `your-field`, `athlete-gold`; `classUsaThemePreset`, `goldAthleteThemePreset` | `harbor`, `ochre`, `meadow`, `linen`, `gilded`; `harborThemePreset`, `ochreThemePreset` | after 6.9.0 | [record](#client-named-theme-presets-renamed-release-after-690-985) |
-| Default value | `partnerDiscoveryDefaultAmenities` family set | neutral set; family set as `partnerDiscoveryFamilyAmenities` | after 6.9.0 | [record](#activity--and-family-specific-names-replaced-by-generic-ones-release-after-690-985) |
+| Keys and props, aliases kept | `DetailFactsTable` `ageRange`/`activityType`; `GdsMapPinPreviewCard` `activity`/`ageRange`; `parentTip` | `audience`/`category`; `category`/`audience`; `tip` | 6.10.0 | [record](#activity--and-family-specific-names-replaced-by-generic-ones-6100-985) |
+| Preset ids, aliases kept | `class-usa`, `gold-athlete`, `padel-africa`, `your-field`, `athlete-gold`; `classUsaThemePreset`, `goldAthleteThemePreset` | `harbor`, `ochre`, `meadow`, `linen`, `gilded`; `harborThemePreset`, `ochreThemePreset` | 6.10.0 | [record](#client-named-theme-presets-renamed-6100-985) |
+| Default value | `partnerDiscoveryDefaultAmenities` family set | neutral set; family set as `partnerDiscoveryFamilyAmenities` | 6.10.0 | [record](#activity--and-family-specific-names-replaced-by-generic-ones-6100-985) |
 
 Removed names, measured between the tags `gds-v3.9.0` and `gds-v6.7.0`: listing the exports of the root, `/client` and `/server` entries of `@sovereignsquad/gds`, `gds-core`, `gds-theme` and `gds-admin` with the TypeScript checker at both tags, the four `ReferenceThemeExplorer` names above are the only export names removed. Comparing the `exports` maps of the seven packages' `package.json` files at both tags, no subpath was removed. Releases after `6.7.0` record their changes as entries in this document.
