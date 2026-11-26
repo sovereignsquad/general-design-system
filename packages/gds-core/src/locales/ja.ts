@@ -217,7 +217,7 @@ export const ja = {
   'gds.discoveryShell.mobileNavigationLabel': "ナビゲーションを切り替え",
   'gds.discoveryShell.desktopNavigationLabel': "サイドバーの切り替え",
   'gds.navigation.openMobile': "ドキュメントを開くナビゲーション",
-  'gds.editorialCard.ctaLabel': "探検する",
+  'gds.editorialCard.ctaLabel': "詳しく見る",
   'gds.featureBand.emptyTitle': "サポートの詳細はありません",
   'gds.featureBand.emptyDescription': "このパブリック サーフェスに信頼、サービス、または場所のコンテキストが必要な場合は、共有機能バンド項目を追加します。",
   'gds.featureBand.sectionLabel': "サポート機能",

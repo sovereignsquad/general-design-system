@@ -710,7 +710,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Exception lifecycle": "Ciclo di vita delle eccezioni",
   "Expanded chart catalog": "Catalogo cartografico espanso",
   "Explicit empty list renders nothing": "L'elenco vuoto esplicito non restituisce nulla",
-  "Explore": "Esplorare",
+  "Explore": "Esplora",
   "Export": "Esportare",
   "Export tracked": "Esportazione monitorata",
   "Exports": "Esportazioni",

@@ -710,7 +710,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Exception lifecycle": "מחזור חיים חריג",
   "Expanded chart catalog": "קטלוג תרשימים מורחב",
   "Explicit empty list renders nothing": "רשימה ריקה מפורשת לא מציגה דבר",
-  "Explore": "לַחקוֹר",
+  "Explore": "גלו",
   "Export": "יְצוּא",
   "Export tracked": "ייצוא במעקב",
   "Exports": "יצוא",

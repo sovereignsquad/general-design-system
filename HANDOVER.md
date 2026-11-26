@@ -1,7 +1,7 @@
 # Maintainer Notes
 
 Status: Active reference
-Last updated: 2026-11-18
+Last updated: 2026-11-26
 
 Working notes for anyone changing this repository: the commands, the conventions that are easy to get wrong, and how to read gate output. Contribution rules are in [CONTRIBUTING.md](CONTRIBUTING.md); release history is in [CHANGELOG.md](CHANGELOG.md) and the GitHub issues. Earlier revisions of this file were session logs; they remain in git history.
 
@@ -25,6 +25,7 @@ CI (`.github/workflows/quality.yml`) runs `verify:release` on Mantine 7 and on M
 - **Generated artifacts come only from their generators.** Never hand-edit anything under `tokens/`, `audit/`, `__snapshots__/`, `apps/playground/src/generated-*`, `apps/playground/public/release-notes/` or `apps/playground/public/pattern-usage.json`. Run `npm run artifacts:refresh`; its order matters, because the registry indexes the other generated files and the audit traces read the registry.
 - **Translations need the network.** `artifacts:refresh` translates new copy through `translate.googleapis.com`. The endpoint rate-limits automated traffic: a run that fails more than 10% of its calls stops, preserves the committed translations, and asks for a retry. Wait and rerun; never write translations by hand into generated site packs.
 - **Package message packs are source.** `packages/gds-core/src/locales/<locale>.ts` values may be corrected by hand; the generator appends new keys and never overwrites an existing value. Machine translation picks the wrong sense of short labels ("Table" as furniture), so check new short labels against an existing message for the same concept in the same pack. Site phrase packs take the package value for any short label a package message also translates, so a package correction reaches the site on the next `artifacts:refresh`.
+- **Correct a site phrase at its source.** A short label that a package message translates follows the package pack, so fix it there. A site-only phrase is corrected in `scripts/site-phrase-corrections.mjs`. Then run `node scripts/generate-site-phrase-translations.mjs`.
 - **A CHANGELOG edit regenerates the release notes.** `verify:release-notes` fails when `apps/playground/public/release-notes/` is stale; run `node scripts/generate-release-notes.mjs` or `artifacts:refresh`.
 - **Budgets are a ratchet with 10% slack.** `scripts/verify-budgets.mjs` (`DEFAULT_SLACK = 0.10`) reports a measurement worse than its budget as exceeded and one better than the slack band as unclaimed. Tighten a budget to the measured value, and prepend an evidence-based `justifiedBy` entry for every change; never delete earlier entries.
 - **Some allowlists are keyed by file and line.** `scripts/density-token-adoption.config.mjs` keys entries by `file:line`, so an unrelated edit that shifts lines orphans an entry. Move the key to the new line; do not widen a budget instead. `scripts/shape-token-adoption.config.mjs` keys by source text and survives line shifts.

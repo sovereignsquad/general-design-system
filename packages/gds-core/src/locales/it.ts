@@ -217,7 +217,7 @@ export const it = {
   'gds.discoveryShell.mobileNavigationLabel': "Attiva/disattiva la navigazione",
   'gds.discoveryShell.desktopNavigationLabel': "Attiva/disattiva la barra laterale",
   'gds.navigation.openMobile': "Apri la navigazione dei documenti",
-  'gds.editorialCard.ctaLabel': "Esplorare",
+  'gds.editorialCard.ctaLabel': "Esplora",
   'gds.featureBand.emptyTitle': "Nessun dettaglio di supporto disponibile",
   'gds.featureBand.emptyDescription': "Aggiungi elementi di gruppi di funzionalità condivisi quando questa superficie pubblica necessita di contesto di attendibilità, servizio o posizione.",
   'gds.featureBand.sectionLabel': "Funzionalità di supporto",

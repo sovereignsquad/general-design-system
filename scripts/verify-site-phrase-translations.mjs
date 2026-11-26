@@ -4,6 +4,7 @@ import { parse } from '@babel/parser';
 import traverseModule from '@babel/traverse';
 import { TARGET_FILES as targetFiles, extractPhrases } from './lib/site-phrases.mjs';
 import { readLabelIndexes } from './lib/package-label-precedence.mjs';
+import { SITE_PHRASE_CORRECTIONS } from './site-phrase-corrections.mjs';
 
 const traverse = traverseModule.default ?? traverseModule;
 const root = process.cwd();
@@ -82,6 +83,24 @@ for (const phrase of requiredPhrases) {
   }
 }
 
+// Every reviewed correction must still be a site phrase, and the site pack must carry it (issue 999).
+let correctionChecks = 0;
+for (const [locale, entries] of Object.entries(SITE_PHRASE_CORRECTIONS)) {
+  for (const [phrase, expected] of Object.entries(entries)) {
+    correctionChecks += 1;
+    if (!requiredPhrases.has(phrase)) {
+      failures.push(`scripts/site-phrase-corrections.mjs corrects ${JSON.stringify(phrase)} (${locale}), which the site no longer uses. Remove the entry.`);
+      continue;
+    }
+    const actual = localeMaps[locale]?.[phrase];
+    if (actual !== expected) {
+      failures.push(
+        `generated-site-phrases/${locale}.ts has ${JSON.stringify(phrase)} -> ${JSON.stringify(actual)}; `
+        + `scripts/site-phrase-corrections.mjs corrects it to ${JSON.stringify(expected)}. Run node scripts/generate-site-phrase-translations.mjs.`,
+      );
+    }
+  }
+}
 if (failures.length > 0) {
   console.error('Site phrase translation verification failed:');
   for (const failure of failures) {
@@ -90,4 +109,4 @@ if (failures.length > 0) {
   process.exit(1);
 }
 
-console.log(`Site phrase translation verification passed for ${requiredPhrases.size} phrases across ${localeIds.length} locales (${packageLabelChecks} short labels match their package pack value).`);
+console.log(`Site phrase translation verification passed for ${requiredPhrases.size} phrases across ${localeIds.length} locales (${packageLabelChecks} short labels match their package pack value, ${correctionChecks} reviewed corrections applied).`);

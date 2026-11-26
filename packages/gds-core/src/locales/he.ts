@@ -217,7 +217,7 @@ export const he = {
   'gds.discoveryShell.mobileNavigationLabel': "החלף ניווט",
   'gds.discoveryShell.desktopNavigationLabel': "החלף את סרגל הצד",
   'gds.navigation.openMobile': "פתח ניווט במסמכים",
-  'gds.editorialCard.ctaLabel': "לַחקוֹר",
+  'gds.editorialCard.ctaLabel': "גלו",
   'gds.featureBand.emptyTitle': "אין פרטים תומכים זמינים",
   'gds.featureBand.emptyDescription': "הוסף פריטי תכונה משותפים כאשר משטח ציבורי זה זקוק לאמון, שירות או הקשר של מיקום.",
   'gds.featureBand.sectionLabel': "תכונות תומכות",

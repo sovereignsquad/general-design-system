@@ -6,6 +6,7 @@ import { measureCorpusLeakage } from './lib/i18n-leakage.mjs';
 import { TARGET_FILES, extractPhrases } from './lib/site-phrases.mjs';
 import { chooseTranslationValue, translate, TRANSLATION_LOCALES } from './lib/translate.mjs';
 import { readLabelIndexes } from './lib/package-label-precedence.mjs';
+import { SITE_PHRASE_CORRECTIONS } from './site-phrase-corrections.mjs';
 
 const traverse = traverseModule.default ?? traverseModule;
 
@@ -62,6 +63,7 @@ let failedCalls = 0;
 let preservedOnFailure = 0;
 let fromPackage = 0;
 let replacedByPackage = 0;
+let corrected = 0;
 for (const en of sortedPhrases) {
   for (const locale of localeIds) {
     const existingTranslation = existingByLocale[locale][en];
@@ -70,6 +72,14 @@ for (const en of sortedPhrases) {
       generated[locale][en] = packageValue;
       fromPackage += 1;
       if (existingTranslation !== packageValue) replacedByPackage += 1;
+      continue;
+    }
+
+    // Site-only phrases whose machine translation took the wrong sense (issue 999).
+    const correction = SITE_PHRASE_CORRECTIONS[locale]?.[en];
+    if (correction) {
+      generated[locale][en] = correction;
+      corrected += 1;
       continue;
     }
 
@@ -130,6 +140,7 @@ for (const locale of localeIds) {
 const totalPairs = localeIds.reduce((sum, locale) => sum + Object.keys(generated[locale]).length, 0);
 console.log(`Generated ${sortedPhrases.length} phrases across ${localeIds.length} locales (${totalPairs} translated pairs).`);
 console.log(`  package pack labels  ${fromPackage} taken from packages/gds-core/src/locales (${replacedByPackage} changed).`);
+console.log(`  reviewed corrections ${corrected} taken from scripts/site-phrase-corrections.mjs.`);
 
 const attempted = translationJobs.length;
 if (attempted > 0) {

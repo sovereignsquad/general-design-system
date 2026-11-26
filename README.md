@@ -232,7 +232,7 @@ As with the site phrases, **the wording is machine translation and has not been 
 human.** The same single-word limits below apply, and for the same reason.
 
 **Site phrase packs are regenerated**, so an edit there is overwritten on the next
-`npm run artifacts:refresh`. The generator keeps any existing non-empty value, with **two
+`npm run artifacts:refresh`. The generator keeps any existing non-empty value, with **three
 exceptions**:
 
 - **Short labels follow the package packs** (issue 996). A site phrase that is a short label
@@ -245,13 +245,16 @@ exceptions**:
   site pack disagrees with the package value. Lower-case fragments the package composes with a
   field name (`is required.`) are excluded, because their word order is the component's, not
   the site's.
+- **Reviewed corrections** (issue 999). A site phrase with no package message whose machine
+  translation took the wrong sense ("Slug" as the animal, "Lists" as a slope) is corrected in
+  `scripts/site-phrase-corrections.mjs`. `verify-site-phrase-translations.mjs` fails when a site
+  pack does not carry a correction, or when a correction names a phrase the site no longer uses;
+  a unit test rejects a correction for a label a package message translates, which belongs in the
+  package pack instead.
 - **Untranslated values are retried**: a value identical to its English source is retried when
   another locale translated the same phrase (issue 588), because that is the signature of a
   missed translation. So a deliberate "this term stays in English" needs to be recorded, not
   just typed.
-
-A short label with no package message has no correction path yet; it keeps its machine
-translation.
 
 ### Where the phrase packs come from
 

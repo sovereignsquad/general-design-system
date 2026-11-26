@@ -710,7 +710,7 @@ export const generatedSitePhrases: Record<string, string> = {
   "Exception lifecycle": "例外のライフサイクル",
   "Expanded chart catalog": "拡張されたチャートカタログ",
   "Explicit empty list renders nothing": "明示的な空のリストは何もレンダリングしません",
-  "Explore": "探検する",
+  "Explore": "詳しく見る",
   "Export": "輸出",
   "Export tracked": "輸出追跡あり",
   "Exports": "輸出",

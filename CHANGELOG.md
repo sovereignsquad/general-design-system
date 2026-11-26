@@ -2,6 +2,14 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## Unreleased
+
+### Reviewed corrections for site-only phrases (#999)
+
+- Site phrases with no package message had no correction path, so wrong-sense machine translations stayed. They are now corrected in a reviewed list, `scripts/site-phrase-corrections.mjs`, which the generator applies after the package labels. It holds 68 Chinese and 66 Korean entries, for example "Components" (`成分`, "ingredients", now `组件`), "Slug" (`蛞蝓`, the animal, now `别名`), "Browse" (`먹다`, "eat", now `둘러보기`) and "Lists" (`기울기`, "slope", now `목록`).
+- `verify-site-phrase-translations.mjs` fails when a site pack does not carry a correction, or when a correction names a phrase the site no longer uses. A unit test rejects a correction for a label a package message translates.
+- Package corrections: "Explore" (editorial card) in Arabic (`يستكشف` → `استكشف`), Hebrew (→ `גלו`), Italian (Esplorare → Esplora) and Japanese (`探検する` → `詳しく見る`); Arabic "Code" (`شفرة`, "cipher" → `الكود`).
+
 ## 6.10.0 - 2026-11-26 — Promise-driven button micro-interactions, style profiles, neutral preset and API names with aliases kept, a rendering-quality gate, charts that draw by default, release notes on the reference site, and translation corrections that now reach the site from the package packs (#977-#996)
 
 ### Short site labels follow the package message packs (#996)
