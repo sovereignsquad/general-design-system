@@ -2,7 +2,7 @@
 
 All notable policy changes to the General Design System are recorded here.
 
-## Unreleased
+## 6.11.0 - 2026-11-27 — A click motion for every button action, and reviewed corrections for wrong-sense site translations (#999, #1000)
 
 ### A click motion for every button action (#1000)
 

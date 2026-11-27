@@ -1,7 +1,7 @@
 # Amanoba-Blocking Contract Scaffolds
 
 Status: Decision record after issue split (`#97`, `#99`)
-Version: 6.10.0
+Version: 6.11.0
 Last updated: 2026-10-01
 
 Contracts below unblock deletion of permanent Amanoba-only forks after `mvp-factory-control` epic #868.

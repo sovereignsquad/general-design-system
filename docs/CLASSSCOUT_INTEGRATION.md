@@ -1,13 +1,13 @@
 # ClassScout / Class USA Integration Guide
 
-GDS 4.0.0 delivered the first-class `Class USA` theme and the missing ClassScout primitives required to ship on pure GDS with no app-level forks, raw design values, or app-local chart/control shims. The current stable line is **6.10.0**; see B11–B18 below for what shipped since 4.0.0.
+GDS 4.0.0 delivered the first-class `Class USA` theme and the missing ClassScout primitives required to ship on pure GDS with no app-level forks, raw design values, or app-local chart/control shims. The current stable line is **6.11.0**; see B11–B18 below for what shipped since 4.0.0.
 
 ## Install
 
 GDS publishes every release from `6.8.0` on to npmjs.com; install with no `.npmrc` entry and no token. The `3.9.0` listings there are a frozen, deprecated snapshot, so do not pin them. The authenticated GitHub Packages mirror is described in [INSTALLATION_GUIDE.md](../INSTALLATION_GUIDE.md#github-packages-mirror-authenticated).
 
 ```bash
-npm install @sovereignsquad/gds@6.10.0
+npm install @sovereignsquad/gds@6.11.0
 ```
 
 ## Bootstrap

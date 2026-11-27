@@ -1,7 +1,7 @@
 # General Design System
 
 Status: Active SSOT
-Version: 6.10.0
+Version: 6.11.0
 Last updated: 2026-11-17
 
 [![npm](https://img.shields.io/npm/v/@sovereignsquad/gds)](https://www.npmjs.com/package/@sovereignsquad/gds)
