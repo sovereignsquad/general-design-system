@@ -1,7 +1,8 @@
 import {
-  DEFAULT_THEME, createTheme, defaultVariantColorsResolver, mergeMantineTheme, mergeThemeOverrides,
+  DEFAULT_THEME, createTheme, defaultVariantColorsResolver, mergeMantineTheme,
   type MantineTheme, type MantineThemeOverride, type VariantColorsResolver,
 } from '@mantine/core';
+import { mergeGdsThemeOverrides } from './merge-theme-overrides';
 import { getGdsMotionPreset } from './motion';
 import { GDS_DEFAULT_DENSITY_AXIS, GDS_DEFAULT_SHAPE_AXIS } from './axes';
 
@@ -347,7 +348,7 @@ export function createPublicBrandTheme({
   layeredOverrides.push(overrides);
 
   const mergedOverrides = layeredOverrides.reduce<MantineThemeOverride>(
-    (theme, layer) => mergeThemeOverrides(theme, layer),
+    (theme, layer) => mergeGdsThemeOverrides(theme, layer),
     {},
   );
 
@@ -373,7 +374,7 @@ export function withGdsMotion(overrides: MantineThemeOverride = {}) {
   const feedbackMotion = getGdsMotionPreset('feedback');
   const listMotion = getGdsMotionPreset('list');
   return extendGdsTheme(
-    mergeThemeOverrides(
+    mergeGdsThemeOverrides(
       {
         components: {
           Button: {

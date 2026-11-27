@@ -10,7 +10,7 @@ export const DENSITY_ALLOWLIST = {
       + 'geometry belongs to #563/#564.',
     reviewBy: '2027-02-01',
   },
-  'packages/gds-core/src/PublicShell.tsx:83': {
+  'packages/gds-core/src/PublicShell.tsx:86': {
     reason:
       '0.5rem gap, which is genuinely off the scale: the density ramp runs 2xs 0.25rem -> xs '
       + '0.625rem, both captured from Mantine. Migrating to xs adds 2px to a shell gap, a '
@@ -18,11 +18,11 @@ export const DENSITY_ALLOWLIST = {
     reviewBy: '2026-12-01',
   },
   'packages/gds-theme/src/VibeThemePicker.client.tsx:32': {
-    reason: '0.5rem gap in the theme picker; off the scale for the same reason as PublicShell:83.',
+    reason: '0.5rem gap in the theme picker; off the scale for the same reason as PublicShell:86.',
     reviewBy: '2026-12-01',
   },
   'packages/gds-theme/src/VibeThemePicker.client.tsx:41': {
-    reason: '0.5rem gap in the theme picker; off the scale for the same reason as PublicShell:83.',
+    reason: '0.5rem gap in the theme picker; off the scale for the same reason as PublicShell:86.',
     reviewBy: '2026-12-01',
   },
   'packages/gds-core/src/ReferenceThemeExplorer.tsx:303': {

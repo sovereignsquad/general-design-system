@@ -1,3 +1,5 @@
+'use client';
+
 import { ActionIcon, Group, Text } from '@mantine/core';
 import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { GdsIcons } from './icons';

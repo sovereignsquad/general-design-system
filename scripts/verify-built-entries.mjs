@@ -1,6 +1,6 @@
 // Checks built gds-core subpath entries the way consumers load them, against dist/ rather
-// than source: the lazy locale entries register in ESM, in CommonJS and through a bundler that
-// honours `sideEffects`, and `map.css` bundles without unresolvable assets.
+// than source: the lazy locale entries register in ESM, in CommonJS, across both builds in one
+// process, and through a bundler that honours `sideEffects`, and `map.css` bundles without unresolvable assets.
 import { execFileSync } from 'node:child_process';
 import { existsSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -42,6 +42,12 @@ probe('ESM locales/lazy/de', esm('de', ['de']), 'module');
 probe('ESM locales/lazy/all', esm('all', ['de', 'ko', 'ar']), 'module');
 probe('CJS locales/lazy/de', cjs('de', ['de']), 'commonjs');
 probe('CJS locales/lazy/all', cjs('all', ['de', 'ko', 'ar']), 'commonjs');
+// The ESM and CommonJS builds loaded in one process (an \`import\` and a \`require\`) share one registry.
+probe('ESM locales/lazy/de read through CJS locales/lazy', `
+await import('${coreDist}/locales/lazy/de.mjs');
+const { createRequire } = await import('node:module');
+const { getGdsMessagesLazy } = createRequire(import.meta.url)('${coreDist}/locales/lazy/index.js');
+console.log(getGdsMessagesLazy('de') !== getGdsMessagesLazy('en') ? 'registered' : 'english fallback');`, 'module');
 
 const work = mkdtempSync(join(tmpdir(), 'gds-built-entries-'));
 try {
@@ -87,4 +93,4 @@ if (failures.length > 0) {
   console.error(`Built entry verification failed:\n- ${failures.join('\n- ')}`);
   process.exit(1);
 }
-console.log('Built entry verification passed: lazy locales register in ESM, CommonJS and a bundled consumer; map.css bundles.');
+console.log('Built entry verification passed: lazy locales register in ESM, CommonJS, across both builds in one process and in a bundled consumer; map.css bundles.');

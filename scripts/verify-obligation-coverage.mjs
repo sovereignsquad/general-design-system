@@ -41,12 +41,14 @@ const demoBlob = (() => {
   return out.join('\n');
 })();
 
-/** Contrast evidence for accents, from the built theme package. */
+/** Contrast evidence for accents: the gds-core source module that declares the badge accent shade table. */
 const accentContrastEvidence = (() => {
-  try {
-    const badge = readFileSync(join(ROOT, 'packages/gds-core/src/GdsBadge.tsx'), 'utf8');
-    return badge;
-  } catch { return ''; }
+  const dir = join(ROOT, 'packages/gds-core/src');
+  for (const file of readdirSync(dir).filter((f) => /^[^.]+(\.[a-z]+)?\.tsx?$/.test(f) && !f.includes('.test.'))) {
+    const source = readFileSync(join(dir, file), 'utf8');
+    if (/export const gdsBadgeAccentShades\b/.test(source)) return source;
+  }
+  return '';
 })();
 
 // ── Obligation predicates ────────────────────────────────────────────────────

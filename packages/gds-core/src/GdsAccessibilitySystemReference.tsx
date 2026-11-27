@@ -1,3 +1,5 @@
+'use client';
+
 import { Badge, Box, Group, Stack, Text } from '@mantine/core';
 import { auditGdsAccessibilityFloor, gdsAccessibilityFloorRules, type GdsFloorRule } from '@sovereignsquad/gds-theme';
 import { SimpleDataTable } from './SimpleDataTable';

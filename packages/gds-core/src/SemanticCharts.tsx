@@ -1,3 +1,5 @@
+'use client';
+
 import { Box, Group, Paper } from '@mantine/core';
 import type { GdsSeriesTone } from './chart-colors';
 import { SemanticChartFrame, semanticRenderer } from './chart-primitives';
@@ -5,8 +7,6 @@ import { GdsChart, type GdsChartProps } from './GdsChart';
 
 export { SemanticChartFrame, type SemanticChartFrameProps } from './chart-primitives';
 
-export { gdsSeriesPalette, getGdsSeriesColor, getGdsChartSeriesColor, resolveGdsChartTokenColor, GDS_CHART_SERIES_SLOTS, GDS_CHART_SERIES_COLORS } from './chart-colors';
-export type { GdsSeriesTone } from './chart-colors';
 
 /** Shared props for the semantic chart wrappers — `GdsChartProps` minus the internally-fixed `type`, `legend`, and `renderer`. */
 export interface SemanticChartProps extends Omit<GdsChartProps, 'type' | 'legend' | 'renderer'> {

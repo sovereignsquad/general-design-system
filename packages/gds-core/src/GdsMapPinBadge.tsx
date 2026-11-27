@@ -1,3 +1,5 @@
+'use client';
+
 import { cloneElement, isValidElement } from 'react';
 import type { ReactNode } from 'react';
 import { gdsDevWarnOnce, useGdsBadgeIconStyle } from '@sovereignsquad/gds-theme';
@@ -9,7 +11,8 @@ import type { GdsIconKey } from './icons';
 import { resolveGdsAccentTokens } from '@sovereignsquad/gds-theme';
 
 const gdsResolvedAccentFallback = resolveGdsAccentTokens(undefined, 'light');
-import type { GdsBadgeAccentName, GdsBadgeAccentShade } from './GdsBadge';
+import type { GdsBadgeAccentName, GdsBadgeAccentShade } from './GdsBadge.shared';
+import { GDS_PIN_EMOJI_SCALE, GDS_PIN_ICON_SCALE, GDS_PIN_HEAD_CENTER_OFFSET, GDS_PIN_APPROXIMATE_DASH, GDS_PIN_SELECTED_SCALE, GDS_PIN_EMPHASIS_STROKE } from './GdsMapPinBadge.shared';
 
 /**
  * Category-colored map-pin marker: pin shape + centered icon, exactly two layers (no
@@ -91,29 +94,9 @@ const DEEPER_SHADE: Record<GdsBadgeAccentShade, GdsBadgeAccentShade> = {
   base: 'deep', deep: 'deeper', deeper: 'deepest', deepest: 'deepest',
 };
 
-/** Stroke weight for hovered/selected states. Idle keeps 1.75. Exported for the map's marker renderer, which can't compose this component. */
-export const GDS_PIN_EMPHASIS_STROKE = 2.25;
-
-/** Selected-state scale step. Applied around the tail tip so the anchored map point holds still. */
-export const GDS_PIN_SELECTED_SCALE = 1.15;
-
-/** Dash pattern for the approximate-location stroke, in the pin's 24-unit path space. Exported for the map's marker renderer. */
-export const GDS_PIN_APPROXIMATE_DASH = '3 2.5';
-
-/** Solved pin-head centring offset. Exported so documentation reads it directly, not retyped. */
-export const GDS_PIN_HEAD_CENTER_OFFSET = 'translateY(-4.1667%)';
 const PIN_HEAD_CENTER_OFFSET = GDS_PIN_HEAD_CENTER_OFFSET;
 
-/** Icon scale bound: widest shipped glyphs (e.g. IconMasksTheater, IconBike) overflow the pin's circle above ~0.48. */
-export const GDS_PIN_ICON_SCALE = 0.46;
 const ICON_SCALE = GDS_PIN_ICON_SCALE;
-
-/**
- * Emoji scale, derived from `GDS_PIN_ICON_SCALE` rather than set independently, so both move
- * together. 0.9 factor: a Tabler glyph paints ~0.83 of its box, an emoji paints nearly its
- * whole em, so equal scale would render the emoji visibly larger.
- */
-export const GDS_PIN_EMOJI_SCALE = GDS_PIN_ICON_SCALE * 0.9;
 
 /** Fixed dark-neutral fill for the emoji-mode disc, same value as `GdsBadge`'s emoji coin. Not theme-derived. */
 const EMOJI_DISC_FILL = 'var(--mantine-color-dark-7, #1f2937)';

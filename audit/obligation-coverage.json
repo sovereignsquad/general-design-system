@@ -38,7 +38,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/AISearchCard.tsx",
-        "line": 18
+        "line": 20
       },
       "unmet": [
         {
@@ -178,7 +178,7 @@
       "kind": "variant",
       "source": {
         "file": "packages/gds-core/src/AuthShell.tsx",
-        "line": 6
+        "line": 8
       },
       "unmet": [
         {
@@ -192,7 +192,7 @@
       "kind": "variant",
       "source": {
         "file": "packages/gds-core/src/AuthShell.tsx",
-        "line": 6
+        "line": 8
       },
       "unmet": [
         {
@@ -206,7 +206,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/BottomTabBar.tsx",
-        "line": 19
+        "line": 10
       },
       "unmet": [
         {
@@ -220,7 +220,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 24
+        "line": 26
       },
       "unmet": [
         {
@@ -234,7 +234,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 24
+        "line": 26
       },
       "unmet": [
         {
@@ -248,7 +248,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 24
+        "line": 26
       },
       "unmet": [
         {
@@ -262,7 +262,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 24
+        "line": 26
       },
       "unmet": [
         {
@@ -276,7 +276,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 24
+        "line": 26
       },
       "unmet": [
         {
@@ -290,7 +290,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 24
+        "line": 26
       },
       "unmet": [
         {
@@ -304,7 +304,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 24
+        "line": 26
       },
       "unmet": [
         {
@@ -318,7 +318,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 24
+        "line": 26
       },
       "unmet": [
         {
@@ -332,7 +332,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 24
+        "line": 26
       },
       "unmet": [
         {
@@ -346,7 +346,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 24
+        "line": 26
       },
       "unmet": [
         {
@@ -360,7 +360,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 24
+        "line": 26
       },
       "unmet": [
         {
@@ -374,7 +374,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 24
+        "line": 26
       },
       "unmet": [
         {
@@ -388,7 +388,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 24
+        "line": 26
       },
       "unmet": [
         {
@@ -402,7 +402,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 24
+        "line": 26
       },
       "unmet": [
         {
@@ -416,7 +416,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 24
+        "line": 26
       },
       "unmet": [
         {
@@ -430,7 +430,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 24
+        "line": 26
       },
       "unmet": [
         {
@@ -444,7 +444,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 24
+        "line": 26
       },
       "unmet": [
         {
@@ -458,7 +458,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 24
+        "line": 26
       },
       "unmet": [
         {
@@ -472,7 +472,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 24
+        "line": 26
       },
       "unmet": [
         {
@@ -486,7 +486,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 24
+        "line": 26
       },
       "unmet": [
         {
@@ -500,7 +500,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 24
+        "line": 26
       },
       "unmet": [
         {
@@ -514,7 +514,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 24
+        "line": 26
       },
       "unmet": [
         {
@@ -528,7 +528,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/BrowseSurface.tsx",
-        "line": 24
+        "line": 26
       },
       "unmet": [
         {
@@ -570,7 +570,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ChatSurface.tsx",
-        "line": 30
+        "line": 32
       },
       "unmet": [
         {
@@ -584,7 +584,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ChatSurface.tsx",
-        "line": 30
+        "line": 32
       },
       "unmet": [
         {
@@ -598,7 +598,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ChatSurface.tsx",
-        "line": 30
+        "line": 32
       },
       "unmet": [
         {
@@ -612,7 +612,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ChatSurface.tsx",
-        "line": 30
+        "line": 32
       },
       "unmet": [
         {
@@ -626,7 +626,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ChatSurface.tsx",
-        "line": 30
+        "line": 32
       },
       "unmet": [
         {
@@ -640,7 +640,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ChatSurface.tsx",
-        "line": 30
+        "line": 32
       },
       "unmet": [
         {
@@ -654,7 +654,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ChatSurface.tsx",
-        "line": 30
+        "line": 32
       },
       "unmet": [
         {
@@ -668,7 +668,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ChatSurface.tsx",
-        "line": 30
+        "line": 32
       },
       "unmet": [
         {
@@ -682,7 +682,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ChatSurface.tsx",
-        "line": 30
+        "line": 32
       },
       "unmet": [
         {
@@ -696,7 +696,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ChatSurface.tsx",
-        "line": 30
+        "line": 32
       },
       "unmet": [
         {
@@ -710,7 +710,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ChatSurface.tsx",
-        "line": 30
+        "line": 32
       },
       "unmet": [
         {
@@ -724,7 +724,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ConfirmDialog.tsx",
-        "line": 8
+        "line": 10
       },
       "unmet": [
         {
@@ -738,7 +738,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ConfirmDialog.tsx",
-        "line": 8
+        "line": 10
       },
       "unmet": [
         {
@@ -752,7 +752,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ConfirmDialog.tsx",
-        "line": 8
+        "line": 10
       },
       "unmet": [
         {
@@ -766,7 +766,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ConfirmDialog.tsx",
-        "line": 8
+        "line": 10
       },
       "unmet": [
         {
@@ -1074,7 +1074,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/EditorialCard.tsx",
-        "line": 11
+        "line": 13
       },
       "unmet": [
         {
@@ -1088,7 +1088,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/EditorialCard.tsx",
-        "line": 11
+        "line": 13
       },
       "unmet": [
         {
@@ -1102,7 +1102,7 @@
       "kind": "variant",
       "source": {
         "file": "packages/gds-core/src/EditorialCard.tsx",
-        "line": 11
+        "line": 13
       },
       "unmet": [
         {
@@ -1116,7 +1116,7 @@
       "kind": "variant",
       "source": {
         "file": "packages/gds-core/src/EditorialCard.tsx",
-        "line": 11
+        "line": 13
       },
       "unmet": [
         {
@@ -1312,7 +1312,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/FeatureBand.tsx",
-        "line": 22
+        "line": 24
       },
       "unmet": [
         {
@@ -1326,7 +1326,7 @@
       "kind": "variant",
       "source": {
         "file": "packages/gds-core/src/FeatureBand.tsx",
-        "line": 22
+        "line": 24
       },
       "unmet": [
         {
@@ -1578,7 +1578,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/GdsBreadcrumbs.tsx",
-        "line": 11
+        "line": 13
       },
       "unmet": [
         {
@@ -1592,7 +1592,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/GdsChart.tsx",
-        "line": 204
+        "line": 27
       },
       "unmet": [
         {
@@ -1606,7 +1606,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/GdsChart.tsx",
-        "line": 204
+        "line": 27
       },
       "unmet": [
         {
@@ -1620,7 +1620,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/GdsChart.tsx",
-        "line": 204
+        "line": 27
       },
       "unmet": [
         {
@@ -1634,7 +1634,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/GdsChart.tsx",
-        "line": 204
+        "line": 27
       },
       "unmet": [
         {
@@ -1774,7 +1774,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/GdsFormControls.tsx",
-        "line": 85
+        "line": 87
       },
       "unmet": [
         {
@@ -1788,7 +1788,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/GdsFormControls.tsx",
-        "line": 85
+        "line": 87
       },
       "unmet": [
         {
@@ -1802,7 +1802,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/GdsFormControls.tsx",
-        "line": 85
+        "line": 87
       },
       "unmet": [
         {
@@ -1816,7 +1816,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/GdsFormControls.tsx",
-        "line": 85
+        "line": 87
       },
       "unmet": [
         {
@@ -1830,7 +1830,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/GdsFormControls.tsx",
-        "line": 85
+        "line": 87
       },
       "unmet": [
         {
@@ -1844,7 +1844,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/GdsFormControls.tsx",
-        "line": 85
+        "line": 87
       },
       "unmet": [
         {
@@ -1858,7 +1858,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/GdsFormControls.tsx",
-        "line": 164
+        "line": 166
       },
       "unmet": [
         {
@@ -1872,7 +1872,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/GdsFormControls.tsx",
-        "line": 164
+        "line": 166
       },
       "unmet": [
         {
@@ -1886,7 +1886,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/GdsFormControls.tsx",
-        "line": 164
+        "line": 166
       },
       "unmet": [
         {
@@ -1900,7 +1900,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/GdsFormControls.tsx",
-        "line": 164
+        "line": 166
       },
       "unmet": [
         {
@@ -1914,7 +1914,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/GdsFormControls.tsx",
-        "line": 164
+        "line": 166
       },
       "unmet": [
         {
@@ -1928,7 +1928,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/GdsFormControls.tsx",
-        "line": 164
+        "line": 166
       },
       "unmet": [
         {
@@ -1942,7 +1942,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/GdsFormControls.tsx",
-        "line": 164
+        "line": 166
       },
       "unmet": [
         {
@@ -1984,7 +1984,7 @@
       "kind": "variant",
       "source": {
         "file": "packages/gds-core/src/GdsPageTemplates.tsx",
-        "line": 103
+        "line": 40
       },
       "unmet": [
         {
@@ -2306,7 +2306,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 47
+        "line": 50
       },
       "unmet": [
         {
@@ -2320,7 +2320,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 47
+        "line": 50
       },
       "unmet": [
         {
@@ -2334,7 +2334,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 47
+        "line": 50
       },
       "unmet": [
         {
@@ -2348,7 +2348,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 47
+        "line": 50
       },
       "unmet": [
         {
@@ -2362,7 +2362,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 47
+        "line": 50
       },
       "unmet": [
         {
@@ -2376,7 +2376,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 47
+        "line": 50
       },
       "unmet": [
         {
@@ -2390,7 +2390,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 47
+        "line": 50
       },
       "unmet": [
         {
@@ -2404,7 +2404,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 47
+        "line": 50
       },
       "unmet": [
         {
@@ -2418,7 +2418,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 47
+        "line": 50
       },
       "unmet": [
         {
@@ -2432,7 +2432,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 47
+        "line": 50
       },
       "unmet": [
         {
@@ -2446,7 +2446,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 47
+        "line": 50
       },
       "unmet": [
         {
@@ -2460,7 +2460,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 47
+        "line": 50
       },
       "unmet": [
         {
@@ -2474,7 +2474,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 47
+        "line": 50
       },
       "unmet": [
         {
@@ -2488,7 +2488,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 47
+        "line": 50
       },
       "unmet": [
         {
@@ -2502,7 +2502,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 47
+        "line": 50
       },
       "unmet": [
         {
@@ -2516,7 +2516,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 47
+        "line": 50
       },
       "unmet": [
         {
@@ -2530,7 +2530,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 47
+        "line": 50
       },
       "unmet": [
         {
@@ -2544,7 +2544,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 47
+        "line": 50
       },
       "unmet": [
         {
@@ -2558,7 +2558,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 47
+        "line": 50
       },
       "unmet": [
         {
@@ -2572,7 +2572,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 47
+        "line": 50
       },
       "unmet": [
         {
@@ -2586,7 +2586,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 47
+        "line": 50
       },
       "unmet": [
         {
@@ -2600,7 +2600,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 47
+        "line": 50
       },
       "unmet": [
         {
@@ -2614,7 +2614,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 47
+        "line": 50
       },
       "unmet": [
         {
@@ -2628,7 +2628,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ListingCard.tsx",
-        "line": 47
+        "line": 50
       },
       "unmet": [
         {
@@ -2642,7 +2642,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ListingPrimitives.tsx",
-        "line": 15
+        "line": 17
       },
       "unmet": [
         {
@@ -2656,7 +2656,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ListingPrimitives.tsx",
-        "line": 22
+        "line": 24
       },
       "unmet": [
         {
@@ -2670,7 +2670,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ListingPrimitives.tsx",
-        "line": 22
+        "line": 24
       },
       "unmet": [
         {
@@ -2684,7 +2684,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ListingPrimitives.tsx",
-        "line": 36
+        "line": 38
       },
       "unmet": [
         {
@@ -2698,7 +2698,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ListingPrimitives.tsx",
-        "line": 36
+        "line": 38
       },
       "unmet": [
         {
@@ -2712,7 +2712,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ListingPrimitives.tsx",
-        "line": 36
+        "line": 38
       },
       "unmet": [
         {
@@ -2726,7 +2726,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ListingPrimitives.tsx",
-        "line": 45
+        "line": 47
       },
       "unmet": [
         {
@@ -3020,7 +3020,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/MediaWithFallback.tsx",
-        "line": 14
+        "line": 16
       },
       "unmet": [
         {
@@ -3034,7 +3034,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/Notifications.tsx",
-        "line": 93
+        "line": 22
       },
       "unmet": [
         {
@@ -3048,7 +3048,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/Notifications.tsx",
-        "line": 93
+        "line": 22
       },
       "unmet": [
         {
@@ -3062,7 +3062,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/Notifications.tsx",
-        "line": 93
+        "line": 22
       },
       "unmet": [
         {
@@ -3076,7 +3076,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/NumberStepper.tsx",
-        "line": 15
+        "line": 17
       },
       "unmet": [
         {
@@ -3090,7 +3090,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/NumberStepper.tsx",
-        "line": 15
+        "line": 17
       },
       "unmet": [
         {
@@ -3118,7 +3118,7 @@
       "kind": "variant",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 860
+        "line": 654
       },
       "unmet": [
         {
@@ -3132,7 +3132,7 @@
       "kind": "variant",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 860
+        "line": 654
       },
       "unmet": [
         {
@@ -3146,7 +3146,7 @@
       "kind": "variant",
       "source": {
         "file": "packages/gds-core/src/PartnerDiscovery.tsx",
-        "line": 860
+        "line": 654
       },
       "unmet": [
         {
@@ -4182,7 +4182,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/PublicShell.tsx",
-        "line": 34
+        "line": 37
       },
       "unmet": [
         {
@@ -4196,7 +4196,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/PublicShell.tsx",
-        "line": 34
+        "line": 37
       },
       "unmet": [
         {
@@ -4210,7 +4210,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/PublicShell.tsx",
-        "line": 34
+        "line": 37
       },
       "unmet": [
         {
@@ -4224,7 +4224,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/PublicShell.tsx",
-        "line": 34
+        "line": 37
       },
       "unmet": [
         {
@@ -4238,7 +4238,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/PublicShell.tsx",
-        "line": 34
+        "line": 37
       },
       "unmet": [
         {
@@ -4252,7 +4252,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/PublicShell.tsx",
-        "line": 34
+        "line": 37
       },
       "unmet": [
         {
@@ -4266,7 +4266,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/PublicShell.tsx",
-        "line": 34
+        "line": 37
       },
       "unmet": [
         {
@@ -4280,7 +4280,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/PublicShell.tsx",
-        "line": 34
+        "line": 37
       },
       "unmet": [
         {
@@ -4294,7 +4294,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/PublicShell.tsx",
-        "line": 34
+        "line": 37
       },
       "unmet": [
         {
@@ -4308,7 +4308,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/PublicShell.tsx",
-        "line": 34
+        "line": 37
       },
       "unmet": [
         {
@@ -4322,7 +4322,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ReferenceLinkGrid.tsx",
-        "line": 16
+        "line": 18
       },
       "unmet": [
         {
@@ -4336,7 +4336,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/ReferenceLinkGrid.tsx",
-        "line": 16
+        "line": 18
       },
       "unmet": [
         {
@@ -4630,7 +4630,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/SocialAuthButtons.tsx",
-        "line": 43
+        "line": 45
       },
       "unmet": [
         {
@@ -4644,7 +4644,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/SocialAuthButtons.tsx",
-        "line": 43
+        "line": 45
       },
       "unmet": [
         {
@@ -4658,7 +4658,7 @@
       "kind": "variant",
       "source": {
         "file": "packages/gds-core/src/SocialAuthButtons.tsx",
-        "line": 43
+        "line": 45
       },
       "unmet": [
         {
@@ -4812,7 +4812,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/chart-primitives.tsx",
-        "line": 7
+        "line": 10
       },
       "unmet": [
         {
@@ -4826,7 +4826,7 @@
       "kind": "prop",
       "source": {
         "file": "packages/gds-core/src/chart-primitives.tsx",
-        "line": 7
+        "line": 10
       },
       "unmet": [
         {

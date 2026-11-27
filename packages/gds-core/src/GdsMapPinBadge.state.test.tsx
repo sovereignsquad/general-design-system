@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { renderWithGds } from '../../../test-utils/render';
-import { GdsMapPinBadge, GDS_PIN_SELECTED_SCALE } from './GdsMapPinBadge';
+import { GdsMapPinBadge } from './GdsMapPinBadge';
+import { GDS_PIN_SELECTED_SCALE } from './GdsMapPinBadge.shared';
 
 // Invariant: fill encodes the activity/category; state (hover/select/approximate) is
 // carried only by silhouette and scale, never by repainting the accent fill.

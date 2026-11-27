@@ -1,13 +1,8 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { resetGdsDevWarnings } from '@sovereignsquad/gds-theme';
 import { renderWithGds } from '../../../test-utils/render';
-import {
-  GdsPictogram, createGdsPictogramFamily, gdsActivityPictograms, getGdsActivityPictogramKeys,
-  isGdsActivityPictogramKey, resolveGdsActivityPictogramLabel, gdsPictogramUsageRules,
-  GDS_PICTOGRAM_GRID, GDS_PICTOGRAM_SCALE_PX, GDS_PICTOGRAM_STROKE_BY_SCALE,
-  GDS_PICTOGRAM_TREATMENT_SCALE, GDS_PICTOGRAM_HERO_LAYERS, GDS_PICTOGRAM_DISABLED_OPACITY,
-  type GdsPictogramFamily, type GdsPictogramTreatment,
-} from './pictograms';
+import { GdsPictogram } from './pictograms';
+import { createGdsPictogramFamily, gdsActivityPictograms, getGdsActivityPictogramKeys, isGdsActivityPictogramKey, resolveGdsActivityPictogramLabel, gdsPictogramUsageRules, GDS_PICTOGRAM_GRID, GDS_PICTOGRAM_SCALE_PX, GDS_PICTOGRAM_STROKE_BY_SCALE, GDS_PICTOGRAM_TREATMENT_SCALE, GDS_PICTOGRAM_HERO_LAYERS, GDS_PICTOGRAM_DISABLED_OPACITY, type GdsPictogramFamily, type GdsPictogramTreatment } from './pictograms.shared';
 import { es } from './locales/es';
 
 const rawHexPattern = /#[0-9a-fA-F]{3,8}\b/;

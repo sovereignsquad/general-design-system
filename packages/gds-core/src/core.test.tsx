@@ -42,8 +42,10 @@ import { FeatureBand } from './FeatureBand';
 import { FoodMenuSection } from './FoodMenuSection';
 import { GameBoardTile } from './GameBoardTile';
 import { ChartTokenPanel } from './ChartTokenPanel';
-import { GdsChart, gdsChartTypeRegistry, gdsChartSetATypeRegistry, gdsChartSetBTypeRegistry, gdsChartSetCTypeRegistry, isGdsChartSetAType, isGdsChartSetBType, isGdsChartSetCType, validateGdsChartData } from './GdsChart';
-import { GdsAreaChart, GdsBarChart, GdsBenchmarkBarChart, GdsCalendarHeatmapChart, GdsDivergingBarChart, GdsGaugeChart, GdsHistogramChart, GdsLineChart, GdsLongitudinalChart, GdsMaturityRadarChart, GdsRadarChart, GdsSlopeChart, GdsSparkline, GdsStackedBarChart, GdsSymmetryChart, getGdsSeriesColor } from './SemanticCharts';
+import { GdsChart } from './GdsChart';
+import { gdsChartTypeRegistry, gdsChartSetATypeRegistry, gdsChartSetBTypeRegistry, gdsChartSetCTypeRegistry, isGdsChartSetAType, isGdsChartSetBType, isGdsChartSetCType, validateGdsChartData } from './GdsChart.shared';
+import { GdsAreaChart, GdsBarChart, GdsBenchmarkBarChart, GdsCalendarHeatmapChart, GdsDivergingBarChart, GdsGaugeChart, GdsHistogramChart, GdsLineChart, GdsLongitudinalChart, GdsMaturityRadarChart, GdsRadarChart, GdsSlopeChart, GdsSparkline, GdsStackedBarChart, GdsSymmetryChart } from './SemanticCharts';
+import { getGdsSeriesColor } from './chart-colors';
 import { GdsRatingScale, GdsSegmentedControl, GdsSlider, GdsWizardStepper } from './GdsFormControls';
 import { BodyText, CardTitle, InlineEmphasis, LabelText, MetadataText, PageTitle, SectionTitle } from './Typography';
 import { ClippedFlexChild, FloatingActionPlacement, ListItemSection, NumericCell, OverflowContainer, SemanticInset, VisuallyHidden } from './StyleUtilities';
@@ -72,7 +74,8 @@ import { PublicNav } from './PublicNav';
 import { PublicShell } from './PublicShell';
 import { ShareButtonGroup } from './ShareButtonGroup';
 import { DiscoveryShell, useDiscoveryShellState } from './DiscoveryShell';
-import { BottomTabBar, BOTTOM_TAB_HEIGHT } from './BottomTabBar';
+import { BottomTabBar } from './BottomTabBar';
+import { BOTTOM_TAB_HEIGHT } from './BottomTabBar.shared';
 import { GDS_BUTTON_FEEDBACK_DURATION_MS, GDS_BUTTON_GRADIENT_TEXT_FLOOR, GDS_BUTTON_OUTLINE_ACCENT_STROKE_PX, SemanticButton } from './SemanticButton';
 import { SectionPanel } from './SectionPanel';
 import { ReferenceSection } from './ReferenceSection';
@@ -105,39 +108,10 @@ import { createGdsVocabularyPack, getSemanticActionLabel } from './vocabulary';
 import { getGdsTaskPattern, getGdsTaskPatterns, validateGdsTaskPatterns } from './TaskPatterns';
 import { GdsColorSystemReference } from './GdsColorSystemReference';
 import { GdsAccessibilitySystemReference } from './GdsAccessibilitySystemReference';
-import {
-  createGdsPageTemplateEvent,
-  GdsAdminDashboardTemplate,
-  GdsCrudEditorTemplate,
-  GdsEmptyStateTemplate,
-  GdsErrorPageTemplate,
-  GdsPublicEventTemplate,
-  GdsResourceManagerTemplate,
-  getGdsPageTemplate,
-  getGdsPageTemplates,
-  validateGdsPageTemplates,
-} from './GdsPageTemplates';
-import {
-  compareGdsLocaleString,
-  createGdsMissingKeyTracker,
-  createGdsTextExpansionFixture,
-  formatGdsCurrency,
-  formatGdsDate,
-  formatGdsNumber,
-  formatGdsPlural,
-  formatGdsRelativeTime,
-  GdsDirectionBoundary,
-  GdsFormattedCurrency,
-  GdsFormattedDate,
-  GdsFormattedNumber,
-  GdsLocaleText,
-  GdsPlural,
-  GdsRelativeTime,
-  resolveGdsLocale,
-  resolveGdsMessage,
-  sortGdsLocaleStrings,
-  useGdsDirection,
-} from './GdsI18nRuntime';
+import { GdsAdminDashboardTemplate, GdsCrudEditorTemplate, GdsEmptyStateTemplate, GdsErrorPageTemplate, GdsPublicEventTemplate, GdsResourceManagerTemplate } from './GdsPageTemplates';
+import { createGdsPageTemplateEvent, getGdsPageTemplate, getGdsPageTemplates, validateGdsPageTemplates } from './GdsPageTemplates.shared';
+import { GdsDirectionBoundary, GdsFormattedCurrency, GdsFormattedDate, GdsFormattedNumber, GdsLocaleText, GdsPlural, GdsRelativeTime, useGdsDirection } from './GdsI18nRuntime';
+import { compareGdsLocaleString, createGdsMissingKeyTracker, createGdsTextExpansionFixture, formatGdsCurrency, formatGdsDate, formatGdsNumber, formatGdsPlural, formatGdsRelativeTime, resolveGdsLocale, resolveGdsMessage, sortGdsLocaleStrings } from './GdsI18nRuntime.shared';
 import {
   createGdsContentExpansionReport,
   GdsContentPatternCatalog,

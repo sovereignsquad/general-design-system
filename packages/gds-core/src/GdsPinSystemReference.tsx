@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo } from 'react';
 import { Code, Group, Stack, Table, Text } from '@mantine/core';
 import {
@@ -6,7 +8,8 @@ import {
   useGdsAmbientTheme, useGdsTranslation,
 } from '@sovereignsquad/gds-theme';
 import { GdsBadge } from './GdsBadge';
-import { GDS_PIN_HEAD_CENTER_OFFSET, GDS_PIN_ICON_SCALE, GDS_PIN_SELECTED_SCALE, GdsMapPinBadge } from './GdsMapPinBadge';
+import { GdsMapPinBadge } from './GdsMapPinBadge';
+import { GDS_PIN_HEAD_CENTER_OFFSET, GDS_PIN_ICON_SCALE, GDS_PIN_SELECTED_SCALE } from './GdsMapPinBadge.shared';
 
 /** Props for {@link GdsPinSystemReference}. */
 export interface GdsPinSystemReferenceProps {

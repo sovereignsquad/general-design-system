@@ -1,8 +1,11 @@
+'use client';
+
 import { useRef } from 'react';
 import type { ReactNode } from 'react';
 import { AppShell, Box, Burger, Container, Group, Stack, Text } from '@mantine/core';
 import { PublicNav, type PublicNavItem } from './PublicNav';
-import { BOTTOM_TAB_HEIGHT, BottomTabBar } from './BottomTabBar';
+import { BottomTabBar } from './BottomTabBar';
+import { BOTTOM_TAB_HEIGHT } from './BottomTabBar.shared';
 
 /** Header presentation variant for {@link PublicShell}. */
 export type PublicShellHeaderVariant = 'default' | 'branded-quiet' | 'compact';

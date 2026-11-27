@@ -1,3 +1,5 @@
+'use client';
+
 import { Anchor, Breadcrumbs, Text } from '@mantine/core';
 import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 

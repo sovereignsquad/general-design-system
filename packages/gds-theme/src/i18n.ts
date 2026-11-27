@@ -1,15 +1,7 @@
+'use client';
+
 import { createContext, useContext } from 'react';
 import { gdsDevWarnOnce } from './dev-warnings';
-
-export {
-  gdsLocaleMetadata,
-  getGdsLocaleMetadata,
-  isGdsRtlLocale,
-  getGdsLocaleIds,
-  getGdsLocaleScripts,
-  getGdsLocaleIdsByScript,
-} from './locale-metadata';
-export type { GdsLocaleId, GdsLocaleDirection, GdsLocaleScript } from './locale-metadata';
 
 /** Value carried by `GdsI18nContext`: the active locale and its message dictionary. */
 export interface GdsI18nContextValue {

@@ -38,13 +38,13 @@ export default defineConfig({
               // needs its own chunk rather than fusing into vendor-gds. Priority must
               // stay higher than vendor-gds so this narrower match wins.
               name: 'vendor-gds-theme-explorer',
-              test: /[\\/]packages[\\/]gds-core[\\/]dist[\\/]reference-theme-explorer/,
+              test: /[\\/]packages[\\/]gds-core[\\/]dist[\\/](reference-theme-explorer|ReferenceThemeExplorer)/,
               priority: 2,
             },
             {
               // The opt-in rich-text editor subpath; only admin-editor-flows imports it.
               name: 'vendor-gds-rich-text-editor',
-              test: /[\\/]packages[\\/]gds-core[\\/]dist[\\/]rich-text-editor/,
+              test: /[\\/]packages[\\/]gds-core[\\/]dist[\\/](rich-text-editor|GdsRichTextEditor)/,
               priority: 2,
             },
             {

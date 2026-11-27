@@ -303,6 +303,31 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 
 GDS exports no `ColorSchemeScript` at this version, so the layout imports Mantine's. With `compliance.strictMode` on, `gds-compliance check` reports that import as `strict.import.mantine-core` unless an approved exception covers the layout file; the exception categories that rule accepts are its `allowedExceptionCategories` in `packages/gds-compliance/index.js`. Every other Mantine component import follows [DEPENDENCY_GOVERNANCE.md, "Mantine boundary"](DEPENDENCY_GOVERNANCE.md#mantine-boundary).
 
+#### Server Components
+
+A Server Component can import GDS from the `/server` entries and render it:
+
+```tsx
+// app/orders/page.tsx: a Server Component, no 'use client'
+import { PageHeader, SimpleDataTable } from '@sovereignsquad/gds/server';
+
+export default async function OrdersPage() {
+  const orders = await loadOrders();
+  return (
+    <>
+      <PageHeader title="Orders" />
+      <SimpleDataTable columns={[{ key: 'id', header: 'Order' }, { key: 'total', header: 'Total' }]} rows={orders} />
+    </>
+  );
+}
+```
+
+Components that use state, effects or context are client components inside the packages: each module keeps its own `'use client'` directive in the published build, so Next.js renders them across the server/client boundary. The plain helpers on `/server` (formatters such as `formatGdsNumber`, registries, token functions) run on the server.
+
+The one Next.js rule that applies: a Server Component can pass only serializable props to a client component. A function prop, such as a table column's `render` or an `onClick`, has to come from a client component. Put that part in your own file with `'use client'` at the top, and render it from the Server Component.
+
+`verify:server-entry-boundaries` checks every module the `/server` entries load, and `verify:next-server-components` builds a Next 16 App Router app from the packed packages on every release.
+
 ### Next.js Pages Router
 
 GDS has no Pages Router recipe, template or reference fixture at this version, and no recorded install proof covers the Pages Router ([VERIFIED_CONSUMER_INSTALL_PROOF.md](VERIFIED_CONSUMER_INSTALL_PROOF.md) records the App Router fixture). The two root steps still apply:
@@ -396,7 +421,7 @@ Use the package lanes intentionally:
 
 Use the runtime entrypoints intentionally:
 
-- `@sovereignsquad/gds/server` for non-interactive structural surfaces
+- `@sovereignsquad/gds/server` from Server Components: structural surfaces and server-safe helpers (see [Server Components](#server-components))
 - `@sovereignsquad/gds/client` for interactive components and provider mounting
 - granular `@sovereignsquad/gds-*/server` and `@sovereignsquad/gds-*/client` lanes remain supported when needed
 

@@ -1,11 +1,6 @@
 import { Badge, Code, Group, Stack, Table, Text } from '@mantine/core';
-import {
-  GdsPictogram, gdsActivityPictograms, getGdsActivityPictogramKeys, gdsPictogramUsageRules,
-  GDS_PICTOGRAM_GRID, GDS_PICTOGRAM_BASE_STROKE, GDS_PICTOGRAM_SCALE_PX,
-  GDS_PICTOGRAM_STROKE_BY_SCALE, GDS_PICTOGRAM_TREATMENT_SCALE, GDS_PICTOGRAM_HERO_LAYERS,
-  GDS_PICTOGRAM_DISABLED_OPACITY,
-  type GdsPictogramTreatment, type GdsPictogramScale, type GdsPictogramState,
-} from './pictograms';
+import { GdsPictogram, type GdsPictogramState } from './pictograms';
+import { gdsActivityPictograms, getGdsActivityPictogramKeys, gdsPictogramUsageRules, GDS_PICTOGRAM_GRID, GDS_PICTOGRAM_BASE_STROKE, GDS_PICTOGRAM_SCALE_PX, GDS_PICTOGRAM_STROKE_BY_SCALE, GDS_PICTOGRAM_TREATMENT_SCALE, GDS_PICTOGRAM_HERO_LAYERS, GDS_PICTOGRAM_DISABLED_OPACITY, type GdsPictogramTreatment, type GdsPictogramScale } from './pictograms.shared';
 import { GdsTableScrollContainer } from './GdsTableScrollContainer';
 
 const STATES: GdsPictogramState[] = ['default', 'hover', 'selected', 'disabled'];

@@ -1,3 +1,5 @@
+'use client';
+
 import type { ReactNode } from 'react';
 import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { Anchor, Badge, Card, Group, Stack, Text, Title } from '@mantine/core';

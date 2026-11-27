@@ -6,6 +6,11 @@
 // package lands here even though no consumer can reach it.
 
 export const INTERNAL_EXPORTS = new Set([
+  // Server-safe halves of 'use client' modules, imported by their client sibling. Absent from index/client/server.
+  'gdsResolvedAccentTokens',
+  'templateConfigs',
+  // gds-theme's theme composition (theme.ts, brand-tokens.ts, font-lanes.ts). Absent from index/client/server.
+  'mergeGdsThemeOverrides',
   // Built-in preset registry (gds-theme/src/presets). theme-presets.ts and vibe-themes.ts derive the public surface from it.
   'defineGdsThemePreset',
   'createVibrantPresetTheme',

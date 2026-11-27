@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { renderWithGds } from '../../../test-utils/render';
 import { GdsNotificationBell } from './GdsNotificationBell';
 import { GdsNotificationProvider, useGdsNotifications } from './Notifications.client';
-import { createGdsNotificationId } from './Notifications';
+import { createGdsNotificationId } from './Notifications.shared';
 
 function BellWiredToProvider() {
   const { notifications, notify, clear } = useGdsNotifications();

@@ -2,20 +2,8 @@ import type { ComponentType, ReactElement } from 'react';
 import { describe, expect, it } from 'vitest';
 import { renderWithGds } from '../../../test-utils/render';
 import { expectNoAxeViolations } from '../../../test-utils/axe';
-import {
-  GdsAdminDashboardTemplate,
-  GdsAnalyticsTemplate,
-  GdsCrudEditorTemplate,
-  GdsEmptyStateTemplate,
-  GdsErrorPageTemplate,
-  GdsPublicEventTemplate,
-  GdsResourceManagerTemplate,
-  GdsSettingsTemplate,
-  getGdsPageTemplates,
-  type GdsEmptyStateTemplateProps,
-  type GdsErrorPageTemplateProps,
-  type GdsPageTemplateState,
-} from './GdsPageTemplates';
+import { GdsAdminDashboardTemplate, GdsAnalyticsTemplate, GdsCrudEditorTemplate, GdsEmptyStateTemplate, GdsErrorPageTemplate, GdsPublicEventTemplate, GdsResourceManagerTemplate, GdsSettingsTemplate, type GdsEmptyStateTemplateProps, type GdsErrorPageTemplateProps } from './GdsPageTemplates';
+import { getGdsPageTemplates, type GdsPageTemplateState } from './GdsPageTemplates.shared';
 import { GdsAssetManagerTemplate, GdsWorkspaceInboxTemplate } from './GdsPageTemplates.client';
 import { GdsThreadList } from './GdsThreadList';
 import { TextInput } from './GdsPrimitives';

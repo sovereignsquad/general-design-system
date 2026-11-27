@@ -52,7 +52,7 @@ export default function App() {
 
 Never nest a second `GdsProvider` or add a parallel Mantine `MantineProvider` — there is exactly one theme authority, and it also owns the color scheme. Add no scheme library (such as `next-themes`), no `html` class toggle and no `color-scheme` declaration in app CSS. Neither `GdsProvider` nor the `AppShell` theme toggle persists the user's choice across reloads. Single-scheme, OS-following and user-switchable recipes: [THEME_GOVERNANCE.md "Colour scheme"](../THEME_GOVERNANCE.md#colour-scheme).
 
-For server components, prefer the documented `@sovereignsquad/gds/server` subpath; use `/client` or the root for interactive surfaces.
+For server components, prefer the documented `@sovereignsquad/gds/server` subpath; use `/client` or the root for interactive surfaces. A Server Component may render any GDS component from `/server`, but cannot pass it a function prop (a column `render`, an `onClick`): put that part in a `'use client'` file.
 
 ## 3. The styling idiom — props and tokens, never raw CSS
 

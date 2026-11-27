@@ -3,29 +3,8 @@ import { Button } from '@mantine/core';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderWithGds } from '../../../test-utils/render';
-import {
-  AmenityChipGrid,
-  PartnerDiscoveryFilters,
-  PartnerDiscoveryFooter,
-  PartnerDiscoveryHeader,
-  PartnerDiscoveryShell,
-  PartnerFaqList,
-  PartnerListIndex,
-  PartnerMapListShell,
-  PartnerNewsletterCapture,
-  PartnerPlaceDetailTemplate,
-  PartnerSubmissionEntry,
-  emitPartnerDiscoveryEvent,
-  filterPartnerPlaces,
-  partnerDiscoveryDefaultAmenities,
-  redactPartnerDiscoveryEventMetadata,
-  resetPartnerDiscoveryFilters,
-  togglePartnerAmenity,
-  togglePartnerPrice,
-  type PartnerDiscoveryFilterLabels,
-  type PartnerDiscoveryFilterState,
-  type PartnerPlaceResult,
-} from './PartnerDiscovery';
+import { AmenityChipGrid, PartnerDiscoveryFilters, PartnerDiscoveryFooter, PartnerDiscoveryHeader, PartnerDiscoveryShell, PartnerFaqList, PartnerListIndex, PartnerMapListShell, PartnerNewsletterCapture, PartnerPlaceDetailTemplate, PartnerSubmissionEntry, type PartnerDiscoveryFilterLabels } from './PartnerDiscovery';
+import { emitPartnerDiscoveryEvent, filterPartnerPlaces, partnerDiscoveryDefaultAmenities, redactPartnerDiscoveryEventMetadata, resetPartnerDiscoveryFilters, togglePartnerAmenity, togglePartnerPrice, type PartnerDiscoveryFilterState, type PartnerPlaceResult } from './PartnerDiscovery.shared';
 
 const filterLabels: PartnerDiscoveryFilterLabels = {
   search: 'Search places',

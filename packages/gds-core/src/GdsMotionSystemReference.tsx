@@ -1,3 +1,5 @@
+'use client';
+
 import { Badge, Code, Group, Stack, Table, Text, UnstyledButton } from '@mantine/core';
 import {
   gdsMotionDurations,

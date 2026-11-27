@@ -2,11 +2,8 @@ import { screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { renderWithGds } from '../../../test-utils/render';
 import { ar } from './locales';
-import {
-  DetailFactsTable,
-  GDS_DETAIL_FACT_IDS,
-  GDS_DETAIL_FACTS_LABEL_COLUMN_PX,
-} from './DetailFactsTable';
+import { DetailFactsTable } from './DetailFactsTable';
+import { GDS_DETAIL_FACT_IDS, GDS_DETAIL_FACTS_LABEL_COLUMN_PX } from './DetailFactsTable.shared';
 
 const UNKNOWN = 'Not confirmed — ask the provider';
 

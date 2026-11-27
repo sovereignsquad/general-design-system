@@ -1,4 +1,5 @@
-import { mergeThemeOverrides, type MantineColorsTuple, type MantineTheme, type MantineThemeOverride } from '@mantine/core';
+import type { MantineColorsTuple, MantineTheme, MantineThemeOverride } from '@mantine/core';
+import { mergeGdsThemeOverrides } from './merge-theme-overrides';
 import { createPublicBrandTheme } from './theme';
 import { parseCssColor, readableForeground, toRgbString } from './color-math';
 import { resolveGdsAxisTokens, validateGdsDesignRuleProfile, GDS_DEFAULT_DESIGN_RULE_PROFILE, type GdsDesignRuleProfile } from './axes';
@@ -604,7 +605,7 @@ function createLegacyBrandTheme(opts: CreateBrandThemeOptions): BrandThemeResult
 
   const mantineTheme = createPublicBrandTheme({
     flatSurfaces: opts.flatSurfaces,
-    overrides: mergeThemeOverrides(brandOverrides, opts.overrides ?? {}),
+    overrides: mergeGdsThemeOverrides(brandOverrides, opts.overrides ?? {}),
   });
 
   const designRuleProfile = resolveEffectiveDesignRuleProfile(null, opts.designRuleProfile);
@@ -776,7 +777,7 @@ function createClassUsaBrandTheme(options: CreateClassUsaBrandThemeOptions = {})
 
   const mantineTheme = createPublicBrandTheme({
     flatSurfaces: options.flatSurfaces ?? true,
-    overrides: mergeThemeOverrides(brandOverrides, options.overrides ?? {}),
+    overrides: mergeGdsThemeOverrides(brandOverrides, options.overrides ?? {}),
   });
 
   const designRuleProfile = resolveEffectiveDesignRuleProfile('harbor', options.designRuleProfile);
@@ -930,7 +931,7 @@ function createGoldAthleteBrandTheme(options: CreateGoldAthleteBrandThemeOptions
 
   const mantineTheme = createPublicBrandTheme({
     flatSurfaces: options.flatSurfaces ?? true,
-    overrides: mergeThemeOverrides(brandOverrides, options.overrides ?? {}),
+    overrides: mergeGdsThemeOverrides(brandOverrides, options.overrides ?? {}),
   });
 
   const designRuleProfile = resolveEffectiveDesignRuleProfile('ochre', options.designRuleProfile);

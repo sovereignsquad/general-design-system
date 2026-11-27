@@ -2,6 +2,35 @@
 
 All notable policy changes to the General Design System are recorded here.
 
+## Unreleased
+
+### GDS works in Next.js Server Components (#1002, #683)
+
+- Importing from `@sovereignsquad/gds/server` or `@sovereignsquad/gds-core/server` in a Next.js App Router Server Component failed `next build`. Reproduced with 6.11.0 in a fresh Next 16 app. There were three causes:
+  - `gds-theme` called Mantine's `mergeThemeOverrides`, which lives in a `'use client'` module, when it loaded.
+  - 48 modules the `/server` entries load used hooks or context without `'use client'`, and 2 more passed functions to client components.
+  - The build bundled modules into shared chunks, which dropped every `'use client'` directive, including the 47 that existed.
+- The fixes:
+  - `gds-theme`, `gds-core` and `gds-admin` now build one file per module, so each module keeps its directive.
+  - Hook and context modules are marked `'use client'`. Their plain exports (formatters such as `formatGdsNumber`, chart and pictogram registries, listing and pin constants) moved to sibling `.shared` modules, so they still run on the server.
+  - `mergeGdsThemeOverrides` replaces Mantine's merge with the same semantics.
+  - Every entry exports exactly the names it did in 6.11.0.
+- A Server Component can now render any GDS component from `/server`. The Next.js rule still applies: function props (a column `render`, an `onClick`) must come from a client component.
+- Verified with Next 16.4.6, with and without `optimizePackageImports`:
+  - `next build` succeeds.
+  - `GdsIcon`, `PublicShell` and `SimpleDataTable` render from Server Components.
+  - `GdsMap` mounts on a cold load and on 10 of 10 client navigations.
+  - There are no console errors.
+  - This also resolves #683, whose `GdsIcon` failure came from the same server entry. Its compound-component report did not reproduce.
+- New release gates:
+  - `verify:server-entry-boundaries` follows every module the `/server` entries load and fails on a hook, a call into a `'use client'` module, or a function passed to a client component.
+  - `verify:next-server-components` packs the packages, builds a Next 16 App Router app from them, and checks the server-rendered pages. Against the published 6.11.0 packages it fails with the original error.
+- The playground's `vendor-gds-theme-explorer` and `vendor-gds-rich-text-editor` chunk groups now match the explorer and editor modules instead of the subpath entry files, which are now one-line re-exports. Without that, all three GDS chunks merged into one 1,402 kB `vendor-gds` chunk over the 700 kB limit. The chunks are now 414, 597 and 392 kB.
+- The site phrase extractor now also reads each listed module's `.shared` sibling. Without that, the 142 page-template and listing phrases that moved there dropped out of every translated locale.
+- `verify-obligation-coverage` reads the accent contrast table (`gdsBadgeAccentShades`) from whichever module declares it, now `GdsBadge.shared.ts`. Reading the old file reported all 10 accents as unverified.
+- With one file per module, the CommonJS lazy locale entries share one registry module. `verify:built-entries` now also checks the case the realm-wide registry still covers: German registered through the ESM build is found through the CommonJS build in the same process.
+- The density allowlist entry for the `0.5rem` `PublicShell` gap moved from line 83 to line 86 with the added `'use client'` directive.
+
 ## 6.11.0 - 2026-11-27 — A click motion for every button action, and reviewed corrections for wrong-sense site translations (#999, #1000)
 
 ### A click motion for every button action (#1000)

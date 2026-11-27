@@ -7,7 +7,8 @@ import { ModalsProvider } from '@mantine/modals';
 import { Notifications } from '@mantine/notifications';
 import { gdsTheme, withGdsGovernedVariants } from './theme';
 import { computeGdsThemeIdentity, gdsThemeIdentityChanged, type GdsThemeApplicationMode, type GdsThemeIdentity } from './theme-identity';
-import { GdsI18nContext, isGdsRtlLocale } from './i18n';
+import { GdsI18nContext } from './i18n';
+import { isGdsRtlLocale } from './locale-metadata';
 import { GdsIconStyleContext, type GdsBadgeIconStyle } from './icon-style';
 import { OverlayAdapterProvider, mantineOverlayAdapter, type OverlayAdapter } from './overlay-adapter';
 

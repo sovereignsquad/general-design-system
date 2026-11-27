@@ -2,7 +2,7 @@
 
 import { Avatar, Box, Button, Group, Stack, Text, UnstyledButton, VisuallyHidden } from '@mantine/core';
 import { useGdsTranslation } from '@sovereignsquad/gds-theme';
-import { formatGdsDate } from './GdsI18nRuntime';
+import { formatGdsDate } from './GdsI18nRuntime.shared';
 import { StateBlock } from './StateBlock';
 
 /** One conversation in a {@link GdsThreadList}. */

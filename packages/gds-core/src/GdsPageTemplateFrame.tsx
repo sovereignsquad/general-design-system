@@ -1,3 +1,5 @@
+'use client';
+
 import type { ReactNode } from 'react';
 import { Button, Card, Group } from '@mantine/core';
 import { gdsDevWarnOnce, useGdsTranslation } from '@sovereignsquad/gds-theme';
@@ -5,7 +7,8 @@ import { AsyncSurface, type AsyncSurfaceState } from './AsyncSurface';
 import { GdsBox, GdsStack } from './LayoutPrimitives';
 import { PageHeader } from './PageHeader';
 import { StatusBadge, type StatusVariant } from './StatusBadge';
-import type { GdsPageTemplateState, GdsPageTemplateAction, GdsPageTemplateBaseProps, GdsPageTemplateId } from './GdsPageTemplates';
+import type { GdsPageTemplateAction, GdsPageTemplateBaseProps } from './GdsPageTemplates';
+import type { GdsPageTemplateState, GdsPageTemplateId } from './GdsPageTemplates.shared';
 
 function stateToAsyncState(state: GdsPageTemplateState): AsyncSurfaceState {
   if (state === 'ready' || state === 'saving') return 'success';

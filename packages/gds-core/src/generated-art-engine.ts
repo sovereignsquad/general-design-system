@@ -2,7 +2,7 @@ import { mixCssColors, resolveGdsAccentTokens } from '@sovereignsquad/gds-theme'
 
 /** Axis-derived defaults, for the paths where a CSS variable cannot resolve. */
 const gdsResolvedAccentFallback = resolveGdsAccentTokens(undefined, 'light');
-import type { GdsBadgeAccentName, GdsBadgeAccentShade } from './GdsBadge';
+import type { GdsBadgeAccentName, GdsBadgeAccentShade } from './GdsBadge.shared';
 import { getGdsVibeThemeCssVariables, resolveGdsVibeTheme } from '@sovereignsquad/gds-theme';
 import type { GdsThemePresetId } from '@sovereignsquad/gds-theme';
 

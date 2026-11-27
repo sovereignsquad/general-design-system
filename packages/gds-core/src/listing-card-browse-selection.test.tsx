@@ -4,13 +4,11 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MantineProvider } from '@mantine/core';
 import { renderWithGds } from '../../../test-utils/render';
-import {
-  GDS_LISTING_PICK_BADGE_INSET_PX,
-  GDS_LISTING_TILE_SIZE_PX,
-  ListingCard,
-} from './ListingCard';
+import { ListingCard } from './ListingCard';
+import { GDS_LISTING_PICK_BADGE_INSET_PX, GDS_LISTING_TILE_SIZE_PX } from './ListingCard.shared';
 import { useGdsBrowseSelection } from './BrowseSelection.client';
-import { GDS_PIN_SELECTED_SCALE, GdsMapPinBadge } from './GdsMapPinBadge';
+import { GdsMapPinBadge } from './GdsMapPinBadge';
+import { GDS_PIN_SELECTED_SCALE } from './GdsMapPinBadge.shared';
 import { de } from './locales';
 
 function renderCard(props: Parameters<typeof ListingCard>[0]) {

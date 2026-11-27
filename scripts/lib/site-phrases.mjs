@@ -2,13 +2,16 @@
 
 import { parse } from '@babel/parser';
 import traverseModule from '@babel/traverse';
-import { readdirSync } from 'node:fs';
+import { existsSync, readdirSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const traverse = traverseModule.default ?? traverseModule;
+const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 
 // Includes gds-core/gds-theme source files, not just playground pages, so component
 // default props and theme preset labels enter the corpus.
-export const TARGET_FILES = [
+const LISTED_FILES = [
   'apps/playground/src/info-pages.tsx',
   'apps/playground/src/showcase-pages.tsx',
   'apps/playground/src/pattern-pages.tsx',
@@ -17,7 +20,7 @@ export const TARGET_FILES = [
   'apps/playground/src/site-routes.ts',
   'apps/playground/src/release-notes-page.tsx',
   // Theme preset and vibe labels/descriptions, rendered on /themes and the Theme Lab.
-  ...readdirSync(new URL('../../packages/gds-theme/src/presets/', import.meta.url))
+  ...readdirSync(resolve(root, 'packages/gds-theme/src/presets'))
     .filter((file) => file.endsWith('.ts'))
     .sort()
     .map((file) => `packages/gds-theme/src/presets/${file}`),
@@ -57,6 +60,13 @@ export const TARGET_FILES = [
   'packages/gds-core/src/UploadDropzone.tsx',
   'packages/gds-core/src/SimpleDataTable.tsx',
 ];
+
+// A listed module's plain exports can live in a sibling `<Module>.shared.ts` (the server-safe
+// half of a 'use client' module); its copy belongs to the same corpus.
+export const TARGET_FILES = LISTED_FILES.flatMap((file) => {
+  const shared = file.replace(/(\.client)?\.tsx?$/, '.shared.ts');
+  return shared !== file && existsSync(resolve(root, shared)) ? [file, shared] : [file];
+}).filter((file, index, all) => all.indexOf(file) === index);
 
 export function extractPhrases(source) {
   const phrases = new Set();

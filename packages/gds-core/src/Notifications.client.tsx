@@ -5,18 +5,10 @@ import { GdsStack } from './LayoutPrimitives';
 
 import { createContext, useCallback, useContext, useMemo, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
-import {
-  InlineAlert,
-  NotificationCenterView,
-  createGdsNotificationAuditEvent,
-  getGdsNotificationLivePolicy,
-} from './Notifications';
-import type {
-  GdsNotificationAction,
-  GdsNotificationAuditEvent,
-  GdsNotificationMessage,
-  GdsNotificationPolicy,
-} from './Notifications';
+import { InlineAlert, NotificationCenterView } from './Notifications';
+import { createGdsNotificationAuditEvent, getGdsNotificationLivePolicy } from './Notifications.shared';
+import type { GdsNotificationPolicy } from './Notifications';
+import type { GdsNotificationAction, GdsNotificationAuditEvent, GdsNotificationMessage } from './Notifications.shared';
 
 interface GdsNotificationContextValue {
   notifications: GdsNotificationMessage[];

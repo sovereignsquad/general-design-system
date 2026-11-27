@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { renderWithGds } from '../../../test-utils/render';
-import { GdsGeneratedAvatar, gdsAvatarInitials } from './GdsGeneratedAvatar';
+import { GdsGeneratedAvatar } from './GdsGeneratedAvatar';
+import { gdsAvatarInitials } from './GdsGeneratedAvatar.shared';
 import { GdsGeneratedMark } from './GdsGeneratedMark';
 
 describe('GdsGeneratedAvatar (#565)', () => {

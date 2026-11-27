@@ -1,9 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import { screen } from '@testing-library/react';
 import { renderWithGds } from '../../../test-utils/render';
-import { TrustBadge, TRUST_BADGE_DEFINITIONS, PriceEstimateLabel, LastCheckedLabel } from './TrustLayer';
-import type { GdsTrustLabel } from './TrustLayer';
-import { formatGdsCurrency, formatGdsDate } from './GdsI18nRuntime';
+import { TrustBadge, PriceEstimateLabel, LastCheckedLabel } from './TrustLayer';
+import { TRUST_BADGE_DEFINITIONS } from './TrustLayer.shared';
+import type { GdsTrustLabel } from './TrustLayer.shared';
+import { formatGdsCurrency, formatGdsDate } from './GdsI18nRuntime.shared';
 
 const TONE_TOKEN = {
   success: 'var(--gds-badge-solid-success)',

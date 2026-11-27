@@ -9,37 +9,37 @@
   },
   "allowed": [
     {
-      "at": "packages/gds-core/src/BottomTabBar.tsx:156",
+      "at": "packages/gds-core/src/BottomTabBar.tsx:147",
       "value": "'50%'",
       "category": "circle",
       "reviewBy": "2027-08-01"
     },
     {
-      "at": "packages/gds-core/src/ChatSurface.tsx:143",
+      "at": "packages/gds-core/src/ChatSurface.tsx:145",
       "value": "'50%'",
       "category": "circle",
       "reviewBy": "2027-08-01"
     },
     {
-      "at": "packages/gds-core/src/GdsBadge.tsx:185",
+      "at": "packages/gds-core/src/GdsBadge.tsx:120",
       "value": "'50%'",
       "category": "circle",
       "reviewBy": "2027-08-01"
     },
     {
-      "at": "packages/gds-core/src/GdsGeneratedAvatar.tsx:84",
+      "at": "packages/gds-core/src/GdsGeneratedAvatar.tsx:74",
       "value": "'50%'",
       "category": "circle",
       "reviewBy": "2027-08-01"
     },
     {
-      "at": "packages/gds-core/src/GdsGeneratedHero.tsx:414",
+      "at": "packages/gds-core/src/GdsGeneratedHero.tsx:416",
       "value": "'50%'",
       "category": "circle",
       "reviewBy": "2027-08-01"
     },
     {
-      "at": "packages/gds-core/src/GdsGeneratedThumbnail.tsx:483",
+      "at": "packages/gds-core/src/GdsGeneratedThumbnail.tsx:485",
       "value": "'50%'",
       "category": "circle",
       "reviewBy": "2027-08-01"
@@ -51,7 +51,7 @@
       "reviewBy": "2027-08-01"
     },
     {
-      "at": "packages/gds-core/src/GdsNotificationBell.tsx:34",
+      "at": "packages/gds-core/src/GdsNotificationBell.tsx:36",
       "value": "'50%'",
       "category": "circle",
       "reviewBy": "2027-08-01"

@@ -2,11 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { screen } from '@testing-library/react';
 import { renderWithGds } from '../../../test-utils/render';
 import { GdsMapPinPreviewCard } from './GdsMapPinPreviewCard';
-import {
-  PartnerPlaceDetailTemplate,
-  partnerDiscoveryDefaultAmenities,
-  partnerDiscoveryFamilyAmenities,
-} from './PartnerDiscovery';
+import { PartnerPlaceDetailTemplate } from './PartnerDiscovery';
+import { partnerDiscoveryDefaultAmenities, partnerDiscoveryFamilyAmenities } from './PartnerDiscovery.shared';
 
 const labels = { back: 'Back', photos: 'Photos', website: 'Website', menu: 'Menu', share: 'Share', copied: 'Copied', shareFailed: 'Share failed' };
 

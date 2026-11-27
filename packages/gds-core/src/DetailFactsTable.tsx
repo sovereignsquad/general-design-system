@@ -1,18 +1,8 @@
+'use client';
+
 import type { CSSProperties, ReactNode } from 'react';
 import { useGdsTranslation } from '@sovereignsquad/gds-theme';
-
-/** Ordered ids of the default nine-fact detail schema (issue 711). */
-export const GDS_DETAIL_FACT_IDS = [
-  'audience',
-  'category',
-  'format',
-  'location',
-  'setting',
-  'price',
-  'booking',
-  'source',
-  'lastChecked',
-] as const;
+import { GDS_DETAIL_FACTS_LABEL_COLUMN_PX, GDS_DETAIL_FACT_IDS } from './DetailFactsTable.shared';
 
 /** A built-in id from the default nine-fact schema — one of {@link GDS_DETAIL_FACT_IDS}. */
 export type GdsDetailFactId = (typeof GDS_DETAIL_FACT_IDS)[number];
@@ -40,12 +30,6 @@ export interface DetailFact {
    */
   value?: ReactNode;
 }
-
-/**
- * Fixed width, in pixels, of {@link DetailFactsTable}'s label column. Exported so
- * documentation surfaces can read the real value instead of restating it.
- */
-export const GDS_DETAIL_FACTS_LABEL_COLUMN_PX = 130;
 
 /** Props for {@link DetailFactsTable}. */
 export interface DetailFactsTableProps {

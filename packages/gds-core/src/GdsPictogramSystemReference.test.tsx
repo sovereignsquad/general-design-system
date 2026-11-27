@@ -1,10 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { renderWithGds } from '../../../test-utils/render';
 import { GdsPictogramSystemReference } from './GdsPictogramSystemReference';
-import {
-  GdsPictogram, gdsActivityPictograms, getGdsActivityPictogramKeys, gdsPictogramUsageRules,
-  GDS_PICTOGRAM_HERO_LAYERS, GDS_PICTOGRAM_SCALE_PX, GDS_PICTOGRAM_TREATMENT_SCALE,
-} from './pictograms';
+import { GdsPictogram } from './pictograms';
+import { gdsActivityPictograms, getGdsActivityPictogramKeys, gdsPictogramUsageRules, GDS_PICTOGRAM_HERO_LAYERS, GDS_PICTOGRAM_SCALE_PX, GDS_PICTOGRAM_TREATMENT_SCALE } from './pictograms.shared';
 import { GdsMapPinBadge } from './GdsMapPinBadge';
 
 describe('GdsPictogramSystemReference (issue 708)', () => {

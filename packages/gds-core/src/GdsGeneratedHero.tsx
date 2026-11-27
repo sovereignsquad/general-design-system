@@ -1,8 +1,10 @@
+'use client';
+
 import { cloneElement, isValidElement, useId, useMemo } from 'react';
 import type { CSSProperties, ReactNode } from 'react';
 import { GdsIcon } from './icons';
 import type { GdsIconKey } from './icons';
-import type { GdsBadgeAccentName, GdsBadgeAccentShade } from './GdsBadge';
+import type { GdsBadgeAccentName, GdsBadgeAccentShade } from './GdsBadge.shared';
 import {
   gdsGeneratedPaletteCssRefs,
   gdsSeededRandom,

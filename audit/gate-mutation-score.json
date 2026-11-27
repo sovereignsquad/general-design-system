@@ -1,13 +1,34 @@
 {
-  "releaseChainGates": 58,
-  "gatesWithMutants": 41,
-  "gatesExempted": 20,
-  "mutantsRun": 60,
-  "killed": 60,
+  "releaseChainGates": 60,
+  "gatesWithMutants": 42,
+  "gatesExempted": 21,
+  "mutantsRun": 63,
+  "killed": 63,
   "gateMutationSuiteScore": 100,
   "unexplainedSurvivors": 0,
   "coverageFailures": [],
   "results": [
+    {
+      "gate": "verify:server-entry-boundaries",
+      "mutantId": "server-entry-detects-hook-in-a-module-without-use-client",
+      "claim": "Detects a module loaded by a /server entry that calls a React hook without being marked use client",
+      "status": "KILLED",
+      "detail": "gate exited 1"
+    },
+    {
+      "gate": "verify:server-entry-boundaries",
+      "mutantId": "server-entry-detects-call-into-a-use-client-module",
+      "claim": "Detects a server module calling a function exported by a use client module",
+      "status": "KILLED",
+      "detail": "gate exited 1"
+    },
+    {
+      "gate": "verify:server-entry-boundaries",
+      "mutantId": "server-entry-detects-function-prop-to-a-client-component",
+      "claim": "Detects a server module passing a function prop to a component from a use client module",
+      "status": "KILLED",
+      "detail": "gate exited 1"
+    },
     {
       "gate": "verify:docs-governance-consistency",
       "mutantId": "docs-governance-detects-stale-version-outside-the-old-list",
@@ -375,7 +396,7 @@
     {
       "gate": "verify:built-entries",
       "mutantId": "built-entries-detect-split-cjs-registry",
-      "claim": "Detects CommonJS lazy entries that each get their own locale registry",
+      "claim": "Detects the ESM and CommonJS builds getting separate locale registries in one process",
       "status": "KILLED",
       "detail": "gate exited 1"
     },

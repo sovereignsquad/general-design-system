@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { ActionIcon, Card, Group, Stack, TextInput } from '@mantine/core';

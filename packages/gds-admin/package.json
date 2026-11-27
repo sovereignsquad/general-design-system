@@ -36,7 +36,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "tsup && node ../../scripts/fix-esm-specifiers.mjs dist",
     "dev": "tsup --watch"
   },
   "peerDependencies": {

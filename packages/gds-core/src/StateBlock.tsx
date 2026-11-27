@@ -1,3 +1,5 @@
+'use client';
+
 import type { ReactNode } from 'react';
 import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { Loader, Stack, Text, ThemeIcon, Title } from '@mantine/core';

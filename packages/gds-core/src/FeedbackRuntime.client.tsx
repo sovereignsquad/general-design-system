@@ -6,7 +6,7 @@ import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { Alert, Button, Group, Paper, Stack, Text } from '@mantine/core';
 import { ConfirmDialog } from './ConfirmDialog';
 import { GdsNotificationProvider, GdsToastViewport, useGdsNotifications, type GdsToastViewportProps } from './Notifications.client';
-import type { GdsNotificationMessage } from './Notifications';
+import type { GdsNotificationMessage } from './Notifications.shared';
 import type { SemanticAction } from './vocabulary';
 
 /** Description of a confirmation prompt shown by `useGdsConfirm().confirm`. */

@@ -1,3 +1,5 @@
+'use client';
+
 import type { ReactNode } from 'react';
 import { Modal, Group, Text } from '@mantine/core';
 import { useGdsTranslation } from '@sovereignsquad/gds-theme';

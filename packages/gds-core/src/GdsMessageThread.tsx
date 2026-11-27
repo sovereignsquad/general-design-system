@@ -3,7 +3,7 @@
 import type { ReactNode } from 'react';
 import { Avatar, Box, Divider, Group, Stack, Text, VisuallyHidden } from '@mantine/core';
 import { useGdsTranslation } from '@sovereignsquad/gds-theme';
-import { formatGdsDate } from './GdsI18nRuntime';
+import { formatGdsDate } from './GdsI18nRuntime.shared';
 
 /** One message in a {@link GdsMessageThread}. */
 export interface GdsThreadMessage {

@@ -1,7 +1,10 @@
+'use client';
+
 import { useId, type ReactNode } from 'react';
 import { Box, Group, Paper, Stack, Text } from '@mantine/core';
 import { getGdsSeriesColor, type GdsSeriesTone } from './chart-colors';
-import type { GdsChartDatum, GdsChartRendererContext } from './GdsChart';
+import type { GdsChartRendererContext } from './GdsChart';
+import type { GdsChartDatum } from './GdsChart.shared';
 
 /** Props for {@link SemanticChartFrame}. */
 export interface SemanticChartFrameProps {

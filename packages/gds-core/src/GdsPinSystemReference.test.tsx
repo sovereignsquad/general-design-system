@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { screen } from '@testing-library/react';
 import { GDS_ACCENT_SHADES, getGdsContrastRatio, resolveGdsAccentTokens } from '@sovereignsquad/gds-theme';
 import { GdsPinSystemReference } from './GdsPinSystemReference';
-import { GDS_PIN_HEAD_CENTER_OFFSET, GDS_PIN_ICON_SCALE } from './GdsMapPinBadge';
+import { GDS_PIN_HEAD_CENTER_OFFSET, GDS_PIN_ICON_SCALE } from './GdsMapPinBadge.shared';
 import { renderWithGds } from '../../../test-utils/render';
 
 describe('GdsPinSystemReference (issue 571)', () => {

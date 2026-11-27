@@ -1,6 +1,6 @@
 import type { MantineThemeOverride } from '@mantine/core';
-import { mergeThemeOverrides } from '@mantine/core';
-import { getGdsLocaleIds, getGdsLocaleScripts, type GdsLocaleScript } from './i18n';
+import { mergeGdsThemeOverrides } from './merge-theme-overrides';
+import { getGdsLocaleIds, getGdsLocaleScripts, type GdsLocaleScript } from './locale-metadata';
 
 /** Identifier of a built-in GDS font lane (a paired body/heading font stack). */
 export type GdsFontLaneId =
@@ -172,7 +172,7 @@ export function getGdsFontLaneStylesheetUrls() {
 /** Merges a lane's body/heading/mono fonts and lane metadata into a Mantine theme override. */
 export function applyGdsFontLane(theme: MantineThemeOverride, laneId: GdsFontLaneId | string | null | undefined): MantineThemeOverride {
   const lane = resolveGdsFontLane(laneId);
-  return mergeThemeOverrides(theme, {
+  return mergeGdsThemeOverrides(theme, {
     fontFamily: lane.body,
     fontFamilyMonospace: lane.mono,
     headings: {

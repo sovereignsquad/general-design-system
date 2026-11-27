@@ -82,8 +82,10 @@ export { OverlayAdapterProvider, useOverlayAdapter, mantineOverlayAdapter, defau
 export type { OverlayAdapter, GdsOverlayConfig, GdsOverlayPlacement, GdsOverlayRole, GdsOverlayDismissReason } from './overlay-adapter';
 
 // ── Internationalization ──
-export { GdsI18nContext, gdsLocaleMetadata, getGdsLocaleIds, getGdsLocaleIdsByScript, getGdsLocaleMetadata, getGdsLocaleScripts, isGdsRtlLocale, useGdsTranslation } from './i18n';
-export type { GdsI18nContextValue, GdsLocaleDirection, GdsLocaleId, GdsLocaleScript } from './i18n';
+export { GdsI18nContext, useGdsTranslation } from './i18n';
+export type { GdsI18nContextValue } from './i18n';
+export { gdsLocaleMetadata, getGdsLocaleIds, getGdsLocaleIdsByScript, getGdsLocaleMetadata, getGdsLocaleScripts, isGdsRtlLocale } from './locale-metadata';
+export type { GdsLocaleDirection, GdsLocaleId, GdsLocaleScript } from './locale-metadata';
 
 // ── Badge icon style (issue 525) ──
 export { GdsIconStyleContext, useGdsBadgeIconStyle } from './icon-style';

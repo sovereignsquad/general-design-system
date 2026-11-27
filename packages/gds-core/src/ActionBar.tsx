@@ -1,3 +1,5 @@
+'use client';
+
 import { ActionIcon, Button, Group, Stack } from '@mantine/core';
 import type { ButtonProps, MantineSpacing } from '@mantine/core';
 import { useGdsTranslation } from '@sovereignsquad/gds-theme';

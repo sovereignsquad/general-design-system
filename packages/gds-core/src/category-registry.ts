@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import type { GdsBadgeIconStyle } from '@sovereignsquad/gds-theme';
 import type { GdsIconKey } from './icons';
-import type { GdsBadgeAccentName, GdsBadgeAccentShade } from './GdsBadge';
+import type { GdsBadgeAccentName, GdsBadgeAccentShade } from './GdsBadge.shared';
 
 /**
  * A consumer's own category identity (issue 525): one color+glyph record

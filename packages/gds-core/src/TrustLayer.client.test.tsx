@@ -4,8 +4,9 @@ import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderWithGds } from '../../../test-utils/render';
 import { ReportOutdatedLink, SourceBlock, ConfirmChecklist } from './TrustLayer.client';
-import { TrustBadge, TRUST_BADGE_DEFINITIONS, PriceEstimateLabel, LastCheckedLabel } from './TrustLayer';
-import type { GdsTrustLabel } from './TrustLayer';
+import { TrustBadge, PriceEstimateLabel, LastCheckedLabel } from './TrustLayer';
+import { TRUST_BADGE_DEFINITIONS } from './TrustLayer.shared';
+import type { GdsTrustLabel } from './TrustLayer.shared';
 
 describe('ReportOutdatedLink (issue 709)', () => {
   it('renders the default action label when idle', () => {

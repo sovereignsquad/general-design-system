@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { useGdsTranslation } from '@sovereignsquad/gds-theme';
 import { CloseButton, Combobox, Group, InputBase, Loader, Text, VisuallyHidden, useCombobox } from '@mantine/core';

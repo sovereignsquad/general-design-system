@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { GdsIcon } from './icons';
 import type { GdsIconKey } from './icons';
-import type { GdsBadgeAccentName, GdsBadgeAccentShade } from './GdsBadge';
+import type { GdsBadgeAccentName, GdsBadgeAccentShade } from './GdsBadge.shared';
 import { gdsSeededRandom, resolveGdsGeneratedPaletteHex } from './generated-art-engine';
 import type { GdsGeneratedPaletteColors, GdsGeneratedPaletteSource } from './generated-art-engine';
 import type { GdsGeneratedThumbnailAspectRatio, GdsGeneratedThumbnailBackground, GdsGeneratedThumbnailCategory } from './GdsGeneratedThumbnail';

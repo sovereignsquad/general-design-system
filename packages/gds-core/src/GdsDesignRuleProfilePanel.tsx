@@ -3,7 +3,8 @@ import {
   resolveGdsColorProportionProfile, resolveGdsTypeScaleProfile, resolveGdsColorHarmonyProfile,
   NAMED_TYPE_SCALE_RATIO_LABELS, type GdsThemePresetId,
 } from '@sovereignsquad/gds-theme';
-import { GdsChart, type GdsChartDatum } from './GdsChart';
+import { GdsChart } from './GdsChart';
+import { type GdsChartDatum } from './GdsChart.shared';
 import { GdsGrid } from './LayoutPrimitives';
 import { GdsBadge } from './GdsBadge';
 import { designRuleCoverageByPreset } from './generated-design-rule-coverage';

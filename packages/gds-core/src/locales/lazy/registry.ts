@@ -4,8 +4,9 @@ import { en } from '../en';
 /** Shape of every locale dictionary — every key `en` declares, verbatim. */
 export type GdsLocaleDictionary = typeof en;
 
-// One registry per JavaScript realm. The CommonJS build bundles each lazy entry separately, so
-// a module-level Map would give `locales/lazy/de` and `locales/lazy` different registries.
+// One registry per JavaScript realm. A process that loads both the ESM and the CommonJS build
+// (one `import`, one `require`) has two copies of this module; a module-level Map would give
+// them different registries.
 const REGISTRY_KEY = Symbol.for('@sovereignsquad/gds-core/locale-registry');
 type GlobalWithRegistry = typeof globalThis & { [REGISTRY_KEY]?: Map<string, GdsLocaleDictionary> };
 const registryHost = globalThis as GlobalWithRegistry;

@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderWithGds } from '../../../test-utils/render';
-import { gdsBadgeAccentShades } from './GdsBadge';
+import { gdsBadgeAccentShades } from './GdsBadge.shared';
 import { GdsGeneratedThumbnail } from './GdsGeneratedThumbnail';
 
 const CATEGORIES = [

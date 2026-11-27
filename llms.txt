@@ -77,7 +77,7 @@ Start a full page from a governed page template when one matches the task, befor
 
 ## Packages
 
-- `@sovereignsquad/gds` — umbrella install (theme + core + admin); root, `/client`, `/server` entrypoints.
+- `@sovereignsquad/gds` — umbrella install (theme + core + admin); root, `/client`, `/server` entrypoints. Server Components import from `/server` and may render any GDS component, passing only serializable props; function props (column `render`, `onClick`) belong in a `'use client'` file.
 - `@sovereignsquad/gds-theme` — tokens, theme presets, VibeThemes, font lanes, motion system.
 - `@sovereignsquad/gds-core` — layouts, cards, shells, forms, tables, overlays, charts, access, i18n.
 - `@sovereignsquad/gds-admin` — operator scaffolds (`AppShell`, `PageHeader`, `ContentOpsEditor`, `ResponsiveDataView`).

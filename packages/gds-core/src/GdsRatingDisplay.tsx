@@ -1,3 +1,5 @@
+'use client';
+
 import type { CSSProperties } from 'react';
 import { Group, Text } from '@mantine/core';
 import { useGdsTranslation } from '@sovereignsquad/gds-theme';

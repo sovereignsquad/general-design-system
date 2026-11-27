@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useRef } from 'react';
 import type { ReactNode } from 'react';
 import { Box, Group } from '@mantine/core';

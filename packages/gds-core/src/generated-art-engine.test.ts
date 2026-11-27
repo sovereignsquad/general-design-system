@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { gdsBadgeAccentShades } from './GdsBadge';
+import { gdsBadgeAccentShades } from './GdsBadge.shared';
 import {
   gdsGeneratedPaletteCssRefs,
   gdsSeededRandom,

@@ -48,6 +48,7 @@ export const EXEMPTIONS = {
   'verify:word-wrap-runtime': { reason: 'Browser-driven against the built playground; a source mutation is invisible without a rebuild. Needs the rebuild-aware harness from issue 579. Its negative control was observed live: 40 mid-word breaks on the deployed site before the overflow-wrap fix (#982).', reviewBy: '2026-12-01' },
   'verify:rendering-runtime': { reason: 'Browser-driven against the built playground; a source mutation is invisible without a rebuild. Needs the rebuild-aware harness from issue 579. Its negative control was observed live before the #986 fixes: 29 keyboard-unreachable scroll regions at 390px, a dialog title at body weight and size, and mixed h3 styles in one pattern entry.', reviewBy: '2026-12-01' },
   'verify:button-motion-runtime': { reason: 'Browser-driven against the built playground; a source mutation is invisible without a rebuild. Needs the rebuild-aware harness from issue 579. Its negative control was observed live: run against the deployed site without the onAction demo it fails, against a build with the button keyframes stripped it fails on every declared motion, and against a build with only the click-motion keyframes stripped it fails with 76 findings (#1000).', reviewBy: '2026-12-01' },
+  'verify:next-server-components': { reason: 'Packs the packages and installs a Next.js app from the npm registry; a source mutation is invisible without a rebuild and a fresh install. Its negative control was observed: run against the published 6.11.0 packages it fails at next build with "Attempted to call mergeThemeOverrides() from the server" (#1002).', reviewBy: '2026-12-01' },
   'verify:badge-contrast': { reason: 'Browser-driven; needs the rebuild-aware harness pattern from issue 579. Its negative control was observed live on real defects (344 uncomputable, then 26 low pairs) rather than planted. Tracked, not waived.', reviewBy: '2026-12-01' },
   'verify:references': { reason: 'Aggregate of 25 sub-gates; mutants belong on the individual scripts rather than the aggregate. Tracked.', reviewBy: '2026-12-01' },
   // Read from dist/; a source mutation is invisible without a rebuild.
@@ -60,6 +61,38 @@ export const EXEMPTIONS = {
  * Gate -> mutants. Each mutant states the CLAIM it tests.
  */
 export const GATE_MUTANTS = [
+  {
+    npmScript: 'verify:server-entry-boundaries',
+    script: 'verify-server-entry-boundaries.mjs',
+    standalone: true,
+    mutants: [
+      {
+        id: 'server-entry-detects-hook-in-a-module-without-use-client',
+        claim: 'Detects a module loaded by a /server entry that calls a React hook without being marked use client',
+        file: 'packages/gds-core/src/SimpleDataTable.tsx',
+        find: "'use client';\n\n",
+        replace: '',
+        once: true,
+      },
+      {
+        id: 'server-entry-detects-call-into-a-use-client-module',
+        claim: 'Detects a server module calling a function exported by a use client module',
+        // GdsContentDesign (a server module) calls createGdsTextExpansionFixture from here.
+        file: 'packages/gds-core/src/GdsI18nRuntime.shared.ts',
+        find: "import { type ReactNode } from 'react';",
+        replace: "'use client';\n\nimport { type ReactNode } from 'react';",
+        once: true,
+      },
+      {
+        id: 'server-entry-detects-function-prop-to-a-client-component',
+        claim: 'Detects a server module passing a function prop to a component from a use client module',
+        file: 'packages/gds-core/src/GdsAccessibilitySystemReference.tsx',
+        find: "'use client';\n\n",
+        replace: '',
+        once: true,
+      },
+    ],
+  },
   {
     // Run directly rather than through `verify:references`, which aggregates 25 sub-gates and
     // is exempted above for exactly that reason. This is the first of them to carry a mutant.
@@ -757,7 +790,7 @@ export const GATE_MUTANTS = [
       },
       {
         id: 'built-entries-detect-split-cjs-registry',
-        claim: 'Detects CommonJS lazy entries that each get their own locale registry',
+        claim: 'Detects the ESM and CommonJS builds getting separate locale registries in one process',
         file: 'packages/gds-core/src/locales/lazy/registry.ts',
         find: 'registryHost[REGISTRY_KEY] ?? new Map',
         replace: 'new Map',

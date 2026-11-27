@@ -6,14 +6,14 @@
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import { Box, Group, Stack, Text, UnstyledButton } from '@mantine/core';
 import { useGdsTranslation, useGdsAmbientTheme, computeGdsThemeIdentity, resolveGdsAccentTokens, type GdsAccentName, type GdsThemePresetId } from '@sovereignsquad/gds-theme';
-import type { GdsBadgeAccentShade } from './GdsBadge';
+import type { GdsBadgeAccentShade } from './GdsBadge.shared';
 import { GDS_OSM_TILE_SOURCE, assertGdsTileSource, type GdsMapTileSource } from './map-tile-policy';
 import { StateBlock } from './StateBlock';
 import { GdsInlineLink } from './GdsInlineLink';
 import { createPortal } from 'react-dom';
 import type { ReactNode } from 'react';
 import { GDS_PIN_SILHOUETTE_PATH } from './badge-shapes';
-import { GDS_PIN_EMPHASIS_STROKE, GDS_PIN_APPROXIMATE_DASH, GDS_PIN_SELECTED_SCALE } from './GdsMapPinBadge';
+import { GDS_PIN_EMPHASIS_STROKE, GDS_PIN_APPROXIMATE_DASH, GDS_PIN_SELECTED_SCALE } from './GdsMapPinBadge.shared';
 
 /** A geographic point. */
 export interface GdsLatLng { lat: number; lng: number }

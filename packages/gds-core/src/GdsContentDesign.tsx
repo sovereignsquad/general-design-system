@@ -1,5 +1,5 @@
 import { Badge, Card, Group, List, Stack, Text, Title } from '@mantine/core';
-import { createGdsTextExpansionFixture } from './GdsI18nRuntime';
+import { createGdsTextExpansionFixture } from './GdsI18nRuntime.shared';
 
 /** Severity/intent lane a content pattern or message belongs to. */
 export type GdsMessageSeverity = 'info' | 'success' | 'warning' | 'error' | 'destructive' | 'empty' | 'permission';

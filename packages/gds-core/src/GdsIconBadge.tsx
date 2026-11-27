@@ -1,6 +1,6 @@
 import type { CSSProperties, ReactNode } from 'react';
 import { resolveGdsAccentTokens } from '@sovereignsquad/gds-theme';
-import type { GdsBadgeAccentName, GdsBadgeAccentShade } from './GdsBadge';
+import type { GdsBadgeAccentName, GdsBadgeAccentShade } from './GdsBadge.shared';
 import { GdsIcon } from './icons';
 import type { GdsIconKey } from './icons';
 

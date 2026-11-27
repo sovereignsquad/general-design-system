@@ -121,7 +121,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup && node scripts/copy-map-css.mjs",
+    "build": "tsup && node ../../scripts/fix-esm-specifiers.mjs dist && node scripts/copy-map-css.mjs",
     "dev": "tsup --watch"
   },
   "peerDependencies": {

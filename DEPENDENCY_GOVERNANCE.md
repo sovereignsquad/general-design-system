@@ -70,7 +70,7 @@ This section is the canonical rule for using Mantine components in a consumer. O
 `packages/gds-core/src/GdsPrimitives.tsx` re-exports a fixed set of `@mantine/core` components, and their `*Props` types, unchanged. Those names are GDS exports. The file is the list; this document does not copy it.
 
 - Import them from `@sovereignsquad/gds` or `@sovereignsquad/gds-core`, root or `/client` entry, never from `@mantine/core`. Type-only imports (`SelectProps` and the other `*Props` types) come from the same entry.
-- Use the root or `/client` entry from client components. The `/server` entry also re-exports the passthroughs; this document does not designate `/server` for interactive passthroughs such as `Modal`, `Tabs` or `Select`.
+- Use the root or `/client` entry from client components. The `/server` entry also re-exports the passthroughs; this document does not designate `/server` for interactive passthroughs such as `Modal`, `Tabs` or `Select`. Interactive passthroughs are client components; a Server Component may render one from `/server`, but cannot pass it function props.
 - A passthrough has Mantine's behaviour only. Where a GDS component carries a contract for the same job, use it:
   - `SemanticButton` rather than `Button` for an action with a vocabulary entry (its label resolves from the semantic `action` id)
   - `InlineAlert` rather than a hand-built alert (`role="alert"` for errors, `role="status"` otherwise, live region from `getGdsNotificationLivePolicy`)
